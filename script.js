@@ -22,14 +22,20 @@ const ffmpeg = createFFmpeg({
 const transcode = async ({ target: { files } }) => {
   const { name } = files[0];
   await console.log(name);
+  document.getElementById("filename").innerText = name;
   t1.print("Loading ffmpeg-core.js");
   await ffmpeg.load();
   t1.print("Start processing");
   await console.log("it works");
   await ffmpeg.write(name, files[0]);
   let threads = window.navigator.hardwareConcurrency;
+  let grayscale = document.getElementById("grayscale").checked;
   threads = threads < 8 ? threads : 8;
-  await ffmpeg.run(`-i ${name} -vf hue=s=0 output.mp4 -threads ${threads}`);
+  await ffmpeg.run(
+    `-i ${name} ${
+      grayscale ? `-vf hue=s=0` : ""
+    } output.mp4 -threads ${threads}`
+  );
   t1.print("Complete processing");
   const data = ffmpeg.read("output.mp4");
 

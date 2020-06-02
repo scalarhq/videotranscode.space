@@ -43,7 +43,7 @@
     <div class="container" style="padding-top: 3%;">
       <div class="row justify-content-md-center">
         <div class="col col-auto-md">
-          <h3 class="text-white">Wasm Video Transcoder</h3>
+          <h3 style="color: #76ff03;">Wasm Video Transcoder</h3>
         </div>
       </div>
       <div class="row justify-content-md-center">
@@ -63,18 +63,31 @@
         </div>
       </div>
       <div class="row justify-content-md-center">
-        <div class="col col-auto-md">
+        <div class="col-8">
           <div class="custom-file bg-dark" style="padding-top: 2%;">
             <input
               type="file"
               class="custom-file-input bg-dark"
               id="uploader"
             />
-            <label class="custom-file-label bg-dark text-white" for="customFile"
+            <label
+              id="filename"
+              class="custom-file-label bg-dark text-white"
+              for="customFile"
               >Choose file</label
             >
           </div>
           <!-- <p class="lead" id="message" /></p> -->
+        </div>
+        <div class="col-4">
+          <input class="form-check-input" type="checkbox" id="grayscale" />
+          <label
+            class="form-check-label"
+            style="color: #76ff03;"
+            for="grayscale"
+          >
+            Make Video Grayscale
+          </label>
         </div>
       </div>
       <div class="row justify-content-md-center" style="padding-top: 2%;">
