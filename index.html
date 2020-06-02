@@ -1,82 +1,96 @@
-
-
 <html>
-    <head>
-       <!-- Bootstrap CSS -->
-       <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous"
-          />
-       <link
-          href="https://unpkg.com/video.js@7/dist/video-js.min.css"
-          rel="stylesheet"
-          />
-       <!-- City -->
-       <link
-          href="https://unpkg.com/@videojs/themes@1/dist/city/index.css"
-          rel="stylesheet"
-          />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-       <script
-          src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-          integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-          crossorigin="anonymous"
-          ></script>
-       <script
-          src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-          crossorigin="anonymous"
-          ></script>
-       <script
-          src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-          integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-          crossorigin="anonymous"
-          ></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-       <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.8.3/dist/ffmpeg.min.js"></script>
-       
-       <div class="container">
-          <div class="row justify-content-md-center">
-             <div class="col col-auto-md">
-                <h3>Wasm Video Transcoder</h3>
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-8">
-                <video class="video-js vjs-theme-city" id="output-video" style="display: none; max-width: 40vw;" loop playsinline autoplay muted controls>
-               
-                <!-- <button type="button" id="download" class="btn btn-primary" style="display : none;"><i class="fa fa-download"></i></button> -->
-                </video>
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col col-auto-md">
-                <div class="custom-file">
-                   <input type="file" class="custom-file-input" id="uploader" />
-                   <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <p class="lead" id="message" /></p>
-            </div>
-        </div>
-        <div class="row justify-content-md-center" >
-            <div class="col col-auto-md">
-                <a id="download" class="btn btn-primary" style="display : none;"><i class="fa fa-download" ></i></a>
-            </div>
-        </div>
-        <div class="row justify-content-md-center" style="padding-top: 5%;">
-         <div class="col col-auto-md">
-            <div id="terminal"></div>
-            </div>
-            </div>
-       </div>
-    </body>
- </html>
- <script src="terminal.js"></script>
- <script src="script.js"></script>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://unpkg.com/video.js@7/dist/video-js.min.css"
+      rel="stylesheet"
+    />
+    <!-- City -->
+    <link
+      href="https://unpkg.com/@videojs/themes@1/dist/city/index.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body style="background-color: #222;">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.8.3/dist/ffmpeg.min.js"></script>
 
- 
- 
+    <div class="container" style="padding-top: 3%;">
+      <div class="row justify-content-md-center">
+        <div class="col col-auto-md">
+          <h3 class="text-white">Wasm Video Transcoder</h3>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-8">
+          <video
+            class="video-js vjs-theme-city"
+            id="output-video"
+            style="display: none; max-width: 40vw; padding: 2%;"
+            loop
+            playsinline
+            autoplay
+            muted
+            controls
+          >
+            <!-- <button type="button" id="download" class="btn btn-primary" style="display : none;"><i class="fa fa-download"></i></button> -->
+          </video>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col col-auto-md">
+          <div class="custom-file bg-dark" style="padding-top: 2%;">
+            <input
+              type="file"
+              class="custom-file-input bg-dark"
+              id="uploader"
+            />
+            <label class="custom-file-label bg-dark text-white" for="customFile"
+              >Choose file</label
+            >
+          </div>
+          <!-- <p class="lead" id="message" /></p> -->
+        </div>
+      </div>
+      <div class="row justify-content-md-center" style="padding-top: 2%;">
+        <div class="col col-auto-md">
+          <a id="download" class="btn btn-primary" style="display: none;"
+            ><i class="fa fa-download"></i
+          ></a>
+        </div>
+      </div>
+      <div class="row justify-content-md-center" style="padding-top: 5%;">
+        <div class="col col-auto-md">
+          <div id="terminal"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="terminal.js"></script>
+<script src="script.js"></script>
