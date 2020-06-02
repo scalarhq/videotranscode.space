@@ -7,6 +7,7 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./style.css" />
     <link
       href="https://unpkg.com/video.js@7/dist/video-js.min.css"
       rel="stylesheet"
@@ -40,7 +41,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.8.3/dist/ffmpeg.min.js"></script>
 
-    <div class="container" style="padding-top: 3%;">
+    <div id="loader" class="row justify-content-md-center">
+      <div class="col col-auto-md">
+        <div class="lds-facebook" id="inner-loader">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <p class="lead" style="color : white;" id="message" /></p>
+      </div>
+    
+    </div>
+
+    <div class="container" id="body" style="padding-top: 3%; display: none;">
       <div class="row justify-content-md-center">
         <div class="col col-auto-md">
           <h3 style="color: #76ff03;">Wasm Video Transcoder</h3>

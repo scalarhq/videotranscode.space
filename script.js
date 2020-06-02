@@ -8,6 +8,13 @@ let terminalDiv = document.getElementById("terminal");
 terminalDiv.appendChild(t1.html);
 t1.print("Hello, I am an FFmpeg Wasm Video Transcoder");
 
+if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+  // Do Firefox-related activities
+  alert(`Your Browser is not supported`);
+  document.getElementById("inner-loader").style.display = "none";
+  message.innerText = "Firefox is not supported!";
+}
+
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
   log: true,
@@ -18,13 +25,23 @@ const ffmpeg = createFFmpeg({
     }
   },
 });
+(async () => {
+  try {
+    await ffmpeg.load();
+  } catch (err) {
+    alert(`Your Browser is not supported ${err.message}`);
+  }
+  console.log("Loaded!");
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("body").style.display = "block";
+  t1.print("Loading ffmpeg-core.js...");
+})();
 
 const transcode = async ({ target: { files } }) => {
   const { name } = files[0];
   await console.log(name);
   document.getElementById("filename").innerText = name;
-  t1.print("Loading ffmpeg-core.js");
-  await ffmpeg.load();
+
   t1.print("Start processing");
   await console.log("it works");
   await ffmpeg.write(name, files[0]);
