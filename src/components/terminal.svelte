@@ -46,7 +46,7 @@
       true
     );
     addSpecialMessage(
-      `I do this by using the amazing new technology called <a href="https://webassembly.org/" target="_blank" rel="noopener noreferrer">web assembly(WASM)</a>.`,
+      `I do this by using the amazing new technology called <a style="color: #ff3e00" href="https://webassembly.org/" target="_blank" rel="noopener noreferrer">web assembly</a>.`,
       true
     );
     let loaded = $loadedStore;
@@ -62,5 +62,11 @@
 
   terminalText.subscribe(value => handleNewMessage(value));
 </script>
+
+<style>
+  a :link {
+    color: #ff3e00;
+  }
+</style>
 
 <div id="terminal" />

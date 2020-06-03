@@ -9,7 +9,7 @@
   const addedfile = file => {
     uploaded = true;
     fileUploaded.update(existing => true);
-    terminalText.update(existing => `File ${file.name} has been uploaded!`);
+    terminalText.update(existing => `File ${file.name} has begun processing!`);
   };
 
   const drop = event => {
@@ -33,6 +33,6 @@
     id="dropzone"
     dropzoneEvents={{ addedfile, drop, init }}
     options={{ clickable: true, createImageThumbnails: true, init }}>
-    <h4>Drop files here to upload</h4>
+    <h4>Drop files here to process</h4>
   </Dropzone>
 </Container>
