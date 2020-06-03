@@ -16,12 +16,11 @@
   }
 </style>
 
-
 <div class="container">
   <h1 class="container-title">{title}</h1>
   <div class="container-content">
     <slot />
   </div>
 
-  <i class="fas fa-chevron-circle-down next-icon" />
+  <!-- <i class="fas fa-chevron-circle-down next-icon" /> -->
 </div>
