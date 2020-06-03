@@ -1,5 +1,5 @@
 <script>
-  import { terminalText, loadedStore } from "../stores.js";
+  import { terminalText, loadedStore, clearTerminal } from "../stores.js";
   import { onMount } from "svelte";
   const t1 = new Terminal();
   const handleNewMessage = function(message, noflag) {
@@ -35,7 +35,7 @@
 
     let terminalDiv = document.getElementById("terminal");
     terminalDiv.appendChild(t1.html);
-
+    t1.clear();
     handleNewMessage("Hello, I am a Video Transcoder!", true);
     handleNewMessage(
       "But I am slightly different than other online video tools, because I don't upload your files anywhere.",
@@ -61,6 +61,12 @@
   let terminalMessage = $terminalText;
 
   terminalText.subscribe(value => handleNewMessage(value));
+  clearTerminal.subscribe(value => {
+    if (value) {
+      t1.clear();
+      clearTerminal.update(existing => false);
+    }
+  });
 </script>
 
 <style>
