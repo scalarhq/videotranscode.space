@@ -4,6 +4,8 @@ t1.setWidth("1130px");
 t1.setBackgroundColor("#263238");
 t1.setTextColor("#76ff03");
 t1.blinkingCursor(true);
+t1.html.style.fontFamily = "Ubuntu Mono";
+
 let terminalDiv = document.getElementById("terminal");
 terminalDiv.appendChild(t1.html);
 t1.print("Hello, I am an FFmpeg Wasm Video Transcoder");
@@ -48,6 +50,7 @@ const transcode = async ({ target: { files } }) => {
   let threads = window.navigator.hardwareConcurrency;
   let grayscale = document.getElementById("grayscale").checked;
   threads = threads < 8 ? threads : 8;
+
   await ffmpeg.run(
     `-i ${name} ${
       grayscale ? `-vf hue=s=0` : ""
