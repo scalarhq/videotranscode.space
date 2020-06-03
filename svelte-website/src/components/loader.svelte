@@ -1,22 +1,17 @@
-html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%
-}
 
-.video-fluid {
-  width: 100%;
-  height: auto;
-	display: none; max-width: 40vw; padding: 2%;
-}
+<div id="loader" class="row justify-content-md-center">
+      <div class="col col-auto-md">
+        <div class="lds-facebook" id="inner-loader">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <p class="lead" style="color : white;" id="message" />
+      </div>
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Ubuntu Mono', monospace;
-}
+    </div>
+
+<style>
 /** Loading screen main CSS class**/
 .lds-facebook {
   display: inline-block;
@@ -30,7 +25,7 @@ body {
   position: absolute;
   left: 8px;
   width: 16px;
-  background: #76ff03;
+  background: #3FBD71;
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 
@@ -61,3 +56,4 @@ body {
     height: 32px;
   }
 }
+</style>
