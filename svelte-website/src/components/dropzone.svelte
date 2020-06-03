@@ -1,11 +1,21 @@
 <script>
-    //import { writable } from 'svelte/store'
+    import { fileUploaded } from '../stores.js'
     import Container from './container.svelte'
     import Dropzone from 'svelte-dropzone'
-    import { fly } from 'svelte/transition';
+    import { fly } from 'svelte/transition'
+    
     $: uploaded = false
-    const addedfile = file => {uploaded = true}
-    const drop = event => {uploaded = true}
+    
+    const addedfile = file => {
+      uploaded = true
+      fileUploaded.update(existing => true)
+    }
+    
+    const drop = event => { 
+      uploaded = true 
+      fileUploaded.update(existing => true)
+    }
+
     const init = () => {
       const dropzone = document.getElementById('dropzone')
       dropzone.style.backgroundColor = '#272C31'
@@ -18,19 +28,12 @@
 </script>
 
 <Container title=""> 
-{#if !uploaded}
-    <div transition:fly="{{ y: 200, duration: 2000 }}">
-      <Dropzone 
-      dropzoneClass="dropzone"
-      hooveringClass="hooveringClass"
-      id="dropzone" 
-      dropzoneEvents={{ addedfile, drop, init }}
-      options={{ clickable: true, createImageThumbnails : true, init }}>
-      <h4>Drop files here to upload</h4>
-      </Dropzone>
-    </div>
-{:else}
-    <div></div>
-
-{/if}
+    <Dropzone 
+    dropzoneClass="dropzone"
+    hooveringClass="hooveringClass"
+    id="dropzone" 
+    dropzoneEvents={{ addedfile, drop, init }}
+    options={{ clickable: true, createImageThumbnails : true, init }}>
+    <h4>Drop files here to upload</h4>
+    </Dropzone>
 </Container>

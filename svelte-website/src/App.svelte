@@ -1,6 +1,6 @@
 <script>
 	import { writable } from 'svelte/store'
-	
+	import { fileUploaded } from './stores.js'
 	import HeaderContent from './components/header.svelte'
 	import Dropzone  from './components/dropzone.svelte'
 	import Loader from './components/loader.svelte'
@@ -10,6 +10,8 @@
 	let loaded = $loadedStore
 	loadedStore.subscribe(val => loaded = val)
 	setTimeout(() => { loaded = true }, 500)
+	let fileState = $fileUploaded
+	fileUploaded.subscribe(val => fileState = val)
 </script>
 
 <main>
@@ -17,7 +19,13 @@
 		<Loader />
 	{:else}
 		<HeaderContent />
-		<Dropzone />
+		{#if !fileState}
+		 	<div transition:fly="{{ y: 200, duration: 2000 }}">
+				<Dropzone />
+			</div>
+		{:else}
+			<div></div>
+		{/if}
 	{/if }
 </main>	
 
