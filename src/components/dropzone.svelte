@@ -1,5 +1,5 @@
 <script>
-  import { fileUploaded } from "../stores.js";
+  import { fileUploaded, terminalText } from "../stores.js";
   import Container from "./container.svelte";
   import Dropzone from "svelte-dropzone";
   import { fly } from "svelte/transition";
@@ -9,6 +9,7 @@
   const addedfile = file => {
     uploaded = true;
     fileUploaded.update(existing => true);
+    terminalText.update(existing => `File ${file.name} has been uploaded!`);
   };
 
   const drop = event => {
