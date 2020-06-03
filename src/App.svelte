@@ -1,20 +1,20 @@
 <script>
   import { writable } from "svelte/store";
   import { fileUploaded, terminalText, loadedStore } from "./stores.js";
+  import "./js/ffmpeg.js";
   import HeaderContent from "./components/header.svelte";
   import Terminal from "./components/terminal.svelte";
   import Dropzone from "./components/dropzone.svelte";
   import Loader from "./components/loader.svelte";
   import { fly, slide } from "svelte/transition";
+  import Configure from "./components/configure.svelte";
+  import Video from "./components/video.svelte";
 
   let loaded = $loadedStore;
 
   loadedStore.subscribe(val => {
     loaded = val;
   });
-  setTimeout(() => {
-    loadedStore.update(existing => true);
-  }, 500);
   let fileState = $fileUploaded;
   fileUploaded.subscribe(val => (fileState = val));
 </script>
@@ -43,9 +43,16 @@
   .dropzone-wrapper {
     width: 50%;
   }
+  .video-wrapper {
+    width: 50%;
+  }
   .terminal-wrapper {
     max-width: 50%;
     padding-left: 5%;
+  }
+
+  .configure-wrapper {
+    width: 50%;
   }
 
   @media (min-width: 640px) {
@@ -66,13 +73,18 @@
           <Dropzone />
         </div>
       {:else}
-        <div />
+        <div
+          class="video-wrapper"
+          transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
+          <Video />
+        </div>
       {/if}
       <div class="terminal-wrapper">
         <Terminal />
       </div>
-
+    </div>
+    <div class="configure-wrapper">
+      <Configure />
     </div>
   {/if}
-
 </main>

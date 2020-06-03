@@ -4,17 +4,16 @@
   import Dropzone from "svelte-dropzone";
   import { fly } from "svelte/transition";
 
-  $: uploaded = false;
+  $: uploaded = null;
 
   const addedfile = file => {
     uploaded = true;
-    fileUploaded.update(existing => true);
+    fileUploaded.update(existing => [file]);
     terminalText.update(existing => `File ${file.name} has begun processing!`);
   };
 
   const drop = event => {
     uploaded = true;
-    fileUploaded.update(existing => true);
   };
 
   const init = () => {
