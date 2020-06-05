@@ -1,11 +1,33 @@
 <script>
+  import OptionsList from './configure-list.svelte'
+  import { config } from '../store/stores'
+  import { find, FORMAT_TYPES, CODEC_TYPES, CONFIG_OPTION_TYPES } from '../store/configuration'
 
+  const formats = Object.keys(FORMAT_TYPES).map(key => FORMAT_TYPES[key])
+  const codecs = Object.keys(CODEC_TYPES).map(key => CODEC_TYPES[key])
+
+  let current = $config
+
+  config.subscribe(val => (current = val))
+
+  const configSetOption = (type, val) => {
+    if (!Object.values(CONFIG_OPTION_TYPES).includes(type)) return
+
+    const temp = {}
+    temp[type] = val
+    config.update(state => Object.assign({}, state, temp))
+  }
+
+  const handleClick = (e, type, val) => {
+    e.preventDefault()
+    configSetOption(type, find(type, val))
+  }
 </script>
 
 <style>
   .configure {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-self: flex-start;
     width: 600px;
     height: 260px;
@@ -38,6 +60,7 @@
 <div>
   <h1 class="title">Configure</h1>
   <div class="configure">
-    <h3 class="format">Yes</h3>
+    <OptionsList handleClick={handleClick} type={CONFIG_OPTION_TYPES.FORMAT} title='Format' items={formats} current={current.format}/>
+    <OptionsList handleClick={handleClick} type={CONFIG_OPTION_TYPES.CODEC} title='Codec' items={codecs} current={current.codec} />
   </div>
 </div>
