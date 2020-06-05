@@ -35,7 +35,7 @@
 
     let terminalDiv = document.getElementById("terminal");
     terminalDiv.appendChild(t1.html);
-
+    t1.clear();
     handleNewMessage("Hello, I am a Video Transcoder!", true);
     handleNewMessage(
       "But I am slightly different than other online video tools, because I don't upload your files anywhere.",

@@ -11,7 +11,7 @@ const ffmpeg = createFFmpeg({
   progress: ({ ratio }) => {
     let value = (ratio * 100.0).toFixed(2);
     if (value > 0) {
-      terminalText.update((existing) => `Complete: ${value}%`);
+      //   terminalText.update((existing) => `Complete: ${value}%`);
     }
   },
 });
@@ -21,17 +21,17 @@ const ffmpeg = createFFmpeg({
   } catch (err) {
     alert(`Your Browser is not supported ${err.message}`);
   }
-  console.log("Loaded!");
+  console.info("Loaded!");
   loadedStore.update((existing) => true);
 })();
 
 let transcode = async ({ target: { files } }) => {
-  const start = Date().getTime();
+  const start = new Date().getTime();
   const { name } = files[0];
-  await console.log(name);
+  await console.info(name);
 
   terminalText.update((existing) => "Start processing");
-  await console.log("it works");
+  await console.info("it works");
   await ffmpeg.write(name, files[0]);
   let threads = window.navigator.hardwareConcurrency;
   //let grayscale = document.getElementById("grayscale").checked;
@@ -50,6 +50,7 @@ let transcode = async ({ target: { files } }) => {
   );
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
+  
   const end = Date().getTime();
   terminalText.update(
     (existing) =>

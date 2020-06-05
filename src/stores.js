@@ -8,4 +8,4 @@ export const loadedStore = writable(false);
 
 export const transcoded = writable(false);
 
-export const clearTimeout = writable(false);
+export const clearTerminal = writable(false);
