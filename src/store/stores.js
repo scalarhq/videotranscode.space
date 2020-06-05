@@ -11,6 +11,14 @@ export const transcoded = writable(false);
 
 export const clearTerminal = writable(false);
 
+export const videoDisplay = writable(false);
+
+export const submit = writable(false);
+
+export const showConfig = writable(false)
+
+export const processed = writable(false)
+
 export const config = writable({
     /**
      * The format for FFmpeg to convert to
@@ -31,6 +39,12 @@ export const config = writable({
     compressionLevel: 0
 })
 
+/**
+ * Sets the config option in state for the given type as val
+ * 
+ *      type - One of CONFIG_OPTION_TYPES
+ *      val - One of FORMAT_TYEPS or CODEC_TYPES
+ */
 export const configSetOption = (type, val) => {
     if (!Object.values(CONFIG_OPTION_TYPES).includes(type)) return
 

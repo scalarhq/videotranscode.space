@@ -1,6 +1,6 @@
 <script>
   import { writable } from "svelte/store";
-  import { fileUploaded, terminalText, loadedStore } from "./store/stores.js";
+  import { fileUploaded, terminalText, loadedStore, videoDisplay, processed } from "./store/stores.js";
   import "./js/ffmpeg.js";
   import HeaderContent from "./components/header.svelte";
   import Terminal from "./components/terminal.svelte";
@@ -17,6 +17,10 @@
   });
   let fileState = $fileUploaded;
   fileUploaded.subscribe(val => (fileState = val));
+  let processedState = $processed
+  let videoState = $videoDisplay
+  processed.subscribe(val =>(processedState = val));
+  videoDisplay.subscribe(val => (videoState = val));
 </script>
 
 <style>
@@ -83,19 +87,25 @@
         <div class="col" out:fly={{ y: 200, duration: 2000 }}>
           <Dropzone />
         </div>
-      {:else}
-        <div
-          class="col"
-          transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
-          <Video />
+      {:else if !processedState}
+        <div class="configure-wrapper">
+          <Configure />
         </div>
+      {:else}
+        {#if videoState}
+          <div
+            class="col"
+            transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
+            <Video />
+          </div>
+        {:else}
+          <div></div>
+        {/if}
       {/if}
       <div class="terminal-wrapper">
         <Terminal />
       </div>
     </div>
-    <div class="configure-wrapper">
-      <Configure />
-    </div>
+    
   {/if}
 </main>
