@@ -30,7 +30,7 @@
     t1.html.id = "terminalEmulator";
     t1.html.style.overflow = "auto";
     t1.html.style =
-      "flex: 0 1 auto; border: 1px solid #4A5063; border-radius: 5px; text-align: left; font-family: Ubuntu Mono; overflow: auto; width : 60vh; display : flex; font-size: 16px; background-color: #272C31; color: #3FBD71";
+      "flex: 0 1 auto; border: 1px solid #4A5063; border-radius: 5px; height: 35vh; text-align: left; font-family: Ubuntu Mono; overflow: auto; width : 60vh; display : flex; font-size: 16px; background-color: #272C31; color: #3FBD71";
 
     let terminalDiv = document.getElementById("terminal");
     terminalDiv.appendChild(t1.html);
@@ -74,4 +74,4 @@
   }
 </style>
 
-<div id="terminal" style="display: flex; flex: 0 1; height: 100%;"/>
+<div id="terminal" style="display: flex; flex: 0 1; height: 100%;" />

@@ -44,7 +44,7 @@
   .col {
     flex: 1 0;
     flex-direction: column;
-    box-sizing:border-box;
+    box-sizing: border-box;
     padding: 1rem;
   }
 
@@ -55,12 +55,12 @@
   .video-wrapper {
     width: 50%;
   }*/
-  
-  /*.terminal-wrapper {
+
+  .terminal-wrapper {
     max-width: 50%;
     padding-left: 5%;
     height: 100%;
-  } */
+  }
 
   .configure-wrapper {
     width: 50%;
@@ -90,7 +90,7 @@
           <Video />
         </div>
       {/if}
-      <div class="col">
+      <div class="terminal-wrapper">
         <Terminal />
       </div>
     </div>
