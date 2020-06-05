@@ -14,6 +14,9 @@
 
     background: #272c31;
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #4A5063;
+    border-radius: 5px;
   }
 
   h3.format {
@@ -28,6 +31,7 @@
     text-align: left;
     font-weight: 200;
     font-size: 28px;
+    color: #959CB4;
   }
 </style>
 

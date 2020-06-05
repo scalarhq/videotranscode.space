@@ -40,16 +40,27 @@
     align-items: center;
     height: 100%;
   }
+
+  .col {
+    flex: 1 0;
+    flex-direction: column;
+    box-sizing:border-box;
+    padding: 1rem;
+  }
+
+  /*
   .dropzone-wrapper {
     width: 50%;
   }
   .video-wrapper {
     width: 50%;
-  }
-  .terminal-wrapper {
+  }*/
+  
+  /*.terminal-wrapper {
     max-width: 50%;
     padding-left: 5%;
-  }
+    height: 100%;
+  } */
 
   .configure-wrapper {
     width: 50%;
@@ -69,17 +80,17 @@
     <HeaderContent />
     <div class="flex-wrapper" transition:fly={{ y: 200, duration: 2000 }}>
       {#if !fileState}
-        <div class="dropzone-wrapper" out:fly={{ y: 200, duration: 2000 }}>
+        <div class="col" out:fly={{ y: 200, duration: 2000 }}>
           <Dropzone />
         </div>
       {:else}
         <div
-          class="video-wrapper"
+          class="col"
           transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
           <Video />
         </div>
       {/if}
-      <div class="terminal-wrapper">
+      <div class="col">
         <Terminal />
       </div>
     </div>
