@@ -3,6 +3,7 @@ import {
   fileUploaded,
   transcoded,
   terminalText,
+  clearTerminal,
 } from "../stores.js";
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -25,6 +26,7 @@ const ffmpeg = createFFmpeg({
 })();
 
 let transcode = async ({ target: { files } }) => {
+  const start = Date().getTime();
   const { name } = files[0];
   await console.log(name);
 
@@ -47,9 +49,13 @@ let transcode = async ({ target: { files } }) => {
     new Blob([data.buffer], { type: "video/mp4" })
   );
   transcoded.update((existing) => blobUrl);
-  //   t1.clear();
+  clearTerminal.update((existing) => true);
+  const end = Date().getTime();
   terminalText.update(
-    (existing) => "The processing is complete! Enjoy your video"
+    (existing) =>
+      `The processing is complete! Enjoy your video. It took ${
+        (end - start) / 1000
+      } seconds`
   );
 };
 

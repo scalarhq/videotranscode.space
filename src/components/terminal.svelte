@@ -1,5 +1,5 @@
 <script>
-  import { terminalText, loadedStore } from "../stores.js";
+  import { terminalText, loadedStore, clearTerminal } from "../stores.js";
   import { onMount } from "svelte";
   const t1 = new Terminal();
   const handleNewMessage = function(message, noflag) {
@@ -61,6 +61,12 @@
   let terminalMessage = $terminalText;
 
   terminalText.subscribe(value => handleNewMessage(value));
+  clearTerminal.subscribe(value => {
+    if (value) {
+      t1.clear();
+      clearTerminal.update(existing => false);
+    }
+  });
 </script>
 
 <style>
