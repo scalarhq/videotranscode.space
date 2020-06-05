@@ -4,7 +4,7 @@ import {
   transcoded,
   terminalText,
   clearTerminal,
-} from "../stores.js";
+} from "../store/stores.js";
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
   log: true,

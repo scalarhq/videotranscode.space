@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte/";
-  import { transcoded } from "../stores.js";
+  import { transcoded } from "../store/stores.js";
 
   onMount(() => {
     //ELEMENT SELECTORS

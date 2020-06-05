@@ -1,6 +1,6 @@
 <script>
   import { writable } from "svelte/store";
-  import { fileUploaded, terminalText, loadedStore } from "./stores.js";
+  import { fileUploaded, terminalText, loadedStore } from "./store/stores.js";
   import "./js/ffmpeg.js";
   import HeaderContent from "./components/header.svelte";
   import Terminal from "./components/terminal.svelte";
