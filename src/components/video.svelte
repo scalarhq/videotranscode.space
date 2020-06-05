@@ -108,7 +108,7 @@
       fullscreen = !fullscreen;
     }
     function setSpeed(e) {
-      console.log(parseFloat(this.dataset.speed));
+      //console.log(parseFloat(this.dataset.speed));
       video.playbackRate = this.dataset.speed;
       speedBtns.forEach(speedBtn => speedBtn.classList.remove("active"));
       this.classList.add("active");

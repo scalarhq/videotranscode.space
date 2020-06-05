@@ -50,13 +50,13 @@ let transcode = async ({ target: { files } }) => {
   );
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
-  const end = new Date().getTime();
-  //console.log(start, end, end - start);
+  
+  const end = Date().getTime();
   terminalText.update(
     (existing) =>
       `The processing is complete! Enjoy your video. It took ${
         (end - start) / 1000
-      } seconds `
+      } seconds`
   );
 };
 
