@@ -5,6 +5,10 @@ import {
   terminalText,
   clearTerminal,
 } from "../store/stores.js";
+
+import format from "./formats.json";
+
+
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
   log: true,
@@ -41,13 +45,15 @@ let transcode = async ({ target: { files } }) => {
   await ffmpeg.run(
     `-i ${name} ${
       grayscale ? `-vf hue=s=0` : ""
-    } output.mp4 -threads ${threads}`
+    }   -threads ${threads} -strict -2 output.mov `
   );
+
   terminalText.update((existing) => "Complete processing");
-  const data = ffmpeg.read("output.mp4");
+  const data = ffmpeg.read("output.mov");
   let blobUrl = URL.createObjectURL(
-    new Blob([data.buffer], { type: "video/mp4" })
+    new Blob([data.buffer], { type: "video/mov" })
   );
+  console.info(blobUrl)
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
 
