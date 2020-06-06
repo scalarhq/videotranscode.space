@@ -1,6 +1,14 @@
 <script>
   import { writable } from "svelte/store";
-  import { fileUploaded, terminalText, loadedStore, videoDisplay, processed } from "./store/stores.js";
+  import {
+    fileUploaded,
+    terminalText,
+    loadedStore,
+    videoDisplay,
+    processed,
+    showConfig,
+    progressStore
+  } from "./store/stores.js";
   import "./js/ffmpeg.js";
   import HeaderContent from "./components/header.svelte";
   import Terminal from "./components/terminal.svelte";
@@ -9,6 +17,7 @@
   import { fly, slide } from "svelte/transition";
   import Configure from "./components/configure.svelte";
   import Video from "./components/video.svelte";
+  import Progress from "./components/progress.svelte";
 
   let loaded = $loadedStore;
 
@@ -17,10 +26,19 @@
   });
   let fileState = $fileUploaded;
   fileUploaded.subscribe(val => (fileState = val));
-  let processedState = $processed
-  let videoState = $videoDisplay
-  processed.subscribe(val =>(processedState = val));
+  let processedState = $processed;
+  let videoState = $videoDisplay;
+  let progressState = $progressStore;
+  progressStore.subscribe(val => {
+    progressState = val > 0 ? true : false;
+    if (progressState) {
+      progressState = val == 100 ? false : true;
+    }
+  });
+  processed.subscribe(val => (processedState = val));
   videoDisplay.subscribe(val => (videoState = val));
+  let configState = $showConfig;
+  showConfig.subscribe(val => (configState = val));
 </script>
 
 <style>
@@ -52,13 +70,12 @@
     padding: 1rem;
   }
 
-  /*
   .dropzone-wrapper {
     width: 50%;
   }
   .video-wrapper {
     width: 50%;
-  }*/
+  }
 
   .terminal-wrapper {
     max-width: 50%;
@@ -84,28 +101,39 @@
     <HeaderContent />
     <div class="flex-wrapper" transition:fly={{ y: 200, duration: 2000 }}>
       {#if !fileState}
-        <div class="col" out:fly={{ y: 200, duration: 2000 }}>
+        <div class="col dropzone-wrapper" out:fly={{ y: 200, duration: 2000 }}>
           <Dropzone />
         </div>
-      {:else if !processedState}
-        <div class="configure-wrapper">
+      {:else if configState}
+        <div
+          class="configure-wrapper"
+          in:fly={{ delay: 500, y: 200, duration: 2000 }}
+          out:fly={{ y: 200, duration: 2000 }}>
           <Configure />
         </div>
+      {:else if progressState}
+        <div
+          in:fly={{ delay: 1500, y: 200, duration: 2000 }}
+          out:fly={{ y: 200, duration: 2000 }}>
+          <Progress />
+        </div>
+      {:else if processedState}
+        <div
+          class="col video-wrapper"
+          transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
+          <Video />
+        </div>
       {:else}
-        {#if videoState}
-          <div
-            class="col"
-            transition:fly={{ delay: 2000, y: 200, duration: 2000 }}>
-            <Video />
-          </div>
-        {:else}
-          <div></div>
-        {/if}
+        <div />
       {/if}
       <div class="terminal-wrapper">
         <Terminal />
       </div>
     </div>
-    
   {/if}
+  <!-- <div
+    in:fly={{ delay: 1000, y: 200, duration: 2000 }}
+    out:fly={{ y: 200, duration: 2000 }}>
+    <Progress />
+  </div> -->
 </main>

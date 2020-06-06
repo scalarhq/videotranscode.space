@@ -2,6 +2,8 @@
   import { onMount } from "svelte/";
   import { transcoded } from "../store/stores.js";
 
+  let blobUrl;
+
   onMount(() => {
     //ELEMENT SELECTORS
     var player = document.querySelector(".player");
@@ -144,10 +146,19 @@
       speedBtn.addEventListener("click", setSpeed);
     });
     window.addEventListener("keydown", handleKeypress);
+
+    if (blobUrl) {
+      video.src = blobUrl;
+    }
   });
   transcoded.subscribe(value => {
+    let videoPlayer = document.getElementById("video");
     if (value) {
-      document.getElementById("video").src = value;
+      if (videoPlayer) {
+        videoPlayer.src = value;
+      } else {
+        blobUrl = value;
+      }
     }
   });
 </script>

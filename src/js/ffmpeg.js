@@ -7,30 +7,31 @@ import {
   videoDisplay,
   submit,
   showConfig,
-  processed
+  processed,
+  progressStore,
+  config,
 } from "../store/stores.js";
 
-import { config } from "../store/stores.js";
+let configuration;
 
-//import {formats} from "./formats.js";
-
-
-let configuration = $config
-
-config.subscribe((value => {
-  configuration = value
-}))
-
-let fileInput = $fileUploaded
-
-
-fileUploaded.subscribe((files) => {
-  // transcode({ target: { files: files } });
-  fileInput = {target: {files : files}}
-  console.log(`The file ${files[0].name} is ready to be processed, please choose your settings`)
-  showConfig.update((existing) => true)
+config.subscribe((value) => {
+  configuration = value;
+  console.log(
+    `The new file format is ${configuration.format.name} and the chosen code is ${configuration.codec.name}`
+  );
 });
 
+let fileInput;
+
+fileUploaded.subscribe((files) => {
+  if (files) {
+    fileInput = { target: { files: files } };
+    console.log(
+      `The file ${files[0].name} is ready to be processed, please choose your settings`
+    );
+    showConfig.update((existing) => true);
+  }
+});
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -39,6 +40,8 @@ const ffmpeg = createFFmpeg({
     let value = (ratio * 100.0).toFixed(2);
     if (value > 0) {
       //   terminalText.update((existing) => `Complete: ${value}%`);
+      console.info(`Completed ${value}%`);
+      progressStore.update((existing) => value);
     }
   },
 });
@@ -64,28 +67,30 @@ let transcode = async ({ target: { files } }) => {
   let grayscale = false;
   threads = threads < 8 ? threads : 8;
 
-  let {format, codec} = configuration
+  console.info("Configuration", configuration);
+  let { format, codec } = configuration;
 
-  let {extension, type, display , defaultCodec} = format 
+  console.log(`Final Settings are FileType ${format.name} and ${codec.name}`);
 
-  let outputCodec = ""
+  let { extension, type, display, defaultCodec } = format;
 
-  if(codec){
-      let ffmpegLibs = codec.ffmpegLibs
-      outputCodec = `-c:v ${ffmpegLibs}`
-  } else if (defaultCodec) {
-      let ffmpegLibs = defaultCodec.ffmpegLibs
-      outputCodec = `-c:v ${ffmpegLibs}`
-  }
+  let outputCodec = "";
 
-  let params = ""
+  // if (codec) {
+  //   console.info("Selected Codec", codec);
+  //   let ffmpegLibs = codec.ffmpegLibs;
+  //   outputCodec = `-c:v ${ffmpegLibs}`;
+  // } else if (defaultCodec) {
+  //   console.info("Default Codec", defaultCodec);
+  //   let ffmpegLibs = defaultCodec.ffmpegLibs;
+  //   outputCodec = `-c:v ${ffmpegLibs}`;
+  // }
 
-  params += grayscale ? `-vf hue=s=0` : ""
-  
+  let params = "";
 
+  params += grayscale ? `-vf hue=s=0` : "";
 
-  videoDisplay.update((existing) => display)
-
+  videoDisplay.update((existing) => display);
 
   await ffmpeg.run(
     `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 output${extension} `
@@ -93,10 +98,8 @@ let transcode = async ({ target: { files } }) => {
 
   terminalText.update((existing) => "Complete processing");
   const data = ffmpeg.read(`output${extension}`);
-  let blobUrl = URL.createObjectURL(
-    new Blob([data.buffer], { type: type })
-  );
-  console.info(blobUrl)
+  let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
+  console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
   processed.update((existing) => true);
@@ -107,4 +110,8 @@ let transcode = async ({ target: { files } }) => {
     } seconds`
   );
 };
-
+submit.subscribe((value) => {
+  if (value) {
+    transcode(fileInput);
+  }
+});
