@@ -1,5 +1,5 @@
 <script>
-  import { terminalText, loadedStore, clearTerminal } from "../stores.js";
+  import { terminalText, loadedStore, clearTerminal } from "../store/stores.js";
   import { onMount } from "svelte";
   const t1 = new Terminal();
   const handleNewMessage = function(message, noflag) {
@@ -23,15 +23,14 @@
     }
   };
   onMount(() => {
-    t1.setBackgroundColor("#263238");
-    t1.setTextColor("#76ff03");
-    t1.setHeight("35vh");
+    t1.setBackgroundColor("#272C31");
+    t1.setTextColor("#3FBD7");
     t1.blinkingCursor(true);
     t1.html.style.fontFamily = "Ubuntu Mono";
     t1.html.id = "terminalEmulator";
     t1.html.style.overflow = "auto";
     t1.html.style =
-      "text-align: left; height: 35vh; font-family: Ubuntu Mono; overflow: auto; width : 60vh; display : flex; font-size: 20px; background-color : rgb(38, 50, 56, 0.8)";
+      "flex: 0 1 auto; border: 1px solid #4A5063; border-radius: 5px; height: 35vh; text-align: left; font-family: Ubuntu Mono; overflow: auto; width : 60vh; display : flex; font-size: 16px; background-color: #272C31; color: #3FBD71";
 
     let terminalDiv = document.getElementById("terminal");
     terminalDiv.appendChild(t1.html);
@@ -75,4 +74,4 @@
   }
 </style>
 
-<div id="terminal" />
+<div id="terminal" style="display: flex; flex: 0 1; height: 100%;" />

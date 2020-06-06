@@ -1,5 +1,5 @@
 <script>
-  import { fileUploaded, terminalText } from "../stores.js";
+  import { fileUploaded } from "../store/stores.js";
   import Container from "./container.svelte";
   import Dropzone from "svelte-dropzone";
   import { fly } from "svelte/transition";
@@ -9,7 +9,6 @@
   const addedfile = file => {
     uploaded = true;
     fileUploaded.update(existing => [file]);
-    terminalText.update(existing => `File ${file.name} has begun processing!`);
   };
 
   const drop = event => {
@@ -19,8 +18,12 @@
   const init = () => {
     const dropzone = document.getElementById("dropzone");
     dropzone.style.backgroundColor = "#272C31";
-    dropzone.style.border = "0";
     dropzone.style.boxShadow = "inset 0 2px 4px 0 rgba(0, 0, 0, 0.08)";
+    dropzone.style.borderLeftColor = "none";
+    dropzone.style.borderRightColor = "none";
+    dropzone.style.borderTopColor = "none";
+    dropzone.style.borderBottomColor = "none";
+    dropzone.style.border = "1px solid #4A5063";
   };
   //export const fileUploaded = writable(uploaded)
 </script>
