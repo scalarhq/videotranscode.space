@@ -27,7 +27,7 @@
   let fileState = $fileUploaded;
   fileUploaded.subscribe(val => (fileState = val));
   let processedState = $processed;
-  let videoState = $videoDisplay;
+
   let progressState = $progressStore;
   progressStore.subscribe(val => {
     progressState = val > 0 ? true : false;
@@ -36,7 +36,7 @@
     }
   });
   processed.subscribe(val => (processedState = val));
-  videoDisplay.subscribe(val => (videoState = val));
+
   let configState = $showConfig;
   showConfig.subscribe(val => (configState = val));
 </script>
