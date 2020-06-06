@@ -56,7 +56,5 @@ export const configSetOption = (type, val) => {
 
   const temp = {};
   temp[type] = val;
-  if (type === CONFIG_OPTION_TYPES.FORMAT) {
-  }
   config.update((state) => Object.assign({}, state, temp));
 };
