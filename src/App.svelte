@@ -18,6 +18,7 @@
   import Configure from "./components/configure.svelte";
   import Video from "./components/video.svelte";
   import Progress from "./components/progress.svelte";
+  import Footer from "./components/footer.svelte";
 
   let loaded = $loadedStore;
 
@@ -39,6 +40,13 @@
 
   let configState = $showConfig;
   showConfig.subscribe(val => (configState = val));
+
+  export let notSupported = false;
+
+  if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+    loadedStore.update(existing => true);
+    notSupported = true;
+  }
 </script>
 
 <style>
@@ -97,6 +105,8 @@
 <main>
   {#if loaded === false}
     <Loader />
+  {:else if notSupported}
+    <h1>Sorry, this browser is not supported at this time</h1>
   {:else}
     <HeaderContent />
     <div class="flex-wrapper" transition:fly={{ y: 200, duration: 2000 }}>
@@ -131,9 +141,5 @@
       </div>
     </div>
   {/if}
-  <!-- <div
-    in:fly={{ delay: 1000, y: 200, duration: 2000 }}
-    out:fly={{ y: 200, duration: 2000 }}>
-    <Progress />
-  </div> -->
+  <Footer />
 </main>
