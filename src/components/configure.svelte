@@ -1,6 +1,6 @@
 <script>
   import OptionsList from "./configure-list.svelte";
-  import { config, submit, showConfig } from "../store/stores.js";
+  import { configSetOption, config, submit, showConfig } from "../store/stores.js";
   import {
     find,
     FORMAT_TYPES,
@@ -15,16 +15,14 @@
 
   config.subscribe(val => (current = val));
 
-  const configSetOption = (type, val) => {
-    if (!Object.values(CONFIG_OPTION_TYPES).includes(type)) return;
-
-    const temp = {};
-    temp[type] = val;
-    config.update(state => Object.assign({}, state, temp));
-  };
-
   const handleClick = (e, type, val) => {
     e.preventDefault();
+    if (type === CONFIG_OPTION_TYPES.FORMAT) {
+      const format = find(type, val)
+      if (format !== config.format) {
+        configSetOption(CONFIG_OPTION_TYPES.CODEC, format.codecs[0])
+      }
+    }
     configSetOption(type, find(type, val));
   };
   const handleSubmit = () => {

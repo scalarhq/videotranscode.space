@@ -53,6 +53,10 @@
     color: inherit;
     padding-left: 3%;
   }
+
+  .options-list-item a:hover {
+      cursor: pointer;
+  }
 </style>
 
 <div class="options-list-wrapper">
@@ -63,7 +67,7 @@
         <div
           class={item.name === current.name ? 'options-list-item active' : 'options-list-item'}>
 
-          <a href="#" on:click={e => handleClick(e, type, item.name)}>
+          <a on:click={e => handleClick(e, type, item.name)}>
             {item.name}
           </a>
         </div>
