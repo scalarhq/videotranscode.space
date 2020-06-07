@@ -1,5 +1,5 @@
 
-# [Video Transcoder and Convertor](https://videotranscode.space/)
+# [Video Transcoder and Converter](https://videotranscode.space/)
 
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ae9bdf66-0d0e-41fd-9ad6-4141e7f86fbf/deploy-status)](https://app.netlify.com/sites/wasm-video-transcoder/deploys)
@@ -9,6 +9,6 @@
 [![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
 [![Arnav Bansal](https://img.shields.io/badge/Author-Arnav%20Bansal-green)](https://github.com/lunaroyster)
 
-A video transcoder and convert built use Web Assembly and FFMPEG to transcode and convert videos right in your browser protecting your privacy
+A video transcoder and converter built use Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy
 
 **This project is still very early in development and only a proof of concept**
