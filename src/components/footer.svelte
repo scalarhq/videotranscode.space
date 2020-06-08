@@ -32,6 +32,36 @@
     class="icon">
     <i class="fa fa-github" />
   </a>
+  <a
+    class="typeform-share link"
+    href="https://rahultarak12345.typeform.com/to/Fn78Sd"
+    data-mode="drawer_right"
+    style="color:#3FBD71;text-decoration:underline;font-size:20px;"
+    data-submit-close-delay="0"
+    target="_blank">
+    Join Mail List!
+  </a>
+  <script>
+    (function() {
+      var qs,
+        js,
+        q,
+        s,
+        d = document,
+        gi = d.getElementById,
+        ce = d.createElement,
+        gt = d.getElementsByTagName,
+        id = "typef_orm_share",
+        b = "https://embed.typeform.com/";
+      if (!gi.call(d, id)) {
+        js = ce.call(d, "script");
+        js.id = id;
+        js.src = b + "embed.js";
+        q = gt.call(d, "script")[0];
+        q.parentNode.insertBefore(js, q);
+      }
+    })();
+  </script>
   <div class="wasm-wrapper">
     <div class="extra">
       <p style="font-size : 20px; padding-right : 3%;">Powered by</p>
