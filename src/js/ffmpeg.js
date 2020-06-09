@@ -17,7 +17,7 @@ let configuration;
 config.subscribe((value) => {
   configuration = value;
   console.log(
-    `The new file format is ${configuration.format.name} and the chosen code is ${configuration.codec.name}`
+    `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
   );
 });
 
@@ -39,12 +39,12 @@ const ffmpeg = createFFmpeg({
   progress: ({ ratio }) => {
     let value = (ratio * 100.0).toFixed(2);
     if (value > 0) {
-      //   terminalText.update((existing) => `Complete: ${value}%`);
       console.info(`Completed ${value}%`);
       progressStore.update((existing) => value);
     }
   },
 });
+
 (async () => {
   try {
     await ffmpeg.load();
@@ -63,32 +63,23 @@ let transcode = async ({ target: { files } }) => {
   terminalText.update((existing) => "Start processing");
   await ffmpeg.write(name, files[0]);
   let threads = window.navigator.hardwareConcurrency;
-  //let grayscale = document.getElementById("grayscale").checked;
+
   let grayscale = false;
   threads = threads < 8 ? threads : 8;
 
   console.info("Configuration", configuration);
   let { format, codec } = configuration;
 
-  console.log(`Final Settings are FileType ${format.name} and ${codec.name}`);
+  console.log(`The final settings are fileType ${format.name} with ${codec.name}`);
 
   let { extension, type, display, defaultCodec } = format;
 
   let outputCodec = "";
 
-  // if (codec) {
-  //   console.info("Selected Codec", codec);
-  //   let ffmpegLibs = codec.ffmpegLibs;
-  //   outputCodec = `-c:v ${ffmpegLibs}`;
-  // } else if (defaultCodec) {
-  //   console.info("Default Codec", defaultCodec);
-  //   let ffmpegLibs = defaultCodec.ffmpegLibs;
-  //   outputCodec = `-c:v ${ffmpegLibs}`;
-  // }
-
   let params = "";
 
   params += grayscale ? `-vf hue=s=0` : "";
+
 
   videoDisplay.update((existing) => display);
 
@@ -110,6 +101,7 @@ let transcode = async ({ target: { files } }) => {
     } seconds`
   );
 };
+
 submit.subscribe((value) => {
   if (value) {
     transcode(fileInput);

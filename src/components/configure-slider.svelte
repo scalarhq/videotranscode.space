@@ -1,11 +1,26 @@
 <script>
-    export let type = {}
-    export let value = 1
-    let min = type.compressionRange.min
-    let max = type.compressionRange.max
+import {
+  config,
+} from "../store/stores.js";
+
+import {
+    getFFmpegFlags
+} from "../store/configuration";
+
+let configuration;
+let min;
+let max;
+
+config.subscribe((value) => {
+    configuration = value;
+    let currentCodec = configuration.codec;
+    min = currentCodec.compressionRange.min;
+    max = currentCodec.compressionRange.max;
+});
+
 </script>
 
 <div class="configure-slider">
-    <input type="range" min={min} max={max} bind:value={value}>
+    <input type="range" min={min} max={max} value={min} class="slider" id="myRange">
 </div>
 
