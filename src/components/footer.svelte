@@ -39,7 +39,7 @@
     style="color:#3FBD71;text-decoration:underline;font-size:20px;"
     data-submit-close-delay="0"
     target="_blank">
-    Join Mail List!
+    Join our Mail List!
   </a>
   <script>
     (function() {
