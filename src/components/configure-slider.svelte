@@ -1,11 +1,9 @@
 <script>
 import {
   config,
+  sliderStore
 } from "../store/stores.js";
-
-import {
-    getFFmpegFlags
-} from "../store/configuration";
+import { onMount } from "svelte";
 
 let configuration;
 let min;
@@ -18,9 +16,23 @@ config.subscribe((value) => {
     max = currentCodec.compressionRange.max;
 });
 
+let slider;
+let sliderValue = $sliderStore;
+
+onMount(() => {
+  slider = document.getElementById("slide");
+});
+
+sliderStore.subscribe((value) => {
+  sliderValue = value;
+});
+
 </script>
 
 <div class="configure-slider">
-    <input type="range" min={min} max={max} value={min} class="slider" id="myRange">
+    <input type="range" min={min} max={max} bind:value={sliderValue} id="slide">
+</div>
+<div>
+    Value {sliderValue};
 </div>
 
