@@ -12,3 +12,7 @@
 A video transcoder and converter built use Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy
 
 **This project is still very early in development and only a proof of concept**
+
+## Contributing 
+
+We would love any/all support from the community, and are depending on it for add support for more codecs and formats. We have another repository just for contributing codecs and formats [here](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats) where we will automatically test your added codecs and add them to production if they pass our tests
