@@ -5,5 +5,8 @@
         "okrad",
         "progressbar",
         "sirv"
-    ]
+    ],
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "off",
+    "debug.allowBreakpointsEverywhere": true
 }

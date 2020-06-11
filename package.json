@@ -5,7 +5,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
-    "test": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose"
+    "test": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^12.0.0",
