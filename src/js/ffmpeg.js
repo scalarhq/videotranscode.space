@@ -13,24 +13,39 @@ import {
   sliderStore
 } from "../store/stores.js";
 
+import {
+  getFFmpegFlags, FORMAT_TYPES
+} from "../store/configuration.js"
+
 let configuration;
 let min;
 let max;
+let sliderValue;
+let compressionValue;
 
 config.subscribe((value) => {
   configuration = value;
   let currentCodec = configuration.codec;
   min = currentCodec.compressionRange.min;
   max = currentCodec.compressionRange.max;
+
+  if (compressionValue && sliderValue) {
+    /** Updates the slider value to the range of the current codec in case it is switched */
+    compressionValue = (min + (((max - 1) * sliderValue) / 100));
+    console.info(compressionValue);
+  }
+
   console.log(
     `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
   );
 });
 
-let compressionValue;
+
 sliderStore.subscribe((value) => {
-  let sliderValue = value;
+  sliderValue = value;
+  /** Changes a 0-100 % range to a range between the minimum and maximum values for that codec */
   compressionValue = (min + (((max - 1) * sliderValue) / 100));
+  /** TODO: Remove later */
   console.info(compressionValue);
   console.log(`The new compression level is ${sliderValue}%`);
 })
@@ -84,7 +99,7 @@ let transcode = async ({ target: { files } }) => {
   console.info("Configuration", configuration);
   let { format, codec } = configuration;
 
-  console.log(`The final settings are fileType ${format.name} with ${codec.name}`);
+  console.log(`The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`);
 
   let { extension, type, display, defaultCodec } = format;
 
@@ -95,12 +110,17 @@ let transcode = async ({ target: { files } }) => {
   params += grayscale ? `-vf hue=s=0` : "";
 
   /** Compression */
+  let compress;
 
+  if (sliderValue > 0) {
+    /** TODO: Replace with getFFmpegFlags command from configuration.js once it's finished */
+    compress = "-crf " + compressionValue;
+  }
 
   videoDisplay.update((existing) => display);
 
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 output${extension} `
+    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 output${extension} ${compress ? compress : ""}`
   );
 
   terminalText.update((existing) => "Complete processing");
