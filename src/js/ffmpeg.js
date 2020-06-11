@@ -10,16 +10,30 @@ import {
   processed,
   progressStore,
   config,
+  sliderStore
 } from "../store/stores.js";
 
 let configuration;
+let min;
+let max;
 
 config.subscribe((value) => {
   configuration = value;
+  let currentCodec = configuration.codec;
+  min = currentCodec.compressionRange.min;
+  max = currentCodec.compressionRange.max;
   console.log(
     `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
   );
 });
+
+let compressionValue;
+sliderStore.subscribe((value) => {
+  let sliderValue = value;
+  compressionValue = (min + (((max - 1) * sliderValue) / 100));
+  console.info(compressionValue);
+  console.log(`The new compression level is ${sliderValue}%`);
+})
 
 let fileInput;
 
@@ -79,6 +93,8 @@ let transcode = async ({ target: { files } }) => {
   let params = "";
 
   params += grayscale ? `-vf hue=s=0` : "";
+
+  /** Compression */
 
 
   videoDisplay.update((existing) => display);

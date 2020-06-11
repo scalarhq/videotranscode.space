@@ -3,22 +3,9 @@ import {
   config,
   sliderStore
 } from "../store/stores.js";
-import { onMount } from "svelte"
 
 let sliderMin = 0; 
 let sliderMax = 100
-
-let configuration;
-let min;
-let max;
-
-/** Gets the current minimum and maximum based on the chosen codec **/
-config.subscribe((value) => {
-  configuration = value;
-  let currentCodec = configuration.codec;
-  min = currentCodec.compressionRange.min;
-  max = currentCodec.compressionRange.max;
-});
 
 let sliderValue = $sliderStore;
 sliderStore.subscribe(value => {
