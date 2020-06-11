@@ -1,12 +1,12 @@
 <script>
 import {
-  config
+  config,
+  sliderStore
 } from "../store/stores.js";
 import { onMount } from "svelte"
 
 let sliderMin = 0; 
 let sliderMax = 100
-let sliderValue = sliderMin;
 
 let configuration;
 let min;
@@ -20,25 +20,19 @@ config.subscribe((value) => {
   max = currentCodec.compressionRange.max;
 });
 
-let slider;
-
-onMount(() => {
-  slider = document.getElementById("slider");
+let sliderValue = $sliderStore;
+sliderStore.subscribe(value => {
+  sliderValue = value;
 });
 
+/** Sets the slider store's value to the current value **/
 let updateValue = () => {
-  console.info("It works!");
-  if (slider) {
-    slider.addEventListener("mouseup", () => {
-        console.log(slider.value);
-      })
-  }
+  sliderStore.update((existing) => sliderValue);
 }
-
 </script>
 
 <div class="configure-slider">
-    <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} id="slider" on:click{() => updateValue()}>
+    <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} on:change={updateValue}>
 </div>
 <div>
   <div>
