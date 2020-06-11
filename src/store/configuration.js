@@ -1,61 +1,9 @@
-export const CODEC_TYPES = {
-  H264: {
-    name: "H.264",
-    compressionRange: {
-      min: 1,
-      max: 51,
-    },
-    ffmpegLib: "libx264",
-  },
-  MPEG4: {
-    name: "MPEG-4",
-    compressionRange: {
-      min: 1,
-      max: 31,
-    },
-    ffmpegLib: "libxvid",
-  },
-  WINDOWS: {
-    name: "Windows Media Video",
-    compressionRange: {
-      min: 1,
-      max: 51,
-    },
-    ffmpegLib: "wmv2",
-  },
-};
+import codecs from 'codecs'
+import formats from 'formats'
 
-export const FORMAT_TYPES = {
-  MP4: {
-    name: "MP4",
-    extension: ".mp4",
-    display: true,
-    defaultCodec: null,
-    type: "video/mp4",
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
-  },
-  AVI: {
-    name: "AVI",
-    extension: ".avi",
-    display: false,
-    defaultCodec: CODEC_TYPES.H264,
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
-  },
-  MOV: {
-    name: "MOV",
-    extension: ".mov",
-    display: true,
-    defaultCodec: CODEC_TYPES.H264,
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
-  },
-  WMV: {
-    name: "WMV",
-    extension: ".wmv",
-    display: false,
-    defaultCodec: CODEC_TYPES.WINDOWS,
-    codecs: [CODEC_TYPES.WINDOWS],
-  },
-};
+export const CODEC_TYPES = codecs
+
+export const FORMAT_TYPES = formats
 
 export const CONFIG_OPTION_TYPES = {
   FORMAT: "format",

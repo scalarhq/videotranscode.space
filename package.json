@@ -1,15 +1,18 @@
 {
-  "name": "svelte-app",
+  "name": "wasmVideoTranscoder",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public"
+    "start": "sirv public",
+    "test": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit"
   },
+  "devDependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
+    "jest": "^26.0.1",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
@@ -17,9 +20,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.8.3",
     "@okrad/svelte-progressbar": "^1.4.0",
     "javascript-terminal": "^1.0.3",
     "sirv-cli": "^0.4.4",
-    "svelte-dropzone": "^1.0.6"
+    "svelte-dropzone": "^1.0.6",
+    "video-transcoder-codecs": "git+https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.git"
   }
 }
