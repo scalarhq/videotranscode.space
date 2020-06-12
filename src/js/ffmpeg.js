@@ -10,20 +10,21 @@ import {
   processed,
   progressStore,
   config,
-  sliderStore
+  sliderStore,
+  data
 } from "../store/stores.js";
 
 import {
   getFFmpegFlags, FORMAT_TYPES
 } from "../store/configuration.js"
 
-import { onMount } from "svelte"
-
 let configuration;
 let min;
 let max;
 let sliderValue;
 let compressionValue;
+
+/** Triggers whenever the codec is changed */
 
 config.subscribe((value) => {
   configuration = value;
@@ -43,18 +44,17 @@ config.subscribe((value) => {
   );
 });
 
-
+/** Triggers whenver the slider is moved */
 sliderStore.subscribe((value) => {
   sliderValue = value;
   /** Changes a 0-100 % range to a range between the minimum and maximum values for that codec */
   compressionValue = (min + (((max - 1) * sliderValue) / 100));
-  /** TODO: Remove later */
   console.info(compressionValue);
-  console.log(`The new compression level is ${sliderValue}%`);
 })
 
 let fileInput;
 
+/** Triggers when a file is uploaded */
 fileUploaded.subscribe((files) => {
   if (files) {
     fileInput = { target: { files: files } };
@@ -65,6 +65,7 @@ fileUploaded.subscribe((files) => {
   }
 });
 
+/** Loads the progress bar */
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
   log: true,
@@ -77,6 +78,7 @@ const ffmpeg = createFFmpeg({
   },
 });
 
+/** Checks if FFmpeg is supported on that browser */
 (async () => {
   try {
     await ffmpeg.load();
@@ -87,6 +89,12 @@ const ffmpeg = createFFmpeg({
   loadedStore.update((existing) => true);
 })();
 
+let getThreads = () => {
+  let threads = window.navigator.hardwareConcurrency;
+  return threads;
+}
+/** Function that performs FFmpeg operations on the video */
+
 let operation = async ({ target: { files } }) => {
   const start = new Date().getTime();
   const { name } = files[0];
@@ -94,7 +102,8 @@ let operation = async ({ target: { files } }) => {
 
   terminalText.update((existing) => "Start processing");
   await ffmpeg.write(name, files[0]);
-  let threads = window.navigator.hardwareConcurrency;
+  /** Get the number of threads being used */
+  let threads = getThreads();
 
   let grayscale = false;
   threads = threads < 8 ? threads : 8;
@@ -128,11 +137,13 @@ let operation = async ({ target: { files } }) => {
 
   terminalText.update((existing) => "Complete processing");
   const data = ffmpeg.read(`${files[0].name}-output${extension}`);
+  /** Creates the video object */
   let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
   console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
   processed.update((existing) => true);
+  /** Gets the time taken to process */
   const end = new Date().getTime();
   console.log(
     `The processing is complete! Enjoy your video. It took ${
@@ -141,8 +152,46 @@ let operation = async ({ target: { files } }) => {
   );
 };
 
+let getBrowser = () => {
+  let isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+  if (isOpera) {
+    return "Opera";
+  }
+
+  let isFirefox = typeof InstallTrigger !== 'undefined';
+  if (isFirefox) {
+    return "Firefox";
+  }
+
+  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+  if (isSafari) {
+    return "Safari";
+  }
+
+  let isIE = /*@cc_on!@*/false || !!document.documentMode;
+  if (isIE) {
+    return "Internet Explorer";
+  }
+
+  let isEdge = !isIE && !!window.StyleMedia;
+  if (isEdge) {
+    return "Edge";
+  }
+
+  let isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+  if (isChrome) {
+    return "Chrome";
+  }
+}
+
+/** Triggers once the submit button is pressed */
 submit.subscribe((value) => {
   if (value) {
     operation(fileInput);
+    let threadsData = getThreads();
+    let browserData = getBrowser();
+    let currentData = {threads : threadsData, browser : browserData};
+    console.info(currentData);
+    data.update((existing) => currentData);
   }
 });
