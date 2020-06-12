@@ -18,12 +18,36 @@ let updateValue = () => {
 }
 </script>
 
-<div class="configure-slider">
-    <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} on:change={updateValue}>
-</div>
-<div>
+<style>
+
+.configure-slider {
+  background: #30363B;
+  border-radius: 5px;
+}
+.slider {
+  -webkit-appearance: none;
+  background: #272C31;
+  border-radius: 100px;
+  padding: 0em !important;
+  border: 1px solid #2723C1 !important;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: #3FBD71;
+  cursor: pointer;
+}
+</style>
+
+<div class>
+  <div class="configure-slider">
+    <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} on:change={updateValue} class="slider">
+  </div>
   <div>
-      Compression Level: {sliderValue}%;
+      Compression Level: {sliderValue}%
   </div>
 </div>
 
