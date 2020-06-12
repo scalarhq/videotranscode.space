@@ -17,6 +17,8 @@ import {
   getFFmpegFlags, FORMAT_TYPES
 } from "../store/configuration.js"
 
+import { onMount } from "svelte"
+
 let configuration;
 let min;
 let max;
@@ -34,6 +36,7 @@ config.subscribe((value) => {
     compressionValue = (min + (((max - 1) * sliderValue) / 100));
     console.info(compressionValue);
   }
+
 
   console.log(
     `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
@@ -84,7 +87,7 @@ const ffmpeg = createFFmpeg({
   loadedStore.update((existing) => true);
 })();
 
-let transcode = async ({ target: { files } }) => {
+let operation = async ({ target: { files } }) => {
   const start = new Date().getTime();
   const { name } = files[0];
   await console.info(name);
@@ -124,7 +127,7 @@ let transcode = async ({ target: { files } }) => {
   );
 
   terminalText.update((existing) => "Complete processing");
-  const data = ffmpeg.read(`output${extension}`);
+  const data = ffmpeg.read(`${files[0].name}-output${extension}`);
   let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
   console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
@@ -140,6 +143,6 @@ let transcode = async ({ target: { files } }) => {
 
 submit.subscribe((value) => {
   if (value) {
-    transcode(fileInput);
+    operation(fileInput);
   }
 });
