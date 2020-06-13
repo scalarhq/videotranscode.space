@@ -1,4 +1,6 @@
+
 # [Video Transcoder and Converter](https://videotranscode.space/)
+
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ae9bdf66-0d0e-41fd-9ad6-4141e7f86fbf/deploy-status)](https://app.netlify.com/sites/wasm-video-transcoder/deploys)
 [![Mozilla-Open-Lab-Etwas](https://circleci.com/gh/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.svg?style=svg)](https://app.circleci.com/pipelines/github/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats)
@@ -13,9 +15,9 @@ A video transcoder and converter built use Web Assembly and FFMPEG to transcode 
 
 **This project is still very early in development and only a proof of concept**
 
-## Contributing
+## Contributing 
 
-We would love any/all support from the community, and are depending on it for add support for more codecs and formats. We have another repository just for contributing codecs and formats **[here](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats) or https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats** where we will automatically test your added codecs and add them to production if they pass our tests.
+We would love any/all support from the community, and are depending on it for add support for more codecs and formats. We have another repository just for contributing codecs and formats **[here](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats) or https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats** where we will automatically test your added codecs and add them to production if they pass our tests. 
 
 ### Adding Codecs
 
@@ -40,9 +42,7 @@ module.exports = {
     ffmpegLib: "libx264" // FFmpeg Cli Codec Type
 }
 ```
-
 **If the formats are not updated with codec, they will not be displayed**
-
 ```
 // Formats Example
 module.exports = CODEC_TYPES => ({
@@ -54,3 +54,4 @@ module.exports = CODEC_TYPES => ({
     codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4], // Add to this list with the newly added Codec Type
 })
 ```
+
