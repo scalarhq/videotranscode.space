@@ -1,5 +1,5 @@
 import codecs from "codecs";
-import formats from "formats"(codecs.CODEC_TYPES);
+import formats from "formats";
 
 export const CODEC_TYPES = codecs.CODEC_TYPES;
 
