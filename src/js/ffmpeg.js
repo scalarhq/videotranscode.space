@@ -11,7 +11,7 @@ import {
   progressStore,
   config,
   sliderStore,
-  data
+  hardwareData
 } from "../store/stores.js";
 
 import {
@@ -53,11 +53,13 @@ sliderStore.subscribe((value) => {
 })
 
 let fileInput;
+let fileSize;
 
 /** Triggers when a file is uploaded */
 fileUploaded.subscribe((files) => {
   if (files) {
     fileInput = { target: { files: files } };
+    fileSize = files[0].size;
     console.log(
       `The file ${files[0].name} is ready to be processed, please choose your settings`
     );
@@ -65,6 +67,7 @@ fileUploaded.subscribe((files) => {
   }
 });
 
+let encodeTime;
 /** Loads the progress bar */
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -131,13 +134,16 @@ let operation = async ({ target: { files } }) => {
 
   videoDisplay.update((existing) => display);
 
+  const output = `${files[0].name}-output${extension}`
+
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 output${extension} ${compress ? compress : ""}`
+    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${compress ? compress : ""}`
   );
 
   terminalText.update((existing) => "Complete processing");
-  const data = ffmpeg.read(`${files[0].name}-output${extension}`);
+  const data = ffmpeg.read(`${output}`);
   /** Creates the video object */
+  
   let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
   console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
@@ -145,9 +151,20 @@ let operation = async ({ target: { files } }) => {
   processed.update((existing) => true);
   /** Gets the time taken to process */
   const end = new Date().getTime();
+  encodeTime = (end - start) / 1000;
+
+  console.info("Finished!!!!!!!!!!!!!!!!!!!!!!!!!");
+  /** Gets data parameters */
+  let threadsData = getThreads();
+  let browserData = getBrowser();
+  let fileSizeData = fileSize;
+  let encodeTimeData = encodeTime;
+  let currentData = {threads : threadsData, browser : browserData, fileSize : fileSizeData, encodeTime : encodeTimeData};
+  console.info(currentData);
+  
   console.log(
     `The processing is complete! Enjoy your video. It took ${
-      (end - start) / 1000
+      encodeTime
     } seconds`
   );
 };
@@ -184,14 +201,10 @@ let getBrowser = () => {
   }
 }
 
+
 /** Triggers once the submit button is pressed */
 submit.subscribe((value) => {
   if (value) {
     operation(fileInput);
-    let threadsData = getThreads();
-    let browserData = getBrowser();
-    let currentData = {threads : threadsData, browser : browserData};
-    console.info(currentData);
-    data.update((existing) => currentData);
   }
 });
