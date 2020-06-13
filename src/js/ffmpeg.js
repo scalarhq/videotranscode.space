@@ -153,13 +153,14 @@ let operation = async ({ target: { files } }) => {
   const end = new Date().getTime();
   encodeTime = (end - start) / 1000;
 
-  console.info("Finished!!!!!!!!!!!!!!!!!!!!!!!!!");
   /** Gets data parameters */
   let threadsData = getThreads();
   let browserData = getBrowser();
-  let fileSizeData = fileSize;
+  let inputFileSizeData = fileSize;
   let encodeTimeData = encodeTime;
-  let currentData = {threads : threadsData, browser : browserData, fileSize : fileSizeData, encodeTime : encodeTimeData};
+
+  let currentData = {threads : threadsData, browser : browserData, inputFileSize : inputFileSizeData, encodeTime : encodeTimeData};
+  hardwareData.update((existing) => currentData);
   console.info(currentData);
   
   console.log(
