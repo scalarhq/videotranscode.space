@@ -1,9 +1,9 @@
-import codecs from 'codecs'
-import formats from 'formats'
+import codecs from "codecs";
+import formats from "formats"(codecs.CODEC_TYPES);
 
-export const CODEC_TYPES = codecs
+export const CODEC_TYPES = codecs.CODEC_TYPES;
 
-export const FORMAT_TYPES = formats
+export const FORMAT_TYPES = formats;
 
 export const CONFIG_OPTION_TYPES = {
   FORMAT: "format",
