@@ -110,7 +110,6 @@
     <h1>Sorry, this browser is not supported at this time</h1>
   {:else}
     <HeaderContent />
-    <Form />
     <div class="flex-wrapper" transition:fly={{ y: 200, duration: 2000 }}>
       {#if !fileState}
         <div class="col dropzone-wrapper" out:fly={{ y: 200, duration: 2000 }}>
@@ -138,6 +137,7 @@
       {:else}
         <div />
       {/if}
+      <Form />
       <div class="terminal-wrapper">
         <Terminal />
       </div>

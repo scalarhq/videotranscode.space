@@ -161,7 +161,6 @@ let operation = async ({ target: { files } }) => {
 
   let currentData = {threads : threadsData, browser : browserData, inputFileSize : inputFileSizeData, encodeTime : encodeTimeData};
   hardwareData.update((existing) => currentData);
-  console.info(currentData);
   
   console.log(
     `The processing is complete! Enjoy your video. It took ${
