@@ -31,8 +31,6 @@ hardwareData.subscribe((value) => {
     if (encodeTime) {
         encodeTime = data.encodeTime;
     }
-    console.info(form);
-    console.info(data);
 
     if (form && data) {
         let formData = new FormData();
@@ -42,7 +40,7 @@ hardwareData.subscribe((value) => {
         formData.append("inputFileSize", inputFileSize);
         formData.append("encodeTime", encodeTime);
 
-        const request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
         request.open("POST", "/");
         request.send(formData);
     }
