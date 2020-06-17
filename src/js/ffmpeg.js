@@ -14,16 +14,27 @@ import {
   hardwareData,
 } from "../store/stores.js";
 
-import { getBrowser, getThreads, sizeHumanReadable } from "./hardware";
+import {
+  getBrowser,
+  getThreads,
+  sizeHumanReadable,
+  getOs,
+  getNavigator,
+} from "./hardware";
 
-import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
+// import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
 
 let configuration;
 let min;
 let max;
 let sliderValue;
 let compressionValue;
+let fileInput;
+const fileData = {};
+const finalSettings = {};
 
+const { createFFmpeg } = FFmpeg;
+let encodeTime;
 /** Triggers whenever the codec is changed */
 
 config.subscribe((value) => {
@@ -43,7 +54,7 @@ config.subscribe((value) => {
   );
 });
 
-/** Triggers whenver the slider is moved */
+/** Triggers whenever the slider is moved */
 sliderStore.subscribe((value) => {
   sliderValue = value;
   /** Changes a 0-100 % range to a range between the minimum and maximum values for that codec */
@@ -51,14 +62,13 @@ sliderStore.subscribe((value) => {
   console.info(compressionValue);
 });
 
-let fileInput;
-let fileSize;
-
 /** Triggers when a file is uploaded */
 fileUploaded.subscribe((files) => {
   if (files) {
     fileInput = { target: { files: files } };
-    fileSize = files[0].size;
+    fileData["size"] = files[0].size;
+    let ext = files[0].name.split(".")[1];
+    fileData["ext"] = ext;
     console.log(
       `The file ${files[0].name} is ready to be processed, please choose your settings`
     );
@@ -66,9 +76,8 @@ fileUploaded.subscribe((files) => {
   }
 });
 
-let encodeTime;
 /** Loads the progress bar */
-const { createFFmpeg } = FFmpeg;
+
 const ffmpeg = createFFmpeg({
   log: true,
   progress: ({ ratio }) => {
@@ -92,7 +101,6 @@ const ffmpeg = createFFmpeg({
 })();
 
 /** Function that performs FFmpeg operations on the video */
-
 let operation = async ({ target: { files } }) => {
   const start = new Date().getTime();
   const { name } = files[0];
@@ -112,6 +120,8 @@ let operation = async ({ target: { files } }) => {
   console.log(
     `The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`
   );
+  finalSettings.format = format.name;
+  finalSettings.codec = codec.name;
 
   let { extension, type, display, defaultCodec } = format;
 
@@ -152,23 +162,34 @@ let operation = async ({ target: { files } }) => {
   const end = new Date().getTime();
   encodeTime = (end - start) / 1000;
 
-  /** Gets data parameters */
-  let threadsData = getThreads();
-  let browserData = getBrowser();
-  let inputFileSizeData = sizeHumanReadable(fileSize);
-  let encodeTimeData = encodeTime;
-
-  let currentData = {
-    threads: threadsData,
-    browser: browserData,
-    inputFileSize: inputFileSizeData,
-    encodeTime: encodeTimeData,
-  };
-  hardwareData.update((existing) => currentData);
+  updateData(encodeTime);
 
   console.log(
     `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
   );
+};
+
+const updateData = (encodeTime) => {
+  /** Gets data parameters */
+  let threadsData = getThreads();
+  let os = getOs();
+  let navigator = getNavigator();
+  let browserData = getBrowser();
+  let inputFileSizeData = sizeHumanReadable(fileData.size);
+  let encodeTimeData = encodeTime;
+
+  let currentData = {
+    inputFileSize: inputFileSizeData,
+    encodeTime: encodeTimeData,
+    threads: threadsData,
+    inputFileFormat: fileData.ext,
+    outputFileFormat: finalSettings.format,
+    outputFileCodec: finalSettings.codec,
+    browser: browserData,
+    os: os,
+    navigator: navigator,
+  };
+  hardwareData.update((existing) => currentData);
 };
 
 /** Triggers once the submit button is pressed */
