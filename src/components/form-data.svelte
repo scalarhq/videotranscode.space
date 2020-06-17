@@ -48,10 +48,13 @@ hardwareData.subscribe((value) => {
         let json = JSON.stringify(object);
         console.info(json);
 
+        const rawData = new URLSearchParams(Object.keys(data).map(key=>[key, data[key]]));
+        console.info(rawData.toString());
+
         const request = new XMLHttpRequest();
         request.open("POST", "/");
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send(formData);
+        request.send(rawData);
     }
 
 });
