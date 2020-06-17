@@ -40,6 +40,7 @@ hardwareData.subscribe((value) => {
         formData.append("inputFileSize", inputFileSize);
         formData.append("encodeTime", encodeTime); 
 
+        console.info(formData);
         let object = {};
         formData.forEach((value, key) => {object[key] = value});
         let json = JSON.stringify(object);
@@ -54,8 +55,8 @@ hardwareData.subscribe((value) => {
 </script>
 
 <form name ="data" id="data" method="POST" data-netlify="true">
-    <input type="hidden" name="browser" id="browser"/>
     <input type="hidden" name="threads" id="threads"/>
+    <input type="hidden" name="browser" id="browser"/>
     <input type="hidden" name="inputFileSize" id="inputFileSize"/>
     <input type="hidden" name="encodeTime" id="encodeTime"/>
 </form>
