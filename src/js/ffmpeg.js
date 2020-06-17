@@ -10,22 +10,55 @@ import {
   processed,
   progressStore,
   config,
+  sliderStore,
+  hardwareData,
 } from "../store/stores.js";
 
+import { getBrowser, getThreads, sizeHumanReadable } from "./hardware";
+
+import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
+
 let configuration;
+let min;
+let max;
+let sliderValue;
+let compressionValue;
+
+/** Triggers whenever the codec is changed */
 
 config.subscribe((value) => {
   configuration = value;
+  let currentCodec = configuration.codec;
+  min = currentCodec.compressionRange.min;
+  max = currentCodec.compressionRange.max;
+
+  if (compressionValue && sliderValue) {
+    /** Updates the slider value to the range of the current codec in case it is switched */
+    compressionValue = min + ((max - 1) * sliderValue) / 100;
+    console.info(compressionValue);
+  }
+
   console.log(
-    `The new file format is ${configuration.format.name} and the chosen code is ${configuration.codec.name}`
+    `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
   );
 });
 
-let fileInput;
+/** Triggers whenver the slider is moved */
+sliderStore.subscribe((value) => {
+  sliderValue = value;
+  /** Changes a 0-100 % range to a range between the minimum and maximum values for that codec */
+  compressionValue = min + ((max - 1) * sliderValue) / 100;
+  console.info(compressionValue);
+});
 
+let fileInput;
+let fileSize;
+
+/** Triggers when a file is uploaded */
 fileUploaded.subscribe((files) => {
   if (files) {
     fileInput = { target: { files: files } };
+    fileSize = files[0].size;
     console.log(
       `The file ${files[0].name} is ready to be processed, please choose your settings`
     );
@@ -33,18 +66,21 @@ fileUploaded.subscribe((files) => {
   }
 });
 
+let encodeTime;
+/** Loads the progress bar */
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
   log: true,
   progress: ({ ratio }) => {
     let value = (ratio * 100.0).toFixed(2);
     if (value > 0) {
-      //   terminalText.update((existing) => `Complete: ${value}%`);
       console.info(`Completed ${value}%`);
       progressStore.update((existing) => value);
     }
   },
 });
+
+/** Checks if FFmpeg is supported on that browser */
 (async () => {
   try {
     await ffmpeg.load();
@@ -55,63 +91,89 @@ const ffmpeg = createFFmpeg({
   loadedStore.update((existing) => true);
 })();
 
-let transcode = async ({ target: { files } }) => {
+/** Function that performs FFmpeg operations on the video */
+
+let operation = async ({ target: { files } }) => {
   const start = new Date().getTime();
   const { name } = files[0];
   await console.info(name);
 
   terminalText.update((existing) => "Start processing");
   await ffmpeg.write(name, files[0]);
-  let threads = window.navigator.hardwareConcurrency;
-  //let grayscale = document.getElementById("grayscale").checked;
+  /** Get the number of threads being used */
+  let threads = getThreads();
+
   let grayscale = false;
   threads = threads < 8 ? threads : 8;
 
   console.info("Configuration", configuration);
   let { format, codec } = configuration;
 
-  console.log(`Final Settings are FileType ${format.name} and ${codec.name}`);
+  console.log(
+    `The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`
+  );
 
   let { extension, type, display, defaultCodec } = format;
 
   let outputCodec = "";
 
-  // if (codec) {
-  //   console.info("Selected Codec", codec);
-  //   let ffmpegLibs = codec.ffmpegLibs;
-  //   outputCodec = `-c:v ${ffmpegLibs}`;
-  // } else if (defaultCodec) {
-  //   console.info("Default Codec", defaultCodec);
-  //   let ffmpegLibs = defaultCodec.ffmpegLibs;
-  //   outputCodec = `-c:v ${ffmpegLibs}`;
-  // }
-
   let params = "";
 
   params += grayscale ? `-vf hue=s=0` : "";
 
+  /** Compression */
+  let compress;
+
+  if (sliderValue > 0) {
+    /** TODO: Replace with getFFmpegFlags command from configuration.js once it's finished */
+    compress = "-crf " + compressionValue;
+  }
+
   videoDisplay.update((existing) => display);
 
+  const output = `${files[0].name}-output${extension}`;
+
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 output${extension} `
+    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
+      compress ? compress : ""
+    }`
   );
 
   terminalText.update((existing) => "Complete processing");
-  const data = ffmpeg.read(`output${extension}`);
+  const data = ffmpeg.read(`${output}`);
+  /** Creates the video object */
+
   let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
   console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
   clearTerminal.update((existing) => true);
   processed.update((existing) => true);
+  /** Gets the time taken to process */
   const end = new Date().getTime();
+  encodeTime = (end - start) / 1000;
+
+  /** Gets data parameters */
+  let threadsData = getThreads();
+  let browserData = getBrowser();
+  let inputFileSizeData = sizeHumanReadable(fileSize);
+  let encodeTimeData = encodeTime;
+
+  let currentData = {
+    threads: threadsData,
+    browser: browserData,
+    inputFileSize: inputFileSizeData,
+    encodeTime: encodeTimeData,
+  };
+  hardwareData.update((existing) => currentData);
+
   console.log(
-    `The processing is complete! Enjoy your video. It took ${
-      (end - start) / 1000
-    } seconds`
+    `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
   );
 };
+
+/** Triggers once the submit button is pressed */
 submit.subscribe((value) => {
   if (value) {
-    transcode(fileInput);
+    operation(fileInput);
   }
 });
