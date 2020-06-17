@@ -35,6 +35,7 @@ hardwareData.subscribe((value) => {
     const length = Object.keys(data).length;
 
     if (form && length > 0) {
+        console.log("Form and length > 0 TRIGGERED!")
         let formData = new FormData();
         formData.append("form-name", "data");
         formData.append("threads", threads);
