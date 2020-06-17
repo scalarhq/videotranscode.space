@@ -31,6 +31,7 @@ hardwareData.subscribe((value) => {
     if (encodeTime) {
         encodeTime.value = data.encodeTime;
     }
+    data["form-name"] = "data"
 
     const length = Object.keys(data).length;
 
