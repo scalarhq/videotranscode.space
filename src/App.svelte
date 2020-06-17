@@ -19,7 +19,7 @@
   import Video from "./components/video.svelte";
   import Progress from "./components/progress.svelte";
   import Footer from "./components/footer.svelte";
-  import Form from "./components/form-data.svelte"
+  import Form from "./components/form-data.svelte";
 
   let loaded = $loadedStore;
 
@@ -137,12 +137,12 @@
       {:else}
         <div />
       {/if}
-     
+
       <div class="terminal-wrapper">
         <Terminal />
       </div>
     </div>
   {/if}
-   <Form />
+  <Form />
   <Footer />
 </main>
