@@ -9,12 +9,12 @@
     const length = Object.keys(data).length;
 
     if (length > 1) {
-      console.log("Form and length > 0 TRIGGERED!");
+      console.info("TRIGGERED!");
 
       const rawData = new URLSearchParams(
         Object.keys(data).map(key => [key, data[key]])
       );
-      //   console.info(rawData.toString());
+      console.info(rawData.toString());
 
       const request = new XMLHttpRequest();
       request.open("POST", "/");
