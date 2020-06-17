@@ -32,7 +32,9 @@ hardwareData.subscribe((value) => {
         encodeTime = data.encodeTime;
     }
 
-    if (form && data) {
+    const length = Object.keys(data).length;
+
+    if (form && length > 0) {
         let formData = new FormData();
         formData.append("form-name", "data");
         formData.append("threads", threads);
@@ -48,7 +50,7 @@ hardwareData.subscribe((value) => {
 
         const request = new XMLHttpRequest();
         request.open("POST", "/");
-        request.send(json);
+        request.send(formData);
     }
 
 });
