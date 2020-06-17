@@ -11,12 +11,12 @@ import {
   progressStore,
   config,
   sliderStore,
-  hardwareData
+  hardwareData,
 } from "../store/stores.js";
 
-import {
-  getFFmpegFlags, FORMAT_TYPES
-} from "../store/configuration.js"
+import { getBrowser, getThreads } from "./hardware";
+
+import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
 
 let configuration;
 let min;
@@ -34,10 +34,9 @@ config.subscribe((value) => {
 
   if (compressionValue && sliderValue) {
     /** Updates the slider value to the range of the current codec in case it is switched */
-    compressionValue = (min + (((max - 1) * sliderValue) / 100));
+    compressionValue = min + ((max - 1) * sliderValue) / 100;
     console.info(compressionValue);
   }
-
 
   console.log(
     `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
@@ -48,9 +47,9 @@ config.subscribe((value) => {
 sliderStore.subscribe((value) => {
   sliderValue = value;
   /** Changes a 0-100 % range to a range between the minimum and maximum values for that codec */
-  compressionValue = (min + (((max - 1) * sliderValue) / 100));
+  compressionValue = min + ((max - 1) * sliderValue) / 100;
   console.info(compressionValue);
-})
+});
 
 let fileInput;
 let fileSize;
@@ -92,10 +91,6 @@ const ffmpeg = createFFmpeg({
   loadedStore.update((existing) => true);
 })();
 
-let getThreads = () => {
-  let threads = window.navigator.hardwareConcurrency;
-  return threads;
-}
 /** Function that performs FFmpeg operations on the video */
 
 let operation = async ({ target: { files } }) => {
@@ -114,7 +109,9 @@ let operation = async ({ target: { files } }) => {
   console.info("Configuration", configuration);
   let { format, codec } = configuration;
 
-  console.log(`The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`);
+  console.log(
+    `The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`
+  );
 
   let { extension, type, display, defaultCodec } = format;
 
@@ -134,16 +131,18 @@ let operation = async ({ target: { files } }) => {
 
   videoDisplay.update((existing) => display);
 
-  const output = `${files[0].name}-output${extension}`
+  const output = `${files[0].name}-output${extension}`;
 
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${compress ? compress : ""}`
+    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
+      compress ? compress : ""
+    }`
   );
 
   terminalText.update((existing) => "Complete processing");
   const data = ffmpeg.read(`${output}`);
   /** Creates the video object */
-  
+
   let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
   console.info(blobUrl);
   transcoded.update((existing) => blobUrl);
@@ -159,48 +158,18 @@ let operation = async ({ target: { files } }) => {
   let inputFileSizeData = fileSize;
   let encodeTimeData = encodeTime;
 
-  let currentData = {threads : threadsData, browser : browserData, inputFileSize : inputFileSizeData, encodeTime : encodeTimeData};
+  let currentData = {
+    threads: threadsData,
+    browser: browserData,
+    inputFileSize: inputFileSizeData,
+    encodeTime: encodeTimeData,
+  };
   hardwareData.update((existing) => currentData);
-  
+
   console.log(
-    `The processing is complete! Enjoy your video. It took ${
-      encodeTime
-    } seconds`
+    `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
   );
 };
-
-let getBrowser = () => {
-  let isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-  if (isOpera) {
-    return "Opera";
-  }
-
-  let isFirefox = typeof InstallTrigger !== 'undefined';
-  if (isFirefox) {
-    return "Firefox";
-  }
-
-  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-  if (isSafari) {
-    return "Safari";
-  }
-
-  let isIE = /*@cc_on!@*/false || !!document.documentMode;
-  if (isIE) {
-    return "Internet Explorer";
-  }
-
-  let isEdge = !isIE && !!window.StyleMedia;
-  if (isEdge) {
-    return "Edge";
-  }
-
-  let isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-  if (isChrome) {
-    return "Chrome";
-  }
-}
-
 
 /** Triggers once the submit button is pressed */
 submit.subscribe((value) => {

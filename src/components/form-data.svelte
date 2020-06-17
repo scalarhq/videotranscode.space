@@ -14,7 +14,7 @@
       const rawData = new URLSearchParams(
         Object.keys(data).map(key => [key, data[key]])
       );
-      console.info(rawData.toString());
+      //   console.info(rawData.toString());
 
       const request = new XMLHttpRequest();
       request.open("POST", "/");
