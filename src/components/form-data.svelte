@@ -38,7 +38,6 @@ hardwareData.subscribe((value) => {
     if (form && length > 0) {
         console.log("Form and length > 0 TRIGGERED!")
         // let formData = new FormData(document.getElementById("data"));
-        // // formData.append("form-name", "data");
         // // formData.append("threads", threads.value);
         // // formData.append("browser", browser.value);
         // // formData.append("inputFileSize", inputFileSize.value);
@@ -66,9 +65,10 @@ hardwareData.subscribe((value) => {
 });
 </script>
 
-<form name ="data" id="data" method="POST" data-netlify="true">
-    <input type="hidden" name="threads" id="threads"/>
-    <input type="hidden" name="browser" id="browser"/>
-    <input type="hidden" name="inputFileSize" id="inputFileSize"/>
-    <input type="hidden" name="encodeTime" id="encodeTime"/>
+<form name ="data" id="data" method="POST" data-netlify="true" hidden>
+   
+    <input type="text" name="inputFileSize" id="inputFileSize"/>
+    <input type="text" name="browser" id="browser"/>
+    <input type="text" name="encodeTime" id="encodeTime"/>
+     <input type="number" name="threads" id="threads" />
 </form>

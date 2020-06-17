@@ -137,11 +137,12 @@
       {:else}
         <div />
       {/if}
-      <Form />
+     
       <div class="terminal-wrapper">
         <Terminal />
       </div>
     </div>
   {/if}
+   <Form />
   <Footer />
 </main>
