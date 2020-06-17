@@ -20,42 +20,46 @@ let data;
 hardwareData.subscribe((value) => {
     data = value;
     if (threads) {
-        threads = data.threads;
+        threads.value = data.threads;
     }
     if (browser) {
-        browser = data.browser;
+        browser.value = data.browser;
     }
     if (inputFileSize) {
-        inputFileSize = data.inputFileSize;
+        inputFileSize.value = data.inputFileSize;
     }
     if (encodeTime) {
-        encodeTime = data.encodeTime;
+        encodeTime.value = data.encodeTime;
     }
 
     const length = Object.keys(data).length;
 
     if (form && length > 0) {
         console.log("Form and length > 0 TRIGGERED!")
-        let formData = new FormData();
-        formData.append("form-name", "data");
-        formData.append("threads", threads);
-        formData.append("browser", browser);
-        formData.append("inputFileSize", inputFileSize);
-        formData.append("encodeTime", encodeTime); 
-        console.info(formData);
+        // let formData = new FormData(document.getElementById("data"));
+        // // formData.append("form-name", "data");
+        // // formData.append("threads", threads.value);
+        // // formData.append("browser", browser.value);
+        // // formData.append("inputFileSize", inputFileSize.value);
+        // // formData.append("encodeTime", encodeTime.value); 
+        // console.info(formData);
 
-        let object = {};
-        formData.forEach((value, key) => {object[key] = value});
-        let json = JSON.stringify(object);
-        console.info(json);
+        // const formReq = new XMLHttpRequest();
+        // formReq.open("POST", "/")
+        // formReq.send(formData)
 
-        const rawData = new URLSearchParams(Object.keys(json).map(key=>[key, json[key]]));
+        // let object = {};
+        // formData.forEach((value, key) => {object[key] = value});
+        // let json = JSON.stringify(object);
+        // console.info(json);
+
+        const rawData = new URLSearchParams(Object.keys(data).map(key=>[key, data[key]]));
         console.info(rawData.toString());
 
         const request = new XMLHttpRequest();
         request.open("POST", "/");
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send(rawData);
+        request.send(rawData.toString());
     }
 
 });
