@@ -14,7 +14,7 @@ import {
   hardwareData,
 } from "../store/stores.js";
 
-import { getBrowser, getThreads } from "./hardware";
+import { getBrowser, getThreads, sizeHumanReadable } from "./hardware";
 
 import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
 
@@ -155,7 +155,7 @@ let operation = async ({ target: { files } }) => {
   /** Gets data parameters */
   let threadsData = getThreads();
   let browserData = getBrowser();
-  let inputFileSizeData = fileSize;
+  let inputFileSizeData = sizeHumanReadable(fileSize);
   let encodeTimeData = encodeTime;
 
   let currentData = {
