@@ -22,6 +22,7 @@
     "@ffmpeg/ffmpeg": "^0.8.3",
     "@okrad/svelte-progressbar": "^1.4.0",
     "javascript-terminal": "^1.0.3",
+    "platform": "^1.3.5",
     "sirv-cli": "^0.4.4",
     "svelte-dropzone": "^1.0.6",
     "video-transcoder-codecs": "git+https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.git"
