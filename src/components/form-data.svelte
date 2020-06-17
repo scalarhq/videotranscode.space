@@ -49,7 +49,7 @@ hardwareData.subscribe((value) => {
         let json = JSON.stringify(object);
         console.info(json);
 
-        const rawData = new URLSearchParams(Object.keys(data).map(key=>[key, data[key]]));
+        const rawData = new URLSearchParams(Object.keys(json).map(key=>[key, json[key]]));
         console.info(rawData.toString());
 
         const request = new XMLHttpRequest();
