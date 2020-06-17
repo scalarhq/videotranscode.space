@@ -8,7 +8,7 @@
 
     const length = Object.keys(data).length;
 
-    if (form && length > 0) {
+    if (length > 0) {
       console.log("Form and length > 0 TRIGGERED!");
 
       const rawData = new URLSearchParams(
