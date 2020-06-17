@@ -39,8 +39,8 @@ hardwareData.subscribe((value) => {
         formData.append("browser", browser);
         formData.append("inputFileSize", inputFileSize);
         formData.append("encodeTime", encodeTime); 
-
         console.info(formData);
+
         let object = {};
         formData.forEach((value, key) => {object[key] = value});
         let json = JSON.stringify(object);
@@ -48,7 +48,7 @@ hardwareData.subscribe((value) => {
 
         const request = new XMLHttpRequest();
         request.open("POST", "/");
-        request.send(formData);
+        request.send(json);
     }
 
 });
