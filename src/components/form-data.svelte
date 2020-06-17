@@ -48,15 +48,14 @@ hardwareData.subscribe((value) => {
         const request = new XMLHttpRequest();
         request.open("POST", "/");
         request.send(formData);
-        
     }
 
 });
 </script>
 
 <form name ="data" id="data" method="POST" data-netlify="true">
-    <input type="hidden" name="threads" id="threads"/>
     <input type="hidden" name="browser" id="browser"/>
+    <input type="hidden" name="threads" id="threads"/>
     <input type="hidden" name="inputFileSize" id="inputFileSize"/>
     <input type="hidden" name="encodeTime" id="encodeTime"/>
 </form>
