@@ -50,6 +50,7 @@ hardwareData.subscribe((value) => {
 
         const request = new XMLHttpRequest();
         request.open("POST", "/");
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.send(formData);
     }
 
