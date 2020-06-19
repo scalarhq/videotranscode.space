@@ -100,39 +100,24 @@ const ffmpeg = createFFmpeg({
   loadedStore.update((existing) => true);
 })();
 
-/** Function that performs FFmpeg operations on the video */
-let operation = async ({ target: { files } }) => {
+/** Function that performs the FFmpeg transcode on the video */
+let transcode = async ({ target: { files } }) => {
   const start = new Date().getTime();
-  const { name } = files[0];
-  await console.info(name);
 
-  terminalText.update((existing) => "Start processing");
-  await ffmpeg.write(name, files[0]);
-  /** Get the number of threads being used */
-  let threads = getThreads();
+  let settings = await chooseSettings(files);
 
-  let grayscale = false;
-  threads = threads < 8 ? threads : 8;
-
-  console.info("Configuration", configuration);
-  let { format, codec } = configuration;
-
-  console.log(
-    `The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`
-  );
-  finalSettings.format = format.name;
-  finalSettings.codec = codec.name;
+  let name = settings[0];
+  let threads = settings[1];
+  let format = settings[2];
 
   let { extension, type, display, defaultCodec } = format;
-
   let outputCodec = "";
-
   let params = "";
-
+  let grayscale = false;
   params += grayscale ? `-vf hue=s=0` : "";
 
   /** Compression */
-  let compress;
+  let compress = "";
 
   if (sliderValue > 0) {
     /** TODO: Replace with getFFmpegFlags command from configuration.js once it's finished */
@@ -140,24 +125,21 @@ let operation = async ({ target: { files } }) => {
   }
 
   videoDisplay.update((existing) => display);
-
   const output = `${files[0].name}-output${extension}`;
+  
+  console.info(compress);
+
 
   await ffmpeg.run(
     `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
-      compress ? compress : ""
+      compress
     }`
   );
 
   terminalText.update((existing) => "Complete processing");
   const data = ffmpeg.read(`${output}`);
-  /** Creates the video object */
-
-  let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
-  console.info(blobUrl);
-  transcoded.update((existing) => blobUrl);
-  clearTerminal.update((existing) => true);
-  processed.update((existing) => true);
+  
+  createVideo(data, type);
   /** Gets the time taken to process */
   const end = new Date().getTime();
   encodeTime = (end - start) / 1000;
@@ -168,6 +150,48 @@ let operation = async ({ target: { files } }) => {
     `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
   );
 };
+
+/** The function that allows users to select formats and codecs */
+const chooseSettings = async (files) => {
+  let settings = [];
+
+  const { name } = files[0];
+  /** Index 0 is the name */
+  settings.push(name);
+
+  await console.info(name);
+  terminalText.update((existing) => "Start processing");
+  await ffmpeg.write(name, files[0]);
+  /** Get the number of threads being used */
+  let threads = getThreads();
+
+  /** Index 1 is the number of threads */
+  threads = threads < 8 ? threads : 8;
+  settings.push(threads);
+
+  console.info("Configuration", configuration);
+  let { format, codec } = configuration;
+  /** Index 2 is the format */
+  settings.push(format);
+  console.info("Format");
+
+  console.log(
+    `The final settings are fileType ${format.name} with ${codec.name} and a compression level of ${sliderValue}%`
+  );
+  finalSettings.format = format.name;
+  finalSettings.codec = codec.name;
+
+  return settings;
+}
+
+/** Creates the video object */
+const createVideo = (data, type) => {
+  let blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: type }));
+  console.info(blobUrl);
+  transcoded.update((existing) => blobUrl);
+  clearTerminal.update((existing) => true);
+  processed.update((existing) => true);
+}
 
 const updateData = (encodeTime) => {
   /** Gets data parameters */
@@ -195,6 +219,9 @@ const updateData = (encodeTime) => {
 /** Triggers once the submit button is pressed */
 submit.subscribe((value) => {
   if (value) {
-    operation(fileInput);
+    /**if (compressionValue > 0) {
+      compress(fileInput);
+    }**/
+    transcode(fileInput);
   }
 });
