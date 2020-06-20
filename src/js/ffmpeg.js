@@ -22,7 +22,12 @@ import {
   getNavigator,
 } from "./hardware";
 
-// import { getFFmpegFlags, FORMAT_TYPES } from "../store/configuration.js";
+const renameFile = (originalFile, extension) => {
+  return new File([originalFile], `input.${extension}`, {
+    type: originalFile.type,
+    lastModified: originalFile.lastModified,
+  });
+};
 
 let configuration;
 let min;
@@ -65,13 +70,15 @@ sliderStore.subscribe((value) => {
 /** Triggers when a file is uploaded */
 fileUploaded.subscribe((files) => {
   if (files) {
-    fileInput = { target: { files: files } };
     fileData["size"] = files[0].size;
-    let ext = files[0].name.split(".")[1];
+    let ext = files[0].name.split(".");
+    ext = ext[ext.length - 1];
     fileData["ext"] = ext;
     console.log(
       `The file ${files[0].name} is ready to be processed, please choose your settings`
     );
+    const renamedFile = renameFile(files[0], fileData.ext);
+    fileInput = renamedFile;
     showConfig.update((existing) => true);
   }
 });
@@ -101,13 +108,13 @@ const ffmpeg = createFFmpeg({
 })();
 
 /** Function that performs FFmpeg operations on the video */
-let operation = async ({ target: { files } }) => {
+let operation = async (file) => {
   const start = new Date().getTime();
-  const { name } = files[0];
+  const { name } = file;
   await console.info(name);
 
   terminalText.update((existing) => "Start processing");
-  await ffmpeg.write(name, files[0]);
+  await ffmpeg.write(name, file);
   /** Get the number of threads being used */
   let threads = getThreads();
 
@@ -141,10 +148,10 @@ let operation = async ({ target: { files } }) => {
 
   videoDisplay.update((existing) => display);
 
-  const output = `${files[0].name}-output${extension}`;
+  const output = `${name}-output${extension}`;
 
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
+    `-i '${name}'  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
       compress ? compress : ""
     }`
   );
