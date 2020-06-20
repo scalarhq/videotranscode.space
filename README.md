@@ -3,6 +3,8 @@
 
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ae9bdf66-0d0e-41fd-9ad6-4141e7f86fbf/deploy-status)](https://app.netlify.com/sites/wasm-video-transcoder/deploys)
+[![Mozilla-Open-Lab-Etwas](https://circleci.com/gh/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.svg?style=svg)](https://app.circleci.com/pipelines/github/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats)
+![Node.js CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats/workflows/Node.js%20CI/badge.svg)
 
 [![Rahul Tarak](https://img.shields.io/badge/Author-Rahul%20Tarak-green)](https://cryogenicplanet.tech/)
 [![Rithvik Mahindra](https://img.shields.io/badge/Author-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
@@ -49,7 +51,8 @@ module.exports = CODEC_TYPES => ({
     display: true,
     defaultCodec: null,
     type: "video/mp4",
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4], // Add to this list with the newly added Codec Type
+    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
+    // Add to this list with the newly added Codec Type
 })
 ```
 

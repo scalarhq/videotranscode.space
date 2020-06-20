@@ -7,6 +7,7 @@
     CODEC_TYPES,
     CONFIG_OPTION_TYPES
   } from "../store/configuration";
+  import Slider from "./configure-slider.svelte"
 
   const formats = Object.keys(FORMAT_TYPES).map(key => FORMAT_TYPES[key]);
   const codecs = Object.keys(CODEC_TYPES).map(key => CODEC_TYPES[key]);
@@ -89,6 +90,9 @@
         title="Output Codec"
         items={current.format.codecs}
         current={current.codec} />
+    </row>
+    <row>
+      <Slider />
     </row>
     <row>
       <button on:click|once={handleSubmit}>Submit</button>

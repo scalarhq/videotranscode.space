@@ -25,6 +25,10 @@ export const processed = writable(false);
 
 export const progressStore = writable(1);
 
+export const sliderStore = writable(0);
+
+export const hardwareData = writable({});
+
 export const config = writable({
   /**
    * The format for FFmpeg to convert to
