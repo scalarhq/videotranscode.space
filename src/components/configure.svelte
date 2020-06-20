@@ -93,9 +93,7 @@
         {handleClick}
         type={CONFIG_OPTION_TYPES.CODEC}
         title="Output Codec"
-        items={current.format.codecs.filter(element => {
-          element.notSupported !== true;
-        })}
+        items={current.format.codecs.filter(element => element.notSupported !== true)}
         current={current.codec} />
     </row>
     <row>
