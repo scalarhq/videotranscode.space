@@ -144,7 +144,7 @@ let operation = async ({ target: { files } }) => {
   const output = `${files[0].name}-output${extension}`;
 
   await ffmpeg.run(
-    `-i ${name}  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
+    `-i "${name}"  ${params} -threads ${threads} ${outputCodec} -strict -2 ${output} ${
       compress ? compress : ""
     }`
   );
