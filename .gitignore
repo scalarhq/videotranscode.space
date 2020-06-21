@@ -4,3 +4,8 @@ public/build/bundle.css public/build/bundle.css.map public/build/bundle.js publi
 
 *.logsrc/dist
 src/dist/
+public/bundle.css public/bundle.css.map public/bundle.js public/bundle.js.map
+public/bundle.js.map
+public/bundle.js
+public/bundle.css.map
+public/bundle.css
