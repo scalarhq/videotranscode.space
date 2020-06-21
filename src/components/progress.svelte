@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
-  import { progressStore } from "../store/stores.js";
+  import { progressStore } from "../store/stores";
 
   export let progress = $progressStore;
   let progressBar;

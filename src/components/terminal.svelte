@@ -1,5 +1,5 @@
-<script>
-  import { terminalText, loadedStore, clearTerminal } from "../store/stores.js";
+<script lang="ts">
+  import { terminalText, loadedStore, clearTerminal } from "../store/stores";
   import { onMount } from "svelte";
   const t1 = new Terminal();
   const handleNewMessage = function(message, noflag) {
@@ -69,9 +69,9 @@
 </script>
 
 <style>
-  a :link {
+  /* a :link {
     color: #ff3e00;
-  }
+  } */
 </style>
 
 <div id="terminal" style="display: flex; flex: 0 1; height: 100%;" />

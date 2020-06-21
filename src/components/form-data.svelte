@@ -1,5 +1,5 @@
-<script>
-  import { hardwareData } from "../store/stores.js";
+<script lang="ts">
+  import { hardwareData } from "../store/stores";
 
   let data;
   hardwareData.subscribe(value => {
