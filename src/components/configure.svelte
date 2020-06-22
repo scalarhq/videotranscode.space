@@ -1,11 +1,6 @@
-<script>
+<script lang="ts">
   import OptionsList from "./configure-list.svelte";
-  import {
-    configSetOption,
-    config,
-    submit,
-    showConfig
-  } from "../store/stores.js";
+  import { configSetOption, config, submit, showConfig } from "../store/stores";
   import {
     find,
     FORMAT_TYPES,

@@ -1,5 +1,5 @@
-<script>
-  import { fileUploaded } from "../store/stores.js";
+<script lang="ts">
+  import { fileUploaded } from "../store/stores";
   import Container from "./container.svelte";
   import Dropzone from "svelte-dropzone";
   import { fly } from "svelte/transition";

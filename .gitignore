@@ -2,4 +2,10 @@ node_modules/
 public/build/
 public/build/bundle.css public/build/bundle.css.map public/build/bundle.js public/build/bundle.js.map
 
-*.log
+*.logsrc/dist
+src/dist/
+public/bundle.css public/bundle.css.map public/bundle.js public/bundle.js.map
+public/bundle.js.map
+public/bundle.js
+public/bundle.css.map
+public/bundle.css

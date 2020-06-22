@@ -1,5 +1,5 @@
-<script>
-  import { find } from "../store/configuration.js";
+<script lang="ts">
+  import { find } from "../store/configuration";
   import { configSetOption } from "../store/stores";
 
   export let title = "";
@@ -55,7 +55,7 @@
   }
 
   .options-list-item a:hover {
-      cursor: pointer;
+    cursor: pointer;
   }
 </style>
 
@@ -67,9 +67,7 @@
         <div
           class={item.name === current.name ? 'options-list-item active' : 'options-list-item'}>
 
-          <a on:click={e => handleClick(e, type, item.name)}>
-            {item.name}
-          </a>
+          <a on:click={e => handleClick(e, type, item.name)}>{item.name}</a>
         </div>
       </div>
     {/each}
