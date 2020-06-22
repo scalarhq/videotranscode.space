@@ -63,7 +63,7 @@
   clearTerminal.subscribe(value => {
     if (value) {
       t1.clear();
-      clearTerminal.update(existing => false);
+      clearTerminal.update(() => false);
     }
   });
 </script>

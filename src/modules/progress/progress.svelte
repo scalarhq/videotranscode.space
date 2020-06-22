@@ -1,14 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { progressStore } from "../store/stores";
+  import { progressStore } from "../../store/stores";
 
-  export let progress = $progressStore;
+  export let progress: number = $progressStore;
   let progressBar;
   onMount(() => {
     progressBar = document.getElementById("progress");
   });
 
-  let bar;
   progressStore.subscribe(value => {
     progress = value;
     if (progressBar) {

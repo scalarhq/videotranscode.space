@@ -1,20 +1,21 @@
 <script lang="ts">
   import { fileUploaded } from "../store/stores";
+  //@ts-ignore: Used inside Html of Svelte
   import Container from "./container.svelte";
+  //@ts-ignore: Used inside Html of Svelte
   import Dropzone from "svelte-dropzone";
-  import { fly } from "svelte/transition";
-
+  //@ts-ignore:  Svelte Support for $ sign
   $: uploaded = null;
-
+  //@ts-ignore: Used inside Html of Svelte
   const addedfile = file => {
     uploaded = true;
-    fileUploaded.update(existing => [file]);
+    fileUploaded.update(() => [file]);
   };
-
-  const drop = event => {
+  //@ts-ignore: Used inside Html of Svelte
+  const drop = () => {
     uploaded = true;
   };
-
+  //@ts-ignore: Used inside Html of Svelte
   const init = () => {
     const dropzone = document.getElementById("dropzone");
     dropzone.style.backgroundColor = "#272C31";

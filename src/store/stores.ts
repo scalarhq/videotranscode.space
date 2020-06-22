@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
+import { writable, Writable } from "svelte/store";
 import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from "./configuration";
-
+import { HardwareDataType } from "../types/hardwareData";
 const defaultFiles: File[] = [];
 
 export const fileUploaded = writable(defaultFiles);
@@ -25,7 +25,7 @@ export const progressStore = writable(1);
 
 export const sliderStore = writable(0);
 
-export const hardwareData = writable({});
+export const hardwareData: Writable<HardwareDataType | null> = writable(null);
 
 export const config = writable({
   /**

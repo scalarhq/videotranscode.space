@@ -6,6 +6,7 @@ import {
   config,
   submit,
 } from "../store/stores";
+import "../ts/form";
 
 import { ConfigurationType, FinalSettingsType } from "../types/formats";
 

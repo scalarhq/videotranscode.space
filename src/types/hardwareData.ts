@@ -1,4 +1,4 @@
-type hardwareDataType = {
+type HardwareDataType = {
   inputFileSize: string;
   encodeTime: number;
   threads: number;
@@ -10,9 +10,9 @@ type hardwareDataType = {
   navigator: string;
 };
 
-type fileDataType = {
+type FileDataType = {
   size: number;
   ext: string;
 };
 
-export { hardwareDataType, fileDataType };
+export { HardwareDataType, FileDataType };
