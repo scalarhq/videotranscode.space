@@ -10,17 +10,17 @@
     progressStore
   } from "./store/stores";
   import "./ts/processor";
-  import Typescript from "components/typescriptLoader.svelte";
-  import HeaderContent from "components/header.svelte";
-  import Terminal from "components/terminal.svelte";
-  import Dropzone from "components/dropzone.svelte";
-  import Loader from "components/loader.svelte";
+  import Typescript from "./components/typescriptLoader.svelte";
+  import HeaderContent from "./components/header.svelte";
+  import Terminal from "./components/terminal.svelte";
+  import Dropzone from "./components/dropzone.svelte";
+  import Loader from "./components/loader.svelte";
   import { fly, slide } from "svelte/transition";
-  import Configure from "components/configure.svelte";
-  import Video from "components/video.svelte";
-  import Progress from "components/progress.svelte";
-  import Footer from "components/footer.svelte";
-  import Form from "components/form-data.svelte";
+  import Configure from "./components/configure.svelte";
+  import Video from "./components/video.svelte";
+  import Progress from "./components/progress.svelte";
+  import Footer from "./components/footer.svelte";
+  import Form from "./components/form-data.svelte";
 
   let loaded = $loadedStore;
 
@@ -28,7 +28,7 @@
     loaded = val;
   });
   let fileState = $fileUploaded;
-  fileUploaded.subscribe(val => (fileState = val));
+  fileUploaded.subscribe(val => (fileState = val.length > 0 ? true : false));
   let processedState = $processed;
 
   let progressState = $progressStore;

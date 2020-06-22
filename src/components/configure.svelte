@@ -5,8 +5,8 @@
     find,
     FORMAT_TYPES,
     CODEC_TYPES,
-    CONFIG_OPTION_TYPES
-  } from "../store/configuration";
+    ConfigOptions
+  } from "../store/configuration.ts";
   import Slider from "./configure-slider.svelte";
 
   const formats = Object.keys(FORMAT_TYPES).map(key => FORMAT_TYPES[key]);
@@ -18,17 +18,17 @@
 
   const handleClick = (e, type, val) => {
     e.preventDefault();
-    if (type === CONFIG_OPTION_TYPES.FORMAT) {
+    if (type === ConfigOptions.Format) {
       const format = find(type, val);
       if (format !== config.format) {
-        configSetOption(CONFIG_OPTION_TYPES.CODEC, format.codecs[0]);
+        configSetOption(ConfigOptions.Codec, format.codecs[0]);
       }
     }
     configSetOption(type, find(type, val));
   };
   const handleSubmit = () => {
-    submit.update(existing => true);
-    showConfig.update(existing => false);
+    submit.update(() => true);
+    showConfig.update(() => false);
   };
 </script>
 
@@ -78,7 +78,7 @@
     <row>
       <OptionsList
         {handleClick}
-        type={CONFIG_OPTION_TYPES.FORMAT}
+        type={ConfigOptions.FORMAT}
         title="Output Format"
         items={formats}
         current={current.format} />
@@ -86,7 +86,7 @@
     <row>
       <OptionsList
         {handleClick}
-        type={CONFIG_OPTION_TYPES.CODEC}
+        type={ConfigOptions.CODEC}
         title="Output Codec"
         items={current.format.codecs.filter(element => element.notSupported !== true)}
         current={current.codec} />
