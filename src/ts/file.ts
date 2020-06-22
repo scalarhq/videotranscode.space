@@ -27,7 +27,7 @@ fileUploaded.subscribe((files: File[]) => {
     );
     const renamedFile = renameFile(file, fileData.ext);
     fileInput = renamedFile;
-    showConfig.update((exisiting) => true);
+    showConfig.update(() => true);
   }
 });
 
