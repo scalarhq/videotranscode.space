@@ -101,7 +101,7 @@
       aria-valuemin="0"
       aria-valuemax="100"
       style="width: 20%">
-      {progress}%
+      {progress.toFixed(2)}%
     </div>
   </div>
 </div>
