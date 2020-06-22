@@ -7,13 +7,13 @@ import {
   submit,
 } from "../store/stores";
 
-import { configurationType, finalSettingsType } from "../types/formats";
+import { ConfigurationType, FinalSettingsType } from "../types/formats";
 
 import { handleNewTranscode } from "./transcode";
 import { updateData, getThreads } from "./hardware";
 import { fileInput, fileData } from "./file";
 
-let configuration: configurationType;
+let configuration: ConfigurationType;
 
 /** Triggers whenever the codec or format is changed */
 config.subscribe((value: any) => {
@@ -30,7 +30,7 @@ const handleSubmit = async () => {
 
   const { format, codec } = configuration;
 
-  const finalSettings: finalSettingsType = {
+  const finalSettings: FinalSettingsType = {
     format: format.name,
     codec: codec.name,
   };

@@ -1,7 +1,7 @@
 import platform from "platform";
 import { hardwareData } from "../store/stores.js";
 import { fileDataType, hardwareDataType } from "../types/hardwareData";
-import { finalSettingsType } from "../types/formats.js";
+import { FinalSettingsType } from "../types/formats.js";
 
 const getThreads = () => {
   let threads = window.navigator.hardwareConcurrency;
@@ -32,7 +32,7 @@ const getNavigator = () => {
 const updateData = (
   encodeTime: number,
   fileData: fileDataType,
-  finalSettings: finalSettingsType
+  finalSettings: FinalSettingsType
 ) => {
   /** Gets data parameters */
   let threadsData = getThreads();

@@ -2,7 +2,6 @@ import { writable } from "svelte/store";
 import {
   FORMAT_TYPES,
   CODEC_TYPES,
-  CONFIG_OPTION_TYPES,
   ConfigOptions,
 } from "./configuration";
 
@@ -56,10 +55,9 @@ export const config = writable({
  *      type - One of CONFIG_OPTION_TYPES
  *      val - One of FORMAT_TYPES or CODEC_TYPES
  */
-export const configSetOption = (type: ConfigOptions, val) => {
-  if (!Object.values(CONFIG_OPTION_TYPES).includes(type)) return;
+export const configSetOption = (type: ConfigOptions, val: any) => {
 
-  const temp = {};
+  const temp: any = {};
   temp[type] = val;
   config.update((state) => Object.assign({}, state, temp));
 };

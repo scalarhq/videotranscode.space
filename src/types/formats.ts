@@ -1,29 +1,32 @@
-type codecType = {
-  name: string;
-  compressionRange: {
-    min: number;
-    max: number;
-  };
-  ffmpegLib: string;
-};
+type CodecType = {
+  name: string,
+  compressionRange: CodecCompressionRange,
+  ffmpegLib: string,
+  notSupported?: boolean,
+}
 
-type formatType = {
+type CodecCompressionRange = {
+  min: number,
+  max: number
+}
+
+type FormatType = {
   name: string;
   type: string;
   extension: string;
   display: boolean;
-  codec: codecType[];
-  defaultCodec: codecType | null;
+  codec: CodecType[];
+  defaultCodec: CodecType | null;
 };
 
-type configurationType = {
-  format: formatType;
-  codec: codecType;
+type ConfigurationType = {
+  format: FormatType;
+  codec: CodecType;
 };
 
-type finalSettingsType = {
+type FinalSettingsType = {
   format: string;
   codec: string;
 };
 
-export { codecType, formatType, configurationType, finalSettingsType };
+export { CodecType, FormatType, ConfigurationType, FinalSettingsType };

@@ -1,11 +1,11 @@
-import { formatType, codecType } from "../types/formats";
-import { operator, ffmpegDataType } from "./ffmpeg";
+import { FormatType, CodecType } from "../types/formats";
+import { operator, FFmpegDataType } from "./ffmpeg";
 import { videoDisplay } from "../store/stores";
 
 const handleNewTranscode = async (
   inputFile: File,
-  chosenFormat: formatType,
-  chosenCodec: codecType,
+  chosenFormat: FormatType,
+  chosenCodec: CodecType,
   threads: number
 ) => {
   const { extension, display, defaultCodec } = chosenFormat;
@@ -19,7 +19,7 @@ const handleNewTranscode = async (
     finalCodec = chosenCodec.ffmpegLib;
   }
 
-  const ffmpegInput: ffmpegDataType = {
+  const ffmpegInput: FFmpegDataType = {
     threads: threads,
     compress: "",
     outputFile: outputFile,

@@ -1,5 +1,4 @@
 import { loadedStore, progressStore } from "../store/stores";
-// import FFmpeg from "../../public/ffmpeg.min";
 
 //@ts-ignore: Already Loaded into Scope
 const { createFFmpeg } = FFmpeg;
@@ -12,7 +11,7 @@ const ffmpeg = createFFmpeg({
     const value: number = input.ratio * 100.0;
     if (value > 0) {
       console.info(`Completed ${value.toFixed(2)}%`);
-      progressStore.update((exisiting) => value);
+      progressStore.update(() => value);
     }
   },
 });
@@ -25,10 +24,10 @@ const ffmpeg = createFFmpeg({
     alert(`Your Browser is not supported ${err.message}`);
   }
   console.info("Loaded!");
-  loadedStore.update((exisiting) => true);
+  loadedStore.update(() => true);
 })();
 
-type ffmpegDataType = {
+type FFmpegDataType = {
   outputFile: string;
   threads: number;
   outputCodec: string;
@@ -39,7 +38,7 @@ type ffmpegDataType = {
  *
  */
 
-const operator = async (file: File, ffmpegData: ffmpegDataType) => {
+const operator = async (file: File, ffmpegData: FFmpegDataType) => {
   const { name } = file;
   const { outputFile, threads, outputCodec, compress } = ffmpegData;
   await ffmpeg.write(name, file);
@@ -52,4 +51,4 @@ const operator = async (file: File, ffmpegData: ffmpegDataType) => {
   return processedFile;
 };
 
-export { operator, ffmpegDataType };
+export { operator, FFmpegDataType };
