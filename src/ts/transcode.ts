@@ -13,10 +13,10 @@ const handleNewTranscode = async (
   const outputFile = `${inputFile.name}-output${extension}`;
 
   // If Format has a defaultCodec then it will be that
-  let finalCodec = defaultCodec ? defaultCodec.ffmpegLib : "";
+  let finalCodec = defaultCodec ? `-c:v ${defaultCodec.ffmpegLib}` : "";
 
   if (chosenCodec) {
-    finalCodec = chosenCodec.ffmpegLib;
+    finalCodec = `-c:v ${chosenCodec.ffmpegLib}`;
   }
 
   const ffmpegInput: FFmpegDataType = {
