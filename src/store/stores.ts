@@ -61,5 +61,5 @@ export const configSetOption = (type: any, val: any) => {
   if (!Object.values(CONFIG_OPTION_TYPES).includes(type)) return;
 
   const temp = { [type]: val };
-  config.update((state) => Object.assign({}, state, temp));
+  config.update((state: any) => Object.assign({}, state, temp));
 };
