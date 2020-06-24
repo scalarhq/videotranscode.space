@@ -65,18 +65,43 @@ const handleSubmit = async () => {
     `The final settings are fileType ${format.name} with ${codec.name}`
   );
 
-  /** Compression - Transcode Logic goes here
-   *
-   */
-  const transcodedVideo = await handleNewTranscode(
-    fileInput,
-    format,
-    codec,
-    threads
-  );
-  console.info("Completed Processing!");
-  console.info(typeof transcodedVideo);
-  console.info(transcodedVideo);
+  let toTranscode = false;
+
+  const inputExtension = "." + fileData.ext;
+  const outputExtension = format.extension;
+
+  if (inputExtension != outputExtension) {
+    toTranscode = true;
+  }
+
+  let transcodedVideo;
+  if (sliderValue > 0) {
+    const finalCompressionValue = "-crf " + compressionValue.toString();
+    const compressedVideo = await handleNewCompression(
+      fileInput,
+      format,
+      finalCompressionValue,
+      threads
+    );
+    
+    if (toTranscode) {
+      /** Pass video to transcode */
+      transcodedVideo = await handleNewTranscode(
+        compressedVideo,
+        format,
+        codec,
+        threads
+      );
+    }
+  } else {
+    transcodedVideo = await handleNewTranscode(
+      fileInput,
+      format,
+      codec,
+      threads
+    );
+  }
+  
   terminalText.update(() => "Complete processing");
 
   createVideoObject(transcodedVideo, format.type);
