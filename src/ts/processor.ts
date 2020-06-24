@@ -5,6 +5,7 @@ import {
   processed,
   config,
   submit,
+  sliderStore
 } from "../store/stores";
 import "../ts/form";
 
@@ -38,7 +39,13 @@ config.subscribe((value: any) => {
   );
 });
 
-console.info("PROCESSOR.TS LOADED!");
+/** Triggers whenever the slider is moved */
+sliderStore.subscribe((value) => {
+  sliderValue = value;
+  console.log(`The new compression level is ${sliderValue}%`);
+  /** Changes a 0-100 % range to a range between the minimum and maximum values for the chosen codec */
+  compressionValue = min + ((max - 1) * sliderValue) / 100;
+});
 
 const handleSubmit = async () => {
   const start = new Date().getTime();
