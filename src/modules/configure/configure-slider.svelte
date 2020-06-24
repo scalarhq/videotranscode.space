@@ -38,7 +38,7 @@
   }
 </style>
 
-<!-- 
+
 <div class>
   <div class="configure-slider">
     <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} on:change={updateValue} class="slider">
@@ -46,4 +46,4 @@
   <div>
       Compression Level: {sliderValue}%
   </div>
-</div> -->
+</div>

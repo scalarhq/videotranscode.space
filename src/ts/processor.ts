@@ -79,7 +79,6 @@ const handleSubmit = async () => {
     const finalCompressionValue = "-crf " + compressionValue.toString();
     const compressedVideo = await handleNewCompression(
       fileInput,
-      format,
       finalCompressionValue,
       threads
     );
@@ -101,7 +100,7 @@ const handleSubmit = async () => {
       threads
     );
   }
-  
+
   terminalText.update(() => "Complete processing");
 
   createVideoObject(transcodedVideo, format.type);
