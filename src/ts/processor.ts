@@ -11,14 +11,28 @@ import "../ts/form";
 import { ConfigurationType, FinalSettingsType } from "../types/formats";
 
 import { handleNewTranscode } from "./transcode";
+import { handleNewCompression } from "./compression";
 import { updateData, getThreads } from "./hardware";
 import { fileInput, fileData } from "./file";
 
 let configuration: ConfigurationType;
+let min = 0;
+let max = 0;
+let sliderValue = 0;
+let compressionValue = 0;
 
 /** Triggers whenever the codec or format is changed */
 config.subscribe((value: any) => {
   configuration = value;
+  let currentCodec = configuration.codec;
+  min = currentCodec.compressionRange.min;
+  max = currentCodec.compressionRange.max;
+
+  if (sliderValue > 0 && compressionValue > 0) {
+    /** Updates the slider value to the range of the new codec in case the codec is switched */
+    compressionValue = min + ((max - 1) * sliderValue) / 100;
+  }
+
   console.log(
     `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
   );
