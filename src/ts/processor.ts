@@ -73,23 +73,29 @@ const handleSubmit = async () => {
   if (inputExtension != outputExtension) {
     toTranscode = true;
   }
-
+  console.info("This printed.")
   let transcodedVideo;
   if (sliderValue > 0) {
+    console.info("Did this print?")
     const finalCompressionValue = "-crf " + compressionValue.toString();
-    const compressedVideo = await handleNewCompression(
+    const data = await handleNewCompression(
       fileInput,
       finalCompressionValue,
       threads
     );
+    const compressionOutput = data.name;
+    const video = data.video;
+    console.info("Video");
+    console.info(video);
     
     if (toTranscode) {
       /** Pass video to transcode */
       transcodedVideo = await handleNewTranscode(
-        compressedVideo,
+        video,
         format,
         codec,
-        threads
+        threads,
+        compressionOutput
       );
     }
   } else {

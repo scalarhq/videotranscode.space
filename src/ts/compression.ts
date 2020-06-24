@@ -20,7 +20,8 @@ const handleNewCompression = async (
     
     /** Displays the compressed video if no transcode operation was selected (format change) */
     const processedVideo = await operator(inputFile, ffmpegInput);
-    return processedVideo;
+    const data = {name: outputFile, video: processedVideo};
+    return data;
 }
 
 export { handleNewCompression };

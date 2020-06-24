@@ -3,14 +3,20 @@ import { operator, FFmpegDataType } from "./ffmpeg";
 import { videoDisplay } from "../store/stores";
 
 const handleNewTranscode = async (
-  inputFile: File,
+  inputFile: File | Uint8Array,
   chosenFormat: FormatType,
   chosenCodec: CodecType,
-  threads: number
+  threads: number,
+  name?: string
 ) => {
   const { extension, display, defaultCodec } = chosenFormat;
 
-  const outputFile = `${inputFile.name}-output${extension}`;
+  let outputFile;
+  if (inputFile instanceof File) {
+    outputFile = `${inputFile.name}-output${extension}`;
+  } else if (inputFile instanceof Uint8Array) {
+    outputFile = `output${extension}`;
+  }
 
   // If Format has a defaultCodec then it will be that
   let finalCodec = defaultCodec ? `-c:v ${defaultCodec.ffmpegLib}` : "";
