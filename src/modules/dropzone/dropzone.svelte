@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { fileUploaded } from "../store/stores";
+  import { fileUploaded } from "../..//store/stores";
   //@ts-ignore: Used inside Html of Svelte
-  import Container from "./container.svelte";
+  import Container from "../../components/container.svelte";
   //@ts-ignore: Used inside Html of Svelte
   import Dropzone from "svelte-dropzone";
   //@ts-ignore:  Svelte Support for $ sign

@@ -48,6 +48,7 @@ const operator = async (file: File, ffmpegData: FFmpegDataType) => {
     }`
   );
   const processedFile = ffmpeg.read(`${outputFile}`);
+  console.log("FROM INSIDE FFmpeg FINISHED PROCESSING");
   return processedFile;
 };
 

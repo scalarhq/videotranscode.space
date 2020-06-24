@@ -1,8 +1,8 @@
-import { fileDataType } from "../types/hardwareData";
+import { FileDataType } from "../types/hardwareData";
 import { fileUploaded, showConfig } from "../store/stores";
 
 let fileInput: File;
-const fileData: fileDataType = {
+const fileData: FileDataType = {
   size: 0,
   ext: "",
 };

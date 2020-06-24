@@ -151,5 +151,4 @@
     </div>
   {/if}
   <Footer />
-  <Typescript />
 </main>

@@ -1,6 +1,6 @@
 import platform from "platform";
 import { hardwareData } from "../store/stores.js";
-import { fileDataType, hardwareDataType } from "../types/hardwareData";
+import { FileDataType, HardwareDataType } from "../types/hardwareData";
 import { FinalSettingsType } from "../types/formats.js";
 
 const getThreads = () => {
@@ -31,7 +31,7 @@ const getNavigator = () => {
 
 const updateData = (
   encodeTime: number,
-  fileData: fileDataType,
+  fileData: FileDataType,
   finalSettings: FinalSettingsType
 ) => {
   /** Gets data parameters */
@@ -42,7 +42,7 @@ const updateData = (
   let inputFileSizeData = sizeHumanReadable(fileData.size);
   let encodeTimeData = encodeTime;
 
-  let currentData: hardwareDataType = {
+  let currentData: HardwareDataType = {
     inputFileSize: inputFileSizeData,
     encodeTime: encodeTimeData,
     threads: threadsData,

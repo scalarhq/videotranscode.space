@@ -24,6 +24,8 @@ config.subscribe((value: any) => {
   );
 });
 
+console.info("PROCESSOR.TS LOADED!");
+
 const handleSubmit = async () => {
   const start = new Date().getTime();
 
@@ -51,6 +53,9 @@ const handleSubmit = async () => {
     codec,
     threads
   );
+  console.info("Completed Processing!");
+  console.info(typeof transcodedVideo);
+  console.info(transcodedVideo);
   terminalText.update(() => "Complete processing");
 
   createVideoObject(transcodedVideo, format.type);

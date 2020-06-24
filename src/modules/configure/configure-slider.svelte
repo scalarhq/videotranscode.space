@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { config, sliderStore } from "../store/stores";
+  import { config, sliderStore } from "../../store/stores";
 
   let sliderMin = 0;
   let sliderMax = 100;

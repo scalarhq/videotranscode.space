@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { terminalText, loadedStore, clearTerminal } from "../store/stores";
+  import { terminalText, loadedStore, clearTerminal } from "../../store/stores";
   import { onMount } from "svelte";
   const t1 = new Terminal();
   const handleNewMessage = function(message, noflag) {

@@ -1,12 +1,17 @@
 <script lang="ts">
   import OptionsList from "./configure-list.svelte";
-  import { configSetOption, config, submit, showConfig } from "../store/stores";
+  import {
+    configSetOption,
+    config,
+    submit,
+    showConfig
+  } from "../../store/stores";
   import {
     find,
     FORMAT_TYPES,
     CODEC_TYPES,
     ConfigOptions
-  } from "../store/configuration.ts";
+  } from "../../store/configuration.ts";
   import Slider from "./configure-slider.svelte";
 
   const formats = Object.keys(FORMAT_TYPES).map(key => FORMAT_TYPES[key]);

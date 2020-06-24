@@ -14,19 +14,19 @@ export default app;
 let newConsole = function (oldCons: typeof window.console) {
   return {
     ...oldCons,
-    log: function (text: string) {
+    log: function (text: any) {
       oldCons.log(text);
       terminalText.update(() => text);
     },
-    info: function (text: string) {
+    info: function (text: any) {
       oldCons.info(text);
       // terminalText.update((existing) => text);
     },
-    warn: function (text: string) {
+    warn: function (text: any) {
       oldCons.warn(text);
       // Your code
     },
-    error: function (text: string) {
+    error: function (text: any) {
       oldCons.error(text);
       // Your code
     },
