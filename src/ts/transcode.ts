@@ -32,7 +32,14 @@ const handleNewTranscode = async (
     outputCodec: finalCodec,
   };
 
-  const processedVideo = await operator(inputFile, ffmpegInput);
+  let processedVideo;
+  
+  if (inputFile instanceof File) {
+    processedVideo = await operator(inputFile, ffmpegInput);
+  } else {
+    console.info(name);
+    processedVideo = await operator(inputFile, ffmpegInput, name);
+  }
 
   videoDisplay.update(() => display);
 

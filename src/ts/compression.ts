@@ -1,7 +1,5 @@
 import { fileData } from "./file"
 import { FFmpegDataType, operator } from "./ffmpeg";
-import { FormatType } from "../types/formats";
-import { videoDisplay } from "../store/stores";
 
 const handleNewCompression = async (
     inputFile: File,

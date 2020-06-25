@@ -52,7 +52,6 @@ const operator = async (
       }`
     );
   } else if (file instanceof Uint8Array) {
-    console.info("Uint8Array!");
     await ffmpeg.run(
       `-i '${inputName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
         compress ? compress : ""
