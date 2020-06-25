@@ -14,7 +14,7 @@ const handleNewTranscode = async (
   let outputFile;
   if (inputFile instanceof File) {
     outputFile = `${inputFile.name}-output${extension}`;
-  } else if (inputFile instanceof Uint8Array) {
+  } else {
     outputFile = `output${extension}`;
   }
 

@@ -37,7 +37,11 @@ type FFmpegDataType = {
  *
  */
 
-const operator = async (file: File | Uint8Array, ffmpegData: FFmpegDataType, inputName?: string) => {
+const operator = async (
+  file: File | Uint8Array,
+  ffmpegData: FFmpegDataType,
+  inputName?: string
+) => {
   const { outputFile, threads, outputCodec, compress } = ffmpegData;
   if (file instanceof File) {
     const { name } = file;
@@ -53,8 +57,9 @@ const operator = async (file: File | Uint8Array, ffmpegData: FFmpegDataType, inp
       `-i '${inputName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
         compress ? compress : ""
       }`
+    );
   }
-  
+
   const processedFile = ffmpeg.read(`${outputFile}`);
   return processedFile;
 };
