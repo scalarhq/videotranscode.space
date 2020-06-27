@@ -18,16 +18,16 @@ let newConsole = function (oldCons: typeof window.console) {
       oldCons.log(text);
       terminalText.update(() => text);
     },
-    info: function (text: any) {
-      oldCons.info(text);
+    info: function (...text: any) {
+      oldCons.info(...text);
       // terminalText.update((existing) => text);
     },
-    warn: function (text: any) {
-      oldCons.warn(text);
+    warn: function (...text: any) {
+      oldCons.warn(...text);
       // Your code
     },
     error: function (text: any) {
-      oldCons.error(text);
+      oldCons.error(...text);
       // Your code
     },
   };
