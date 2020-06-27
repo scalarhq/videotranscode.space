@@ -52,6 +52,15 @@ export const config = writable({
  */
 export const configSetOption = (type: ConfigOptions, val: any) => {
   const temp: any = {};
-  temp[type] = val;
+  /**
+   * Error Caught Here, Expected
+   * type ConfigurationType = {
+   * format : FormatType,
+   * codec: CodecType
+   * }
+   * Enum has Codec and Format, Mis Matched Case
+   */
+
+  temp[ConfigOptions[type].toLowerCase()] = val;
   config.update((state) => Object.assign({}, state, temp));
 };
