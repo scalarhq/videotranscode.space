@@ -5,7 +5,7 @@ import {
   processed,
   config,
   submit,
-  sliderStore
+  sliderStore,
 } from "../store/stores";
 import "../ts/form";
 
@@ -84,7 +84,7 @@ const handleSubmit = async () => {
     );
     const compressionOutput = data.name;
     const video = data.video;
-    
+
     if (toTranscode) {
       /** Pass video to transcode */
       transcodedVideo = await handleNewTranscode(

@@ -1,14 +1,14 @@
 type CodecType = {
-  name: string,
-  compressionRange: CodecCompressionRange,
-  ffmpegLib: string,
-  notSupported?: boolean,
-}
+  name: string;
+  compressionRange: CodecCompressionRange;
+  ffmpegLib: string;
+  notSupported?: boolean;
+};
 
 type CodecCompressionRange = {
-  min: number,
-  max: number
-}
+  min: number;
+  max: number;
+};
 
 type FormatType = {
   name: string;
