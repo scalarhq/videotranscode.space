@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { find } from "../store/configuration";
-  import { configSetOption } from "../store/stores";
+  import { find } from "../../store/configuration";
+  import { configSetOption } from "../../store/stores";
 
   export let title = "";
   export let items = [];

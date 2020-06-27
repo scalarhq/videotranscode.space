@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { config, sliderStore } from "../store/stores";
+  import { config, sliderStore } from "../../store/stores";
 
   let sliderMin = 0;
   let sliderMax = 100;
@@ -38,7 +38,7 @@
   }
 </style>
 
-<!-- 
+
 <div class>
   <div class="configure-slider">
     <input type="range" min={sliderMin} max={sliderMax} bind:value={sliderValue} on:change={updateValue} class="slider">
@@ -46,4 +46,4 @@
   <div>
       Compression Level: {sliderValue}%
   </div>
-</div> -->
+</div>

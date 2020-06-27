@@ -1,4 +1,5 @@
 <script lang="ts">
+  // Svelte Imports
   import { writable } from "svelte/store";
   import {
     fileUploaded,
@@ -9,18 +10,23 @@
     showConfig,
     progressStore
   } from "./store/stores";
-  import "./ts/processor";
-  import Typescript from "./components/typescriptLoader.svelte";
-  import HeaderContent from "./components/header.svelte";
-  import Terminal from "./components/terminal.svelte";
-  import Dropzone from "./components/dropzone.svelte";
-  import Loader from "./components/loader.svelte";
   import { fly, slide } from "svelte/transition";
-  import Configure from "./components/configure.svelte";
-  import Video from "./components/video.svelte";
-  import Progress from "./components/progress.svelte";
+
+  // TS Imports
+  import "./ts/processor";
+
+  // Static Svelte Componets
+
+  import HeaderContent from "./components/header.svelte";
+  import Loader from "./components/loader.svelte";
   import Footer from "./components/footer.svelte";
-  import Form from "./components/form-data.svelte";
+
+  // Dynamic Svelte Modules
+  import Terminal from "./modules/terminal/terminal.svelte";
+  import Dropzone from "./modules/dropzone/dropzone.svelte";
+  import Configure from "./modules/configure/configure.svelte";
+  import Video from "./modules/video/video.svelte";
+  import Progress from "./modules/progress/progress.svelte";
 
   let loaded = $loadedStore;
 
@@ -144,7 +150,5 @@
       </div>
     </div>
   {/if}
-  <Form />
   <Footer />
-  <Typescript />
 </main>

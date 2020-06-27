@@ -1,16 +1,23 @@
 import { FormatType, CodecType } from "../types/formats";
 import { operator, FFmpegDataType } from "./ffmpeg";
-import { videoDisplay } from "../store/stores";
+import { videoDisplay, progressType } from "../store/stores";
 
 const handleNewTranscode = async (
-  inputFile: File,
+  inputFile: File | Uint8Array,
   chosenFormat: FormatType,
   chosenCodec: CodecType,
-  threads: number
+  threads: number,
+  name?: string
 ) => {
+  progressType.update(() => "Transcode");
   const { extension, display, defaultCodec } = chosenFormat;
 
-  const outputFile = `${inputFile.name}-output${extension}`;
+  let outputFile;
+  if (inputFile instanceof File) {
+    outputFile = `${inputFile.name}-output${extension}`;
+  } else {
+    outputFile = `output${extension}`;
+  }
 
   // If Format has a defaultCodec then it will be that
   let finalCodec = defaultCodec ? `-c:v ${defaultCodec.ffmpegLib}` : "";
@@ -26,7 +33,14 @@ const handleNewTranscode = async (
     outputCodec: finalCodec,
   };
 
-  const processedVideo = await operator(inputFile, ffmpegInput);
+  let processedVideo;
+
+  if (inputFile instanceof File) {
+    processedVideo = await operator(inputFile, ffmpegInput);
+  } else {
+    console.info(name);
+    processedVideo = await operator(inputFile, ffmpegInput, name);
+  }
 
   videoDisplay.update(() => display);
 

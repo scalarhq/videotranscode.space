@@ -3,27 +3,20 @@ import {
   terminalText,
   clearTerminal,
   processed,
-  config,
   submit,
 } from "../store/stores";
+import "../ts/form";
 
 import { ConfigurationType, FinalSettingsType } from "../types/formats";
 
 import { handleNewTranscode } from "./transcode";
+import { handleNewCompression } from "./compression";
 import { updateData, getThreads } from "./hardware";
 import { fileInput, fileData } from "./file";
-
-let configuration: ConfigurationType;
-
-/** Triggers whenever the codec or format is changed */
-config.subscribe((value: any) => {
-  configuration = value;
-  console.log(
-    `The new file format is ${configuration.format.name} and the chosen codec is ${configuration.codec.name}`
-  );
-});
+import { finalConfiguration } from "./configuration";
 
 const handleSubmit = async () => {
+  const { configuration, sliderValue, compressionValue } = finalConfiguration;
   const start = new Date().getTime();
 
   terminalText.update(() => "Start processing");
@@ -41,15 +34,46 @@ const handleSubmit = async () => {
     `The final settings are fileType ${format.name} with ${codec.name}`
   );
 
-  /** Compression - Transcode Logic goes here
-   *
-   */
-  const transcodedVideo = await handleNewTranscode(
-    fileInput,
-    format,
-    codec,
-    threads
-  );
+  let toTranscode = false;
+
+  const inputExtension = "." + fileData.ext;
+  const outputExtension = format.extension;
+
+  if (inputExtension != outputExtension) {
+    toTranscode = true;
+  }
+
+  let transcodedVideo;
+  if (sliderValue > 0) {
+    console.info("Compressing");
+    const finalCompressionValue = "-crf " + compressionValue.toString();
+    const data = await handleNewCompression(
+      fileInput,
+      finalCompressionValue,
+      threads
+    );
+    const compressionOutput = data.name;
+    const video = data.video;
+
+    if (toTranscode) {
+      /** Pass video to transcode */
+      transcodedVideo = await handleNewTranscode(
+        video,
+        format,
+        codec,
+        threads,
+        compressionOutput
+      );
+    }
+  } else {
+    transcodedVideo = await handleNewTranscode(
+      fileInput,
+      format,
+      codec,
+      threads
+    );
+  }
+
   terminalText.update(() => "Complete processing");
 
   createVideoObject(transcodedVideo, format.type);
@@ -58,6 +82,9 @@ const handleSubmit = async () => {
   const end = new Date().getTime();
   const encodeTime = (end - start) / 1000;
   updateData(encodeTime, fileData, finalSettings);
+  console.log(
+    `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
+  );
 };
 
 const createVideoObject = (processedFile: any, videoType: string) => {

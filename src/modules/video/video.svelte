@@ -1,6 +1,7 @@
 <script lang="ts">
+  //@ts-nocheck
   import { onMount } from "svelte/";
-  import { transcoded, videoDisplay, config } from "../store/stores";
+  import { transcoded, videoDisplay, config } from "../../store/stores";
 
   let blobUrl;
   export let videoState = $videoDisplay;

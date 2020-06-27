@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
+import { writable, Writable } from "svelte/store";
 import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from "./configuration";
-
+import { HardwareDataType } from "../types/hardwareData";
 const defaultFiles: File[] = [];
 
 export const fileUploaded = writable(defaultFiles);
@@ -23,9 +23,13 @@ export const processed = writable(false);
 
 export const progressStore = writable(1);
 
+export const progressType: Writable<"Transcode" | "Compress"> = writable(
+  "Transcode"
+);
+
 export const sliderStore = writable(0);
 
-export const hardwareData = writable({});
+export const hardwareData: Writable<HardwareDataType | null> = writable(null);
 
 export const config = writable({
   /**
@@ -52,6 +56,15 @@ export const config = writable({
  */
 export const configSetOption = (type: ConfigOptions, val: any) => {
   const temp: any = {};
-  temp[type] = val;
+  /**
+   * Error Caught Here, Expected
+   * type ConfigurationType = {
+   * format : FormatType,
+   * codec: CodecType
+   * }
+   * Enum has Codec and Format, Mis Matched Case
+   */
+
+  temp[ConfigOptions[type].toLowerCase()] = val;
   config.update((state) => Object.assign({}, state, temp));
 };

@@ -1,27 +1,52 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { progressStore } from "../store/stores";
+  import { progressStore, progressType } from "../../store/stores";
 
-  export let progress = $progressStore;
+  export let progressTitle = "";
+
+  export let progress: number = $progressStore;
   let progressBar;
   onMount(() => {
     progressBar = document.getElementById("progress");
+    progressType.subscribe((value: "Transcode" | "Compress") => {
+      if (value === "Transcode") {
+        progressTitle = "Transcoding...";
+
+        progressBar ? (progressBar.style.backgroundColor = "#0d6efd") : null;
+      } else {
+        progressTitle = "Compressing...";
+        if (progressBar) {
+          console.info("Pre Color Update");
+          progressBar.style.backgroundColor = "#3FBD71";
+          console.info("Updated", progressBar);
+        }
+      }
+    });
   });
 
-  let bar;
   progressStore.subscribe(value => {
     progress = value;
     if (progressBar) {
-      progressBar.style = `width : ${progress}%`;
+      if (progress > 1) {
+        progress = 20 + 0.4 * progress * Math.log10(progress);
+        progressBar.style.width = `${progress}%`;
+      }
     }
   });
 </script>
 
 <style>
+  .bg-danger {
+    background-color: #dc3545 !important;
+  }
   .progress-wrapper {
     display: flex;
     margin: auto;
     width: 30vh;
+  }
+  .row {
+    flex-direction: row;
+    justify-content: center;
   }
 
   @-webkit-keyframes progress-bar-stripes {
@@ -91,7 +116,11 @@
   }
 </style>
 
+<div class="row">
+  <h3>{progressTitle}</h3>
+</div>
 <div class="progress-wrapper">
+
   <div class="progress">
     <div
       class="progress-bar progress-bar-striped progress-bar-animated"

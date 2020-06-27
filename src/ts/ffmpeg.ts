@@ -23,7 +23,6 @@ const ffmpeg = createFFmpeg({
   } catch (err) {
     alert(`Your Browser is not supported ${err.message}`);
   }
-  console.info("Loaded!");
   loadedStore.update(() => true);
 })();
 
@@ -38,15 +37,28 @@ type FFmpegDataType = {
  *
  */
 
-const operator = async (file: File, ffmpegData: FFmpegDataType) => {
-  const { name } = file;
+const operator = async (
+  file: File | Uint8Array,
+  ffmpegData: FFmpegDataType,
+  inputName?: string
+) => {
   const { outputFile, threads, outputCodec, compress } = ffmpegData;
-  await ffmpeg.write(name, file);
-  await ffmpeg.run(
-    `-i '${name}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
-      compress ? compress : ""
-    }`
-  );
+  if (file instanceof File) {
+    const { name } = file;
+    await ffmpeg.write(name, file);
+    await ffmpeg.run(
+      `-i '${name}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
+        compress ? compress : ""
+      }`
+    );
+  } else if (file instanceof Uint8Array) {
+    await ffmpeg.run(
+      `-i '${inputName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
+        compress ? compress : ""
+      }`
+    );
+  }
+
   const processedFile = ffmpeg.read(`${outputFile}`);
   return processedFile;
 };

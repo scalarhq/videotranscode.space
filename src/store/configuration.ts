@@ -29,6 +29,7 @@ const returnName = (config: ChosenConfig, name: string) => {
  *
  */
 export const find = (type: ConfigOptions, name: string) => {
+  // console.info("From find", type, type === ConfigOptions.Format);
   if (type === ConfigOptions.Codec) return returnName(CODEC_TYPES, name);
   if (type === ConfigOptions.Format) return returnName(FORMAT_TYPES, name);
   return null;
