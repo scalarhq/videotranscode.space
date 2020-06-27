@@ -1,7 +1,7 @@
 import platform from "platform";
-import { hardwareData } from "../store/stores.js";
+import { hardwareData } from "../store/stores";
 import { FileDataType, HardwareDataType } from "../types/hardwareData";
-import { FinalSettingsType } from "../types/formats.js";
+import { FinalSettingsType } from "../types/formats";
 
 const getThreads = () => {
   let threads = window.navigator.hardwareConcurrency;
