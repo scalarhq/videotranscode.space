@@ -1,6 +1,6 @@
 import { FormatType, CodecType } from "../types/formats";
 import { operator, FFmpegDataType } from "./ffmpeg";
-import { videoDisplay } from "../store/stores";
+import { videoDisplay, progressType } from "../store/stores";
 
 const handleNewTranscode = async (
   inputFile: File | Uint8Array,
@@ -9,6 +9,7 @@ const handleNewTranscode = async (
   threads: number,
   name?: string
 ) => {
+  progressType.update(() => "Transcode");
   const { extension, display, defaultCodec } = chosenFormat;
 
   let outputFile;
@@ -33,7 +34,7 @@ const handleNewTranscode = async (
   };
 
   let processedVideo;
-  
+
   if (inputFile instanceof File) {
     processedVideo = await operator(inputFile, ffmpegInput);
   } else {

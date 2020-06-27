@@ -23,6 +23,10 @@ export const processed = writable(false);
 
 export const progressStore = writable(1);
 
+export const progressType: Writable<"Transcode" | "Compress"> = writable(
+  "Transcode"
+);
+
 export const sliderStore = writable(0);
 
 export const hardwareData: Writable<HardwareDataType | null> = writable(null);

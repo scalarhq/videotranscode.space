@@ -15,9 +15,8 @@ import { updateData, getThreads } from "./hardware";
 import { fileInput, fileData } from "./file";
 import { finalConfiguration } from "./configuration";
 
-const { configuration, sliderValue, compressionValue } = finalConfiguration;
-
 const handleSubmit = async () => {
+  const { configuration, sliderValue, compressionValue } = finalConfiguration;
   const start = new Date().getTime();
 
   terminalText.update(() => "Start processing");
@@ -46,6 +45,7 @@ const handleSubmit = async () => {
 
   let transcodedVideo;
   if (sliderValue > 0) {
+    console.info("Compressing");
     const finalCompressionValue = "-crf " + compressionValue.toString();
     const data = await handleNewCompression(
       fileInput,
