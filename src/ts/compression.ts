@@ -1,27 +1,26 @@
 import { fileData } from "./file";
 import { progressType } from "../store/stores";
-import { FFmpegDataType, operator } from "./ffmpeg";
+import { FFmpegDataType, ffmpegRunner } from "./ffmpeg";
+import { finalConfiguration } from "./configuration";
 
-const handleNewCompression = async (
-  inputFile: File,
-  compressionValue: string,
-  threads: number
-) => {
+const handleNewCompression = async (inputFileName: string, threads: number) => {
   progressType.update(() => "Compress");
+  const { compressionValue } = finalConfiguration;
   const inputExtension = "." + fileData.ext;
-  const outputFile = `${inputFile.name}-output${inputExtension}`;
+  const outputFile = `${inputFileName}-output${inputExtension}`;
 
-  const ffmpegInput: FFmpegDataType = {
+  const finalCompressionValue = `-crf ${compressionValue}`;
+
+  const compressionData: FFmpegDataType = {
     threads: threads,
-    compress: compressionValue,
+    compress: finalCompressionValue,
     outputFile: outputFile,
     outputCodec: "",
   };
 
   /** Displays the compressed video if no transcode operation was selected (format change) */
-  const processedVideo = await operator(inputFile, ffmpegInput);
-  const data = { name: outputFile, video: processedVideo };
-  return data;
+  const processedVideoName = await ffmpegRunner(inputFileName, compressionData);
+  return processedVideoName;
 };
 
 export { handleNewCompression };
