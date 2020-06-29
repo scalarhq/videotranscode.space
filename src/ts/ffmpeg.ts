@@ -33,34 +33,29 @@ type FFmpegDataType = {
   compress: string;
 };
 
+const ffmpegWriter = async (file: File) => {
+  const { name } = file;
+  await ffmpeg.write(name, file);
+  return name;
+};
+
+const ffmpegReader = async (fileName: string) => {
+  const processedFile: Uint8Array = ffmpeg.read(`${fileName}`);
+  return processedFile;
+};
+
 /** FFmpeg Runner
  *
  */
 
-const operator = async (
-  file: File | Uint8Array,
-  ffmpegData: FFmpegDataType,
-  inputName?: string
-) => {
+const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
   const { outputFile, threads, outputCodec, compress } = ffmpegData;
-  if (file instanceof File) {
-    const { name } = file;
-    await ffmpeg.write(name, file);
-    await ffmpeg.run(
-      `-i '${name}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
-        compress ? compress : ""
-      }`
-    );
-  } else if (file instanceof Uint8Array) {
-    await ffmpeg.run(
-      `-i '${inputName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
-        compress ? compress : ""
-      }`
-    );
-  }
-
-  const processedFile = ffmpeg.read(`${outputFile}`);
-  return processedFile;
+  await ffmpeg.run(
+    `-i '${fileName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
+      compress ? compress : ""
+    }`
+  );
+  return outputFile;
 };
 
-export { operator, FFmpegDataType };
+export { ffmpegRunner, ffmpegReader, ffmpegWriter, FFmpegDataType };
