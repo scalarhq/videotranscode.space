@@ -8,7 +8,7 @@ import {
 import "../ts/form";
 
 import { ConfigurationType, FinalSettingsType } from "../types/formats";
-
+import { ffmpegWriter, ffmpegReader } from "./ffmpeg";
 import { handleNewTranscode } from "./transcode";
 import { handleNewCompression } from "./compression";
 import { updateData, getThreads } from "./hardware";
@@ -16,7 +16,7 @@ import { fileInput, fileData } from "./file";
 import { finalConfiguration } from "./configuration";
 
 const handleSubmit = async () => {
-  const { configuration, sliderValue, compressionValue } = finalConfiguration;
+  const { configuration, sliderValue } = finalConfiguration;
   const start = new Date().getTime();
 
   terminalText.update(() => "Start processing");
@@ -34,49 +34,44 @@ const handleSubmit = async () => {
     `The final settings are fileType ${format.name} with ${codec.name}`
   );
 
-  let toTranscode = false;
-
   const inputExtension = "." + fileData.ext;
   const outputExtension = format.extension;
+  const toTranscode = inputExtension != outputExtension ? true : false;
 
-  if (inputExtension != outputExtension) {
-    toTranscode = true;
-  }
+  /***
+   * Load Input File to FFmpeg
+   */
 
-  let transcodedVideo;
+  const inputFileName: string = await ffmpegWriter(fileInput);
+  let outputVideoName: string;
+
   if (sliderValue > 0) {
-    console.info("Compressing");
-    const finalCompressionValue = "-crf " + compressionValue.toString();
-    const data = await handleNewCompression(
-      fileInput,
-      finalCompressionValue,
-      threads
-    );
-    const compressionOutput = data.name;
-    const video = data.video;
+    // Compressing Workflow
+    outputVideoName = await handleNewCompression(inputFileName, threads);
 
     if (toTranscode) {
       /** Pass video to transcode */
-      transcodedVideo = await handleNewTranscode(
-        video,
+      outputVideoName = await handleNewTranscode(
+        outputVideoName,
         format,
         codec,
-        threads,
-        compressionOutput
+        threads
       );
     }
   } else {
-    transcodedVideo = await handleNewTranscode(
-      fileInput,
+    outputVideoName = await handleNewTranscode(
+      inputFileName,
       format,
       codec,
       threads
     );
   }
 
+  const processedVideo = await ffmpegReader(outputVideoName);
+
   terminalText.update(() => "Complete processing");
 
-  createVideoObject(transcodedVideo, format.type);
+  createVideoObject(processedVideo, format.type);
   clearTerminal.update(() => true);
   processed.update(() => true);
   const end = new Date().getTime();
@@ -87,7 +82,7 @@ const handleSubmit = async () => {
   );
 };
 
-const createVideoObject = (processedFile: any, videoType: string) => {
+const createVideoObject = (processedFile: Uint8Array, videoType: string) => {
   const blobUrl = URL.createObjectURL(
     new Blob([processedFile.buffer], { type: videoType })
   );
