@@ -15,7 +15,7 @@ A video transcoder and converter built use Web Assembly and FFMPEG to transcode 
 
 ## Contributing
 
-We would love any/all support from the community, and are depending on it for add support for more codecs and formats. We have another repository just for contributing codecs and formats **[here](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats) or https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats** where we will automatically test your added codecs and add them to production if they pass our tests.
+We encourage users to submit codecs and formats for review to expand our capabilities using pull requests. Please follow the requirements below and if it passes the automated tests we will add it to our main product in the next build.
 
 ### Adding Codecs
 
@@ -23,11 +23,10 @@ We would love any/all support from the community, and are depending on it for ad
 
 Please add the FFmpeg Docs and FFmpeg cli command in the pull request when adding a new codec
 
-1. Open our submodule repository just for codecs and formats https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats
-2. Create a new JS file in codecs folder with the name of the codec, please use camelCase
-3. Add the required information below in that js file
-4. Update the formats folder for each format that the codec supports
-5. Submit Pull Request!
+1. Create a new JS file in codecs folder with the name of the codec, please use camelCase
+2. Add the required information below in that js file
+3. Update the formats folder for each format that the codec supports
+4. Submit Pull Request!
 
 ```
 // Codec Example
