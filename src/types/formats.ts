@@ -15,7 +15,7 @@ type FormatType = {
   type: string;
   extension: string;
   display: boolean;
-  codec: CodecType[];
+  codecs: CodecType[];
   defaultCodec: CodecType | null;
 };
 
