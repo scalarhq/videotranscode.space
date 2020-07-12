@@ -4,5 +4,5 @@ module.exports = CODEC_TYPES => ({
     display: true,
     defaultCodec: null,
     type: "video/mp4",
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
+    codecs: [CODEC_TYPES.H264],
 })
