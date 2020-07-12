@@ -9,3 +9,5 @@ public/bundle.js.map
 public/bundle.js
 public/bundle.css.map
 public/bundle.css
+formats/dist.ts
+codecs/dist.ts

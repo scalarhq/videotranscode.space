@@ -8,6 +8,8 @@
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@wessberg/rollup-plugin-ts": "^1.2.13",
+    "babel-cli": "^6.26.0",
+    "jest": "^26.1.0",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.12.0",
     "rollup-plugin-livereload": "^1.0.0",
@@ -26,14 +28,15 @@
     "rollup-plugin-typescript2": "^0.27.1",
     "sirv-cli": "^0.4.4",
     "svelte-dropzone": "^1.0.6",
-    "svelte-preprocess": "^3.9.9",
-    "video-transcoder-codecs": "git+https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.git"
+    "svelte-preprocess": "^3.9.9"
   },
   "scripts": {
-    "build": "rollup -c",
-    "autobuild": "rollup -c -w",
+    "build": "npm run build-codecs-formats && rollup -c",
+    "autobuild": "npm run build-codecs-formats && rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
-    "start:dev": "sirv public --dev"
+    "start:dev": "sirv public --dev",
+    "test": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit",
+    "build-codecs-formats": "node codecs/codecs.js; node formats/formats.js"
   }
 }
