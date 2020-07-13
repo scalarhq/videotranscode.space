@@ -11,3 +11,7 @@ public/bundle.css.map
 public/bundle.css
 formats/dist.ts
 codecs/dist.ts
+test-video.mp4
+tests/puppeteer-testing/test-video.mp4
+tests/puppeteer-testing/test.js
+tests/puppeteer-testing/uploaded.png
