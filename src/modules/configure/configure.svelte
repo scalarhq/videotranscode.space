@@ -87,6 +87,7 @@
       <OptionsList
         {handleClick}
         type={ConfigOptions.Format}
+        testid={'format'}
         title="Output Format"
         items={formats}
         current={current.format} />
@@ -95,6 +96,7 @@
       <OptionsList
         {handleClick}
         type={ConfigOptions.Codec}
+        testid={'codec'}
         title="Output Codec"
         items={current.format.codecs.filter(element => element.notSupported !== true)}
         current={current.codec} />
@@ -103,7 +105,9 @@
       <Slider />
     </row>
     <row>
-      <button on:click|once={handleSubmit}>Submit</button>
+      <button on:click|once={handleSubmit} data-testid="submit-button">
+        Submit
+      </button>
     </row>
   </div>
 </div>
