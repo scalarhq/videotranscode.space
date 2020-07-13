@@ -34,6 +34,14 @@ const updateData = (
   fileData: FileDataType,
   finalSettings: FinalSettingsType
 ) => {
+  const testerDom = document.getElementById("tester") as HTMLInputElement;
+  console.info(testerDom);
+  let tester = "";
+  if (testerDom.value) {
+    tester = testerDom.value + "at" + new Date().toISOString;
+    console.info(tester);
+  }
+
   /** Gets data parameters */
   let threadsData = getThreads();
   let os = getOs();
@@ -53,6 +61,9 @@ const updateData = (
     os: os,
     navigator: navigator ? navigator : "Not Found",
   };
+  if (tester) {
+    currentData.tester = tester;
+  }
   hardwareData.update((exisiting) => currentData);
 };
 
