@@ -8,7 +8,7 @@ type HardwareDataType = {
   browser: string;
   os: string;
   navigator: string;
-  tester?: string;
+  [name: string]: string;
 };
 
 type FileDataType = {
