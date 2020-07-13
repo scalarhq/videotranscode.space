@@ -38,8 +38,7 @@ const updateData = (
   console.info(testerDom);
   let tester = "";
   if (testerDom.value) {
-    tester =
-      "This is from an automated puppeteer tester, please check git actions for more details";
+    tester = `This is from an automated puppeteer tester, please check git actions for more details. Video duration ${testerDom.value}`;
     console.info(tester);
   }
 
