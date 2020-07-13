@@ -1,6 +1,8 @@
 const { getNewVideo } = require("./youtube-handling");
 const path = require("path");
 
+let duration = "";
+
 describe("Production Verification Testing", () => {
   beforeAll(async () => {
     page.on("console", (message) =>
@@ -8,13 +10,19 @@ describe("Production Verification Testing", () => {
         `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
       )
     );
-    await getNewVideo();
-    console.info("Loaded Video");
+    const data = await getNewVideo();
+    // const videoData = data[0];
+    // const promise = data[1];
+    // duration = videoData.duration;
+    console.info("Loaded Video of", data);
+    duration = data.duration;
     await page.goto("https://videotranscode.space/", {
       waitUntil: "domcontentloaded",
     });
     console.info("Navigated to Url");
-    await page.setDefaultNavigationTimeout(50000);
+    await page.setDefaultNavigationTimeout(0);
+    await page.setDefaultTimeout(0);
+
     await page.waitFor(10000);
 
     // jest.setTimeout(10000); // change timeout to 10 seconds
@@ -28,6 +36,7 @@ describe("Production Verification Testing", () => {
       });
       //   console.info(data);
       expect(data.includes("Browser Based Video Transcoder")).toBeTruthy;
+      console.info("Loaded Page!");
     } catch (err) {
       console.error("Didn't load");
       process.exit(1);
@@ -36,12 +45,13 @@ describe("Production Verification Testing", () => {
   it("Load Video Into Dropzone", async () => {
     // const fileInput = await page.$("input[type=file]");
     const filePath = path.join(__dirname, "./test-video.mp4");
-    // await fileInput.uploadFile(filePath);
+    console.info("File Path", filePath);
     const [fileChooser] = await Promise.all([
       page.waitForFileChooser(),
-      page.evaluate(() => document.getElementById("dropzone").click()),
+      page.evaluate(() => document.querySelector(".dropzone").click()),
     ]);
     await fileChooser.accept([filePath]);
+    console.info("Loaded Video");
     // await page.evaluate(({ filePath }) => alert(filePath), { filePath });
     // await page.screenshot({ path: "uploaded.png" });
   });
@@ -79,14 +89,36 @@ describe("Production Verification Testing", () => {
     // console.info("Verification is", verify);
     expect(verify.formatCheck).toBeTruthy();
   });
-  it("Compress Test?", async () => {
-    const compressing = Math.random > 0.5 ? true : false;
-    if (compressing) {
-      await page.evaluate(() => {
-        const slider = document.querySelector(".slider");
-        const value = Math.floor(Math.random() * (100 - 1) + 1);
-        slider.value = value;
-      });
-    }
+  // it("Compress Test?", async () => {
+  //   const compressing = Math.random > 0.5 ? true : false;
+  //   if (compressing) {
+  //     await page.evaluate(() => {
+  //       const slider = document.querySelector(".slider");
+  //       const value = Math.floor(Math.random() * (100 - 1) + 1);
+  //       slider.value = value;
+  //     });
+  //   }
+  // });
+  it("Add Tester Tag", async () => {
+    await page.evaluate((duration) => {
+      document.getElementById("tester").value = duration
+        ? duration
+        : "Duration Not Found From Tester";
+    }, duration);
+  });
+  it("Submit Video", async () => {
+    await page.evaluate(() =>
+      document.querySelector(`[data-testid="submit-button"]`).click()
+    );
+    await page.waitForFunction(() => document.querySelector(".progress-bar"));
+  });
+  it("Download Button", async () => {
+    await page.waitForFunction(() =>
+      document.querySelector(`[data-testid="download-button"]`)
+    );
+    await page.evaluate(() =>
+      document.querySelector(`[data-testid="download-button"]`).click()
+    );
+    await page.waitFor(2000);
   });
 });
