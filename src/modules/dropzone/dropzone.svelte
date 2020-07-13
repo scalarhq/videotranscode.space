@@ -34,7 +34,6 @@
     dropzoneClass="dropzone"
     hooveringClass="hooveringClass"
     id="dropzone"
-    data-testid="dropzone"
     dropzoneEvents={{ addedfile, drop, init }}
     options={{ clickable: true, createImageThumbnails: true, init }}>
     <h4>Drop files here to process</h4>
