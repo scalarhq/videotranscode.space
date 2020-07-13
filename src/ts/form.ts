@@ -13,6 +13,7 @@ hardwareData.subscribe((value) => {
     const rawData = new URLSearchParams(
       Object.keys(data).map((key: string) => [
         key,
+        //@ts-ignore Tester won't be here unless defined
         data[key as keyof FormData].toString(),
       ])
     );
