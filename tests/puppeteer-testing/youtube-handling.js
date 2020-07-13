@@ -7,7 +7,8 @@ const getVideoUrl = async () => {
     // "PewDiePie",
     // "Linus Tech Tips",
     // "Philip DeFranco",
-    "David Dobrik",
+    // "David Dobrik",
+    "Bread Boys",
   ];
   const currentChannel = channels[Math.floor(Math.random() * channels.length)];
   console.log(currentChannel);
@@ -33,7 +34,8 @@ const getNewVideo = async () => {
   //   const videoResults = [];
 
   stream.pipe(videoStream);
-  return new Promise((resolve) => videoStream.on("finish", resolve));
+  return new Promise((resolve) => videoStream.on("finish", resolve(videoData)));
+  // return Promise.all([videoData, promise]);
 };
 
 // let main = async () => {
