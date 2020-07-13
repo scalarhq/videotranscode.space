@@ -34,28 +34,54 @@ describe("Production Verification Testing", () => {
     }
   });
   it("Load Video Into Dropzone", async () => {
-    const fileInput = await page.$("input[type=file]");
-    await fileInput.uploadFile(path.join(__dirname, "./test-video.mp4"));
-    await page.screenshot({ path: "uploaded.png" });
+    // const fileInput = await page.$("input[type=file]");
+    const filePath = path.join(__dirname, "./test-video.mp4");
+    // await fileInput.uploadFile(filePath);
+    const [fileChooser] = await Promise.all([
+      page.waitForFileChooser(),
+      page.evaluate(() => document.getElementById("dropzone").click()),
+    ]);
+    await fileChooser.accept([filePath]);
+    // await page.evaluate(({ filePath }) => alert(filePath), { filePath });
+    // await page.screenshot({ path: "uploaded.png" });
   });
   it("Choose Codec and Format", async () => {
+    await page.waitFor(2000);
+    await page.waitForFunction(() => document.querySelector(".options-list"));
+    // await page.waitFor(".options-list");
     const data = await page.evaluate(() => {
       const output = {};
       const header = document.querySelector(".header").innerHTML;
-      const optionsList = document.querySelector(".options-list");
-      output.optionsList = optionsList;
       output.header = header;
-      //   const currentChildIndex = Math.floor(
-      //     Math.random() * optionsList.childElementCount
-      //   );
-      //   const chosenFormat = optionsList.children[currentChildIndex]; // Wrapper Element
-      //   const aTag = chosenFormat.getElementsByTagName("a")[0];
-      //   aTag.click();
-      //   const className = chosenFormat.firstElementChild.className;
-      //   output.formatCheck = className.includes("active");
+      const optionsList = document.querySelector(".options-list");
+      const currentChildIndex = Math.floor(
+        Math.random() * optionsList.childElementCount
+      );
+      const chosenFormat = optionsList.children[currentChildIndex]; // Wrapper Element
+      chosenFormat.setAttribute("id", "current-format");
+      output.chosenFormat = chosenFormat.outerHTML;
+      const aTag = chosenFormat.getElementsByTagName("a")[0];
+      aTag.click();
       return output;
     });
-    console.info(data);
-    expect(data.formatCheck).toBeTruthy();
+    // console.info("Data is", data);
+    await page.waitFor(500);
+    // const { chosenFormat } = data;
+    const verify = await page.evaluate(() => {
+      const chosenFormat = document.getElementById("current-format");
+      const firstChild = chosenFormat.firstElementChild;
+      const className = firstChild.className;
+      const formatCheck = className.includes("active");
+      console.log(chosenFormat, firstChild, className);
+      let firstChildOutput = firstChild.outerHTML;
+      return { firstChildOutput, className, formatCheck };
+    });
+    // console.info("Verification is", verify);
+    expect(verify.formatCheck).toBeTruthy();
+  });
+  it("Compress Test?", () => {
+    const compressing = Math.random > 0.5 ? true : false;
+    if (compressing) {
+    }
   });
 });
