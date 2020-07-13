@@ -79,9 +79,14 @@ describe("Production Verification Testing", () => {
     // console.info("Verification is", verify);
     expect(verify.formatCheck).toBeTruthy();
   });
-  it("Compress Test?", () => {
+  it("Compress Test?", async () => {
     const compressing = Math.random > 0.5 ? true : false;
     if (compressing) {
+      await page.evaluate(() => {
+        const slider = document.querySelector(".slider");
+        const value = Math.floor(Math.random() * (100 - 1) + 1);
+        slider.value = value;
+      });
     }
   });
 });
