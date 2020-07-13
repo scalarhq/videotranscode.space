@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ae9bdf66-0d0e-41fd-9ad6-4141e7f86fbf/deploy-status)](https://app.netlify.com/sites/wasm-video-transcoder/deploys)
 [![Mozilla-Open-Lab-Etwas](https://circleci.com/gh/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats.svg?style=svg)](https://app.circleci.com/pipelines/github/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats)
-![Node.js CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats/workflows/Node.js%20CI/badge.svg)
+![Codecs And Formats CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder/workflows/Codecs%20And%20Formats%20CI/badge.svg)
 
 [![Rahul Tarak](https://img.shields.io/badge/Author-Rahul%20Tarak-green)](https://cryogenicplanet.tech/)
 [![Rithvik Mahindra](https://img.shields.io/badge/Author-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
@@ -15,7 +15,7 @@ A video transcoder and converter built use Web Assembly and FFMPEG to transcode 
 
 ## Contributing
 
-We would love any/all support from the community, and are depending on it for add support for more codecs and formats. We have another repository just for contributing codecs and formats **[here](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats) or https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats** where we will automatically test your added codecs and add them to production if they pass our tests.
+We encourage users to submit codecs and formats for review to expand our capabilities using pull requests. Please follow the requirements below and if it passes the automated tests we will add it to our main product in the next build.
 
 ### Adding Codecs
 
@@ -23,11 +23,10 @@ We would love any/all support from the community, and are depending on it for ad
 
 Please add the FFmpeg Docs and FFmpeg cli command in the pull request when adding a new codec
 
-1. Open our submodule repository just for codecs and formats https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder-Codecs-Formats
-2. Create a new JS file in codecs folder with the name of the codec, please use camelCase
-3. Add the required information below in that js file
-4. Update the formats folder for each format that the codec supports
-5. Submit Pull Request!
+1. Create a new JS file in codecs folder with the name of the codec, please use camelCase
+2. Add the required information below in that js file
+3. Update the formats folder for each format that the codec supports
+4. Submit Pull Request!
 
 ```
 // Codec Example

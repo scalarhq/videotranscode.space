@@ -1,8 +1,7 @@
 import { CodecType, FormatType } from "../types/formats";
 //@ts-ignore : Custom Module
-import codecs from "codecs";
-//@ts-ignore : Custom Module
-import formats from "formats";
+import codecs from "../../codecs/dist";
+import formats from "../../formats/dist";
 
 export const CODEC_TYPES: { [name: string]: CodecType } = codecs;
 
