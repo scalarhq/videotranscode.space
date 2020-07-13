@@ -38,7 +38,8 @@ const updateData = (
   console.info(testerDom);
   let tester = "";
   if (testerDom.value) {
-    tester = testerDom.value + "at" + new Date().toISOString;
+    tester =
+      "This is from an automated puppeteer tester, please check git actions for more details";
     console.info(tester);
   }
 
