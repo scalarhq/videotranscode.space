@@ -28,6 +28,7 @@ module.exports = {
   testPathIgnorePatterns: ["node_modules"],
   bail: false,
   verbose: true,
+  preset: "jest-puppeteer",
   transformIgnorePatterns: ["node_modules"],
   moduleFileExtensions: ["js", "svelte", "ts"],
   setupFilesAfterEnv: [
