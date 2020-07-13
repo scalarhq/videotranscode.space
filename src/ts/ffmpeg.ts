@@ -1,7 +1,10 @@
 import { loadedStore, progressStore } from "../store/stores";
+// import "../../public/ffmpeg.min.js";
+//@ts-ignore: Already Loaded into Scope
+import { createFFmpeg } from "@ffmpeg/ffmpeg";
 
 //@ts-ignore: Already Loaded into Scope
-const { createFFmpeg } = FFmpeg;
+// const { createFFmpeg } = FFmpeg;
 
 /** Loads the progress bar */
 
@@ -21,6 +24,7 @@ const ffmpeg = createFFmpeg({
   try {
     await ffmpeg.load();
   } catch (err) {
+    console.error(window.navigator.userAgent, err.message);
     alert(`Your Browser is not supported ${err.message}`);
   }
   loadedStore.update(() => true);
