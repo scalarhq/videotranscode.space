@@ -46,7 +46,7 @@
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
     "start:dev": "sirv public --dev",
-    "test": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit",
+    "test-codecs": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit -i tests/codecs-testing",
     "build-codecs-formats": "node codecs/codecs.js; node formats/formats.js"
   }
 }
