@@ -22,8 +22,8 @@ describe("Local Build Testing", () => {
       page.goto("http://localhost:3000/", {
         waitUntil: "domcontentloaded",
       }),
-      page.setDefaultNavigationTimeout(0),
-      page.setDefaultTimeout(0),
+      // page.setDefaultNavigationTimeout(0),
+      // page.setDefaultTimeout(0),
     ]);
     await page.waitFor(10000);
   });
