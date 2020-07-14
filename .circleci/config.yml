@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run: npm build
+      - run: npm run build
       - run: npm test
 workflows:
     build-and-test:
