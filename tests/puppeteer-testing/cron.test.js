@@ -11,9 +11,7 @@ describe("Production Verification Testing", () => {
       )
     );
     const data = await getNewVideo();
-    // const videoData = data[0];
-    // const promise = data[1];
-    // duration = videoData.duration;
+
     console.info("Loaded Video of", data);
     duration = data.duration;
     await page.goto("https://videotranscode.space/", {
@@ -22,7 +20,9 @@ describe("Production Verification Testing", () => {
     console.info("Navigated to Url");
     await page.setDefaultNavigationTimeout(0);
     await page.setDefaultTimeout(0);
-
+    await page.evaluate(() => {
+      document.addEventListener("click", (e) => console.info(e.target));
+    });
     await page.waitFor(10000);
 
     // jest.setTimeout(10000); // change timeout to 10 seconds
@@ -48,7 +48,7 @@ describe("Production Verification Testing", () => {
     console.info("File Path", filePath);
     const [fileChooser] = await Promise.all([
       page.waitForFileChooser(),
-      page.evaluate(() => document.querySelector(".dropzone").click()),
+      page.evaluate(() => document.getElementById("dropzone").click()),
     ]);
     await fileChooser.accept([filePath]);
     console.info("Loaded Video");
