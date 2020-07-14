@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  puppeteer-tester:
+  build-tester:
     image: ianwalter/puppeteer:3.0.2
     entrypoint:
       - /bin/sh
