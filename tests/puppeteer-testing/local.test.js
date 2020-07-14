@@ -18,6 +18,7 @@ describe("Local Build Testing", () => {
 
     // Listen
     server.listen(3000);
+    console.info("Server Started");
     const loadPromises = await Promise.all([
       page.goto("http://localhost:3000/", {
         waitUntil: "domcontentloaded",
