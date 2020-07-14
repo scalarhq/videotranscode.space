@@ -5,11 +5,11 @@ let duration = "";
 
 describe("Production Verification Testing", () => {
   beforeAll(async () => {
-    page.on("console", (message) =>
-      console.info(
-        `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
-      )
-    );
+    // page.on("console", (message) =>
+    //   console.info(
+    //     `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
+    //   )
+    // );
     const data = await getNewVideo();
 
     console.info("Loaded Video of", data);
@@ -48,7 +48,7 @@ describe("Production Verification Testing", () => {
     console.info("File Path", filePath);
     const [fileChooser] = await Promise.all([
       page.waitForFileChooser(),
-      page.evaluate(() => document.getElementById("dropzone").click()),
+      page.evaluate(() => document.querySelector(".dz-button").click()),
     ]);
     await fileChooser.accept([filePath]);
     console.info("Loaded Video");

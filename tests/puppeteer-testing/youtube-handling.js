@@ -1,6 +1,8 @@
 const ytsr = require("ytsr");
 const fs = require("fs");
 const ytdl = require("ytdl-core");
+const path = require("path");
+// const axios = require("axios");
 
 const getVideoUrl = async () => {
   const channels = [
@@ -30,12 +32,13 @@ const getNewVideo = async () => {
   const videoData = await getVideoUrl();
   console.info(videoData);
   const stream = await downloadVideo(videoData.link);
-  const videoStream = fs.createWriteStream("test-video.mp4");
+  const videoStream = fs.createWriteStream(
+    path.join(__dirname, "test-video.mp4")
+  );
   //   const videoResults = [];
 
   stream.pipe(videoStream);
   return new Promise((resolve) => videoStream.on("finish", resolve(videoData)));
-  // return Promise.all([videoData, promise]);
 };
 
 // let main = async () => {
