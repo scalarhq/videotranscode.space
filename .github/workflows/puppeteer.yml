@@ -6,7 +6,9 @@ name: Puppeteer Production CI
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 6,12 * * *'
+    - cron:  '0 0/4 * * *'
+  repository_dispatch:
+    types: manual-trigger
 
 jobs:
   build:
