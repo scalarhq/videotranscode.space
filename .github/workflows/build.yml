@@ -10,8 +10,8 @@ on:
 
 jobs:
   build:
-    runs-on: ianwalter/puppeteer:3.0.2
-
+    runs-on: ubuntu-latest
+    container: ianwalter/puppeteer:3.0.2
     strategy:
       matrix:
         node-version: [14.x]
