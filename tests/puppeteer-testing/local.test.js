@@ -8,7 +8,7 @@ describe("Local Build Testing", () => {
   beforeAll(async () => {
     // Serve up public/ftp folder
     const serve = serveStatic(path.join(__dirname, "../../public"), {
-	    index: ["index.html", "index.htm"],
+      index: ["index.html", "index.htm"],
     });
 
     // Create server
@@ -18,7 +18,7 @@ describe("Local Build Testing", () => {
 
     // Listen
     server.listen(3000);
-	console.info("Server Started");
+    console.info("Server Started");
     const loadPromises = await Promise.all([
       page.goto("http://localhost:3000/", {
         waitUntil: "domcontentloaded",
@@ -27,7 +27,6 @@ describe("Local Build Testing", () => {
       // page.setDefaultTimeout(0),
     ]);
     await page.waitFor(10000);
-	await page.screenshot({path : "loaded.png"});
   });
   afterAll(() => {
     server.close();
