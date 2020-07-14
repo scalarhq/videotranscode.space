@@ -10,16 +10,18 @@ describe("Production Verification Testing", () => {
     //     `${message.type().substr(0, 3).toUpperCase()} ${message.text()}`
     //   )
     // );
-    const data = await getNewVideo();
-
+    const loadPromises = await Promise.all([
+      getNewVideo(),
+      page.goto("https://videotranscode.space/", {
+        waitUntil: "domcontentloaded",
+      }),
+      page.setDefaultNavigationTimeout(0),
+      page.setDefaultTimeout(0),
+    ]);
+    const data = loadPromises[0];
     console.info("Loaded Video of", data);
     duration = data.duration;
-    await page.goto("https://videotranscode.space/", {
-      waitUntil: "domcontentloaded",
-    });
     console.info("Navigated to Url");
-    await page.setDefaultNavigationTimeout(0);
-    await page.setDefaultTimeout(0);
     await page.evaluate(() => {
       document.addEventListener("click", (e) => console.info(e.target));
     });

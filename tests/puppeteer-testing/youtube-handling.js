@@ -6,9 +6,9 @@ const path = require("path");
 
 const getVideoUrl = async () => {
   const channels = [
-    "PewDiePie",
-    "Linus Tech Tips",
-    "Philip DeFranco",
+    // "PewDiePie",
+    // "Linus Tech Tips",
+    // "Philip DeFranco",
     "David Dobrik",
   ];
   const currentChannel = channels[Math.floor(Math.random() * channels.length)];
