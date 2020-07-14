@@ -1,2 +1,3 @@
 npm install
-npm run test-production
+npm build
+npm test
