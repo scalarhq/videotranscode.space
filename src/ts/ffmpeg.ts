@@ -1,7 +1,7 @@
-import { loadedStore, progressStore } from "../store/stores";
+import { loadedStore, progressStore } from '../store/stores';
 // import "../../public/ffmpeg.min.js";
 //@ts-ignore: Already Loaded into Scope
-import { createFFmpeg } from "@ffmpeg/ffmpeg";
+import { createFFmpeg } from '@ffmpeg/ffmpeg';
 
 //@ts-ignore: Already Loaded into Scope
 // const { createFFmpeg } = FFmpeg;
@@ -18,26 +18,23 @@ type FFmpegDataType = {
 const exportedElements: {
   ffmpegWriter: (file: File) => Promise<string>;
   ffmpegReader: (fileName: string) => Promise<Uint8Array>;
-  ffmpegRunner: (
-    fileName: string,
-    ffmpegData: FFmpegDataType
-  ) => Promise<string>;
+  ffmpegRunner: (fileName: string, ffmpegData: FFmpegDataType) => Promise<string>;
 } = {};
 
-if (window.navigator.userAgent.includes("jsdom")) {
+if (window.navigator.userAgent.includes('jsdom')) {
   // This is a testing environment and not a production environment.
 
   // Mock Functions
 
   const mockWriter = async (file: File) => {
-    return "mock-name";
+    return 'mock-name';
   };
   const mockReader = async (filename: string) => {
     const newMockArray = new Uint8Array();
     return newMockArray;
   };
   const mockRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
-    return "processed-mock-name";
+    return 'processed-mock-name';
   };
   exportedElements.ffmpegRunner = mockRunner;
   exportedElements.ffmpegReader = mockReader;
@@ -84,7 +81,7 @@ if (window.navigator.userAgent.includes("jsdom")) {
     const { outputFile, threads, outputCodec, compress } = ffmpegData;
     await ffmpeg.run(
       `-i '${fileName}'  -threads ${threads} ${outputCodec} -strict -2 ${outputFile} ${
-        compress ? compress : ""
+        compress ? compress : ''
       }`
     );
     return outputFile;

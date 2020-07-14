@@ -1,10 +1,10 @@
-import { FileDataType } from "../types/hardwareData";
-import { fileUploaded, showConfig } from "../store/stores";
+import { FileDataType } from '../types/hardwareData';
+import { fileUploaded, showConfig } from '../store/stores';
 
 let fileInput: File;
 const fileData: FileDataType = {
   size: 0,
-  ext: "",
+  ext: '',
 };
 
 const renameFile = (originalFile: File, extension: string) => {
@@ -20,11 +20,9 @@ fileUploaded.subscribe((files: File[]) => {
     const file: File = files[0];
     const { name, size } = file;
     fileData.size = size;
-    const nameComponents = name.split(".");
+    const nameComponents = name.split('.');
     fileData.ext = nameComponents[nameComponents.length - 1];
-    console.log(
-      `The file ${name} is ready to be processed, please choose your settings`
-    );
+    console.log(`The file ${name} is ready to be processed, please choose your settings`);
     const renamedFile = renameFile(file, fileData.ext);
     fileInput = renamedFile;
     showConfig.update(() => true);

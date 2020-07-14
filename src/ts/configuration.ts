@@ -1,6 +1,6 @@
-import { config, sliderStore } from "../store/stores";
+import { config, sliderStore } from '../store/stores';
 
-import { ConfigurationType } from "../types/formats";
+import { ConfigurationType } from '../types/formats';
 
 type FullConfiguration = {
   configuration: ConfigurationType;

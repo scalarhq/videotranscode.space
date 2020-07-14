@@ -1,7 +1,7 @@
-import platform from "platform";
-import { hardwareData } from "../store/stores";
-import { FileDataType, HardwareDataType } from "../types/hardwareData";
-import { FinalSettingsType } from "../types/formats";
+import platform from 'platform';
+import { hardwareData } from '../store/stores';
+import { FileDataType, HardwareDataType } from '../types/hardwareData';
+import { FinalSettingsType } from '../types/formats';
 
 const getThreads = () => {
   let threads = window.navigator.hardwareConcurrency;
@@ -9,13 +9,13 @@ const getThreads = () => {
 };
 
 const sizeHumanReadable = (fileSize: number) => {
-  let fSExt = new Array("Bytes", "KB", "MB", "GB"),
+  let fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
     i = 0;
   while (fileSize > 900) {
     fileSize /= 1024;
     i++;
   }
-  let exactSize = Math.round(fileSize * 100) / 100 + " " + fSExt[i];
+  let exactSize = Math.round(fileSize * 100) / 100 + ' ' + fSExt[i];
   return exactSize;
 };
 
@@ -23,7 +23,7 @@ const getBrowser = () => {
   return `${platform.name}:${platform.version} `;
 };
 const getOs = () => {
-  return platform.os ? platform.os.toString() : "Not Found";
+  return platform.os ? platform.os.toString() : 'Not Found';
 };
 const getNavigator = () => {
   return platform.description;
@@ -34,9 +34,9 @@ const updateData = (
   fileData: FileDataType,
   finalSettings: FinalSettingsType
 ) => {
-  const testerDom = document.getElementById("tester") as HTMLInputElement;
+  const testerDom = document.getElementById('tester') as HTMLInputElement;
   console.info(testerDom);
-  let tester = "";
+  let tester = '';
   if (testerDom.value) {
     tester = `This is from an automated puppeteer tester, please check git actions for more details. Video duration ${testerDom.value}`;
     console.info(tester);
@@ -59,7 +59,7 @@ const updateData = (
     outputFileCodec: finalSettings.codec,
     browser: browserData,
     os: os,
-    navigator: navigator ? navigator : "Not Found",
+    navigator: navigator ? navigator : 'Not Found',
   };
   if (tester) {
     currentData.tester = tester;
