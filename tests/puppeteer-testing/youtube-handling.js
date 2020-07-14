@@ -10,7 +10,6 @@ const getVideoUrl = async () => {
     "Linus Tech Tips",
     "Philip DeFranco",
     "David Dobrik",
-    "Bread Boys",
   ];
   const currentChannel = channels[Math.floor(Math.random() * channels.length)];
   console.log(currentChannel);
