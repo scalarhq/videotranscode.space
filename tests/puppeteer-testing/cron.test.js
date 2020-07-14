@@ -29,6 +29,8 @@ describe("Production Verification Testing", () => {
   });
 
   it("Load Page", async () => {
+    await page.waitForFunction(() => document.querySelector(".header"));
+    await page.waitFor(500);
     try {
       const data = await page.evaluate(() => {
         const header = document.querySelector(".header").innerHTML;
