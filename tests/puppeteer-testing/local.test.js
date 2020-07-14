@@ -1,14 +1,15 @@
-const finalhandler = require("finalhandler");
-const path = require("path");
-const http = require("http");
-const serveStatic = require("serve-static");
+const finalhandler = require('finalhandler');
+const path = require('path');
+const http = require('http');
+const serveStatic = require('serve-static');
+
 let server;
 
-describe("Local Build Testing", () => {
+describe('Local Build Testing', () => {
   beforeAll(async () => {
     // Serve up public/ftp folder
-    const serve = serveStatic(path.join(__dirname, "../../public"), {
-      index: ["index.html", "index.htm"],
+    const serve = serveStatic(path.join(__dirname, '../../public'), {
+      index: ['index.html', 'index.htm'],
     });
 
     // Create server
@@ -18,10 +19,10 @@ describe("Local Build Testing", () => {
 
     // Listen
     server.listen(3000);
-    console.info("Server Started");
+    console.info('Server Started');
     const loadPromises = await Promise.all([
-      page.goto("http://localhost:3000/", {
-        waitUntil: "domcontentloaded",
+      page.goto('http://localhost:3000/', {
+        waitUntil: 'domcontentloaded',
       }),
       // page.setDefaultNavigationTimeout(0),
       // page.setDefaultTimeout(0),
@@ -31,89 +32,79 @@ describe("Local Build Testing", () => {
   afterAll(() => {
     server.close();
   });
-  it("Load Page", async () => {
-    await page.waitForFunction(() => document.querySelector(".header"));
+  it('Load Page', async () => {
+    await page.waitForFunction(() => document.querySelector('.header'));
     await page.waitFor(500);
     try {
       const data = await page.evaluate(() => {
-        const header = document.querySelector(".header").innerHTML;
+        const header = document.querySelector('.header').innerHTML;
         return header;
       });
-      expect(data.includes("Browser Based Video Transcoder")).toBeTruthy;
-      console.info("Loaded Page!");
+      expect(data.includes('Browser Based Video Transcoder')).toBeTruthy;
+      console.info('Loaded Page!');
     } catch (err) {
       console.error("Didn't load");
       process.exit(1);
     }
   });
-  it("Load Video Into Dropzone", async () => {
-    const filePath = path.join(__dirname, "./localTest.mkv");
-    console.info("File Path", filePath);
+  it('Load Video Into Dropzone', async () => {
+    const filePath = path.join(__dirname, './localTest.mkv');
+    console.info('File Path', filePath);
     const [fileChooser] = await Promise.all([
       page.waitForFileChooser(),
-      page.evaluate(() => document.querySelector(".dz-button").click()),
+      page.evaluate(() => document.querySelector('.dz-button').click()),
     ]);
     await fileChooser.accept([filePath]);
-    console.info("Loaded Video");
+    console.info('Loaded Video');
   });
-  it("Verify Every Format is Selectable", async () => {
+  it('Verify Every Format is Selectable', async () => {
     await page.waitFor(2000);
-    await page.waitForFunction(() => document.querySelector(".options-list"));
+    await page.waitForFunction(() => document.querySelector('.options-list'));
     const data = await page.evaluate(() => {
       let allPassed = true;
-      const optionsList = document.querySelector(".options-list");
-      for (let child of optionsList.children) {
-        child.getElementsByTagName("a")[0].click();
-        allPassed = child.firstElementChild.className.includes("active")
-          ? allPassed
-          : false;
+      const optionsList = document.querySelector('.options-list');
+      for (const child of optionsList.children) {
+        child.getElementsByTagName('a')[0].click();
+        allPassed = child.firstElementChild.className.includes('active') ? allPassed : false;
       }
       return allPassed;
     });
     expect(data).toBeTruthy;
   });
-  it("Choose Final Format at Random", async () => {
+  it('Choose Final Format at Random', async () => {
     await page.waitFor(500);
     const data = await page.evaluate(() => {
       const output = {};
-      const header = document.querySelector(".header").innerHTML;
+      const header = document.querySelector('.header').innerHTML;
       output.header = header;
-      const optionsList = document.querySelector(".options-list");
-      const currentChildIndex = Math.floor(
-        Math.random() * optionsList.childElementCount
-      );
+      const optionsList = document.querySelector('.options-list');
+      const currentChildIndex = Math.floor(Math.random() * optionsList.childElementCount);
       const chosenFormat = optionsList.children[currentChildIndex]; // Wrapper Element
-      chosenFormat.setAttribute("id", "current-format");
+      chosenFormat.setAttribute('id', 'current-format');
       output.chosenFormat = chosenFormat.outerHTML;
-      const aTag = chosenFormat.getElementsByTagName("a")[0];
+      const aTag = chosenFormat.getElementsByTagName('a')[0];
       aTag.click();
       return output;
     });
     await page.waitFor(500);
     const verify = await page.evaluate(() => {
-      const chosenFormat = document.getElementById("current-format");
+      const chosenFormat = document.getElementById('current-format');
       const firstChild = chosenFormat.firstElementChild;
-      const className = firstChild.className;
-      const formatCheck = className.includes("active");
+      const { className } = firstChild;
+      const formatCheck = className.includes('active');
       console.log(chosenFormat, firstChild, className);
-      let firstChildOutput = firstChild.outerHTML;
+      const firstChildOutput = firstChild.outerHTML;
       return { firstChildOutput, className, formatCheck };
     });
     expect(verify.formatCheck).toBeTruthy();
   });
-  it("Submit Video", async () => {
-    await page.evaluate(() =>
-      document.querySelector(`[data-testid="submit-button"]`).click()
-    );
-    await page.waitForFunction(() => document.querySelector(".progress-bar"));
+  it('Submit Video', async () => {
+    await page.evaluate(() => document.querySelector(`[data-testid="submit-button"]`).click());
+    await page.waitForFunction(() => document.querySelector('.progress-bar'));
   });
-  it("Download Button", async () => {
-    await page.waitForFunction(() =>
-      document.querySelector(`[data-testid="download-button"]`)
-    );
-    await page.evaluate(() =>
-      document.querySelector(`[data-testid="download-button"]`).click()
-    );
+  it('Download Button', async () => {
+    await page.waitForFunction(() => document.querySelector(`[data-testid="download-button"]`));
+    await page.evaluate(() => document.querySelector(`[data-testid="download-button"]`).click());
     await page.waitFor(2000);
   });
 });
