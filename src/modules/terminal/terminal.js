@@ -20,7 +20,7 @@ var Terminal = (function () {
   };
 
   var firstPrompt = true;
-  promptInput = function (terminalObj, message, PROMPT_TYPE, callback) {
+  var promptInput = function (terminalObj, message, PROMPT_TYPE, callback) {
     var shouldDisplayInput = PROMPT_TYPE === PROMPT_INPUT;
     var inputField = document.createElement("input");
 
@@ -92,15 +92,16 @@ var Terminal = (function () {
     }
   };
 
-  //   var terminalBeep;
+  var terminalBeep;
 
   var TerminalConstructor = function (id) {
-    // if (!terminalBeep) {
-    //   // terminalBeep = document.createElement('audio')
-    //   // var source = '<source src="http://www.erikosterberg.com/terminaljs/beep.'
-    //   // terminalBeep.innerHTML = source + 'mp3" type="audio/mpeg">' + source + 'ogg" type="audio/ogg">'
-    //   // terminalBeep.volume = 0.05
-    // }
+    if (!terminalBeep) {
+      terminalBeep = document.createElement("audio");
+      var source = '<source src="http://www.erikosterberg.com/terminaljs/beep.';
+      terminalBeep.innerHTML =
+        source + 'mp3" type="audio/mpeg">' + source + 'ogg" type="audio/ogg">';
+      terminalBeep.volume = 0.05;
+    }
 
     this.html = document.createElement("div");
     this.html.className = "Terminal";
@@ -116,10 +117,10 @@ var Terminal = (function () {
 
     this._shouldBlinkCursor = true;
 
-    // this.beep = function () {
-    //   terminalBeep.load();
-    //   terminalBeep.play();
-    // };
+    this.beep = function () {
+      terminalBeep.load();
+      terminalBeep.play();
+    };
 
     this.print = function (message) {
       var newLine = document.createElement("div");
@@ -200,3 +201,5 @@ var Terminal = (function () {
 
   return TerminalConstructor;
 })();
+
+module.exports = { Terminal };
