@@ -20,7 +20,7 @@ var Terminal = (function () {
   };
 
   var firstPrompt = true;
-  promptInput = function (terminalObj, message, PROMPT_TYPE, callback) {
+  var promptInput = function (terminalObj, message, PROMPT_TYPE, callback) {
     var shouldDisplayInput = PROMPT_TYPE === PROMPT_INPUT;
     var inputField = document.createElement("input");
 
@@ -201,3 +201,5 @@ var Terminal = (function () {
 
   return TerminalConstructor;
 })();
+
+module.exports = { Terminal };
