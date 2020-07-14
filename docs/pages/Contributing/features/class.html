@@ -1,0 +1,354 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Feature Class | FFmpeg Wasm Contributing Documentation</title>
+	<meta name="description" content="Documentation for FFmpeg Wasm Contributing Documentation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../../assets/css/main.css">
+	<link rel="stylesheet" href="../../../assets/css/pages.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../../../assets/js/search.json" data-base="../../..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../../../index.html" class="title">FFmpeg Wasm Contributing Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../../../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../codecs.html">Contributing</a>
+				</li>
+				<li>
+					<a href="../features.html">Features</a>
+				</li>
+				<li>
+					<a href="class.html">Feature Class</a>
+				</li>
+			</ul>
+			<h1>Feature Class</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#the-feature-class" id="the-feature-class" style="color: inherit; text-decoration: none;">
+					<h1>The Feature Class</h1>
+				</a>
+				<p>To start this process, we need to look at the FFmpegInterface. It is attached below but you can explore the entire interface <a href="../../../interfaces/_features_ffmpegfeature_.ffmpeginterface.html">FFmpegInterface</a></p>
+				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> FFmpegInterface {
+  configuration: {
+    [name: <span class="hljs-built_in">string</span>]: { value: <span class="hljs-built_in">any</span>; [name: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> };
+  };
+  ffmpegCommands: <span class="hljs-built_in">string</span>;
+  threads: <span class="hljs-built_in">number</span>;
+  inputFileName: <span class="hljs-built_in">string</span>;
+  outputFileName: <span class="hljs-built_in">string</span>;
+  progressBar: { name: <span class="hljs-built_in">string</span>; color: <span class="hljs-built_in">string</span> };
+  runFFmpeg: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;;
+  getCurrentFileName: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
+  setFFmpegCommands: <span class="hljs-function">(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  parseConfiguration: <span class="hljs-function">() =&gt;</span> { [name: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> };
+  setProgress: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
+  updateProgress: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
+}</code></pre>
+				<p><strong>You don&#39;t have to implement most of these functions</strong>, they are already implemented for you at <a href="../../../classes/_features_ffmpegfeature_.ffmpegfeature.html">FFmpegFeature</a></p>
+				<p>The abstract elements you have to implement in your class are the following.</p>
+				<p>Of course, you have to implement <strong>your own constructor</strong> and call the <strong>super constructor</strong></p>
+				<pre><code class="language-ts">  configuration: {
+    [name: <span class="hljs-built_in">string</span>]: { value: <span class="hljs-built_in">any</span>; [name: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> };
+  };
+  parseConfiguration: <span class="hljs-function">() =&gt;</span> { [name: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span> };
+  setProgress: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;
+  setFFmpegCommands: <span class="hljs-function">(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>) =&gt;</span> <span class="hljs-built_in">void</span>;</code></pre>
+				<p>Let&#39;s talk about each of these abstract elements</p>
+				<a href="#ffmpegfeatureconfiguration" id="ffmpegfeatureconfiguration" style="color: inherit; text-decoration: none;">
+					<h2><a href="../../../classes/_features_ffmpegfeature_.ffmpegfeature.html#configuration">FFmpegFeature.configuration</a></h2>
+				</a>
+				<p>This is an object literal which we want you to make in each feature class, this will take the values set by the User in your UI Components</p>
+				<p>An Example of this configuration would be, each feature must parse this configuration from the store to retrieve the values they want</p>
+				<pre><code class="language-json">{
+  <span class="hljs-attr">&quot;TRANSCODE&quot;</span>: {
+    <span class="hljs-attr">&quot;FORMAT&quot;</span>: { <span class="hljs-attr">&quot;CODEC&quot;</span>: { <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;MPEG-4&quot;</span>, <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;MPEG-4&quot;</span> }, <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;MOV&quot;</span>, <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;MOV&quot;</span> }
+  },
+  <span class="hljs-attr">&quot;COMPRESS&quot;</span>: { <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">34</span> }
+}</code></pre>
+				<p>For example in the compress feature we only care about the COMPRESS key so our object literal for configuration in the compress feature is of <a href="../../../modules/_features_src_compressionfeature_.html#compressionconfig">CompressionConfig</a></p>
+				<p>We just want this object literal to be made, <strong>taken in as props for the constructor</strong> and stored</p>
+				<a href="#ffmpegfeatureparseconfiguration" id="ffmpegfeatureparseconfiguration" style="color: inherit; text-decoration: none;">
+					<h2><a href="../../../classes/_features_ffmpegfeature_.ffmpegfeature.html#parseconfiguration">FFmpegFeature.parseConfiguration</a></h2>
+				</a>
+				<p>This method is supposed to parse the required values in the configuration and return them to the constructor, the expectation is that these configuration values will be used to determine the ffmpegCommand</p>
+				<p>Example of a method is <a href="../../../classes/_features_src_transcodefeature_.transcodefeature.html#parseconfiguration">TranscodeFeature.parseConfiguration</a></p>
+				<a href="#ffmpegfeaturesetprogress" id="ffmpegfeaturesetprogress" style="color: inherit; text-decoration: none;">
+					<h2><a href="../../../classes/_features_ffmpegfeature_.ffmpegfeature.html#setprogress">FFmpegFeature.setProgress</a></h2>
+				</a>
+				<p>This method should mutate <code>this.progressBar</code> of the below type. This is just for the progress bar cosmetics</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">type</span> progressBar = { name: <span class="hljs-built_in">string</span>; color: <span class="hljs-built_in">string</span> };</code></pre>
+				<a href="#ffmpegfeaturesetffmpegcommands" id="ffmpegfeaturesetffmpegcommands" style="color: inherit; text-decoration: none;">
+					<h2><a href="../../../classes/_features_ffmpegfeature_.ffmpegfeature.html#setffmpegcommands">FFmpegFeature.setFFmpegCommands</a></h2>
+				</a>
+				<p>This method should mutate <code>this.ffmpegCommands</code> which is a string of extra ffmpegCommands, this is purely based on what the feature is trying to do</p>
+				<p>The expectation is that this command uses the users configuration to change the way it behaves.</p>
+				<p>For example, for compression the extra ffmpeg command is the following, where the value is read from the user.</p>
+				<pre><code>-<span class="ruby">crf ${value}</span></code></pre><p>These commands can get as complicated as you&#39;d like them to as long as FFmpeg supports its.</p>
+				<p><strong>General linux commands are not supported</strong>, don&#39;t try to add a pipe here.</p>
+				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
+					<h2>Constructor</h2>
+				</a>
+				<p>Every feature class must have a constructor which accepts an object literal of type <a href="../../../interfaces/_features_ffmpegfeature_.ffmpeginterface.html#configuration">FFmpegInterface.configuration</a>.</p>
+				<p><strong>The constructor must call the super constructor.</strong></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Get <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../../Get Started/quickStart.html">Quick <wbr>Start</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../../Get Started/projectStructure.html">Project <wbr>Structure</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../../Get Started/contributingGuidelines.html">Contributing <wbr>Guidelines</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>Contributing</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../codecs.html">Codecs</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../formats.html">Formats</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../workflow.html">Workflows</a>
+					</li>
+					<li class=" pp-nav pp-page pp-parent pp-active">
+						<a href="../features.html">Features</a>
+					</li>
+					<li class="current pp-nav pp-page pp-child">
+						<a href="class.html">Feature <wbr>Class</a>
+					</li>
+					<li class=" pp-nav pp-page pp-child">
+						<a href="ui.html">Feature UI</a>
+					</li>
+					<li class=" pp-nav pp-page pp-child">
+						<a href="adding.html">Adding <wbr>Your <wbr>Feature</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../clui-component.html">Clui UI <wbr>Components</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../core.html">Core</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>API</span>
+					</li>
+					<li class="globals  ">
+						<a href="../../../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_ui_components_list_.html">&quot;clui-<wbr>ui-<wbr>components/<wbr>List&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_ui_components_slider_.html">&quot;clui-<wbr>ui-<wbr>components/<wbr>Slider&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_ui_components_submit_.html">&quot;clui-<wbr>ui-<wbr>components/<wbr>Submit&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_clui_.html">&quot;clui/clui&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_commands_clear_.html">&quot;clui/commands/clear&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_commands_commands_.html">&quot;clui/commands/commands&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_commands_custom_.html">&quot;clui/commands/custom&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_components_feature_ui_.html">&quot;clui/components/feature-<wbr>ui&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_components_workflow_ui_.html">&quot;clui/components/workflow-<wbr>ui&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_prompt_.html">&quot;clui/prompt&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_prompticon_.html">&quot;clui/prompt<wbr>Icon&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_substring_.html">&quot;clui/sub<wbr>String&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_clui_usecluiinput_.html">&quot;clui/use<wbr>Clui<wbr>Input&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_dropzone_dropzone_.html">&quot;components/dropzone/dropzone&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_progress_progress_.html">&quot;components/progress/progress&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_static_static_.html">&quot;components/static/static&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_terminal_terminal_.html">&quot;components/terminal/terminal&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_terminal_terminalcomponent_.html">&quot;components/terminal/terminal<wbr>Component&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_components_video_video_.html">&quot;components/video/video&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_features_ffmpegfeature_.html">&quot;features/FFmpeg<wbr>Feature&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_features_features_.html">&quot;features/features&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_features_src_compressionfeature_.html">&quot;features/src/compression<wbr>Feature&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_features_src_transcodefeature_.html">&quot;features/src/transcode<wbr>Feature&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_cluistore_.html">&quot;store/clui<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_componentstore_.html">&quot;store/component<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_configuration_.html">&quot;store/configuration&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_filestore_.html">&quot;store/file<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_progressstore_.html">&quot;store/progress<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_terminalstore_.html">&quot;store/terminal<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_store_videostore_.html">&quot;store/video<wbr>Store&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_ts_ffmpeg_.html">&quot;ts/ffmpeg&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_ts_file_.html">&quot;ts/file&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_ts_hardware_.html">&quot;ts/hardware&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_ts_processor_.html">&quot;ts/processor&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_types_formats_.html">&quot;types/formats&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_types_hardwaredata_.html">&quot;types/hardware<wbr>Data&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../../../modules/_types_store_.html">&quot;types/store&quot;</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-module tsd-is-external">
+						<a href="../../../modules/_features_featurekeys_.html">&quot;features/feature<wbr>Keys&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../../../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../../../assets/js/search.json"><' + '/script>');</script>
+</body>
+</html>

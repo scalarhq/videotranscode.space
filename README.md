@@ -1,56 +1,44 @@
-# [Video Transcoder and Converter](https://videotranscode.space/)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ae9bdf66-0d0e-41fd-9ad6-4141e7f86fbf/deploy-status)](https://app.netlify.com/sites/wasm-video-transcoder/deploys)
-[![Mozilla-Open-Lab-Etwas](https://circleci.com/gh/Mozilla-Open-Lab-Etwas/Video-Transcoder.svg?style=svg)](https://app.circleci.com/pipelines/github/Mozilla-Open-Lab-Etwas/Video-Transcoder)
-![Codecs And Formats CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder/workflows/Codecs%20And%20Formats%20CI/badge.svg)
+## Available Scripts
 
-[![Rahul Tarak](https://img.shields.io/badge/Author-Rahul%20Tarak-green)](https://cryogenicplanet.tech/)
-[![Rithvik Mahindra](https://img.shields.io/badge/Author-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
-[![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
-[![Arnav Bansal](https://img.shields.io/badge/Author-Arnav%20Bansal-green)](https://github.com/lunaroyster)
+In the project directory, you can run:
 
-A video transcoder and converter built use Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy
+### `yarn start`
 
-**This project is still very early in development and only a proof of concept**
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Contributing
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-We encourage users to submit codecs and formats for review to expand our capabilities using pull requests. Please follow the requirements below and if it passes the automated tests we will add it to our main product in the next build.
+### `yarn test`
 
-### Adding Codecs
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-**Make sure ffmpeg supports your codec and find the ffmpeg cli command for the codec**
+### `yarn build`
 
-Please add the FFmpeg Docs and FFmpeg cli command in the pull request when adding a new codec
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-1. Create a new JS file in codecs folder with the name of the codec, please use camelCase
-2. Add the required information below in that js file
-3. Update the formats folder for each format that the codec supports
-4. Submit Pull Request!
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-```
-// Codec Example
-module.exports = {
-    name: "H.264", // User Facing Name of Codec
-    compressionRange: { // FFmpeg Compression Ranges
-      min: 1,
-      max: 51,
-    },
-    ffmpegLib: "libx264" // FFmpeg Cli Codec Type
-}
-```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-**If the formats are not updated with codec, they will not be displayed**
+### `yarn eject`
 
-```
-// Formats Example
-module.exports = CODEC_TYPES => ({
-    name: "MP4",
-    extension: ".mp4",
-    display: true,
-    defaultCodec: null,
-    type: "video/mp4",
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
-    // Add to this list with the newly added Codec Type
-})
-```
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

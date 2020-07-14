@@ -1,17 +1,23 @@
-node_modules/
-public/build/
-public/build/bundle.css public/build/bundle.css.map public/build/bundle.js public/build/bundle.js.map
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-*.logsrc/dist
-src/dist/
-public/bundle.css public/bundle.css.map public/bundle.js public/bundle.js.map
-public/bundle.js.map
-public/bundle.js
-public/bundle.css.map
-public/bundle.css
-formats/dist.ts
-codecs/dist.ts
-test-video.mp4
-tests/puppeteer-testing/test-video.mp4
-tests/puppeteer-testing/test.js
-tests/puppeteer-testing/uploaded.png
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
