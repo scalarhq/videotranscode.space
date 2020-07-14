@@ -22,7 +22,7 @@ describe("Local Build Testing", () => {
       page.goto("http://localhost:3000/", {
         waitUntil: "domcontentloaded",
       }),
-      // page.setDefaultNavigationTimeout(0),
+      page.setDefaultNavigationTimeout(50000),
       // page.setDefaultTimeout(0),
     ]);
     await page.waitFor(10000);
@@ -106,13 +106,3 @@ describe("Local Build Testing", () => {
     );
     await page.waitForFunction(() => document.querySelector(".progress-bar"));
   });
-  it("Download Button", async () => {
-    await page.waitForFunction(() =>
-      document.querySelector(`[data-testid="download-button"]`)
-    );
-    await page.evaluate(() =>
-      document.querySelector(`[data-testid="download-button"]`).click()
-    );
-    await page.waitFor(2000);
-  });
-});
