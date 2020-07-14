@@ -4,7 +4,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: ianwalter/puppeteer:3.0.2-14.5
+      - image: ianwalter/puppeteer:3.0.2
     steps:
       - checkout
       - node/install-packages
