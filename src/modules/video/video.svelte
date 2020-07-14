@@ -513,7 +513,7 @@
   <div />
 {/if}
 <row style="padding-top: 3%">
-  <a id="download" class="btn btn-primary">
+  <a id="download" class="btn btn-primary" data-testid="download-button">
     <i class="fa fa-download" />
   </a>
 </row>

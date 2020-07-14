@@ -7,6 +7,7 @@
   export let current = {};
   export let type = "";
   export let handleClick = null;
+  export let testid = "";
 </script>
 
 <style>
@@ -61,11 +62,12 @@
 
 <div class="options-list-wrapper">
   <h1>{title}</h1>
-  <div class="options-list">
+  <div class="options-list" data-testid={`${testid}-options`}>
     {#each items as item}
       <div class="options-list-item-wrapper">
         <div
-          class={item.name === current.name ? 'options-list-item active' : 'options-list-item'}>
+          class={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
+          data-testid={`${testid}-list-item`}>
 
           <a on:click={e => handleClick(e, type, item.name)}>{item.name}</a>
         </div>
