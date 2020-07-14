@@ -7,12 +7,9 @@ jobs:
       - image: ianwalter/puppeteer:3.0.2-14.5
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: node --version
-            - run: npm install
-            - run: npm build
-            - run: npm test
+      - node/install-packages
+      - run: npm build
+      - run: npm test
 workflows:
     build-and-test:
       jobs:
