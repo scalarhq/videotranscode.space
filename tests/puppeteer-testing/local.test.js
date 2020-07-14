@@ -106,3 +106,4 @@ describe("Local Build Testing", () => {
     );
     await page.waitForFunction(() => document.querySelector(".progress-bar"));
   });
+});
