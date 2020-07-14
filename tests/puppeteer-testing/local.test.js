@@ -55,9 +55,24 @@ describe("Local Build Testing", () => {
     await fileChooser.accept([filePath]);
     console.info("Loaded Video");
   });
-  it("Choose Codec and Format", async () => {
+  it("Verify Every Format is Selectable", async () => {
     await page.waitFor(2000);
     await page.waitForFunction(() => document.querySelector(".options-list"));
+    const data = await page.evaluate(() => {
+      let allPassed = true;
+      const optionsList = document.querySelector(".options-list");
+      for (let child of optionsList.children) {
+        child.getElementsByTagName("a")[0].click();
+        allPassed = child.firstElementChild.className.includes("active")
+          ? allPassed
+          : false;
+      }
+      return allPassed;
+    });
+    expect(data).toBeTruthy;
+  });
+  it("Choose Final Format at Random", async () => {
+    await page.waitFor(500);
     const data = await page.evaluate(() => {
       const output = {};
       const header = document.querySelector(".header").innerHTML;
