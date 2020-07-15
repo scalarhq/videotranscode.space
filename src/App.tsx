@@ -1,10 +1,10 @@
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { observer } from "mobx-react"
 // import { action } from "mobx"
 // import LoaderHandler from "./test"
 import './App.css';
-import Loader from './components/loader/loader';
+import { Loader, Header, Footer } from "./components/static/static"
 import Dropzone from "./components/dropzone/dropzone"
 import { ComponentStoreType } from "./types/store"
 
@@ -22,16 +22,20 @@ const App: React.FC<AppProps> = ({ componentStore }) => {
 
 
   if (!loaded) {
-    return <Loader />;
+    return (<Fragment><Loader /> <Footer></Footer></Fragment>);
   } else {
     return (
-      <main>
-        <div className="flex-wrapper">
-          <div className="col dropzone-wrapper">
-            <Dropzone updateFiles={updateFiles} />
+      <Fragment>
+        <main>
+          <Header />
+          <div className="flex-wrapper">
+            <div className="col dropzone-wrapper">
+              <Dropzone updateFiles={updateFiles} />
+            </div>
           </div>
-        </div>
-      </main >
+        </main >
+        <Footer />
+      </Fragment>
     );
   }
 
