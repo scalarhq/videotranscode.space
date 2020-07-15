@@ -1,4 +1,4 @@
-type HardwareDataType = {
+export type HardwareDataType = {
   inputFileSize: string;
   encodeTime: number;
   threads: number;
@@ -11,9 +11,9 @@ type HardwareDataType = {
   tester?: string;
 };
 
-type FileDataType = {
+export type FileDataType = {
   size: number;
   ext: string;
 };
 
-export { HardwareDataType, FileDataType };
+// export { HardwareDataType, FileDataType };

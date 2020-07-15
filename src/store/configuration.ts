@@ -1,7 +1,7 @@
-import { CodecType, FormatType } from "../types/formats";
-//@ts-ignore : Custom Module
-import codecs from "../../codecs/dist";
-import formats from "../../formats/dist";
+import { CodecType, FormatType } from '../types/formats';
+
+import codecs from '../dist/codecs';
+import formats from '../dist/formats';
 
 export const CODEC_TYPES: { [name: string]: CodecType } = codecs;
 
@@ -18,9 +18,7 @@ type ChosenConfig = {
 };
 
 const returnName = (config: ChosenConfig, name: string) => {
-  return Object.values(config).find(
-    (e: CodecType | FormatType) => e.name === name
-  );
+  return Object.values(config).find((e: CodecType | FormatType) => e.name === name);
 };
 
 /**

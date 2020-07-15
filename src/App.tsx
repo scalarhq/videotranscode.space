@@ -1,15 +1,28 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
+import ComponentStore from './store/componentStore';
+import React, { useEffect } from 'react';
+import { observer } from "mobx-react"
+// import { action } from "mobx"
+// import LoaderHandler from "./test"
 import './App.css';
-import Loader from "./components/loader"
+import Loader from './components/loader/loader';
 
-function App() {
-	const [loaded, setLoaded] = useState(false)
-  if (loaded) {
-		return <Loader/>
-	} else {
-		return (<main> </main>)
-	}
-}
+type AppProps = {
+  componentStore: typeof ComponentStore;
+};
+const App: React.FC<AppProps> = ({ componentStore }) => {
 
-export default App;
+  let { loaded, updateLoaded } = componentStore
+  // componentStore.loaded = true
+
+  componentStore.updateLoaded(true)
+
+
+  if (!loaded) {
+    return <Loader />;
+  } else {
+    return <h1>Hi</h1>;
+  }
+
+};
+
+export default observer(App);
