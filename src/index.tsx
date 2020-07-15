@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
+import 'mobx-react/batchingForReactDom'
+
+
 import './index.css';
 import App from './App';
 import ComponentStore from './store/componentStore';

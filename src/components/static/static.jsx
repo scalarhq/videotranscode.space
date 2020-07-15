@@ -51,7 +51,7 @@ export function Footer() {
         {/* <ReactTypeformEmbed url="https://rahultarak12345.typeform.com/to/Fn78Sd" popup={true} buttonText="Mailing List!" mode="drawer_right" style={{ color: "#3FD71", textDecoration: "underline", fontSize: "20px" }} >Join the mailing list!</ReactTypeformEmbed> */}
         <div className="wasm-wrapper">
             <div className="extra">
-                <p style={{ "font-size": "20px", "padding-right": "3%" }}>Powered by</p>
+                <p style={{ "fontSize": "20px", "paddingRight": "3%" }}>Powered by</p>
                 <a
                     href="https://webassembly.org/"
                     target="_blank"

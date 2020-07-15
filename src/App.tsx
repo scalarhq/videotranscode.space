@@ -6,14 +6,16 @@ import { observer } from "mobx-react"
 import './App.css';
 import { Loader, Header, Footer } from "./components/static/static"
 import Dropzone from "./components/dropzone/dropzone"
+import TerminalComponent from "./components/terminal/terminalComponent"
 import { ComponentStoreType } from "./types/store"
+
 
 type AppProps = {
   componentStore: ComponentStoreType;
 };
 const App: React.FC<AppProps> = ({ componentStore }) => {
 
-  let { loaded, fileUploaded, updateLoaded, updateFiles } = componentStore
+  let { loaded, fileUploaded, updateLoaded, updateFiles, updateTerminalText, updateClearTerminal, clearTerminal, terminalText } = componentStore
   // componentStore.loaded = true
 
   console.log(fileUploaded)
@@ -32,7 +34,12 @@ const App: React.FC<AppProps> = ({ componentStore }) => {
             <div className="col dropzone-wrapper">
               <Dropzone updateFiles={updateFiles} />
             </div>
+
+            <div className="terminal-wrapper">
+              <TerminalComponent terminalText={terminalText} clearTerminal={clearTerminal} updateClearTerminal={updateClearTerminal} updateTerminalText={updateTerminalText} loaded={loaded} />
+            </div>
           </div>
+
         </main >
         <Footer />
       </Fragment>

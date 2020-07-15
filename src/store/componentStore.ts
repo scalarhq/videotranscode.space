@@ -22,6 +22,10 @@ class ComponentStore {
   updateLoaded = (value: boolean) => { this.loaded = value; };
   @action("Update Files")
   updateFiles = (value: File[]) => { this.fileUploaded = value; }
+  @action("Update Terminal Text")
+  updateTerminalText = (value: string) => { this.terminalText = value; }
+  @action("Update Clear Terminal")
+  updateClearTerminal = (value: boolean) => { this.clearTerminal = value; }
 
   // @observable config = {
   //   /**
