@@ -1,8 +1,8 @@
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
 
-import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from './configuration';
+// import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from './configuration';
 import { HardwareDataType } from '../types/hardwareData';
-
+// import { ComponentStoreType } from "../types/store"
 
 class ComponentStore {
   @observable loaded = false;
@@ -13,12 +13,15 @@ class ComponentStore {
   @observable submit = false;
   @observable showConfig = false;
   @observable processed = false;
+  @observable fileUploaded: File[] = [];
   @observable progressStore = 1;
   @observable progressType: 'Transcode' | 'Compress' = 'Transcode';
   @observable sliderStore = 0;
   @observable hardwareData: HardwareDataType | null = null;
-  @action
-  updateLoaded(value: boolean) { this.loaded = value; };
+  @action("Update Loaded")
+  updateLoaded = (value: boolean) => { this.loaded = value; };
+  @action("Update Files")
+  updateFiles = (value: File[]) => { this.fileUploaded = value; }
 
   // @observable config = {
   //   /**

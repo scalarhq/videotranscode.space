@@ -20,6 +20,7 @@
     "puppeteer": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.2",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2",
     "ytdl-core": "^3.1.2",
