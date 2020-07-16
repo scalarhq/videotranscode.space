@@ -1,50 +1,47 @@
+/* eslint-disable import/extensions */
+/* eslint-disable prettier/prettier */
 import { observable, action } from 'mobx';
+
+import TerminalStore from './terminalStore';
 
 // import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from './configuration';
 import { HardwareDataType } from '../types/hardwareData';
 // import { ComponentStoreType } from "../types/store"
 
 class ComponentStore {
+  @observable terminalStore = new TerminalStore();
+
   @observable loaded = false;
+
   @observable transcoded = '';
+
   @observable videoDisplay = false;
+
   @observable submit = false;
+
   @observable showConfig = false;
+
   @observable processed = false;
+
   @observable fileUploaded: File[] = [];
+
   @observable progressStore = 1;
+
   @observable progressType: 'Transcode' | 'Compress' = 'Transcode';
+
   @observable sliderStore = 0;
+
   @observable hardwareData: HardwareDataType | null = null;
-  @observable terminalEmulator: HTMLElement | null = null;
 
+  @action('Update Loaded')
+  updateLoaded = (value: boolean) => {
+    this.loaded = value;
+  };
 
-
-
-  @action("Update Loaded")
-  updateLoaded = (value: boolean) => { this.loaded = value; };
-  @action("Update Files")
-  updateFiles = (value: File[]) => { this.fileUploaded = value; }
-
-  @observable t1: any;
-
-  @action("Terminal Text Mutator")
-  updateTerminalText = (message: string, noflag?: boolean) => {
-    if (message) {
-      // terminalMessage = message;
-      console.log("HandleNewMessage", this.t1, message);
-      this.t1.print(`${noflag ? "" : "$"} ${message}`);
-      let terminalEmulator = this.terminalEmulator
-      if (terminalEmulator) {
-        terminalEmulator.scrollTop = terminalEmulator.scrollHeight;
-      }
-    }
-  }
-
-
-
-
-
+  @action('Update Files')
+  updateFiles = (value: File[]) => {
+    this.fileUploaded = value;
+  };
 
   // @observable config = {
   //   /**
@@ -82,8 +79,8 @@ class ComponentStore {
   //   this.config = newObject;
   // }
 }
-//@ts-ignore
-var store = window.store = new ComponentStore();
-
+// @ts-ignore
+// eslint-disable-next-line no-undef,  no-multi-assign
+const store = (window.store = new ComponentStore());
 
 export default store;
