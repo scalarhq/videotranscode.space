@@ -1,0 +1,8 @@
+name: MP4
+extension: .mp4
+display: true
+defaultCodec: null
+type: video/mp4
+codecs:
+  - H264
+  - MPEG4

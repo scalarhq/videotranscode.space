@@ -1,0 +1,6 @@
+name: MPEG-4
+compressionRange:
+  min: 1
+  max: 31
+ffmpegLib: 'libx264'
+notSupported: true
