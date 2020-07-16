@@ -15,7 +15,7 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }) => {
 
-  let { loaded, fileUploaded, updateLoaded, updateFiles, updateTerminalText, updateClearTerminal, clearTerminal, terminalText } = componentStore
+  let { loaded, fileUploaded, updateLoaded, updateFiles } = componentStore
   // componentStore.loaded = true
 
   console.log(fileUploaded)
@@ -36,7 +36,7 @@ const App: React.FC<AppProps> = ({ componentStore }) => {
             </div>
 
             <div className="terminal-wrapper">
-              <TerminalComponent terminalText={terminalText} clearTerminal={clearTerminal} updateClearTerminal={updateClearTerminal} updateTerminalText={updateTerminalText} loaded={loaded} />
+              <TerminalComponent />
             </div>
           </div>
 

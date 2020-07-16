@@ -203,5 +203,5 @@ var Terminal = (function () {
 })();
 
 module.exports = {
-    Terminal
+    Terminal,
 };

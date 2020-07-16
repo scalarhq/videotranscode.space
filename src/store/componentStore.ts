@@ -7,8 +7,6 @@ import { HardwareDataType } from '../types/hardwareData';
 class ComponentStore {
   @observable loaded = false;
   @observable transcoded = '';
-  @observable terminalText = '';
-  @observable clearTerminal = false;
   @observable videoDisplay = false;
   @observable submit = false;
   @observable showConfig = false;
@@ -18,14 +16,35 @@ class ComponentStore {
   @observable progressType: 'Transcode' | 'Compress' = 'Transcode';
   @observable sliderStore = 0;
   @observable hardwareData: HardwareDataType | null = null;
+  @observable terminalEmulator: HTMLElement | null = null;
+
+
+
+
   @action("Update Loaded")
   updateLoaded = (value: boolean) => { this.loaded = value; };
   @action("Update Files")
   updateFiles = (value: File[]) => { this.fileUploaded = value; }
-  @action("Update Terminal Text")
-  updateTerminalText = (value: string) => { this.terminalText = value; }
-  @action("Update Clear Terminal")
-  updateClearTerminal = (value: boolean) => { this.clearTerminal = value; }
+
+  @observable t1: any;
+
+  @action("Terminal Text Mutator")
+  updateTerminalText = (message: string, noflag?: boolean) => {
+    if (message) {
+      // terminalMessage = message;
+      console.log("HandleNewMessage", this.t1, message);
+      this.t1.print(`${noflag ? "" : "$"} ${message}`);
+      let terminalEmulator = this.terminalEmulator
+      if (terminalEmulator) {
+        terminalEmulator.scrollTop = terminalEmulator.scrollHeight;
+      }
+    }
+  }
+
+
+
+
+
 
   // @observable config = {
   //   /**
