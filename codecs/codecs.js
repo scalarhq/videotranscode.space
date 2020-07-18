@@ -6,6 +6,7 @@ const path = require('path');
 const DIR_NAME = './src';
 let CODEC_TYPES = {};
 
+// eslint-disable-next-line consistent-return
 const validateCodec = (key, codec) => {
   const propNames = ['name', 'compressionRange', 'ffmpegLib'];
   let err;

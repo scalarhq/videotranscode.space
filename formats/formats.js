@@ -9,6 +9,7 @@ const codecs = require('../codecs/codecs').codecsTypes;
 const DIR_NAME = './src';
 const FORMAT_TYPES = {};
 
+// eslint-disable-next-line consistent-return
 const validateFormat = (key, format) => {
   const propNames = ['name', 'extension', 'display', 'codecs'];
   let err;
