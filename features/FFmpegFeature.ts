@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { ffmpegRunner, FFmpegDataType } from '../notIntergrated/ts/ffmpeg';
+import { ffmpegRunner, FFmpegDataType } from '../notIntegrated/ts/ffmpeg';
 
-import { getThreads } from '../notIntergrated/ts/hardware';
+import { getThreads } from '../notIntegrated/ts/hardware';
 
 interface FFmpegInterface {
   ffmpegCommands: string;
@@ -66,4 +66,5 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
 export default FFmpegFeature;
 
+// eslint-disable-next-line no-undef
 export type { FFmpegInterface };
