@@ -1,0 +1,4 @@
+name: Compress-Transcode
+steps:
+  - Compress
+  - Transcode
