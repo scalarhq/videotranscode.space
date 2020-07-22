@@ -1,14 +1,6 @@
 {
-  "include": [
-    "src/**/*",
-    "src/types",
-    "codecs/",
-    "format/"
-  ],
-  "exclude": [
-    "node_modules/*",
-    "notIntergrated/*"
-  ],
+  "include": ["src/**/*", "src/types", "codecs/", "format/"],
+  "exclude": ["node_modules/*", "notIntegrated/*"],
   "compilerOptions": {
     "target": "ES2017",
     "module": "ESNEXT",
@@ -18,15 +10,12 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noEmitOnError": true,
     "experimentalDecorators": true,
     "isolatedModules": true
   }

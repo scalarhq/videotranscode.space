@@ -1,0 +1,173 @@
+.clui-wrapper {
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #222;
+    color: white;
+}
+
+
+/* prompt icon css */
+.icon {
+    color: inherit;
+    flex: 0 0 auto;
+    user-select: none;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+span {
+    line-height: 1;
+    white-space: pre;
+}
+
+.icon.success {
+    color: lawngreen;
+}
+
+.error {
+    color: indianred;
+}
+
+/* prompt page css */
+.root {
+    word-break: break-word;
+    color: white;
+}
+
+.value {
+    flex: 0 0 auto;
+}
+
+.value :global(b) {
+    opacity: 0.5;
+}
+
+.description {
+    flex: 1 1 auto;
+    font-size: 12px;
+    padding: 5px 10px;
+    font-family: sans-serif;
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highlighted {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.highlighted .description {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.prompt {
+    position: relative;
+    color: inherit;
+    display: flex;
+    cursor: text;
+    opacity: 0.8;
+}
+
+.prompt.active {
+    opacity: 1;
+}
+
+.prompt:focus-within> :global(div:first-child) {
+    color: cornflowerblue;
+}
+
+.input {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.input-shadow {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.input-shadow span {
+    visibility: hidden;
+}
+
+.input-shadow button {
+    margin-left: 5px;
+    pointer-events: all;
+    background-color: transparent;
+    border: 1px solid rgba(255, 2555, 255, 0.3);
+    color: rgba(255, 2555, 255, 0.8);
+    border-radius: 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.input-shadow button:hover {
+    background-color: cornflowerblue;
+}
+
+.input-shadow button:focus {
+    outline: 0 none;
+}
+
+input,
+.input-shadow,
+.menu-offset {
+    font-size: 16px;
+    font-family: inherit;
+}
+
+input {
+    color: inherit;
+    background-color: transparent;
+    border: 0 none;
+    display: block;
+    width: 100%;
+    flex: 1 1 auto;
+    padding: 0;
+    line-height: 24px;
+}
+
+::placeholder {
+    color: gray;
+}
+
+input:focus {
+    outline: 0 none;
+}
+
+.menu-anchor {
+    position: absolute;
+    top: 100%;
+    display: flex;
+}
+
+.menu {
+    display: flex;
+}
+
+.menu-offset {
+    visibility: hidden;
+    white-space: pre;
+    flex: 0 0 auto;
+    height: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    flex: 1 1 auto;
+    max-width: 400px;
+    background-color: black;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+li {
+    cursor: pointer;
+}

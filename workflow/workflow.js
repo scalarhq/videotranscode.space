@@ -3,8 +3,6 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const path = require('path');
 
-// const features = require('')
-
 const getFeatures = () => {
   const featuresFile = fs.readFileSync(path.join(__dirname, '../features/features.ts'), 'utf-8');
   let start = featuresFile.indexOf('const FEATURES');
@@ -19,7 +17,6 @@ const getFeatures = () => {
     const newLine = `"${splitByColon[0].replace(/ /g, '')}":"${splitByColon[1]
       .slice(0, -1)
       .replace(/ /g, '')}",`;
-
     return newLine;
   });
 
@@ -72,7 +69,12 @@ const init = (features) => {
         errs.push(err);
       } else {
         const [name, obj] = e;
-        // obj.steps = obj.
+        if (!obj.ui) {
+          obj.ui = null;
+        }
+        if (!obj.child) {
+          obj.child = null;
+        }
         WORKFLOWS[name] = obj;
       }
     });
@@ -87,13 +89,21 @@ const deleteWorkflow = () => {
 const features = getFeatures();
 init(features);
 
-const fileData = `const workflows = ${JSON.stringify(WORKFLOWS)}; export default workflows;`;
+const fileData = `type WorkflowType = {
+ [name:string] : { name: string;
+  description: string;
+  ui: JSX.Element | string | null;
+  child?: any;
+  steps: Array<string>;}
+};
 
-fs.writeFileSync(path.join(__dirname, './workflow.ts'), fileData);
+ const workflows : WorkflowType = ${JSON.stringify(WORKFLOWS)}; export default workflows;`;
+
+fs.writeFileSync(path.join(__dirname, '../src/dist/workflow.ts'), fileData);
 
 module.exports = {
   init,
   deleteWorkflow,
   validateWorkflow,
-  codecsTypes: WORKFLOWS,
+  WORKFLOWS,
 };
