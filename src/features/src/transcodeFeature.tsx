@@ -62,7 +62,8 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     const childProps = {
       title: 'Choose Codec',
       parents: [...currentParents, 'CODEC'],
-      current: currentFormat.defaultCodec ? { name: currentFormat.defaultCodec.name, value: currentFormat.defaultCodec.name }
+      current: currentFormat.defaultCodec
+        ? { name: currentFormat.defaultCodec.name, value: currentFormat.defaultCodec.name }
         : { name: currentFormat.codecs[0].name, value: currentFormat.codecs[0].name },
       list: currentFormat.codecs.map((codec) => ({ name: codec.name, value: codec.name })),
     };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ComponentStore from '../store/componentStore';
 
@@ -24,10 +24,15 @@ const List = (props: ListProps) => {
   const { list, title, parents } = props;
   const [current, setCurrent] = useState(props.current);
 
+  useEffect(() => {
+    const defaultConfiguration = { name: current.name, value: current.value };
+    updateConfiguration(defaultConfiguration, parents);
+  }, []);
+
   const handleClick = (e: React.MouseEvent, element: ListElement) => {
     e.preventDefault();
     setCurrent(element);
-    const newConfiguration = { ...element };
+    const newConfiguration = { name: element.name, value: element.value };
     updateConfiguration(newConfiguration, parents);
   };
 

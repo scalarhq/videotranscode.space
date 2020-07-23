@@ -1,4 +1,4 @@
-import { act } from '@testing-library/react';
+/* eslint-disable no-param-reassign */
 import { observable, action } from 'mobx';
 import features from '../features/features';
 
@@ -6,6 +6,8 @@ class CluiStore {
   @observable cluiPlaceholder: string = 'Hi, I am a clui!';
 
   @observable inputMessage: string = '';
+
+  @observable configurationString: string = '';
 
   @action
   public setInputMessage = (value: string) => {
@@ -34,17 +36,39 @@ class CluiStore {
     newConfiguration: { value: string; [name: string]: any },
     parents: Array<string>
   ) => {
-    let { configuration } = this;
-    while (parents.length > 1) {
-      const key = parents.shift() as string;
-      if (!(key in configuration)) {
-        configuration[key] = {};
+    const { configuration } = this;
+    function updateObject(object: any) {
+      while (parents.length > 1) {
+        const key = parents.shift() as string;
+        if (!(key in object)) {
+          object = Object.assign(object, { [key]: {} });
+        }
+        object = object[key];
       }
-      configuration = configuration[key];
+      const key = parents.shift() as string;
+
+      object[key] = Object.assign(newConfiguration, object[key]);
     }
-    const key = parents.shift() as string;
-    configuration[key] = Object.assign(newConfiguration, configuration[key]);
+    updateObject(configuration);
+
+    console.log(JSON.stringify(configuration));
+
+    // configuration[key] = newConfiguration;
     this.configuration = configuration;
+    console.log('Updating Configuration', JSON.stringify(this.configuration));
+    const seen: any[] = [];
+
+    // this.configurationString = JSON.stringify(configuration, (k, val) => {
+    //   if (val != null && typeof val === 'object') {
+    //     if (seen.indexOf(val) >= 0) {
+    //       return;
+    //     }
+    //     seen.push(val);
+    //   }
+    //   return val;
+    // });
+
+    this.configurationString = JSON.stringify(configuration);
   };
 }
 
