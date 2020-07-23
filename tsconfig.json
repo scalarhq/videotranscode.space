@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "src/types", "codecs/", "format/"],
+  "include": ["src/**/*", "src/types", "codecs/", "format/", "notIntegrated", "features/**/*"],
   "exclude": ["node_modules/*", "notIntegrated/*"],
   "compilerOptions": {
     "target": "ES2017",

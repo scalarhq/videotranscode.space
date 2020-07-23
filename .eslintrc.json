@@ -1,40 +1,34 @@
 {
-    "extends": ["airbnb", "prettier", "prettier/react"],
-    "plugins": ["prettier"],
-    "rules": {
-        "prettier/prettier": [
-            "error",
-            {
-                "singleQuote": true,
-                "parser": "flow"
-            }
-        ],
-        "no-unused-vars": "off",
-        "react/jsx-filename-extension": [
-            2,
-            {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        ],
-        "import/extensions": "off",
-        "no-console": "off"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "tsx": true
-        }
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        }
-    },
-    "env": {
-        "browser": true,
-        "node": true
+  "extends": ["airbnb"],
+  //   "plugins": ["eslint-plugin-prettier"],
+  "rules": {
+    "no-restricted-syntax": ["error", "ForInStatement"],
+    "no-unused-vars": "off",
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "import/extensions": "off",
+    "no-console": "off"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "tsx": true
     }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
 }

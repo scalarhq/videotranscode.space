@@ -2,7 +2,7 @@ const {
   preprocess: makeTsPreprocess,
   createEnv,
   readConfigFile,
-} = require("@pyoner/svelte-ts-preprocess");
+} = require('@pyoner/svelte-ts-preprocess');
 
 const env = createEnv();
 const compilerOptions = readConfigFile(env);
@@ -17,22 +17,16 @@ const preprocess = makeTsPreprocess(preprocessOptions);
 
 module.exports = {
   transform: {
-    "^.+\\.svelte$": [
-      "jest-transform-svelte",
-      { preprocess: preprocess, debug: true },
-    ],
-    "^.+\\.ts$": "ts-jest",
-    "^.+\\.js$": "babel-jest",
+    '^.+\\.svelte$': ['jest-transform-svelte', { preprocess, debug: true }],
+    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
   },
-  moduleDirectories: ["node_modules", "src"],
-  testPathIgnorePatterns: ["node_modules"],
+  moduleDirectories: ['node_modules', 'src'],
+  testPathIgnorePatterns: ['node_modules'],
   bail: false,
   verbose: true,
-  preset: "jest-puppeteer",
-  transformIgnorePatterns: ["node_modules"],
-  moduleFileExtensions: ["js", "svelte", "ts"],
-  setupFilesAfterEnv: [
-    "./jest.setup.js",
-    "@testing-library/jest-dom/extend-expect",
-  ],
+  preset: 'jest-puppeteer',
+  transformIgnorePatterns: ['node_modules'],
+  moduleFileExtensions: ['js', 'svelte', 'ts'],
+  setupFilesAfterEnv: ['./jest.setup.js', '@testing-library/jest-dom/extend-expect'],
 };

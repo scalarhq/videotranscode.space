@@ -22,9 +22,12 @@
     "mobx-react": "^6.2.2",
     "platform": "^1.3.5",
     "react": "^16.13.1",
+    "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.2",
+    "react-reveal": "^1.2.2",
     "react-scripts": "3.4.1",
+    "styled-jsx": "^3.3.0",
     "typescript": "^3.9.6"
   },
   "devDependencies": {
@@ -33,6 +36,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.9.1",
     "@typescript-eslint/parser": "^3.6.1",
+    "customize-cra": "^1.0.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -44,12 +48,13 @@
     "js-yaml": "^3.14.0",
     "prettier": "^2.0.5",
     "puppeteer": "^5.1.0",
+    "react-app-rewired": "^2.1.6",
     "ytdl-core": "^3.1.2",
     "ytsr": "^0.1.15"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
