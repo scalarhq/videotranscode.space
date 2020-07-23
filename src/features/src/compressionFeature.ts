@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import FFmpegFeature from '../FFmpegFeature';
 
 class CompressionFeature extends FFmpegFeature {

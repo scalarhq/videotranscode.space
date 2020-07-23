@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
 import FFmpegFeature from '../FFmpegFeature';
-import { FormatType, CodecType } from '../../src/types/formats';
+import { FormatType, CodecType } from '../../types/formats';
 
 class TranscodeFeature extends FFmpegFeature {
+  // @ts-ignore Set in Constructor
   display: boolean;
 
   specialType = 'Transcode Function';
@@ -28,7 +28,8 @@ class TranscodeFeature extends FFmpegFeature {
   };
 
   /**
-   * Updates the video display parameter for a format, which determines if it is showed in the video player or not.
+   * Updates the video display parameter for a format, which determines
+   * if it is showed in the video player or not.
    * @param displayType Expect a boolean of if the video format can be shown in an HTML5 <video> tag
    */
   private updateDisplay = (displayType: boolean): void => {
@@ -36,7 +37,7 @@ class TranscodeFeature extends FFmpegFeature {
     // Updates display value in the store
   };
 
-  setFFmpegCommands(defaultCodec: CodecType, chosenCodec: CodecType) {
+  setFFmpegCommands(defaultCodec: CodecType | null, chosenCodec: CodecType) {
     let finalCodec = defaultCodec ? `-c:v ${defaultCodec.ffmpegLib}` : '';
 
     if (chosenCodec) {

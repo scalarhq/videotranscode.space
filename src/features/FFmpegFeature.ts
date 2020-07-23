@@ -1,9 +1,10 @@
-/* eslint-disable prettier/prettier */
-import { ffmpegRunner, FFmpegDataType } from '../notIntegrated/ts/ffmpeg';
+import { ffmpegRunner, FFmpegDataType } from '../ts/ffmpeg';
 
-import { getThreads } from '../notIntegrated/ts/hardware';
+import { getThreads } from '../ts/hardware';
 
 interface FFmpegInterface {
+  // description: string;
+  // // ui: JSX.Element | null;
   ffmpegCommands: string;
   threads: number;
   inputFileName: string;
@@ -21,6 +22,13 @@ abstract class FFmpegFeature implements FFmpegInterface {
   public inputFileName: string;
 
   public outputFileName: string;
+
+  // /**
+  //  * CLUI UI Component for this feature, can choose this component from list of CLUI Components
+  //  * if no component is specified, this feature will be treated as a flag,
+  //  * i.e as a boolean only on or off
+  //  */
+  // // public abstract ui: JSX.Element;
 
   constructor() {
     const inputFileName = this.getCurrentFileName();
@@ -40,7 +48,7 @@ abstract class FFmpegFeature implements FFmpegInterface {
     return currentFileName;
   };
 
-  /** 
+  /**
     Calls FFmpeg with the given ffmpegCommands and appropriate inputFileName
    * @returns The file name of the processed file
    */

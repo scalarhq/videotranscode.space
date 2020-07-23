@@ -1,23 +1,25 @@
 import clear from './clear';
 import custom from './custom';
 import workflows from '../../dist/workflow';
-import data from './data';
+import features, { Feature } from '../../features/features';
 
 type CommandType = {
   command: string;
   description: string;
   ui: JSX.Element | string;
   child?: Array<CommandType>;
+  steps: Array<string | Feature>;
 };
 
 const generateWorkflows: () => Array<CommandType> = () => {
   const finalWorkflows: Array<CommandType> = [];
   const workflowsArray = Object.values(workflows);
-  workflowsArray.forEach((workflow) => {
+  for (const workflow of workflowsArray) {
     const newWorkflow: CommandType = {
       command: workflow.name,
       description: workflow.description,
       ui: 'default UI component ',
+      steps: workflow.steps,
     };
     if (workflow.ui) {
       newWorkflow.ui = workflow.ui;
@@ -26,15 +28,39 @@ const generateWorkflows: () => Array<CommandType> = () => {
       newWorkflow.child = workflow.child;
     }
     finalWorkflows.push(newWorkflow);
-  });
+  }
   return finalWorkflows;
+};
+
+const generateFeatures: () => Array<CommandType> = () => {
+  const finalFeatures: Array<CommandType> = [];
+  const featureKeys = Object.keys(features);
+  // featureKeys.forEach((key) => {
+  //   const currentFeature = features[key];
+  //   const newFeature: CommandType = {
+  //     command: key,
+  //     description: currentFeature.description,
+  //   };
+  // });
+
+  for (const key of featureKeys) {
+    const currentFeature = features[key];
+    const newFeature: CommandType = {
+      command: key as string,
+      description: currentFeature.description,
+      ui: currentFeature.ui,
+      steps: [currentFeature.feature],
+    };
+    finalFeatures.push(newFeature);
+  }
+  return finalFeatures;
 };
 
 const command = {
   commands: {
     clear,
     workflows: custom(generateWorkflows()),
-
+    feature: custom(generateFeatures()),
     // @ts-ignore
     // customData: custom.commands(data),
   },
