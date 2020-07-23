@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
-/* eslint-disable prettier/prettier */
 import { observable, action } from 'mobx';
+
+import CluiStore from './cluiStore';
 
 import TerminalStore from './terminalStore';
 
@@ -9,6 +10,8 @@ import { HardwareDataType } from '../types/hardwareData';
 // import { ComponentStoreType } from "../types/store"
 
 class ComponentStore {
+  @observable CluiStore = new CluiStore();
+
   @observable terminalStore = new TerminalStore();
 
   @observable loaded = false;
@@ -41,6 +44,15 @@ class ComponentStore {
   @action('Update Files')
   updateFiles = (value: File[]) => {
     this.fileUploaded = value;
+    if (this.terminalStore) {
+      // @ts-ignore
+      this.terminalStore.updateTerminalText(`Received File ${value[0].name}`);
+      // @ts-ignore
+      this.terminalStore.updateTerminalText(
+        'This is a CLUI, a Command Line Graphical Interface, it will help you choose you settings.',
+        true
+      );
+    }
   };
 
   // @observable config = {

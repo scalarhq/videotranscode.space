@@ -1,4 +1,5 @@
-import TranscodeFeature from './src/transcodeFeature';
+import React from 'react';
+import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature';
 import CompressionFeature from './src/compressionFeature';
 
 export type Feature = typeof TranscodeFeature | typeof CompressionFeature;
@@ -14,8 +15,8 @@ export type Features = {
 const FEATURES: Features = {
   TRANSCODE: {
     feature: TranscodeFeature,
-    description: 'Choose which format to convert your video too',
-    ui: 'Transcode UI Component',
+    description: 'Choose which format to convert your video to',
+    ui: <TranscodeUi parents={['TRANSCODE']} />,
   },
   COMPRESS: {
     feature: CompressionFeature,

@@ -7,9 +7,12 @@ import React, {
 import classnames from 'classnames';
 import Downshift from 'downshift';
 import PromptIcon from './promptIcon';
-
 import MatchSubString from './subString';
 import useCluiInput from './useCluiInput';
+import ComponentStore from '../store/componentStore';
+
+const { CluiStore } = ComponentStore;
+const { setInputMessage } = CluiStore;
 
 type MenuItemProps = {
   item: any,
@@ -74,6 +77,11 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
     ran.current = true;
 
     if (input.current) {
+      const { value } = input.current;
+      if (value !== 'Clear') {
+        console.log(value, command);
+        setInputMessage(value);
+      }
       input.current.blur();
     }
 
@@ -122,7 +130,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
           autoFocus: true,
           spellCheck: false,
           autoComplete: 'off',
-          placeholder: 'Hi I am a Clui! Try me, I won\'t bite',
+          placeholder: 'Hi I am a Clui! You can set your configuration here',
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),
           onKeyUp,

@@ -16,24 +16,20 @@ const CustomComp = (props: any) => {
   }, [count]);
   return props.ui || 'No ui was provided';
 };
-const generateCommands = (array: Array<CommandType>) => {
-  console.log(array);
-  return array.reduce((cur, nex) => {
+const generateCommands = (array: Array<CommandType>) => array.reduce((cur, nex) => {
+  // @ts-ignore
+  cur[nex.command] = {
+    description: nex.description,
+  };
+  if (nex.child && nex.child.length) {
     // @ts-ignore
-    cur[nex.command] = {
-      description: nex.description,
-    };
-    if (nex.child && nex.child.length) {
-      // @ts-ignore
-      cur[nex.command].commands = () => generateCommands(nex.child as Array<CommandType>);
-    } else {
-      // @ts-ignore
-      cur[nex.command].run = () => <CustomComp ui={nex.ui} />;
-    }
-    return cur;
-  }, {});
-};
-
+    cur[nex.command].commands = () => generateCommands(nex.child as Array<CommandType>);
+  } else {
+    // @ts-ignore
+    cur[nex.command].run = () => <CustomComp ui={nex.ui} />;
+  }
+  return cur;
+}, {});
 const getFormattedOutput = (data: Array<CommandType>) => ({ commands: generateCommands(data) });
 
 export default getFormattedOutput;

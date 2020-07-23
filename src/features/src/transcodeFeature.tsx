@@ -1,3 +1,7 @@
+import React from 'react';
+import formats from '../../dist/formats';
+import List from '../../clui-ui-components/List';
+
 import FFmpegFeature from '../FFmpegFeature';
 import { FormatType, CodecType } from '../../types/formats';
 
@@ -37,7 +41,7 @@ class TranscodeFeature extends FFmpegFeature {
     // Updates display value in the store
   };
 
-  setFFmpegCommands(defaultCodec: CodecType | null, chosenCodec: CodecType) {
+  setFFmpegCommands(defaultCodec: CodecType | null | undefined, chosenCodec: CodecType) {
     let finalCodec = defaultCodec ? `-c:v ${defaultCodec.ffmpegLib}` : '';
 
     if (chosenCodec) {
@@ -47,3 +51,35 @@ class TranscodeFeature extends FFmpegFeature {
   }
 }
 export default TranscodeFeature;
+
+const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
+  const formatList = Object.keys(formats);
+
+  const currentParents = [...parents, 'FORMAT'];
+
+  const list = formatList.map((formatKey) => {
+    const currentFormat = formats[formatKey];
+    const childProps = {
+      title: 'Choose Codec',
+      parents: [...currentParents, 'CODEC'],
+      current: currentFormat.defaultCodec ? { name: currentFormat.defaultCodec.name, value: currentFormat.defaultCodec.name }
+        : { name: currentFormat.codecs[0].name, value: currentFormat.codecs[0].name },
+      list: currentFormat.codecs.map((codec) => ({ name: codec.name, value: codec.name })),
+    };
+    const returnObject = { name: formatKey, value: formatKey, child: <List {...childProps} /> };
+    return returnObject;
+  });
+
+  const props = {
+    title: 'Choose Format',
+    parents: currentParents,
+    current: { name: 'MP4', value: 'MP4' },
+    list,
+  };
+
+  return (
+    <List {...props} />
+  );
+};
+
+export { TranscodeUi };
