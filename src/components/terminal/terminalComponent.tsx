@@ -1,4 +1,7 @@
-
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { Terminal } from './terminal';
@@ -10,7 +13,6 @@ const TerminalComponent: React.FC = () => {
 	const terminalRef = React.useRef<null | HTMLDivElement>(null);
 	const { terminalStore, loaded } = componentStore;
 
-	// eslint-disable-next-line prettier/prettier
 	const updateTerminalText = terminalStore.updateTerminalText as (
 		message: string,
 		noflag?: boolean
@@ -51,14 +53,14 @@ const TerminalComponent: React.FC = () => {
 		updateTerminalText('Hello, I am a Video Transcoder!', true);
 		updateTerminalText(
 			"But I am slightly different than other online video tools, because I don't upload your files anywhere.",
-			true
+			true,
 		);
 		updateTerminalText(
 			'Instead I protect your privacy by doing all the computation on your browser locally.',
-			true
+			true,
 		);
 		addSpecialMessage(
-			`I do this by using the amazing new technology called <a style="color: #ff3e00" href="https://webassembly.org/" target="_blank" rel="noopener noreferrer">web assembly</a>.`
+			'I do this by using the amazing new technology called <a style="color: #ff3e00" href="https://webassembly.org/" target="_blank" rel="noopener noreferrer">web assembly</a>.',
 		);
 
 		return () => {
@@ -71,8 +73,6 @@ const TerminalComponent: React.FC = () => {
 		};
 	}, []);
 
-
-
 	useEffect(() => {
 		if (loaded) {
 			updateTerminalText('Loaded FFmpeg!');
@@ -84,6 +84,7 @@ const TerminalComponent: React.FC = () => {
 			<div
 				id="terminal"
 				ref={terminalRef}
+				className="terminal-emulator"
 				style={{ display: 'flex', flex: '0 1', height: '100%' }}
 			/>
 		</>

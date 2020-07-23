@@ -34,7 +34,7 @@ export function Footer() {
         href="https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder"
         target="_blank"
         rel="noopener noreferrer"
-        className="icon"
+        className="footer-icon"
       >
         <i className="fa fa-github" />
       </a>
