@@ -14,15 +14,17 @@ const validateFormat = (key, format) => {
   const propNames = ['name', 'extension', 'display', 'codecs'];
   let err;
   propNames.forEach((name) => {
-    if (format[name] === null || format[name] === undefined)
+    if (format[name] === null || format[name] === undefined) {
       err = new Error(`Missing required format property: ${name}`);
+    }
   });
 
   if (err) return err;
 
   if (format.extension.charAt(0) !== '.') return new Error('Invalid extension');
-  if (format.display !== true && format.display !== false)
+  if (format.display !== true && format.display !== false) {
     return new Error('Invalid value for display');
+  }
   if (format.codecs.includes(undefined)) return new Error('Invalid codec');
 
   if (FORMAT_TYPES[key]) return new Error(`Format type for: (${key}) already exists`);
@@ -58,7 +60,11 @@ const init = (CODEC_TYPES) => {
 
 init(codecs);
 
-const fileData = `const formats = ${JSON.stringify(FORMAT_TYPES)}; export default formats`;
+const fileData = `import { FormatType } from '../types/formats';
+
+const formats : {[name:string] : FormatType} = ${JSON.stringify(
+  FORMAT_TYPES
+)}; export default formats`;
 
 fs.writeFileSync(path.join(__dirname, '../src/dist/formats.ts'), fileData);
 

@@ -2,6 +2,7 @@
   "extends": ["airbnb"],
   //   "plugins": ["eslint-plugin-prettier"],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "no-restricted-syntax": ["error", "ForInStatement"],
     "no-unused-vars": "off",
     "react/jsx-filename-extension": [
