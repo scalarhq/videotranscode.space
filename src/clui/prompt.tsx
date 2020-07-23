@@ -1,6 +1,9 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, {
+  useState, useCallback, useEffect, useRef,
+} from 'react';
 import classnames from 'classnames';
 import Downshift from 'downshift';
 import PromptIcon from './promptIcon';
@@ -53,7 +56,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   const ran = useRef(false);
   const [focused, setFocused] = useState(false);
 
-  const { command } = props as { command: { commands: { [name: string]: any } } }
+  const { command } = props as { command: { commands: { [name: string]: any } } };
 
   const [state, update] = useCluiInput({
     command,
@@ -119,7 +122,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
           autoFocus: true,
           spellCheck: false,
           autoComplete: 'off',
-          placeholder: 'run a command',
+          placeholder: 'Hi I am a Clui! Try me, I won\'t bite',
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),
           onKeyUp,
@@ -166,7 +169,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
                   </button>
                 </div>
               ) : null}
-              <input ref={input} {...inputProps} />
+              <input style={{ wordWrap: 'break-word' }} ref={input} {...inputProps} />
               {focused ? (
                 <div className="menu-anchor">
                   <div className="menu">

@@ -1,9 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-
 import React, { useEffect, useState } from 'react';
 import { CommandType } from './commands';
-
 
 const CustomComp = (props: any) => {
   const [count, setCount] = useState(0);
@@ -19,7 +17,7 @@ const CustomComp = (props: any) => {
   return props.ui || 'No ui was provided';
 };
 const generateCommands = (array: Array<CommandType>) => {
-  console.log(array)
+  console.log(array);
   return array.reduce((cur, nex) => {
     // @ts-ignore
     cur[nex.command] = {
@@ -27,22 +25,15 @@ const generateCommands = (array: Array<CommandType>) => {
     };
     if (nex.child && nex.child.length) {
       // @ts-ignore
-      cur[nex.command].commands = () => {
-        return generateCommands(nex.child as Array<CommandType>);
-      };
+      cur[nex.command].commands = () => generateCommands(nex.child as Array<CommandType>);
     } else {
       // @ts-ignore
-      cur[nex.command].run = () => {
-        return <CustomComp ui={nex.ui} />;
-      };
+      cur[nex.command].run = () => <CustomComp ui={nex.ui} />;
     }
     return cur;
   }, {});
 };
 
-const getFormattedOutput = (data: Array<CommandType>) => {
-  return { commands: generateCommands(data) }
-}
+const getFormattedOutput = (data: Array<CommandType>) => ({ commands: generateCommands(data) });
 
-
-export default getFormattedOutput
+export default getFormattedOutput;

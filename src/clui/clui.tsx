@@ -4,14 +4,15 @@ import Prompt from './prompt';
 import command from './commands/commands';
 import './clui.css';
 
-const Clui = () => {
-  return (
-    <div className="clui-wrapper">
-      <Session>
-        <Prompt command={command} />
-      </Session>
-    </div>
-  );
-};
+const Clui = () => (
+  <div className="clui-wrapper">
+    <Session>
+      <Prompt command={command} />
+    </Session>
+    {/*
+    // @ts-ignore */}
+
+  </div>
+);
 
 export default Clui;

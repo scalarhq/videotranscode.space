@@ -35,14 +35,6 @@ const generateWorkflows: () => Array<CommandType> = () => {
 const generateFeatures: () => Array<CommandType> = () => {
   const finalFeatures: Array<CommandType> = [];
   const featureKeys = Object.keys(features);
-  // featureKeys.forEach((key) => {
-  //   const currentFeature = features[key];
-  //   const newFeature: CommandType = {
-  //     command: key,
-  //     description: currentFeature.description,
-  //   };
-  // });
-
   for (const key of featureKeys) {
     const currentFeature = features[key];
     const newFeature: CommandType = {
@@ -58,11 +50,9 @@ const generateFeatures: () => Array<CommandType> = () => {
 
 const command = {
   commands: {
-    clear,
-    workflows: custom(generateWorkflows()),
-    feature: custom(generateFeatures()),
-    // @ts-ignore
-    // customData: custom.commands(data),
+    Workflows: { description: 'Automated Workflows', ...custom(generateWorkflows()) },
+    Feature: { description: 'All Available Features', ...custom(generateFeatures()) },
+    Clear: clear,
   },
 };
 

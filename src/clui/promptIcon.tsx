@@ -1,4 +1,3 @@
-
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import classnames from 'classnames';
@@ -15,7 +14,10 @@ type IconProps = {
 
 const PromptIcon: React.FC<IconProps> = (props: IconProps) => (
   <div className={classnames('icon', props)}>
-    <span>{Icon[props.icon || 'CARET']} </span>
+    <span>
+      {Icon[props.icon || 'CARET']}
+      {' '}
+    </span>
   </div>
 );
 
