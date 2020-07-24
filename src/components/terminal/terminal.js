@@ -1,5 +1,5 @@
 /*! terminal.js v2.0 | (c) 2014 Erik Österberg | https://github.com/eosterberg/terminaljs */
-
+/* eslint-disable */
 const Terminal = (function () {
   // PROMPT_TYPE
   const PROMPT_INPUT = 1;
@@ -36,9 +36,7 @@ const Terminal = (function () {
     fireCursorInterval(inputField, terminalObj);
 
     if (message.length) {
-      terminalObj.print(
-        PROMPT_TYPE === PROMPT_CONFIRM ? `${message} (y/n)` : message,
-      );
+      terminalObj.print(PROMPT_TYPE === PROMPT_CONFIRM ? `${message} (y/n)` : message);
     }
 
     inputField.onblur = function () {
@@ -55,13 +53,7 @@ const Terminal = (function () {
     };
 
     inputField.onkeydown = function (e) {
-      if (
-        e.which === 37
-                || e.which === 39
-                || e.which === 38
-                || e.which === 40
-                || e.which === 9
-      ) {
+      if (e.which === 37 || e.which === 39 || e.which === 38 || e.which === 40 || e.which === 9) {
         e.preventDefault();
       } else if (shouldDisplayInput && e.which !== 13) {
         setTimeout(() => {
@@ -198,7 +190,7 @@ const Terminal = (function () {
   };
 
   return TerminalConstructor;
-}());
+})();
 
 module.exports = {
   Terminal,

@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { FFmpegInterface } from '../../features/FFmpegFeature';
+import { FFmpegInterface } from '../features/FFmpegFeature';
 
 interface Feature {
   [name: string]: { new (): FFmpegInterface };

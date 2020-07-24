@@ -16,7 +16,7 @@ export type FormatType = {
   extension: string;
   display: boolean;
   codecs: CodecType[];
-  defaultCodec: CodecType | null;
+  defaultCodec?: CodecType | null;
 };
 
 export type ConfigurationType = {

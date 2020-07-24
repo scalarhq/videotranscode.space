@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { observable, action } from 'mobx';
 
 class TerminalStore {
@@ -14,7 +13,7 @@ class TerminalStore {
     if (message) {
       // terminalMessage = message;
       // eslint-disable-next-line no-console
-      console.log('HandleNewMessage', this.t1, message);
+      // console.log('HandleNewMessage', this.t1, message);
       this.t1.print(`${noflag ? '' : '$'} ${message}`);
       const { terminalEmulator } = this;
       if (terminalEmulator) {
