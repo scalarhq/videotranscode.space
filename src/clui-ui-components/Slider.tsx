@@ -6,12 +6,20 @@ const { CluiStore } = ComponentStore;
 
 const { updateConfiguration } = CluiStore;
 
+/**
+ * Similar to {@link ListProps}
+ */
 type SliderProps = {
   parents: Array<string>
   title: string
   min: number
   max: number
 }
+
+/**
+ * Abstraction of a Slider Functional Component which can be used in the CLUI
+ * @param param0 {@link SliderProps}
+ */
 
 const Slider = ({
   parents, title, min, max,

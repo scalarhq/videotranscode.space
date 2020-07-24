@@ -15,6 +15,10 @@ type CommandType = {
   steps: Array<string | Feature>;
 };
 
+/**
+ * Generates the CLUI command for all workflows and passes to custom ui component
+ * Uses {@link WorkflowUi} to generate UI for workflows
+ */
 const generateWorkflows: () => Array<CommandType> = () => {
   const finalWorkflows: Array<CommandType> = [];
   const workflowsArray = Object.values(workflows);
@@ -35,7 +39,10 @@ const generateWorkflows: () => Array<CommandType> = () => {
   }
   return finalWorkflows;
 };
-
+/**
+ * Generates CLUI command for all Features and passes it to custom component
+ * Uses {@link FeatureUi} to generate UI for all Features
+ */
 const generateFeatures: () => Array<CommandType> = () => {
   const finalFeatures: Array<CommandType> = [];
   const featureKeys = Object.keys(features);
