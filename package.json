@@ -57,7 +57,8 @@
   "scripts": {
     "generate": "node workflow/workflow.js; node codecs/codecs.js; node formats/formats.js",
     "start": "react-app-rewired start",
-    "build": "yarn generate && react-app-rewired build",
+    "react-build": "react-app-rewired build",
+    "build": "yarn generate; yarn react-build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "document": "typedoc --options typedoc.json src/ --theme node_modules/eledoc/bin/default/"
