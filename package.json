@@ -55,7 +55,7 @@
     "ytsr": "^0.1.15"
   },
   "scripts": {
-    "generate": "node workflow/workflow.js; node codecs/codecs.js; node formats/formats.js",
+    "generate": "mkdir src/dist; node workflow/workflow.js; node codecs/codecs.js; node formats/formats.js",
     "start": "react-app-rewired start",
     "react-build": "react-app-rewired build",
     "build": "yarn generate; yarn react-build ",
