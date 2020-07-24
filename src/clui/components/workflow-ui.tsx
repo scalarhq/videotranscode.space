@@ -12,7 +12,7 @@ import './clui-ui.css';
 const WorkflowUi = ({ steps }: { steps: Array<string> }) => {
   const featuresInUse: Array<FeatureElement> = [];
   for (const featureKey of steps) {
-    featuresInUse.push(features[featureKey]);
+    featuresInUse.push(features[featureKey as keyof typeof features]);
   }
   const UiElements = featuresInUse.map((feature) => feature.ui);
   return (

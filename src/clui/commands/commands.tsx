@@ -47,7 +47,7 @@ const generateFeatures: () => Array<CommandType> = () => {
   const finalFeatures: Array<CommandType> = [];
   const featureKeys = Object.keys(features);
   for (const key of featureKeys) {
-    const currentFeature = features[key];
+    const currentFeature = features[key as keyof typeof features];
     const newFeature: CommandType = {
       command: key as string,
       description: currentFeature.description,

@@ -101,12 +101,15 @@ const deleteWorkflow = () => {
 // const features = getFeatures();
 init(features);
 
-const fileData = `type WorkflowType = {
- [name:string] : { name: string;
+const fileData = `
+export type WorkflowElement = { name: string;
   description: string;
   ui: JSX.Element | string | null;
   child?: any;
-  steps: Array<string>;}
+  steps: Array<string>;};
+
+export type WorkflowType = {
+ [name:string] : WorkflowElement
 };
 
  const workflows : WorkflowType = ${JSON.stringify(WORKFLOWS)}; export default workflows;`;
