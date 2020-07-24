@@ -16,3 +16,4 @@ tests/puppeteer-testing/test-video.mp4
 tests/puppeteer-testing/test.js
 tests/puppeteer-testing/uploaded.png
 notIntegrated
+build
