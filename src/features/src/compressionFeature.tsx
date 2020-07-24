@@ -1,3 +1,6 @@
+import React from 'react';
+import Slider from '../../clui-ui-components/Slider';
+
 import FFmpegFeature from '../FFmpegFeature';
 
 class CompressionFeature extends FFmpegFeature {
@@ -22,3 +25,7 @@ class CompressionFeature extends FFmpegFeature {
   };
 }
 export default CompressionFeature;
+
+const CompressionUi = ({ parents }: { parents: Array<string> }) => (<Slider parents={parents} min={0} max={100} title="Compression Level" />);
+
+export { CompressionUi };

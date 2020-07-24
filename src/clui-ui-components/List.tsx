@@ -22,18 +22,20 @@ type ListProps = {
 
 const List = (props: ListProps) => {
   const { list, title, parents } = props;
+
+  // eslint-disable-next-line react/destructuring-assignment
   const [current, setCurrent] = useState(props.current);
 
   useEffect(() => {
     const defaultConfiguration = { name: current.name, value: current.value };
-    updateConfiguration(defaultConfiguration, parents);
+    updateConfiguration(defaultConfiguration, [...parents]);
   }, []);
 
   const handleClick = (e: React.MouseEvent, element: ListElement) => {
     e.preventDefault();
     setCurrent(element);
     const newConfiguration = { name: element.name, value: element.value };
-    updateConfiguration(newConfiguration, parents);
+    updateConfiguration(newConfiguration, [...parents]);
   };
 
   return (

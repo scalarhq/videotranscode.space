@@ -5,22 +5,28 @@ import features from '../features/features';
 class CluiStore {
   @observable cluiPlaceholder: string = 'Hi, I am a clui!';
 
-  @observable inputMessage: string = '';
+  @action updateCluiPlaceholder(newPlaceholder: string) {
+    this.cluiPlaceholder = newPlaceholder;
+  }
 
-  @observable configurationString: string = '';
+  @observable inputMessage: string = '';
 
   @action
   public setInputMessage = (value: string) => {
     this.inputMessage = value;
   };
 
+  @observable isSubmitted: boolean = false;
+
+  @action setSubmitStatus = (value: boolean) => {
+    this.isSubmitted = value;
+  };
+
   @observable chosenFeatures: Array<keyof typeof features> = [];
 
   @observable configuration: { [name: string]: {} } = {};
 
-  @action updateCluiPlaceholder(newPlaceholder: string) {
-    this.cluiPlaceholder = newPlaceholder;
-  }
+  @observable configurationString: string = '';
 
   /**
    * Recursively Finds Correct Config and Updates it with the value
@@ -33,7 +39,7 @@ class CluiStore {
    */
 
   @action updateConfiguration = (
-    newConfiguration: { value: string; [name: string]: any },
+    newConfiguration: { value: any; [name: string]: any },
     parents: Array<string>
   ) => {
     const { configuration } = this;
@@ -46,8 +52,11 @@ class CluiStore {
         object = object[key];
       }
       const key = parents.shift() as string;
-
-      object[key] = Object.assign(newConfiguration, object[key]);
+      if (key in object) {
+        object[key] = Object.assign(object[key], newConfiguration);
+      } else {
+        object = Object.assign(object, { [key]: newConfiguration });
+      }
     }
     updateObject(configuration);
 

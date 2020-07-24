@@ -1,7 +1,11 @@
+import React from 'react';
 import clear from './clear';
 import custom from './custom';
 import workflows from '../../dist/workflow';
 import features, { Feature } from '../../features/features';
+
+import WorkflowUi from '../components/workflow-ui';
+import FeatureUi from '../components/feature-ui';
 
 type CommandType = {
   command: string;
@@ -18,7 +22,7 @@ const generateWorkflows: () => Array<CommandType> = () => {
     const newWorkflow: CommandType = {
       command: workflow.name,
       description: workflow.description,
-      ui: 'default UI component ',
+      ui: (<WorkflowUi steps={workflow.steps} />),
       steps: workflow.steps,
     };
     if (workflow.ui) {
@@ -40,7 +44,7 @@ const generateFeatures: () => Array<CommandType> = () => {
     const newFeature: CommandType = {
       command: key as string,
       description: currentFeature.description,
-      ui: currentFeature.ui,
+      ui: (<FeatureUi ui={currentFeature.ui} />),
       steps: [currentFeature.feature],
     };
     finalFeatures.push(newFeature);

@@ -1,15 +1,17 @@
 import React from 'react';
 import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature';
-import CompressionFeature from './src/compressionFeature';
+import CompressionFeature, { CompressionUi } from './src/compressionFeature';
 
 export type Feature = typeof TranscodeFeature | typeof CompressionFeature;
 
+export type FeatureElement = {
+  feature: Feature;
+  description: string;
+  ui: JSX.Element | string;
+};
+
 export type Features = {
-  [name: string]: {
-    feature: Feature;
-    description: string;
-    ui: JSX.Element | string;
-  };
+  [name: string]: FeatureElement
 };
 
 const FEATURES: Features = {
@@ -21,7 +23,7 @@ const FEATURES: Features = {
   COMPRESS: {
     feature: CompressionFeature,
     description: 'Choose how much you want to compress your video',
-    ui: 'Compress UI Component',
+    ui: <CompressionUi parents={['COMPRESS']} />,
   },
 };
 

@@ -1,0 +1,11 @@
+/* 
+    This is a wrapper css file for displaying feature and workflow components
+*/
+.row {
+    display: flex;
+    flex-direction: row;
+    padding-top: 2%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
