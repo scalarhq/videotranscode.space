@@ -2,6 +2,8 @@ import React from 'react';
 import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature';
 import CompressionFeature, { CompressionUi } from './src/compressionFeature';
 
+import keys from './featureKeys.json';
+
 export type Feature = typeof TranscodeFeature | typeof CompressionFeature;
 
 export type FeatureElement = {
@@ -11,7 +13,7 @@ export type FeatureElement = {
 };
 
 export type Features = {
-  [name: string]: FeatureElement
+  [name in keyof typeof keys]: FeatureElement
 };
 
 const FEATURES: Features = {

@@ -3,31 +3,42 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const path = require('path');
 
-const getFeatures = () => {
-  const featuresFile = fs.readFileSync(path.join(__dirname, '../features/features.ts'), 'utf-8');
-  let start = featuresFile.indexOf('const FEATURES');
-  let featuresObject = featuresFile.slice(start);
-  const end = featuresObject.indexOf('};');
-  featuresObject = featuresObject.slice(0, end + 1);
-  start = featuresObject.indexOf('{');
-  featuresObject = featuresObject.slice(start);
-  let lineByLine = featuresObject.split('\n').slice(1, -1);
-  lineByLine = lineByLine.map((line) => {
-    const splitByColon = line.split(':');
-    const newLine = `"${splitByColon[0].replace(/ /g, '')}":"${splitByColon[1]
-      .slice(0, -1)
-      .replace(/ /g, '')}",`;
-    return newLine;
-  });
+const features = require('../src/features/featureKeys.json');
 
-  lineByLine[lineByLine.length - 1] = lineByLine[lineByLine.length - 1].slice(0, -1);
-  lineByLine.push('}');
-  lineByLine = ['{'].concat(lineByLine);
-  lineByLine = lineByLine.join('\n');
+// const getFeatures = () => {
+//   const featuresFile = fs.readFileSync(
+//     path.join(__dirname, '../src/features/features.tsx'),
+//     'utf-8'
+//   );
+//   // console.log(featuresFile);
+//   let start = featuresFile.indexOf('const FEATURES');
+//   let featuresObject = featuresFile.slice(start);
+//   const end = featuresObject.indexOf('};');
+//   featuresObject = featuresObject.slice(0, end + 1);
+//   start = featuresObject.indexOf('{');
+//   featuresObject = featuresObject.slice(start);
+//   let lineByLine = featuresObject.split('\n').slice(1, -1);
+//   console.log(lineByLine);
+//   lineByLine = lineByLine.map((line) => {
+//     console.log(line);
+//     const splitByColon = line.split(':');
+//     if (splitByColon.length === 2) {
+//       const newLine = `"${splitByColon[0].replace(/ /g, '')}":"${splitByColon[1]
+//         .slice(0, -1)
+//         .replace(/ /g, '')}",`;
+//       return newLine;
+//     }
+//     return line;
+//   });
 
-  const featuresJSON = JSON.parse(lineByLine);
-  return featuresJSON;
-};
+//   lineByLine[lineByLine.length - 1] = lineByLine[lineByLine.length - 1].slice(0, -1);
+//   lineByLine.push('}');
+//   lineByLine = ['{'].concat(lineByLine);
+//   lineByLine = lineByLine.join('\n');
+
+//   const featuresJSON = JSON.parse(lineByLine);
+//   return featuresJSON;
+// };
 
 const DIR_NAME = './src';
 let WORKFLOWS = {};
@@ -37,8 +48,9 @@ const validateWorkflow = (key, workflow, features) => {
   const propNames = ['name', 'steps'];
   let err;
   propNames.forEach((name) => {
-    if (workflow[name] === null || workflow[name] === undefined)
+    if (workflow[name] === null || workflow[name] === undefined) {
       err = new Error(`Missing required codec property: ${name}`);
+    }
   });
 
   workflow.steps.forEach((step) => {
@@ -86,7 +98,7 @@ const deleteWorkflow = () => {
   WORKFLOWS = {};
 };
 
-const features = getFeatures();
+// const features = getFeatures();
 init(features);
 
 const fileData = `type WorkflowType = {
