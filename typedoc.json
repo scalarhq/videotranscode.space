@@ -1,0 +1,7 @@
+{
+  "name": "FFmpeg Wasm Contributing Documentation",
+  "mode": "modules",
+  "out": "docs",
+  "exclude": ["src/*+(App|.test|index|setupTests|serviceWorker).ts*", "**/**/dist/*"],
+  "excludePrivate": true
+}
