@@ -16,7 +16,10 @@ const { updateConfiguration } = CluiStore;
 type ListElement = {
   name: string,
   value: string
-  child?: JSX.Element
+  child?: {
+    component: any,
+    props: any
+  }
   [name: string]: any
 }
 /**
@@ -42,9 +45,10 @@ const List = (props: ListProps) => {
   const { list, title, parents } = props;
 
   // eslint-disable-next-line react/destructuring-assignment
-  const [current, setCurrent] = useState(props.current);
+  const [current, setCurrent] = useState<ListElement>(props.current);
 
   useEffect(() => {
+    console.log(current.child);
     const defaultConfiguration = { name: current.name, value: current.value };
     updateConfiguration(defaultConfiguration, [...parents]);
   }, []);
@@ -72,7 +76,11 @@ const List = (props: ListProps) => {
             </div>
           ))}
         </div>
+        {current.child && (
+          <current.child.component {...current.child.props} />
+        )}
         {/* @ts-ignore */}
+
         <style jsx>
           {`
          .options-list-wrapper h1 {
@@ -124,7 +132,6 @@ const List = (props: ListProps) => {
           }
         `}
         </style>
-        {current.child ? current.child : null}
       </div>
     </>
   );

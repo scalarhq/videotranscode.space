@@ -67,14 +67,24 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
         : { name: currentFormat.codecs[0].name, value: currentFormat.codecs[0].name },
       list: currentFormat.codecs.map((codec) => ({ name: codec.name, value: codec.name })),
     };
-    const returnObject = { name: formatKey, value: formatKey, child: <List {...childProps} /> };
+    const returnObject = { name: formatKey, value: formatKey, child: { component: List, props: childProps } };
     return returnObject;
   });
+
+  const mp4Format = formats.MP4;
+  const mp4ChildProps = {
+    title: 'Choose Codec',
+    parents: [...currentParents, 'CODEC'],
+    current: mp4Format.defaultCodec
+      ? { name: mp4Format.defaultCodec.name, value: mp4Format.defaultCodec.name }
+      : { name: mp4Format.codecs[0].name, value: mp4Format.codecs[0].name },
+    list: mp4Format.codecs.map((codec) => ({ name: codec.name, value: codec.name })),
+  };
 
   const props = {
     title: 'Choose Format',
     parents: currentParents,
-    current: { name: 'MP4', value: 'MP4' },
+    current: { name: 'MP4', value: 'MP4', child: { component: List, props: mp4ChildProps } },
     list,
   };
 

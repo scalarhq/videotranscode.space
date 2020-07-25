@@ -39,6 +39,7 @@ const generateWorkflows: () => Array<CommandType> = () => {
   }
   return finalWorkflows;
 };
+
 /**
  * Generates CLUI command for all Features and passes it to custom component
  * Uses {@link FeatureUi} to generate UI for all Features
