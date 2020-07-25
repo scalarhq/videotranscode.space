@@ -65,17 +65,6 @@ class CluiStore {
     // configuration[key] = newConfiguration;
     this.configuration = configuration;
     console.log('Updating Configuration', JSON.stringify(this.configuration));
-    const seen: any[] = [];
-
-    // this.configurationString = JSON.stringify(configuration, (k, val) => {
-    //   if (val != null && typeof val === 'object') {
-    //     if (seen.indexOf(val) >= 0) {
-    //       return;
-    //     }
-    //     seen.push(val);
-    //   }
-    //   return val;
-    // });
 
     this.configurationString = JSON.stringify(configuration);
   };

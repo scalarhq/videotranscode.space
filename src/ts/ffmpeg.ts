@@ -1,5 +1,5 @@
 // @ts-ignore
-import { createFFmpeg } from '@ffmpeg/ffmpeg';
+// import { createFFmpeg } from '@ffmpeg/ffmpeg';
 // import { loadedStore, progressStore } from '../store/stores';
 
 export type FFmpegDataType = {
@@ -36,16 +36,18 @@ if (window.navigator.userAgent.includes('jsdom')) {
   /** *
    * Creates an FFmpeg Instance and Updates the progress bar with progress value
    */
-  const ffmpeg = createFFmpeg({
-    log: true,
-    progress: (input: any) => {
-      const value: number = input.ratio * 100.0;
-      if (value > 0) {
-        console.info(`Completed ${value.toFixed(2)}%`);
-        // progressStore.update(() => value);
-      }
-    },
-  });
+  // const ffmpeg = createFFmpeg({
+  //   log: true,
+  //   progress: (input: any) => {
+  //     const value: number = input.ratio * 100.0;
+  //     if (value > 0) {
+  //       console.info(`Completed ${value.toFixed(2)}%`);
+  //       // progressStore.update(() => value);
+  //     }
+  //   },
+  // });
+  // @ts-ignore
+  const ffmpeg: any;
 
   /** Checks if FFmpeg is supported on that browser */
   (async () => {
