@@ -6,11 +6,11 @@ import { useDropzone } from 'react-dropzone';
 
 import './dropzone.css';
 
-type DropzoneProps = {
-  updateFiles: any,
-};
+import ComponentStore from '../../store/componentStore';
 
-const Dropzone: React.FC<DropzoneProps> = ({ updateFiles }: DropzoneProps) => {
+const { updateFiles } = ComponentStore;
+
+const Dropzone = () => {
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
 
