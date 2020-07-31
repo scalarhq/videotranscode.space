@@ -1,15 +1,14 @@
 /* eslint-disable import/extensions */
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
-import CluiStore from './cluiStore';
-
-import TerminalStore from './terminalStore';
-
-// import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from './configuration';
 import { HardwareDataType } from '../types/hardwareData';
+import formats from '../dist/formats';
+
+// Stores
+import CluiStore from './cluiStore';
+import TerminalStore from './terminalStore';
 import ProgressStore from './progressStore';
 import VideoStore from './videoStore';
-// import { ComponentStoreType } from "../types/store"
 
 class ComponentStore {
   @observable CluiStore = CluiStore;
@@ -78,6 +77,43 @@ class ComponentStore {
       }
     }
   };
+
+  /**
+   * Returns current file extension **without the dot**
+   * Example mov, mp4
+   */
+  @computed get currentFileExtension() {
+    const { currentFileName } = this;
+    const nameArray = currentFileName.split('.');
+    const ext = nameArray[nameArray.length - 1];
+    return ext;
+  }
+
+  /**
+   * Returns a computed string for blobType which takes the value of the current file extension
+   * and return `video/$ext`. An example would be for an test.mov file it returns `video/mov`
+   */
+  @computed get defaultBlobType() {
+    const ext = this.currentFileExtension;
+    const blobType = `video/${ext}`;
+    return blobType;
+  }
+
+  /**
+   * Returns if the current file extension is displayable or not,
+   * i.e, can the browser video tag support this extension
+   */
+  @computed get isDisplayable() {
+    const ext = `.${this.currentFileExtension}`;
+
+    for (const key of Object.keys(formats)) {
+      const currentFormat = formats[key];
+      if (currentFormat.extension === ext) {
+        return currentFormat.display;
+      }
+    }
+    return false;
+  }
 }
 // @ts-ignore
 // eslint-disable-next-line no-undef,  no-multi-assign

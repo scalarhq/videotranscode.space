@@ -15,7 +15,7 @@ class VideoStore {
     this.toDisplay = value;
   };
 
-  @observable blobType: string = 'video/mp4';
+  @observable blobType: string = '';
 
   @action
   updateBlobType = (value: string) => {

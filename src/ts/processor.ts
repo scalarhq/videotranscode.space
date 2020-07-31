@@ -6,12 +6,21 @@ import { ffmpegReader, loadFFmpeg } from './ffmpeg';
 
 import loadFiles from './file';
 
-const { CluiStore, VideoStore, updateCurrentFile, updateProcessedState } = ComponentStore;
+const {
+  CluiStore,
+  VideoStore,
+  updateCurrentFile,
+  updateProcessedState,
+  defaultBlobType,
+  isDisplayable,
+} = ComponentStore;
 
-const { updateBlobUrl, blobType } = VideoStore;
+const { updateBlobUrl, blobType, toDisplay, updateVideoDisplay } = VideoStore;
 
 const createVideoObject = (processedFile: Uint8Array) => {
-  const blobUrl = URL.createObjectURL(new Blob([processedFile.buffer], { type: blobType }));
+  const blobUrl = URL.createObjectURL(
+    new Blob([processedFile.buffer], { type: blobType || defaultBlobType })
+  );
   console.info(blobUrl);
   return blobUrl;
 };
@@ -40,6 +49,9 @@ const onSubmitHandler = async () => {
   console.log('Outside for loop');
   const processedFile = await ffmpegReader(currentFileName);
   const blobUrl = createVideoObject(processedFile);
+  if (!toDisplay) {
+    updateVideoDisplay(isDisplayable);
+  }
   updateBlobUrl(blobUrl);
   updateProcessedState(true);
 };
