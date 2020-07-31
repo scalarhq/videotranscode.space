@@ -16,29 +16,6 @@ const exportedElements: {
   ffmpegRunner: (fileName: string, ffmpegData: FFmpegDataType) => Promise<string>;
 } = {};
 
-/** *
- * Mocking Behavior for JS DOM for Testing Purposes
- */
-
-// if (window.navigator.userAgent.includes('jsdom')) {
-//   // This is a testing environment and not a production environment.
-
-//   // Mock Functions
-
-//   const mockWriter = async (file: File) => 'mock-name';
-//   const mockReader = async (filename: string) => {
-//     const newMockArray = new Uint8Array();
-//     return newMockArray;
-//   };
-//   const mockRunner = async (fileName: string, ffmpegData: FFmpegDataType) =>
-// 'processed-mock-name';
-//   exportedElements.ffmpegRunner = mockRunner;
-//   exportedElements.ffmpegReader = mockReader;
-//   exportedElements.ffmpegWriter = mockWriter;
-// } else {
-/**
- * Creates an FFmpeg Instance and Updates the progress bar with progress value
- */
 const ffmpeg = createFFmpeg({
   log: true,
   progress: (input: any) => {
@@ -106,12 +83,11 @@ const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
   }
 };
 
-// Exporting the Above Functions
-// exportedElements.ffmpegRunner = ffmpegRunner;
-// exportedElements.ffmpegReader = ffmpegReader;
-// exportedElements.ffmpegWriter = ffmpegWriter;
-// }
+const ffmpegGarbageCollector = async (oldFileNames: Array<string>) => {
+  for (const oldFile of oldFileNames) {
+    // eslint-disable-next-line no-await-in-loop
+    await ffmpeg.remove(oldFile);
+  }
+};
 
-// const { ffmpegRunner, ffmpegReader, ffmpegWriter } = exportedElements;
-
-export { loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter };
+export { loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter, ffmpegGarbageCollector };
