@@ -19,7 +19,7 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
-    loaded, processed, files, CluiStore, VideoStore, ProgressStore,
+    loaded, processed, files, CluiStore, VideoStore, ProgressStore, currentFileExtension,
   } = componentStore;
   const { isSubmitted } = CluiStore;
 
@@ -75,7 +75,7 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
             )
                 : (
                   <Fade bottom>
-                    <VideoPlayer url={url} toDisplay={toDisplay} />
+                    <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
                   </Fade>
                 )}
 

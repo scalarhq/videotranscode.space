@@ -499,11 +499,12 @@ const Video = ({ url }: { url: string }) => {
     </div>
   );
 };
-const DownloadButton = ({ url }: { url: string }) => {
+const DownloadButton = ({ url, ext }: { url: string, ext: string }) => {
   const downloadButton = React.useRef<null | HTMLAnchorElement>(null);
   useEffect(() => {
     if (downloadButton && downloadButton.current && url) {
       downloadButton.current.href = url;
+      downloadButton.current.setAttribute('download', `output.${ext}`);
     }
   }, [url]);
   return (
@@ -515,10 +516,12 @@ const DownloadButton = ({ url }: { url: string }) => {
   );
 };
 
-const VideoWrapper = ({ url, toDisplay }: { url: string, toDisplay: boolean }) => (
+type VideoProps = { url: string, toDisplay: boolean, ext: string }
+
+const VideoWrapper = ({ url, toDisplay, ext }: VideoProps) => (
   <div>
     {toDisplay ? <Video url={url} /> : null}
-    <DownloadButton url={url} />
+    <DownloadButton url={url} ext={ext} />
     {/* @ts-ignore Styled JSX */}
     <style jsx>
       {`
