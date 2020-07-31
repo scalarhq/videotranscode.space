@@ -61,7 +61,7 @@
     "build": "yarn generate; yarn react-build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "document": "typedoc --options typedoc.json src/ --theme node_modules/eledoc/bin/default/"
+    "document": "yarn generate; typedoc --options typedoc.json src/ --theme node_modules/eledoc/bin/default/"
   },
   "eslintConfig": {
     "extends": "react-app"
