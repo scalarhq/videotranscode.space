@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from '../../clui-ui-components/Slider';
+import List from '../../clui-ui-components/List';
 
 import FFmpegFeature from '../FFmpegFeature';
 
@@ -48,6 +49,26 @@ class CompressionFeature extends FFmpegFeature {
 
 export default CompressionFeature;
 
-const CompressionUi = ({ parents }: { parents: Array<string> }) => (<Slider parents={parents} min={0} max={100} title="Compression Level" />);
+const CompressionUi = ({ parents }: { parents: Array<string> }) => {
+  const ListElements = [{ name: 'Low', value: 10 }, { name: 'Medium', value: 30 }, { name: 'High', value: 60 }, {
+    name: 'Custom',
+    value: 0,
+    child: {
+      component: Slider,
+      props: {
+        parents, min: 0, max: 100, title: 'Custom Level',
+      },
+      paddingTop: 3,
+    },
+  }];
+
+  const current = { name: 'Low', value: 10 };
+
+  const props = {
+    parents, title: 'Compression Settings', current, list: ListElements,
+  };
+
+  return (<List {...props} />);
+};
 
 export { CompressionUi };

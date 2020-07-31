@@ -14,6 +14,10 @@ type SliderProps = {
   title: string
   min: number
   max: number
+  child?: {
+    component: any, // Expect a JSX Element
+    props: any
+  }
 }
 
 /**
@@ -22,7 +26,7 @@ type SliderProps = {
  */
 
 const Slider = ({
-  parents, title, min, max,
+  parents, title, min, max, child,
 }: SliderProps) => {
   const [sliderValue, setSliderValue] = useState(0);
 
@@ -45,6 +49,9 @@ const Slider = ({
           %
         </p>
       </div>
+      {child && (
+        <child.component {...child.props} />
+      )}
       {/* @ts-ignore */}
       <style jsx>
         {`

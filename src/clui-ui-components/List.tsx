@@ -15,10 +15,11 @@ const { updateConfiguration } = CluiStore;
 
 type ListElement = {
   name: string,
-  value: string
+  value: any
   child?: {
     component: any,
     props: any
+    paddingTop?: number
   }
   [name: string]: any
 }
@@ -77,12 +78,15 @@ const List = (props: ListProps) => {
           ))}
         </div>
         {current.child && (
-          <current.child.component {...current.child.props} />
+          <div className="child"><current.child.component {...current.child.props} /></div>
         )}
         {/* @ts-ignore */}
 
         <style jsx>
           {`
+          .child {
+            padding-top: ${current.child && current.child.paddingTop ? current.child.paddingTop : 0}%
+          }
          .options-list-wrapper h1 {
             color: #959cb4;
           }
