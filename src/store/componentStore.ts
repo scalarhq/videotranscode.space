@@ -7,89 +7,77 @@ import TerminalStore from './terminalStore';
 
 // import { FORMAT_TYPES, CODEC_TYPES, ConfigOptions } from './configuration';
 import { HardwareDataType } from '../types/hardwareData';
+import ProgressStore from './progressStore';
+import VideoStore from './videoStore';
 // import { ComponentStoreType } from "../types/store"
 
 class ComponentStore {
-  @observable CluiStore = new CluiStore();
+  @observable CluiStore = CluiStore;
 
   @observable terminalStore = new TerminalStore();
 
-  @observable loaded = false;
+  @observable ProgressStore = new ProgressStore();
+
+  @observable VideoStore = new VideoStore();
+
+  @observable hardwareData: HardwareDataType | null = null;
 
   @observable transcoded = '';
 
-  @observable videoDisplay = false;
-
-  @observable submit = false;
-
-  @observable showConfig = false;
-
   @observable processed = false;
 
-  @observable fileUploaded: File[] = [];
+  @action
+  updateProcessedState = (newState: boolean) => {
+    this.processed = newState;
+  };
 
-  @observable progressStore = 1;
+  @observable currentFileName: string = '';
 
-  @observable progressType: 'Transcode' | 'Compress' = 'Transcode';
+  @action
+  updateCurrentFile = (fileName: string) => {
+    this.currentFileName = fileName;
+  };
 
-  @observable sliderStore = 0;
-
-  @observable hardwareData: HardwareDataType | null = null;
+  @observable loaded = false;
 
   @action('Update Loaded')
   updateLoaded = (value: boolean) => {
     this.loaded = value;
   };
 
+  @observable files: { uploaded: boolean; values: File[] } = { uploaded: false, values: [] };
+
+  renameFile = (originalFile: File, count: number, extension: string) =>
+    new File([originalFile], `input-${count}.${extension}`, {
+      type: originalFile.type,
+      lastModified: originalFile.lastModified,
+    });
+
   @action('Update Files')
   updateFiles = (value: File[]) => {
-    this.fileUploaded = value;
-    if (this.terminalStore) {
-      // @ts-ignore
-      this.terminalStore.updateTerminalText(`Received File ${value[0].name}`);
-      // @ts-ignore
-      this.terminalStore.updateTerminalText(
-        'This is a CLUI, a Command Line Graphical Interface, it will help you choose you settings.',
-        true
-      );
+    if (value.length > 0) {
+      const renamedFiles: File[] = [];
+      let count = 0;
+      for (const file of value) {
+        const { name, size } = file;
+        if (this.terminalStore && this.terminalStore.updateTerminalText) {
+          this.terminalStore.updateTerminalText(`Received File ${name}`);
+        }
+        const nameComponents = name.split('.');
+        const ext = nameComponents[nameComponents.length - 1];
+        renamedFiles.push(this.renameFile(file, count, ext));
+        count += 1;
+      }
+      Object.assign(this.files, { uploaded: true, values: renamedFiles });
+      console.log(renamedFiles, JSON.stringify(this.files));
+      if (this.terminalStore && this.terminalStore.updateTerminalText) {
+        this.terminalStore.updateTerminalText(
+          'This is a CLUI, a Command Line Graphical Interface, it will help you choose you settings.',
+          true
+        );
+      }
     }
   };
-
-  // @observable config = {
-  //   /**
-  //    * The format for FFmpeg to convert to
-  //    */
-
-  //   format: FORMAT_TYPES.MP4,
-  //   /**
-  //    * The video codec used for compression
-  //    */
-
-  //   codec: CODEC_TYPES.H264,
-
-  //   /**
-  //    * The amount of compression to apply. The range of acceptable values is based
-  //    * on the codec.
-  //    *
-  //    */
-  //   compressionLevel: 0,
-  // };
-  // @computed set configSetOption(data: { type: ConfigOptions; val: any }) {
-  //   const { type, val } = data;
-  //   const temp: any = {};
-  //   /**
-  //    * Error Caught Here, Expected
-  //    * type ConfigurationType = {
-  //    * format : FormatType,
-  //    * codec: CodecType
-  //    * }
-  //    * Enum has Codec and Format, Mis Matched Case
-  //    */
-
-  //   temp[ConfigOptions[type].toLowerCase()] = val;
-  //   const newObject = Object.assign({}, this.config, temp);
-  //   this.config = newObject;
-  // }
 }
 // @ts-ignore
 // eslint-disable-next-line no-undef,  no-multi-assign
