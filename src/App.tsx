@@ -1,11 +1,16 @@
-import React from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect } from 'react';
+
 // @ts-ignore
 import Fade from 'react-reveal/Fade';
 import { observer } from 'mobx-react';
+import processor, { loadFFmpeg } from './ts/processor';
 import './App.css';
 import { Loader, Header, Footer } from './components/static/static';
 import Dropzone from './components/dropzone/dropzone';
 import TerminalComponent from './components/terminal/terminalComponent';
+import ProgressBar from './components/progress/progress';
+import VideoPlayer from './components/video/video';
 import { ComponentStoreType } from './types/store';
 import Clui from './clui/clui';
 
@@ -14,12 +19,23 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
-    loaded, fileUploaded, updateLoaded, updateFiles,
+    loaded, processed, files, CluiStore, VideoStore, ProgressStore,
   } = componentStore;
-  // componentStore.loaded = true
+  const { isSubmitted } = CluiStore;
+
+  const { toDisplay, url } = VideoStore;
 
   // updateLoaded = updateLoaded.bind(componentStore)
-  updateLoaded(true);
+  loadFFmpeg();
+
+  // const [processing, updateProcessing] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      console.log('Call Processor');
+      processor();
+    }
+  }, [isSubmitted]);
 
   if (!loaded) {
     return (
@@ -36,21 +52,32 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
         <Header />
 
         <div className="flex-wrapper">
-          {fileUploaded.length === 0
+          {!files.uploaded
             ? (
 
               <div className="col dropzone-wrapper">
                 <Fade bottom>
-                  <Dropzone updateFiles={updateFiles} />
+                  <Dropzone />
                 </Fade>
               </div>
 
             )
-            : (
+            : !isSubmitted ? (
+
               <Fade bottom>
                 <Clui />
               </Fade>
-            )}
+
+            ) : !processed ? (
+              <Fade bottom>
+                <ProgressBar {...ProgressStore} />
+              </Fade>
+            )
+                : (
+                  <Fade bottom>
+                    <VideoPlayer url={url} toDisplay={toDisplay} />
+                  </Fade>
+                )}
 
           <div className="terminal-wrapper">
             <Fade bottom>
