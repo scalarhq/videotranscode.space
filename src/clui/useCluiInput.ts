@@ -40,7 +40,6 @@ const useCluiInput = (options: OptionsType) => {
   });
 
   if (!input.current) {
-    console.log(input.current);
     Object.assign(input, {
       current: inputState({
         command: options.command,
