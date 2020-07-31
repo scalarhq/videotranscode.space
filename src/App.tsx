@@ -19,11 +19,13 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
-    loaded, processed, files, CluiStore, VideoStore, ProgressStore, currentFileExtension,
+    loaded, processed, FileStore, CluiStore, VideoStore, ProgressStore,
   } = componentStore;
   const { isSubmitted } = CluiStore;
 
-  const { toDisplay, url } = VideoStore;
+  const { currentFileExtension, files, isDisplayable } = FileStore;
+
+  const { toDisplay, updateVideoDisplay, url } = VideoStore;
 
   // updateLoaded = updateLoaded.bind(componentStore)
   loadFFmpeg();
@@ -36,6 +38,15 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
       processor();
     }
   }, [isSubmitted]);
+
+  useEffect(() => {
+    if (processed) {
+      console.log('Current Video State | Default Video State', toDisplay, isDisplayable);
+      if (!toDisplay) {
+        updateVideoDisplay(isDisplayable);
+      }
+    }
+  }, [processed]);
 
   if (!loaded) {
     return (
