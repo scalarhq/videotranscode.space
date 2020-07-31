@@ -1,8 +1,7 @@
-// @ts-ignore
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
 import ComponentStore from '../store/componentStore';
 
-const { ProgressStore } = ComponentStore;
+const { ProgressStore, updateLoaded } = ComponentStore;
 const { updateProgress } = ProgressStore;
 
 export type FFmpegDataType = {
@@ -31,12 +30,13 @@ const exportedElements: {
 //     const newMockArray = new Uint8Array();
 //     return newMockArray;
 //   };
-//   const mockRunner = async (fileName: string, ffmpegData: FFmpegDataType) => 'processed-mock-name';
+//   const mockRunner = async (fileName: string, ffmpegData: FFmpegDataType) =>
+// 'processed-mock-name';
 //   exportedElements.ffmpegRunner = mockRunner;
 //   exportedElements.ffmpegReader = mockReader;
 //   exportedElements.ffmpegWriter = mockWriter;
 // } else {
-/** *
+/**
  * Creates an FFmpeg Instance and Updates the progress bar with progress value
  */
 const ffmpeg = createFFmpeg({
@@ -51,7 +51,7 @@ const ffmpeg = createFFmpeg({
 });
 
 /** Checks if FFmpeg is supported on that browser */
-(async () => {
+const loadFFmpeg = async () => {
   try {
     await ffmpeg.load();
   } catch (err) {
@@ -59,8 +59,8 @@ const ffmpeg = createFFmpeg({
     // eslint-disable-next-line no-alert
     alert(`Your Browser is not supported ${err.message}`);
   }
-  // loadedStore.update(() => true);
-})();
+  updateLoaded(true);
+};
 
 /** *
  * FFmpeg Writer Loads a Video in WASM Memory for FFmpeg to use later
@@ -94,11 +94,16 @@ const ffmpegReader = async (fileName: string) => {
 
 const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
   const { outputFileName, threads, ffmpegCommands } = ffmpegData;
-  await ffmpeg.run(
-    `-i '${fileName}' -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFileName} 
-      }`
-  );
-  return outputFileName;
+  const commandString = `-i '${fileName}' -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFileName}`;
+  console.log('Running FFmpeg', commandString);
+  try {
+    const promise = await ffmpeg.run(commandString);
+    console.log('Returning output', promise);
+    return outputFileName;
+  } catch (err) {
+    console.trace();
+    console.info(err.message);
+  }
 };
 
 // Exporting the Above Functions
@@ -109,4 +114,4 @@ const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
 
 // const { ffmpegRunner, ffmpegReader, ffmpegWriter } = exportedElements;
 
-export { ffmpegRunner, ffmpegReader, ffmpegWriter };
+export { loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter };
