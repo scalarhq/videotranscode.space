@@ -85,8 +85,10 @@ const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
 
 const ffmpegGarbageCollector = async (oldFileNames: Array<string>) => {
   for (const oldFile of oldFileNames) {
-    // eslint-disable-next-line no-await-in-loop
-    await ffmpeg.remove(oldFile);
+    if (oldFile) {
+      // eslint-disable-next-line no-await-in-loop
+      await ffmpeg.remove(oldFile);
+    }
   }
 };
 

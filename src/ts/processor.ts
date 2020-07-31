@@ -2,20 +2,15 @@ import ComponentStore from '../store/componentStore';
 
 import features, { FeatureElement } from '../features/features';
 
-import { ffmpegReader, loadFFmpeg } from './ffmpeg';
+import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
 import loadFiles from './file';
 
-const {
-  CluiStore,
-  VideoStore,
-  updateCurrentFile,
-  updateProcessedState,
-  defaultBlobType,
-  isDisplayable,
-} = ComponentStore;
+const { CluiStore, VideoStore, FileStore, updateProcessedState } = ComponentStore;
 
-const { updateBlobUrl, blobType, toDisplay, updateVideoDisplay } = VideoStore;
+const { defaultBlobType, updateCurrentFile, oldFiles } = FileStore;
+
+const { updateBlobUrl, blobType } = VideoStore;
 
 const createVideoObject = (processedFile: Uint8Array) => {
   const blobUrl = URL.createObjectURL(
@@ -49,10 +44,8 @@ const onSubmitHandler = async () => {
   console.log('Outside for loop');
   const processedFile = await ffmpegReader(currentFileName);
   const blobUrl = createVideoObject(processedFile);
-  if (!toDisplay) {
-    updateVideoDisplay(isDisplayable);
-  }
   updateBlobUrl(blobUrl);
+  await ffmpegGarbageCollector([...oldFiles, currentFileName]);
   updateProcessedState(true);
 };
 
