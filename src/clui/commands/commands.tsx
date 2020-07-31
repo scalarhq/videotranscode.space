@@ -52,7 +52,7 @@ const generateFeatures: () => Array<CommandType> = () => {
     const newFeature: CommandType = {
       command: key as string,
       description: currentFeature.description,
-      ui: (<FeatureUi ui={currentFeature.ui} />),
+      ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as string} />),
       steps: [currentFeature.feature],
     };
     finalFeatures.push(newFeature);
