@@ -23,4 +23,4 @@ class TerminalStore {
   };
 }
 
-export default TerminalStore;
+export default new TerminalStore();

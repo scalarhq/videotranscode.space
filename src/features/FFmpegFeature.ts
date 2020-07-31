@@ -4,9 +4,11 @@ import ComponentStore from '../store/componentStore';
 
 import { getThreads } from '../ts/hardware';
 
-const { updateCurrentFile, ProgressStore } = ComponentStore;
+const { FileStore, ProgressStore } = ComponentStore;
 
 const { updateStatic } = ProgressStore;
+
+const { updateCurrentFile } = FileStore;
 
 interface FFmpegInterface {
   configuration: {
@@ -70,7 +72,7 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   getCurrentFileName = (): string => {
     // Get Current File Name from stores
-    const { currentFileName } = ComponentStore;
+    const { currentFileName } = FileStore;
     return currentFileName;
   };
 

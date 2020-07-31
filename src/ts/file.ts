@@ -1,8 +1,8 @@
-import ComponentStore from '../store/componentStore';
+import FileStore from '../store/fileStore';
 
 import { ffmpegWriter } from './ffmpeg';
 
-const { files } = ComponentStore;
+const { files } = FileStore;
 
 /**
  * Loads Originally Uploaded Files into FFmpeg Memory
