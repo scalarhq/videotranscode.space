@@ -13,7 +13,7 @@ A video transcoder and converter built use Web Assembly and FFMPEG to transcode 
 
 **This project is still very early in development and only a proof of concept**
 
-## [Contributing](https://docs.videotranscode.space/pages/get started/contributingguidelines)
+## [Contributing](https://docs.videotranscode.space/pages/get%20started/contributingguidelines)
 
 See [Quick Start](https://docs.videotranscode.space/pages/get%20started/quickstart) to learn how to get the project setup and working.
 
