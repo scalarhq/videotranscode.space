@@ -34,7 +34,6 @@ class CompressionFeature extends FFmpegFeature {
    * Sets the compression value in the FFmpeg command
    * @param compressionValue: The compression value chosen on the slider
    */
-
   private compressCommand = (compressionValue: number): string => {
     const finalCompressionValue = `-crf ${compressionValue}`;
     return finalCompressionValue;
