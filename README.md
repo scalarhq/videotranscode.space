@@ -13,44 +13,16 @@ A video transcoder and converter built use Web Assembly and FFMPEG to transcode 
 
 **This project is still very early in development and only a proof of concept**
 
-## Contributing
+## [Contributing](https://docs.videotranscode.space/pages/get started/contributingguidelines)
 
-We encourage users to submit codecs and formats for review to expand our capabilities using pull requests. Please follow the requirements below and if it passes the automated tests we will add it to our main product in the next build.
+See [Quick Start](https://docs.videotranscode.space/pages/get%20started/quickstart) to learn how to get the project setup and working.
 
-### Adding Codecs
+Our [Contributing Guidelines](https://docs.videotranscode.space/pages/get%20started/contributingguidelines) also should be a good starting point.
 
-**Make sure ffmpeg supports your codec and find the ffmpeg cli command for the codec**
+## [Project Structure](https://docs.videotranscode.space/pages/get%20started/projectstructure)
 
-Please add the FFmpeg Docs and FFmpeg cli command in the pull request when adding a new codec
+## [Documentation](https://docs.videotranscode.space/)
 
-1. Create a new JS file in codecs folder with the name of the codec, please use camelCase
-2. Add the required information below in that js file
-3. Update the formats folder for each format that the codec supports
-4. Submit Pull Request!
+Full documentation is at https://docs.videotranscode.space/
 
-```
-// Codec Example
-module.exports = {
-    name: "H.264", // User Facing Name of Codec
-    compressionRange: { // FFmpeg Compression Ranges
-      min: 1,
-      max: 51,
-    },
-    ffmpegLib: "libx264" // FFmpeg Cli Codec Type
-}
-```
-
-**If the formats are not updated with codec, they will not be displayed**
-
-```
-// Formats Example
-module.exports = CODEC_TYPES => ({
-    name: "MP4",
-    extension: ".mp4",
-    display: true,
-    defaultCodec: null,
-    type: "video/mp4",
-    codecs: [CODEC_TYPES.H264, CODEC_TYPES.MPEG4],
-    // Add to this list with the newly added Codec Type
-})
-```
+The API Reference is [here](https://docs.videotranscode.space/globals.html)
