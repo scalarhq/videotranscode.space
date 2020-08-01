@@ -51,6 +51,7 @@
     "puppeteer": "^5.1.0",
     "react-app-rewired": "^2.1.6",
     "typedoc": "^0.17.8",
+    "typedoc-plugin-pages": "^1.0.1",
     "ytdl-core": "^3.1.2",
     "ytsr": "^0.1.15"
   },
@@ -61,7 +62,7 @@
     "build": "yarn generate; yarn react-build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "document": "yarn generate; typedoc --options typedoc.json src/ --theme node_modules/eledoc/bin/default/"
+    "document": "yarn generate; typedoc --options typedoc.json src/  --theme pages-plugin"
   },
   "eslintConfig": {
     "extends": "react-app"
