@@ -32,10 +32,10 @@ const Video = ({ url }: { url: string }) => {
       } else {
         video.pause();
       }
-      playBtn.classList.toggle('paused');
+      playBtn.classList.toggle('playing');
     }
     function togglePlayBtn() {
-      playBtn.classList.toggle('playing');
+      playBtn.classList.toggle('paused');
     }
     function toggleMute() {
       if (video.volume) {
