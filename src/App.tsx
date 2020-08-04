@@ -11,6 +11,7 @@ import Dropzone from './components/dropzone/dropzone';
 import TerminalComponent from './components/terminal/terminalComponent';
 import ProgressBar from './components/progress/progress';
 import VideoPlayer from './components/video/video';
+import ErrorScreen from './components/error/Error';
 import { ComponentStoreType } from './types/store';
 import Clui from './clui/clui';
 
@@ -19,7 +20,7 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
-    loaded, processed, FileStore, CluiStore, VideoStore, ProgressStore,
+    loaded, processed, FileStore, CluiStore, VideoStore, ProgressStore, isLoadingError, loadingErrorObj,
   } = componentStore;
   const { isSubmitted } = CluiStore;
 
@@ -53,6 +54,17 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
       <>
         <Loader />
         {' '}
+        <Footer />
+      </>
+    );
+  }
+  if (isLoadingError) {
+    return (
+      <>
+        <main>
+          <Header />
+          <ErrorScreen loadingErrorObj={loadingErrorObj} />
+        </main>
         <Footer />
       </>
     );

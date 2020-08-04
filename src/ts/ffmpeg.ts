@@ -34,8 +34,10 @@ const loadFFmpeg = async () => {
   } catch (err) {
     console.error(window.navigator.userAgent, err.message);
     // eslint-disable-next-line no-alert
-    alert('Error');
-    updateLoadError(err);
+    const loadError = new Error(
+      `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
+    );
+    updateLoadError(loadError);
   }
   updateLoaded(true);
 };

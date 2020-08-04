@@ -33,7 +33,6 @@ const onSubmitHandler = async () => {
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature(configuration);
     console.log(featureObject);
-    const { ffmpegCommands, progressBar } = featureObject;
 
     featureObject.setProgress();
     featureObject.updateProgress();

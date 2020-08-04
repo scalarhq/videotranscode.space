@@ -41,7 +41,7 @@ class ComponentStore {
 
   @observable isLoadingError = false;
 
-  @observable loadingErrorObj = {};
+  @observable loadingErrorObj: Error = new Error();
 
   @action('Update Load Error')
   updateLoadError = (err: Error) => {
