@@ -38,6 +38,16 @@ class ComponentStore {
   updateLoaded = (value: boolean) => {
     this.loaded = value;
   };
+
+  @observable isLoadingError = false;
+
+  @observable loadingErrorObj = {};
+
+  @action('Update Load Error')
+  updateLoadError = (err: Error) => {
+    this.isLoadingError = true;
+    this.loadingErrorObj = err;
+  };
 }
 // @ts-ignore
 // eslint-disable-next-line no-undef,  no-multi-assign
