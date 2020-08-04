@@ -1,7 +1,7 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
 import ComponentStore from '../store/componentStore';
 
-const { ProgressStore, updateLoaded } = ComponentStore;
+const { ProgressStore, updateLoaded, updateLoadError } = ComponentStore;
 const { updateProgress } = ProgressStore;
 
 export type FFmpegDataType = {
@@ -34,7 +34,8 @@ const loadFFmpeg = async () => {
   } catch (err) {
     console.error(window.navigator.userAgent, err.message);
     // eslint-disable-next-line no-alert
-    alert(`Your Browser is not supported ${err.message}`);
+    alert('Error');
+    updateLoadError(err);
   }
   updateLoaded(true);
 };

@@ -6,7 +6,7 @@
     "@babel/core": "^7.10.5",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
-    "@ffmpeg/ffmpeg": "^0.8.3",
+    "@ffmpeg/ffmpeg": "git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git",
     "@replit/clui-input": "^0.0.16",
     "@replit/clui-session": "^0.0.1",
     "@types/classnames": "^2.2.10",

@@ -1759,10 +1759,9 @@
   resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.7.1.tgz#b096e918e4145cd5fcd7a584a3ef3afc1bdb6daa"
   integrity sha512-o92DuHKoAGLZLpoVkm+nka++hEzqEj+1Ewy+9f9HPGwFXM5Kk9Jg8M4fMgcjoHAL0z04Z5CR4Z39E2qwS0p0rg==
 
-"@ffmpeg/ffmpeg@^0.8.3":
+"@ffmpeg/ffmpeg@git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git":
   version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@ffmpeg/ffmpeg/-/ffmpeg-0.8.3.tgz#7266e621bef7e452d6e9cd71e188f9b7da082947"
-  integrity sha512-VtEMXMTuAYHC7NUh3E89mxbqsLxI3geAr+Z5ZQ+8VQNIl22dBtFZ1x2g76f6w+JIDZkrmjqnZ/6oc/henIEaVw==
+  resolved "git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git#6d318945ddf60d53740e3ef0253be1a1e386955c"
   dependencies:
     "@ffmpeg/core" "^0.7.1"
     idb "^4.0.5"
