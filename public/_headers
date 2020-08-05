@@ -2,5 +2,5 @@
 Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
 # Removed CORS
-# Cross-Origin-Resource-Policy: cross-origin
+Cross-Origin-Resource-Policy: cross-origin
 # Access-Control-Allow-Origin: *
