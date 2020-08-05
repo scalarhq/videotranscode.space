@@ -90,6 +90,32 @@ class FileStore {
     }
     return false;
   }
+
+  getFileExtension = (fileName: string) => {
+    const filePathArr = fileName.split('.');
+    return filePathArr[filePathArr.length - 1];
+  };
+
+  sizeHumanReadable = (inputSize: number) => {
+    let fileSize = inputSize;
+    const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
+    let i = 0;
+    while (fileSize > 900) {
+      fileSize /= 1024;
+      i += 1;
+    }
+    const exactSize = `${Math.round(fileSize * 100) / 100} ${fSExt[i]}`;
+    return exactSize;
+  };
+
+  @computed get fileData() {
+    const { files, getFileExtension, sizeHumanReadable } = this;
+    const fileData: Array<{ size: string; ext: string }> = files.values.map((file) => ({
+      size: sizeHumanReadable(file.size),
+      ext: getFileExtension(file.name),
+    }));
+    return fileData;
+  }
 }
 
 export default new FileStore();

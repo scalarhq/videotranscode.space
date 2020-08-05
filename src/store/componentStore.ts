@@ -9,6 +9,7 @@ import TerminalStore from './terminalStore';
 import ProgressStore from './progressStore';
 import VideoStore from './videoStore';
 import FileStore from './fileStore';
+import HardwareStore from './hardwareStore';
 
 class ComponentStore {
   @observable CluiStore = CluiStore;
@@ -21,7 +22,7 @@ class ComponentStore {
 
   @observable FileStore = FileStore;
 
-  @observable hardwareData: HardwareDataType | null = null;
+  @observable HardwareStore = HardwareStore;
 
   @observable transcoded = '';
 

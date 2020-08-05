@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import features from '../features/features';
 
 class CluiStore {
@@ -30,15 +30,14 @@ class CluiStore {
    */
   @action updateChosenFeatures = (newChosenFeatures: Array<string>) => {
     if (newChosenFeatures.length > 0) {
-      console.log('Chosen features', newChosenFeatures);
+      console.table(newChosenFeatures, ['Chosen Features']);
       this.chosenFeatures = newChosenFeatures as Array<keyof typeof features>;
-      console.log('Updated Chosen Features', this.chosenFeatures);
     }
   };
 
   @observable configuration: { [name: string]: { value: any; [name: string]: any } } = {};
 
-  @observable configurationString: string = '';
+  @observable configurationJS = {};
 
   /**
    * Recursively Finds Correct Config and Updates it with the value
@@ -71,13 +70,10 @@ class CluiStore {
     }
     updateObject(configuration);
 
-    console.log(JSON.stringify(configuration));
-
-    // configuration[key] = newConfiguration;
     this.configuration = configuration;
-    console.log('Updating Configuration', JSON.stringify(this.configuration));
 
-    this.configurationString = JSON.stringify(configuration);
+    this.configurationJS = toJS(configuration);
+    console.table(this.configurationJS);
   };
 }
 
