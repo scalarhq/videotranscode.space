@@ -16,7 +16,7 @@ const Dropzone = () => {
 
     updateFiles(acceptedFiles);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: ['video/*', 'image/*'] });
 
   return (
     <div className="dropzone" {...getRootProps()}>
