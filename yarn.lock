@@ -1761,7 +1761,7 @@
 
 "@ffmpeg/ffmpeg@git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git":
   version "0.8.3"
-  resolved "git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git#939881a0207d738101b03ce399971815954d0394"
+  resolved "git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git#f9212fb8030f911c3a77d58e481d63b134c45689"
   dependencies:
     "@ffmpeg/core" "^0.7.1"
     idb "^4.0.5"
