@@ -84,16 +84,7 @@ const Terminal = (function () {
     }
   };
 
-  let terminalBeep;
-
   const TerminalConstructor = function (id) {
-    if (!terminalBeep) {
-      terminalBeep = document.createElement('audio');
-      const source = '<source src="http://www.erikosterberg.com/terminaljs/beep.';
-      terminalBeep.innerHTML = `${source}mp3" type="audio/mpeg">${source}ogg" type="audio/ogg">`;
-      terminalBeep.volume = 0.05;
-    }
-
     this.html = document.createElement('div');
     this.html.className = 'Terminal';
     if (typeof id === 'string') {
@@ -107,11 +98,6 @@ const Terminal = (function () {
     this._input = document.createElement('p'); // the full element administering the user input, including cursor
 
     this._shouldBlinkCursor = true;
-
-    this.beep = function () {
-      terminalBeep.load();
-      terminalBeep.play();
-    };
 
     this.print = function (message) {
       const newLine = document.createElement('div');
