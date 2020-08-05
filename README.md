@@ -5,9 +5,9 @@
 ![Codecs And Formats CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder/workflows/Codecs%20And%20Formats%20CI/badge.svg)
 
 [![Rahul Tarak](https://img.shields.io/badge/Author-Rahul%20Tarak-green)](https://cryogenicplanet.tech/)
-[![Rithvik Mahindra](https://img.shields.io/badge/Author-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
-[![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
-[![Arnav Bansal](https://img.shields.io/badge/Author-Arnav%20Bansal-green)](https://github.com/lunaroyster)
+[![Rithvik Mahindra](https://img.shields.io/badge/Contributor-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
+[![Zack Radisic](https://img.shields.io/badge/Contributor-Zack%20Radisic-green)](https://github.com/zackradisic)
+[![Arnav Bansal](https://img.shields.io/badge/Contributor-Arnav%20Bansal-green)](https://github.com/lunaroyster)
 
 A video transcoder and converter built use Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy
 
@@ -26,3 +26,11 @@ Our [Contributing Guidelines](https://docs.videotranscode.space/pages/get%20star
 Full documentation is at https://docs.videotranscode.space/
 
 The API Reference is [here](https://docs.videotranscode.space/globals.html)
+
+## Browser Support
+
+Our build of FFmpeg needs SharedArrayBuffer support so our browser support depends on that
+
+[![Browser Support](https://i.imgur.com/m7rRbJM.png)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#Browser_compatibility)
+
+Learn more https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#Browser_compatibility
