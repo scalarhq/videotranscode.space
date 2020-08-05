@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wasm Video Compressor/Transcoder</title>
 
-  <title>Wasm Video Compressor/Transcoder</title>
+    <!-- Meta Data -->
 
-  <!-- Meta Data -->
+    <meta property="og:title" content="Wasm Video Compressor/Transcoder" />
+    <meta property="og:image" content="https://videotranscode.space/images/banner.png" />
+    <meta
+      property="og:description"
+      content="A privacy first web assembly based video toolkit directly in the browser."
+    />
+    <meta property="og:url" content="https://videotranscode.space/" />
 
-  <meta property="og:title" content="Wasm Video Compressor/Transcoder" />
-  <meta property="og:image" content="https://videotranscode.space/images/banner.png" />
-  <meta property="og:description" content="A privacy first web assembly based video toolkit directly in the browser." />
-  <meta property="og:url" content="https://videotranscode.space/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/font-awesome/font-awesome.min.css" />
+    <script src="/font-awesome/fa-min.js"></script>
 
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="stylesheet" href="/font-awesome/font-awesome.min.css" />
-  <script src="/font-awesome/fa-min.js"></script> crossorigin="anonymous"></script>
+    <style type="text/css"></style>
 
-  <style type="text/css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+    </style>
+  </head>
 
-  </style>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-  </style>
-</head>
-
-<body>
-  <form name="data" id="data" method="POST" data-netlify="true" hidden>
-    <input type="text" name="inputFileSize" id="inputFileSize" />
-    <input type="number" name="encodeTime" id="encodeTime" />
-    <input type="number" name="threads" id="threads" />
-    <input type="text" name="inputFileFormat" />
-    <input type="text" name="outputFileFormat" id="outputFileFormat" />
-    <input type="text" name="outputFileCodec" />
-    <input type="text" name="browser" id="browser" />
-    <input type="text" name="os" />
-    <input type="text" name="navigator" />
-    <input type="text" name="tester" id="tester" data-testid="tester" />
-  </form>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-</body>
-
+  <body>
+    <form name="data" id="data" method="POST" data-netlify="true" hidden>
+      <input type="text" name="inputFileSize" id="inputFileSize" />
+      <input type="number" name="encodeTime" id="encodeTime" />
+      <input type="number" name="threads" id="threads" />
+      <input type="text" name="inputFileFormat" />
+      <input type="text" name="outputFileFormat" id="outputFileFormat" />
+      <input type="text" name="outputFileCodec" />
+      <input type="text" name="browser" id="browser" />
+      <input type="text" name="os" />
+      <input type="text" name="navigator" />
+      <input type="text" name="tester" id="tester" data-testid="tester" />
+    </form>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
