@@ -6,4 +6,9 @@
     borderTopColor: "none";
     borderBottomColor: "none";
     border: "1px solid #4A5063";
+    display: flex;
+    height: 35vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }

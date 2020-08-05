@@ -26,20 +26,6 @@ const Dropzone = () => {
       ) : (
           <p>Drag and drop some files here, or click to select files</p>
         )}
-      {/* @ts-ignore */}
-      <style jsx>
-        {`
-          .dropzone {
-            display : flex;
-            height: 35vh;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-          }
-         
-        `}
-
-      </style>
     </div>
   );
 };
