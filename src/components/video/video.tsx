@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, {
-  useEffect, useRef,
+  useEffect, useRef, useState,
 } from 'react';
 
 const Video = ({ url }: { url: string }) => {
   const videoDom = React.useRef<null | HTMLVideoElement>(null);
+
+  const [aspectRatioPadding, setAspectRatio] = useState('56.25%');
 
   useEffect(() => {
     const video = videoDom.current as HTMLVideoElement;
@@ -170,12 +172,23 @@ const Video = ({ url }: { url: string }) => {
       window.addEventListener('keydown', handleKeypress);
     }
   });
+  const video = videoDom.current as HTMLVideoElement;
+  // const { videoHeight, videoWidth } = video || { videoHeight: null, videoWidth: null };
   useEffect(() => {
-    const video = videoDom.current as HTMLVideoElement;
     if (video && url) {
       video.src = url;
+      video.addEventListener('loadedmetadata', (e) => {
+        const { videoHeight, videoWidth } = video;
+        if (videoHeight && videoWidth) {
+          console.log(video, videoHeight, videoWidth);
+          const aspectRatio = (videoHeight / videoWidth) * 100;
+          console.log(aspectRatio);
+          setAspectRatio(`${aspectRatio}%`);
+        }
+      });
     }
   }, [url]);
+
   return (
     <div className="row">
       <div className="player-container">
@@ -296,7 +309,7 @@ const Video = ({ url }: { url: string }) => {
         .player {
           width: 100%;
           height: 0;
-          padding-bottom: 56.25%;
+          padding-bottom: ${aspectRatioPadding};
           box-shadow: 0px 10px 0px -3px rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
