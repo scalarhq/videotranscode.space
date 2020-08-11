@@ -3,15 +3,32 @@ import './static.css';
 
 export function Loader() {
   return (
-    <div id="loader" className="row justify-content-md-center">
-      <div className="col col-auto-md">
-        <div className="lds-facebook" id="inner-loader">
-          <div />
-          <div />
-          <div />
+    <div className="loader-wrapper">
+      <div id="loader" className="row justify-content-md-center">
+        <div className="col col-auto-md">
+          <div className="lds-facebook" id="inner-loader">
+            <div />
+            <div />
+            <div />
+          </div>
+          <p className="lead" id="message" style={{ color: 'white' }} />
         </div>
-        <p className="lead" id="message" style={{ color: 'white' }} />
       </div>
+      <div className="text-wrapper">
+        <h1>Loading ...</h1>
+        <h3>This can take upto 30 seconds, please be patient with us</h3>
+      </div>
+      <style jsx>
+        {`
+          .loader-wrapper {
+            display: flex;
+            flex-direction: column;
+          }
+          .text-wrapper {
+            text-align: center;
+          }
+        `}
+      </style>
     </div>
   );
 }
@@ -19,10 +36,28 @@ export function Loader() {
 export function Header() {
   return (
     <div className="header">
-      <h1 className="title">Browser Based Video Transcoder</h1>
+      <a href="#home" className="link">
+        <h1 className="title">Privacy First Video Transcoder</h1>
+      </a>
       <h4>
-        Your files will not be uploaded anywhere, all processing will be done on your browser.
+        Your files will
+        <span className="highlight"> not be uploaded anywhere.</span>
       </h4>
+      <h4>
+        All the processing will be done on your browser,
+        <span className="highlight">completely protecting your privacy</span>
+      </h4>
+      <style jsx>
+        {`
+          .link {
+            color: inherit;
+            text-decoration: none;
+          }
+          .highlight {
+            color: #ff3e00;
+          }
+        `}
+      </style>
     </div>
   );
 }
@@ -50,7 +85,7 @@ export function Footer() {
         </svg>
       </a>
       <a
-        className="typeform-share link"
+        className="typeform-share link middle-footer"
         href="https://rahultarak12345.typeform.com/to/Fn78Sd"
         data-mode="drawer_right"
         style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
@@ -58,7 +93,7 @@ export function Footer() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Join our Mail List!
+        Join our Mailing List!
       </a>
       {/* <ReactTypeformEmbed url="https://rahultarak12345.typeform.com/to/Fn78Sd" popup={true} buttonText="Mailing List!" mode="drawer_right" style={{ color: "#3FD71", textDecoration: "underline", fontSize: "20px" }} >Join the mailing list!</ReactTypeformEmbed> */}
       <div className="wasm-wrapper">

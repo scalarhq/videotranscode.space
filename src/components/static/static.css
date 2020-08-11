@@ -59,10 +59,14 @@
       bottom: 2%;
       width: 100%;
       color: white;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
+      display: grid;
+      justify-content: space-evenly;
       align-items: center;
+      grid-template-columns: [first] 20% auto [last] 20%;
+  }
+
+  .middle-footer {
+      margin: 0 auto;
   }
 
   .footer-icon {

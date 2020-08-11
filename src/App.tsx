@@ -20,7 +20,14 @@ type AppProps = {
 };
 const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
-    loaded, processed, FileStore, CluiStore, VideoStore, ProgressStore, isLoadingError, loadingErrorObj,
+    loaded,
+    processed,
+    FileStore,
+    CluiStore,
+    VideoStore,
+    ProgressStore,
+    isLoadingError,
+    loadingErrorObj,
   } = componentStore;
   const { isSubmitted } = CluiStore;
 
