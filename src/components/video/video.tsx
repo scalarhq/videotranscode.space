@@ -172,10 +172,13 @@ const Video = ({ url }: { url: string }) => {
       window.addEventListener('keydown', handleKeypress);
     }
   });
-  const video = videoDom.current as HTMLVideoElement;
+
   // const { videoHeight, videoWidth } = video || { videoHeight: null, videoWidth: null };
   useEffect(() => {
+    // console.info('URL FROM VIDEO', url);
+    const video = videoDom.current as HTMLVideoElement;
     if (video && url) {
+      // console.info(url);
       video.src = url;
       video.addEventListener('loadedmetadata', (e) => {
         const { videoHeight, videoWidth } = video;
@@ -305,6 +308,9 @@ const Video = ({ url }: { url: string }) => {
           /* --accent: #d7577e; */
 
           --main: #ffffff;
+        }
+        .player-container {
+          width: 70%;
         }
         .player {
           width: 100%;

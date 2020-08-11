@@ -9,8 +9,6 @@ const { updateHardwareData, sendHardwareData } = HardwareStore;
 
 const { configuration } = CluiStore;
 
-const { fileData } = FileStore;
-
 const getThreads = () => {
   const threads = window.navigator.hardwareConcurrency;
   return threads < 8 ? threads : 8;
@@ -35,9 +33,10 @@ const updateData = (encodeTime: number) => {
   const navigator = getNavigator();
   const browserData = getBrowser();
   const encodeTimeData = encodeTime;
+  const inputFileData = JSON.stringify(FileStore.fileData);
 
   const currentData: HardwareDataType = {
-    inputFileData: JSON.stringify(fileData),
+    inputFileData,
     encodeTime: encodeTimeData,
     threads: threadsData,
     configuration: JSON.stringify(configuration),

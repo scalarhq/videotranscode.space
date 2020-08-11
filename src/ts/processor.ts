@@ -10,15 +10,15 @@ import loadFiles from './file';
 
 const { CluiStore, VideoStore, FileStore, updateProcessedState } = ComponentStore;
 
-const { defaultBlobType, updateCurrentFile, oldFiles } = FileStore;
+const { updateCurrentFile, oldFiles } = FileStore;
 
 const { updateBlobUrl, blobType } = VideoStore;
 
 const createVideoObject = (processedFile: Uint8Array) => {
   const blobUrl = URL.createObjectURL(
-    new Blob([processedFile.buffer], { type: blobType || defaultBlobType })
+    new Blob([processedFile.buffer], { type: blobType || ComponentStore.FileStore.defaultBlobType })
   );
-  console.info(blobUrl);
+  console.info(blobUrl, 'Type', blobType || ComponentStore.FileStore.defaultBlobType);
   return blobUrl;
 };
 
