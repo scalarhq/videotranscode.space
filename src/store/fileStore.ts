@@ -68,8 +68,8 @@ class FileStore {
    * and return `video/$ext`. An example would be for an test.mov file it returns `video/mov`
    */
   @computed get defaultBlobType() {
-    const ext = this.currentFileExtension;
-    const blobType = `video/${ext}`;
+    const { currentFileExtension } = this;
+    const blobType = `video/${currentFileExtension}`;
     return blobType;
   }
 
