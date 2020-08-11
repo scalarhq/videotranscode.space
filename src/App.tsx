@@ -29,7 +29,9 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const { toDisplay, updateVideoDisplay, url } = VideoStore;
 
   // updateLoaded = updateLoaded.bind(componentStore)
-  loadFFmpeg();
+  useEffect(() => {
+    loadFFmpeg();
+  }, []);
 
   // const [processing, updateProcessing] = useState(false);
 
