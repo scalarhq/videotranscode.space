@@ -42,7 +42,7 @@ class FileStore {
         count += 1;
       }
       Object.assign(this.files, { uploaded: true, values: renamedFiles });
-      console.log(renamedFiles, JSON.stringify(this.files));
+      console.info(renamedFiles, JSON.stringify(this.files));
       if (this.terminalStore && this.terminalStore.updateTerminalText) {
         this.terminalStore.updateTerminalText(
           'This is a CLUI, a Command Line Graphical Interface, it will help you choose you settings.',
@@ -80,7 +80,7 @@ class FileStore {
   @computed get isDisplayable() {
     const ext = `.${this.currentFileExtension}`;
 
-    console.log('Current file extension', ext);
+    console.info('Current file extension', ext);
 
     for (const key of Object.keys(formats)) {
       const currentFormat = formats[key];

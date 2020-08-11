@@ -41,14 +41,14 @@ const TerminalComponent: React.FC = () => {
 		t1.html.style.overflow = 'auto';
 		t1.html.className = 'terminal-emulator';
 		componentStore.terminalStore.t1 = t1;
-		const terminalEmulator = document.getElementById('terminalEmulator');
-		componentStore.terminalStore.terminalEmulator = terminalEmulator;
 
 		const el = terminalRef.current;
 		if (el) {
 			el.appendChild(t1.html);
 		}
-
+		const terminalEmulator = document.getElementById('terminalEmulator');
+		console.info(terminalEmulator);
+		componentStore.terminalStore.terminalEmulator = terminalEmulator;
 		t1.clear();
 		updateTerminalText('Hello, I am a Video Transcoder!', true);
 		updateTerminalText(
@@ -84,7 +84,6 @@ const TerminalComponent: React.FC = () => {
 			<div
 				id="terminal"
 				ref={terminalRef}
-				className="terminal-emulator"
 				style={{ display: 'flex', flex: '0 1', height: '100%' }}
 			/>
 		</>

@@ -18,7 +18,7 @@ const ProgressBar = ({ name, color, progress }: { progress: number, color: strin
     if (progressBar && progressBar.current) {
       if (progress > 1) {
         const styledProgress = 20 + 0.4 * progress * Math.log10(progress);
-        console.log('Styled Progress', styledProgress);
+        console.info('Styled Progress', styledProgress);
         progressBar.current.style.width = `${styledProgress}%`;
       }
     }

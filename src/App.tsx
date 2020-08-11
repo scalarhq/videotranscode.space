@@ -1,19 +1,29 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect } from 'react';
 
+// Modules
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
 // @ts-ignore
 import Fade from 'react-reveal/Fade';
-import { observer } from 'mobx-react';
 import processor, { loadFFmpeg } from './ts/processor';
+
+// Styling
 import './App.css';
+
+// Components
 import { Loader, Header, Footer } from './components/static/static';
 import Dropzone from './components/dropzone/dropzone';
 import TerminalComponent from './components/terminal/terminalComponent';
 import ProgressBar from './components/progress/progress';
 import VideoPlayer from './components/video/video';
 import ErrorScreen from './components/error/Error';
-import { ComponentStoreType } from './types/store';
 import Clui from './clui/clui';
+
+// Types
+import { ComponentStoreType } from './types/store';
+
+// Stores
+import TerminalStore from './store/terminalStore';
 
 type AppProps = {
   componentStore: ComponentStoreType,
@@ -22,12 +32,13 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   const {
     loaded,
     processed,
-    FileStore,
-    CluiStore,
-    VideoStore,
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
+
+    FileStore,
+    CluiStore,
+    VideoStore,
   } = componentStore;
   const { isSubmitted } = CluiStore;
 
@@ -44,14 +55,14 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
 
   useEffect(() => {
     if (isSubmitted) {
-      console.log('Call Processor');
+      // console.log('Call Processor');
       processor();
     }
   }, [isSubmitted]);
 
   useEffect(() => {
     if (processed) {
-      console.log('Current Video State | Default Video State', toDisplay, isDisplayable);
+      console.info('Current Video State | Default Video State', toDisplay, isDisplayable);
       if (!toDisplay) {
         updateVideoDisplay(isDisplayable);
       }
@@ -125,3 +136,19 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
 };
 
 export default observer(App);
+
+const { updateTerminalText } = TerminalStore;
+
+/**
+ * Overriding Console for Terminal
+ *
+ */
+const newConsole = (oldConsole: typeof window.console) => ({
+  ...oldConsole,
+  log(text: any) {
+    oldConsole.log(text);
+    if (updateTerminalText) { updateTerminalText(text); }
+  },
+});
+
+window.console = newConsole(window.console);

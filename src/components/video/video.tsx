@@ -80,7 +80,6 @@ const Video = ({ url }: { url: string }) => {
         video.duration,
       )}`;
       // textTotal.innerHTML = neatTime(video.duration);
-      // console.log(progressFill.style.width);
     }
     function setProgress(e: MouseEvent) {
       const newTime = e.offsetX / progressSlider.offsetWidth;
@@ -183,10 +182,12 @@ const Video = ({ url }: { url: string }) => {
       video.addEventListener('loadedmetadata', (e) => {
         const { videoHeight, videoWidth } = video;
         if (videoHeight && videoWidth) {
-          console.log(video, videoHeight, videoWidth);
+          console.group('Video Info');
+          console.info('Dom/Height/Width', video, videoHeight, videoWidth);
           const aspectRatio = (videoHeight / videoWidth) * 100;
-          console.log(aspectRatio);
+          console.info('Aspect Ratio', aspectRatio);
           setAspectRatio(`${aspectRatio}%`);
+          console.groupEnd();
         }
       });
     }

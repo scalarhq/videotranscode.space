@@ -8,11 +8,13 @@ import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
 import loadFiles from './file';
 
-const { CluiStore, VideoStore, FileStore, updateProcessedState } = ComponentStore;
+const { CluiStore, VideoStore, FileStore, updateProcessedState, terminalStore } = ComponentStore;
 
 const { updateCurrentFile, oldFiles } = FileStore;
 
 const { updateBlobUrl, blobType } = VideoStore;
+
+const { clearTerminal } = terminalStore;
 
 const createVideoObject = (processedFile: Uint8Array) => {
   const blobUrl = URL.createObjectURL(
@@ -30,12 +32,12 @@ const onSubmitHandler = async () => {
   // Currently Supports only Single Uploaded File, plan to support more in the future
   let currentFileName = loadedFiles[0];
   updateCurrentFile(currentFileName);
-  console.group('Feature Execution');
+  // console.group('Feature Execution');
   for (const key of chosenFeatures) {
     const CurrentFeature = features[key].feature;
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature(configuration);
-    console.log(featureObject);
+    // console.log(featureObject);
 
     featureObject.setProgress();
     featureObject.updateProgress();
@@ -43,7 +45,7 @@ const onSubmitHandler = async () => {
     // eslint-disable-next-line no-await-in-loop
     currentFileName = await featureObject.runFFmpeg();
   }
-  console.groupEnd();
+  // console.groupEnd();
   const processedFile = await ffmpegReader(currentFileName);
   const blobUrl = createVideoObject(processedFile);
   updateBlobUrl(blobUrl);
@@ -52,6 +54,7 @@ const onSubmitHandler = async () => {
   const end = new Date().getTime();
   const encodeTime = (end - start) / 1000;
   updateData(encodeTime);
+  clearTerminal();
   console.log(`The processing is complete! Enjoy your video. It took ${encodeTime} seconds`);
 };
 

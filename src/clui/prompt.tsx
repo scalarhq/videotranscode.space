@@ -79,7 +79,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
     if (input.current) {
       const { value } = input.current;
       if (value !== 'Clear') {
-        console.log(value, command);
+        console.info(value, command);
         setInputMessage(value);
       }
       input.current.blur();

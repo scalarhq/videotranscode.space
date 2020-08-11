@@ -9,7 +9,7 @@ const { files } = FileStore;
  */
 const loadFiles = () => {
   const uploadFiles: Array<Promise<string>> = [];
-  console.log(JSON.stringify(files));
+  console.info(JSON.stringify(files));
   for (const file of files.values) {
     uploadFiles.push(ffmpegWriter(file));
   }
