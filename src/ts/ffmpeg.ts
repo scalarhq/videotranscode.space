@@ -33,11 +33,20 @@ const loadFFmpeg = async () => {
     await ffmpeg.load();
   } catch (err) {
     console.error(window.navigator.userAgent, err.message);
-    // eslint-disable-next-line no-alert
     const loadError = new Error(
       `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
     );
-    updateLoadError(loadError);
+    updateLoadError(true, loadError);
+    try {
+      await ffmpeg.load();
+      updateLoadError(false, new Error());
+    } catch (secondErr) {
+      console.error(window.navigator.userAgent, secondErr.message);
+      const secondLoadErr = new Error(
+        `${secondErr.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
+      );
+      updateLoadError(true, secondLoadErr);
+    }
   }
   updateLoaded(true);
 };
@@ -47,7 +56,6 @@ const loadFFmpeg = async () => {
  * @param file is the actual inputted file from the user
  * @retuns The name of the file the user added
  */
-
 const ffmpegWriter = async (file: File) => {
   const { name } = file;
   await ffmpeg.write(name, file);
@@ -59,7 +67,6 @@ const ffmpegWriter = async (file: File) => {
  * @param fileName is the file name of the video which would like to be read
  * @return Uint8Array of data containing the file
  */
-
 const ffmpegReader = async (fileName: string) => {
   const processedFile: Uint8Array = ffmpeg.read(`${fileName}`);
   return processedFile;
@@ -71,7 +78,6 @@ const ffmpegReader = async (fileName: string) => {
  * @param ffmpegData is the parameters of the executed and are of type {@link FFmpegDataType}
  * @return a file name as string of the processed file.
  */
-
 const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
   const { outputFileName, threads, ffmpegCommands } = ffmpegData;
   const commandString = `-i '${fileName}' -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFileName}`;
