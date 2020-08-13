@@ -10,6 +10,9 @@ import processor, { loadFFmpeg } from './ts/processor';
 // Styling
 import './App.css';
 
+// Router
+import Router from './router';
+
 // Components
 import { Loader, Header, Footer } from './components/static/static';
 import Dropzone from './components/dropzone/dropzone';
@@ -71,8 +74,11 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
 
   if (!loaded) {
     return (
+
       <>
-        <Loader />
+        <Router>
+          <Loader />
+        </Router>
         {' '}
         <Footer />
       </>
@@ -80,58 +86,65 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
   }
   if (isLoadingError) {
     return (
+
       <>
-        <main>
-          <Header />
-          <ErrorScreen loadingErrorObj={loadingErrorObj} />
-        </main>
+        <Router>
+          <main>
+            <Header />
+            <ErrorScreen loadingErrorObj={loadingErrorObj} />
+          </main>
+        </Router>
         <Footer />
       </>
+
     );
   }
   return (
+
     <>
-      <main>
-        <Header />
+      <Router>
+        <main>
+          <Header />
 
-        <div className="flex-wrapper">
-          {!files.uploaded
-            ? (
+          <div className="flex-wrapper">
+            {!files.uploaded
+              ? (
 
-              <div className="col dropzone-wrapper">
-                <Fade bottom>
-                  <Dropzone />
-                </Fade>
-              </div>
-
-            )
-            : !isSubmitted ? (
-
-              <Fade bottom>
-                <Clui />
-              </Fade>
-
-            ) : !processed ? (
-              <Fade bottom>
-                <ProgressBar {...ProgressStore} />
-              </Fade>
-            )
-                : (
+                <div className="col dropzone-wrapper">
                   <Fade bottom>
-                    <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                    <Dropzone />
                   </Fade>
-                )}
+                </div>
 
-          <div className="terminal-wrapper">
-            <Fade bottom>
-              <TerminalComponent />
-            </Fade>
+              )
+              : !isSubmitted ? (
+
+                <Fade bottom>
+                  <Clui />
+                </Fade>
+
+              ) : !processed ? (
+                <Fade bottom>
+                  <ProgressBar {...ProgressStore} />
+                </Fade>
+              )
+                  : (
+                    <Fade bottom>
+                      <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                    </Fade>
+                  )}
+
+            <div className="terminal-wrapper">
+              <Fade bottom>
+                <TerminalComponent />
+              </Fade>
+            </div>
           </div>
-        </div>
-
-      </main>
+        </main>
+      </Router>
       <Footer />
     </>
+
   );
 };
 
