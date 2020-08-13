@@ -1,64 +1,66 @@
 h1.title {
-  font-weight: 400;
-  font-size: 46px;
+    font-weight: 400;
+    font-size: 46px;
 }
 
 h4 {
-  color: white;
-  font-weight: 400;
+    color: white;
+    font-weight: 400;
 }
 
 /** Loading screen main CSS class**/
 .lds-facebook {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
 }
 
 .lds-facebook div {
-  display: inline-block;
-  position: absolute;
-  left: 8px;
-  width: 16px;
-  background: #3fbd71;
-  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #3fbd71;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 
 .lds-facebook div:nth-child(1) {
-  left: 8px;
-  animation-delay: -0.24s;
+    left: 8px;
+    animation-delay: -0.24s;
 }
 
 .lds-facebook div:nth-child(2) {
-  left: 32px;
-  animation-delay: -0.12s;
+    left: 32px;
+    animation-delay: -0.12s;
 }
 
 .lds-facebook div:nth-child(3) {
-  left: 56px;
-  animation-delay: 0;
+    left: 56px;
+    animation-delay: 0;
 }
 
 @keyframes lds-facebook {
-  0% {
-    top: 8px;
-    height: 64px;
-  }
+    0% {
+        top: 8px;
+        height: 64px;
+    }
 
-  50%,
-  100% {
-    top: 24px;
-    height: 32px;
-  }
+    50%,
+    100% {
+        top: 24px;
+        height: 32px;
+    }
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  /* color: white;
+    position: fixed;
+
+    bottom: 0;
+    flex-shrink: 0;
+    width: 100%;
+    left: 0;
+    /* color: white;
       display: grid;
       justify-content: space-evenly;
       align-items: center;
@@ -66,116 +68,117 @@ h4 {
 }
 
 .footer-icon {
-  font-size: 3rem;
-  color: white;
+    font-size: 3rem;
+    color: white;
 }
 
 .footer-distributed {
-  background-color: #292c2f;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
-  width: 100%;
-  text-align: left;
-  font: normal 16px Ubuntu Mono;
-  padding: 15px 50px;
+    background-color: #292c2f;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    font: normal 16px Ubuntu Mono;
+    padding: 15px 50px;
 }
 
 .footer-distributed .footer-left p {
-  color: #8f9296;
-  font-size: 14px;
-  margin: 0;
+    color: #8f9296;
+    font-size: 14px;
+    margin: 0;
 }
 
 /* Footer links */
 
 .footer-distributed p.footer-links {
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  margin: 0 0 10px;
-  padding: 0;
-  transition: ease 0.25s;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0 0 10px;
+    padding: 0;
+    transition: ease 0.25s;
 }
 
 .footer-distributed p.footer-links a {
-  display: inline-block;
-  line-height: 1.8;
-  text-decoration: none;
-  color: inherit;
-  transition: ease 0.25s;
+    display: inline-block;
+    line-height: 1.8;
+    text-decoration: none;
+    color: inherit;
+    transition: ease 0.25s;
 }
 
 .footer-distributed .footer-links a:before {
-  content: '·';
-  font-size: 20px;
-  left: 0;
-  color: #fff;
-  display: inline-block;
-  padding-right: 5px;
+    content: '·';
+    font-size: 20px;
+    left: 0;
+    color: #fff;
+    display: inline-block;
+    padding-right: 5px;
 }
 
 .footer-distributed .footer-links .link-1:before {
-  content: none;
+    content: none;
 }
 
 .footer-distributed .footer-right {
-  float: right;
-  margin-top: 6px;
+    float: right;
+    margin-top: 6px;
 }
 
 .footer-distributed .footer-right div {
-  display: flex;
-  align-items: center;
-  /* width: 35px; */
-  /* height: 35px; */
-  /* background-color: #33383b; */
-  border-radius: 2px;
-  font-size: 20px;
-  color: inherit;
-  text-align: center;
-  /* line-height: 35px; */
-  margin-left: 3px;
-  padding-left: 2%;
-  transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    /* width: 35px; */
+    /* height: 35px; */
+    /* background-color: #33383b; */
+    border-radius: 2px;
+    font-size: 20px;
+    color: inherit;
+    text-align: center;
+    /* line-height: 35px; */
+    margin-left: 3px;
+    padding-left: 2%;
+    transition: all 0.25s;
 }
 
 .footer-distributed .footer-right {
-  display: flex;
-  /* width: 35px; */
-  /* height: 35px; */
-  /* background-color: #33383b; */
-  border-radius: 2px;
-  font-size: 20px;
-  color: inherit;
-  text-align: center;
-  /* line-height: 35px; */
-  margin-left: 3px;
-  transition: all 0.25s;
+    display: flex;
+    /* width: 35px; */
+    /* height: 35px; */
+    /* background-color: #33383b; */
+    border-radius: 2px;
+    font-size: 20px;
+    color: inherit;
+    text-align: center;
+    /* line-height: 35px; */
+    margin-left: 3px;
+    transition: all 0.25s;
 }
 
 .footer-distributed .footer-right a:hover {
-  transform: scale(1.1);
-  -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
 }
 
 .footer-distributed p.footer-links a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* Media Queries */
 
 @media (max-width: 600px) {
-  .footer-distributed .footer-left,
-  .footer-distributed .footer-right {
-    text-align: center;
-  }
 
-  .footer-distributed .footer-right {
-    float: none;
-    margin: 0 auto 20px;
-  }
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-right {
+        text-align: center;
+    }
 
-  .footer-distributed .footer-left p.footer-links {
-    line-height: 1.8;
-  }
+    .footer-distributed .footer-right {
+        float: none;
+        margin: 0 auto 20px;
+    }
+
+    .footer-distributed .footer-left p.footer-links {
+        line-height: 1.8;
+    }
 }

@@ -64,14 +64,49 @@ const AboutPage = () => (
           design, which allows the community to add workflows and features on their own, which allows users to complete complex tasks with a single click.
         </p>
       </div>
+      <div className="abilities">
+        <h3 className="sub-title">$ What can it do?</h3>
+        <p>
+          {'>'}
+          {' '}
+          Our goal with this project is to be able to do everything FFmpeg can do and more, but as the project is in its early stages the number of supported features are limited but ever growing. A full list of features is available
+          {' '}
+          <a
+            href="https://docs.videotranscode.space/modules/_features_features_.html#features"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            in our docs!
+          </a>
+          {' '}
+          But you can always just explore features on the CLUI and find them.
+        </p>
+        <p>
+          The tools most commonly used features are :
+          <ul>
+            <li>Converting Video Formats(Transcoding)</li>
+            <li>Reducing Size of Video(Compressing)</li>
+          </ul>
+        </p>
+      </div>
+
+      <div className="final" />
     </div>
     {/* @ts-ignore Styled JSX */}
     <style jsx>
       {`
+      .about-wrapper {
+         flex: 1 0 auto;
+         overflow: auto;
+      }
       .sections {
         display : flex;
         flex-direction : column;
         max-width: 50vw;
+        
+      }
+      .final {
+        padding-bottom: 20vh;
       }
       .title {
         font-weight: 400;
@@ -82,6 +117,14 @@ const AboutPage = () => (
       }
       a {
         color : #ff3e00
+      }
+      ul {
+        list-style-type: circle !important;
+        all : revert;
+         
+      }
+      li {
+        background-color: transparent;
       }
       `}
 

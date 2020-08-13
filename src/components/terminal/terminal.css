@@ -6,7 +6,8 @@
     max-height: 40vh;
     text-align: left;
     font-family: Ubuntu Mono;
-    overflow: auto;
+    overflow-y: auto;
+    word-wrap: break-word;
     width: 60vh;
     display: flex;
     font-size: 16px;
