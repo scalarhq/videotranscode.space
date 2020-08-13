@@ -43,7 +43,7 @@ export function Header() {
   return (
     <div className="header">
       <a href="#home" className="link">
-        <h1 className="title">Privacy First Video Transcoder</h1>
+        <h1 className="title">Browser Based Video Transcoder</h1>
       </a>
       <h4>
         Your files will
@@ -106,7 +106,7 @@ export function Footer() {
 
           <div>
             <a
-              href="https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder"
+              href="https://github.com/Etwas-Builders/Video-Transcoder"
               target="_blank"
               rel="noopener noreferrer"
               className="footer-icon"
@@ -207,7 +207,16 @@ export function Footer() {
           {' '}
           <HeartSvg />
           {' '}
-          by CryogenicPlanet
+          by
+          {' '}
+          <a
+            style={{ color: 'inherit' }}
+            href="https://cryogenicplanet.tech/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CryogenicPlanet
+          </a>
           {' '}
         </p>
       </div>
