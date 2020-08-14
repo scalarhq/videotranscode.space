@@ -1,15 +1,15 @@
+/* eslint-disable guard-for-in */
 // Unit Testing for Newly Added Codecs
-const fs = require("fs");
-const cluster = require("cluster");
-const path = require("path");
-const { createFFmpeg } = require("@ffmpeg/ffmpeg");
+const fs = require('fs');
+const cluster = require('cluster');
+const path = require('path');
+const { createFFmpeg } = require('@ffmpeg/ffmpeg');
 
 const ffmpeg = createFFmpeg({ log: false });
 
-const codecs = require("../codecs/codecs.js");
-const formats = require("../formats/formats.js");
+const formats = require('../../formats/formats.js');
 
-let count = 0;
+const count = 0;
 
 const formatsList = Object.keys(formats).map((key) => {
   const object = formats[key];
@@ -17,33 +17,31 @@ const formatsList = Object.keys(formats).map((key) => {
   return object;
 });
 
-let loadFFmpeg = async () => {
+const loadFFmpeg = async () => {
   await ffmpeg.load();
-  await ffmpeg.write(
-    "input.mp4",
-    path.join(__dirname, "inputFiles", "input.mp4")
-  );
+  await ffmpeg.write('input.mp4', path.join(__dirname, 'inputFiles', 'input.mp4'));
 };
 
-describe("FFmpeg Testing", () => {
+describe('FFmpeg Testing', () => {
   beforeAll(async () => {
     await loadFFmpeg();
   });
   afterAll(() => {
-    for (let workerId in cluster.workers) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const workerId in cluster.workers) {
       cluster.workers[workerId].kill();
     }
   });
-  describe("Automated Format and Codec Testing", () => {
+  describe('Automated Format and Codec Testing', () => {
     formatsList.forEach(({ type, name, extension, defaultCodec, codecs }) => {
       // console.info(formatsList);
       describe(`Testing Format ${type}`, () => {
         // console.info(codecs);
-        it("Has Codecs", () => {
+        it('Has Codecs', () => {
           expect(codecs).toBeDefined();
         });
         codecs.forEach((codec) => {
-          describe("Transcode Testing", () => {
+          describe('Transcode Testing', () => {
             if (!codec.notSupported) {
               it(`Testing Codec ${codec.name} with format ${type}`, async () => {
                 expect(codec).toBeDefined();
@@ -53,11 +51,11 @@ describe("FFmpeg Testing", () => {
                 const output = `output${extension}`;
                 try {
                   await ffmpeg.run(
-                    ` -i input.mp4 -c:v ${codec.ffmpegLib} ${output}`
+                    ` -i input.mp4 -threads 4 -strict -2 -c:v ${codec.ffmpegLib} ${output}`
                   );
                 } catch (err) {
                   console.error(err);
-                  throw new Error("Unable to run ffmpeg", err.message);
+                  throw new Error('Unable to run ffmpeg', err.message);
                 }
                 const data = ffmpeg.read(output);
                 ffmpeg.remove(output);
@@ -73,7 +71,7 @@ describe("FFmpeg Testing", () => {
               });
             }
           });
-          describe("Compression Testing", () => {
+          describe('Compression Testing', () => {
             if (!codec.notSupported) {
               it(`Testing Compression on ${codec.name} with format ${type}`, async () => {
                 expect(codec).toBeDefined();
@@ -81,18 +79,17 @@ describe("FFmpeg Testing", () => {
                 expect(extension).toBeDefined();
                 expect(type).toBeDefined();
                 const { min, max } = codec.compressionRange;
-                const compression = `-crf ${
-                  Math.floor(Math.random() * (max - min)) + min
-                }`;
-                console.info("Compression", compression);
+                const compression = `-crf ${Math.floor(Math.random() * (max - min)) + min}`;
+                console.info('Compression', compression);
                 const output = `output${extension}`;
                 try {
                   await ffmpeg.run(
-                    ` -i input.mp4 -c:v ${codec.ffmpegLib} ${compression} ${output}`
+                    // eslint-disable-next-line comma-dangle
+                    ` -i input.mp4 -threads 4 -strict -2 -c:v ${codec.ffmpegLib} ${compression} ${output}`
                   );
                 } catch (err) {
                   console.error(err);
-                  throw new Error("Unable to run ffmpeg", err.message);
+                  throw new Error('Unable to run ffmpeg', err.message);
                 }
                 const data = ffmpeg.read(output);
                 ffmpeg.remove(output);

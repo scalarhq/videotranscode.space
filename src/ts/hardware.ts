@@ -1,70 +1,54 @@
-import platform from "platform";
-import { hardwareData } from "../store/stores";
-import { FileDataType, HardwareDataType } from "../types/hardwareData";
-import { FinalSettingsType } from "../types/formats";
+import platform from 'platform';
+import ComponentStore from '../store/componentStore';
+import { FileDataType, HardwareDataType } from '../types/hardwareData';
+import { FinalSettingsType } from '../types/formats';
+
+const { HardwareStore, CluiStore, FileStore } = ComponentStore;
+
+const { updateHardwareData, sendHardwareData } = HardwareStore;
+
+const { configuration } = CluiStore;
 
 const getThreads = () => {
-  let threads = window.navigator.hardwareConcurrency;
-  return (threads = threads < 8 ? threads : 8);
+  const threads = window.navigator.hardwareConcurrency;
+  return threads < 8 ? threads : 8;
 };
 
-const sizeHumanReadable = (fileSize: number) => {
-  let fSExt = new Array("Bytes", "KB", "MB", "GB"),
-    i = 0;
-  while (fileSize > 900) {
-    fileSize /= 1024;
-    i++;
-  }
-  let exactSize = Math.round(fileSize * 100) / 100 + " " + fSExt[i];
-  return exactSize;
-};
+const getBrowser = () => `${platform.name}:${platform.version} `;
+const getOs = () => (platform.os ? platform.os.toString() : 'Not Found');
+const getNavigator = () => platform.description;
 
-const getBrowser = () => {
-  return `${platform.name}:${platform.version} `;
-};
-const getOs = () => {
-  return platform.os ? platform.os.toString() : "Not Found";
-};
-const getNavigator = () => {
-  return platform.description;
-};
-
-const updateData = (
-  encodeTime: number,
-  fileData: FileDataType,
-  finalSettings: FinalSettingsType
-) => {
-  const testerDom = document.getElementById("tester") as HTMLInputElement;
+const updateData = (encodeTime: number) => {
+  const testerDom = document.getElementById('tester') as HTMLInputElement;
   console.info(testerDom);
-  let tester = "";
+  let tester = '';
   if (testerDom.value) {
     tester = `This is from an automated puppeteer tester, please check git actions for more details. Video duration ${testerDom.value}`;
     console.info(tester);
   }
 
   /** Gets data parameters */
-  let threadsData = getThreads();
-  let os = getOs();
-  let navigator = getNavigator();
-  let browserData = getBrowser();
-  let inputFileSizeData = sizeHumanReadable(fileData.size);
-  let encodeTimeData = encodeTime;
+  const threadsData = getThreads();
+  const os = getOs();
+  const navigator = getNavigator();
+  const browserData = getBrowser();
+  const encodeTimeData = encodeTime;
+  const inputFileData = JSON.stringify(FileStore.fileData);
 
-  let currentData: HardwareDataType = {
-    inputFileSize: inputFileSizeData,
+  const currentData: HardwareDataType = {
+    inputFileData,
     encodeTime: encodeTimeData,
     threads: threadsData,
-    inputFileFormat: fileData.ext,
-    outputFileFormat: finalSettings.format,
-    outputFileCodec: finalSettings.codec,
+    configuration: JSON.stringify(configuration),
     browser: browserData,
-    os: os,
-    navigator: navigator ? navigator : "Not Found",
+    os,
+    navigator: navigator || 'Not Found',
   };
   if (tester) {
     currentData.tester = tester;
   }
-  hardwareData.update((exisiting) => currentData);
+  updateHardwareData(currentData);
+  sendHardwareData();
 };
 
 export { updateData, getThreads };

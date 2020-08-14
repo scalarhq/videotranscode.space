@@ -1,0 +1,5 @@
+name: Compress-Transcode
+description: Workflow to compress and transcode your videos
+steps:
+  - Compress
+  - Transcode

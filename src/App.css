@@ -1,0 +1,51 @@
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  align-self: stretch;
+  text-align: center;
+  padding: 1em;
+  max-width: 30.379vh;
+  margin: 0 auto;
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+}
+
+.flex-wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.col {
+  flex: 1 0;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.dropzone-wrapper {
+  width: 50%;
+}
+
+.video-wrapper {
+  width: 50%;
+}
+
+.terminal-wrapper {
+  max-width: 50%;
+  padding-left: 5%;
+  height: 100%;
+}
+
+.configure-wrapper {
+  width: 50%;
+}
+
+@media (min-width: 640px) {
+  main {
+    max-width: 150vh;
+  }
+}

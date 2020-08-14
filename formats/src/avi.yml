@@ -1,0 +1,8 @@
+name: 'AVI'
+extension: '.avi'
+type: 'video/avi'
+display: false
+defaultCodec: H264
+codecs:
+  - H264
+  - MPEG4

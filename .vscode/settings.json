@@ -1,12 +1,18 @@
 {
     "cSpell.words": [
-        "dropzone",
+        "Btns",
+        "CHECKMARK",
+        "ESNEXT",
+        "apos",
+        "domcontentloaded",
+        "eledoc",
         "libx",
-        "okrad",
-        "progressbar",
-        "sirv"
-    ],
-    "extensions.ignoreRecommendations": true,
-    "files.autoSave": "off",
-    "debug.allowBreakpointsEverywhere": true
+        "libxvid",
+        "noflag",
+        "sourcemap",
+        "sterberg",
+        "tslib",
+        "ytdl",
+        "Österberg"
+    ]
 }

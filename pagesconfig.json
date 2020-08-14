@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "title": "Get Started",
+      "source": "./documentation/getStarted",
+      "pages": [
+        {
+          "title": "Quick Start",
+          "source": "quickStart.md"
+        },
+        {
+          "title": "Project Structure",
+          "source": "projectStructure.md"
+        },
+        {
+          "title": "Contributing Guidelines",
+          "source": "contributingGuidelines.md"
+        }
+      ]
+    },
+    {
+      "title": "Contributing",
+      "source": "./documentation/contributing",
+      "pages": [
+        {
+          "title": "Codecs",
+          "source": "codecs.md"
+        },
+        {
+          "title": "Formats",
+          "source": "formats.md"
+        },
+        {
+          "title": "Workflows",
+          "source": "workflow.md"
+        },
+        {
+          "title": "Features",
+          "source": "features.md",
+          "children": [
+            {
+              "title": "Feature Class",
+              "source": "/features/class.md"
+            },
+            {
+              "title": "Feature UI",
+              "source": "/features/ui.md"
+            },
+            {
+              "title": "Adding Your Feature",
+              "source": "/features/adding.md"
+            }
+          ]
+        },
+        {
+          "title": "Clui UI Components",
+          "source": "clui-component.md"
+        },
+        {
+          "title": "Core",
+          "source": "core.md"
+        }
+      ]
+    }
+  ],
+  "theme": "pages-plugin"
+}

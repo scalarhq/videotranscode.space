@@ -1,0 +1,7 @@
+name: WMV
+extension: .wmv
+type: video/wmv
+display: false
+defaultCodec: WINDOWS
+codecs:
+  - WINDOWS

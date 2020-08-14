@@ -5,15 +5,14 @@ name: Codecs And Formats CI
 
 on:
   push:
-    branches: [master]
+    branch: master
     paths:
-      - "codecs/**"
-      - "formats/**"
+      - 'codecs/**'
+      - 'formats/**'
   pull_request:
-    branches: [master]
     paths:
-      - "codecs/**"
-      - "formats/**"
+      - 'codecs/**'
+      - 'formats/**'
 
 jobs:
   build:
@@ -29,6 +28,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm run test-codecs
+      - run: yarn install --frozen-lockfile
+      - run: yarn generate
+      - run: yarn test-codecs

@@ -1,100 +1,62 @@
-import {
-  transcoded,
-  terminalText,
-  clearTerminal,
-  processed,
-  submit,
-} from "../store/stores";
-import "../ts/form";
+import ComponentStore from '../store/componentStore';
 
-import { ConfigurationType, FinalSettingsType } from "../types/formats";
-import { ffmpegWriter, ffmpegReader } from "./ffmpeg";
-import { handleNewTranscode } from "./transcode";
-import { handleNewCompression } from "./compression";
-import { updateData, getThreads } from "./hardware";
-import { fileInput, fileData } from "./file";
-import { finalConfiguration } from "./configuration";
+import features from '../features/features';
 
-const handleSubmit = async () => {
-  const { configuration, sliderValue } = finalConfiguration;
-  const start = new Date().getTime();
+import { updateData } from './hardware';
 
-  terminalText.update(() => "Start processing");
+import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
-  const { format, codec } = configuration;
+import loadFiles from './file';
 
-  const finalSettings: FinalSettingsType = {
-    format: format.name,
-    codec: codec.name,
-  };
+const { CluiStore, VideoStore, FileStore, updateProcessedState, terminalStore } = ComponentStore;
 
-  const threads = getThreads();
+const { updateCurrentFile, oldFiles } = FileStore;
 
-  console.log(
-    `The final settings are fileType ${format.name} with ${codec.name}`
+const { updateBlobUrl, blobType } = VideoStore;
+
+const { clearTerminal } = terminalStore;
+
+const createVideoObject = (processedFile: Uint8Array) => {
+  const blobUrl = URL.createObjectURL(
+    new Blob([processedFile.buffer], { type: blobType || ComponentStore.FileStore.defaultBlobType })
   );
+  console.info(blobUrl, 'Type', blobType || ComponentStore.FileStore.defaultBlobType);
+  return blobUrl;
+};
 
-  const inputExtension = "." + fileData.ext;
-  const outputExtension = format.extension;
-  const toTranscode = inputExtension != outputExtension ? true : false;
+const onSubmitHandler = async () => {
+  const start = new Date().getTime();
+  const { configuration, chosenFeatures } = CluiStore;
+  const loadedFiles = await loadFiles();
 
-  /***
-   * Load Input File to FFmpeg
-   */
+  // Currently Supports only Single Uploaded File, plan to support more in the future
+  let currentFileName = loadedFiles[0];
+  updateCurrentFile(currentFileName);
+  // console.group('Feature Execution');
+  for (const key of chosenFeatures) {
+    const CurrentFeature = features[key].feature;
+    // @ts-ignore Fix with @lunaroyster later
+    const featureObject = new CurrentFeature(configuration);
+    // console.log(featureObject);
 
-  const inputFileName: string = await ffmpegWriter(fileInput);
-  let outputVideoName: string;
-
-  if (sliderValue > 0) {
-    // Compressing Workflow
-    outputVideoName = await handleNewCompression(inputFileName, threads);
-
-    if (toTranscode) {
-      /** Pass video to transcode */
-      outputVideoName = await handleNewTranscode(
-        outputVideoName,
-        format,
-        codec,
-        threads
-      );
-    }
-  } else {
-    outputVideoName = await handleNewTranscode(
-      inputFileName,
-      format,
-      codec,
-      threads
-    );
+    featureObject.setProgress();
+    featureObject.updateProgress();
+    // Expectation is each feature to run in blocking
+    // eslint-disable-next-line no-await-in-loop
+    currentFileName = await featureObject.runFFmpeg();
   }
-
-  const processedVideo = await ffmpegReader(outputVideoName);
-
-  terminalText.update(() => "Complete processing");
-
-  createVideoObject(processedVideo, format.type);
-  clearTerminal.update(() => true);
-  processed.update(() => true);
+  // console.groupEnd();
+  const processedFile = await ffmpegReader(currentFileName);
+  const blobUrl = createVideoObject(processedFile);
+  updateBlobUrl(blobUrl);
+  await ffmpegGarbageCollector([...oldFiles, currentFileName]);
+  updateProcessedState(true);
   const end = new Date().getTime();
   const encodeTime = (end - start) / 1000;
-  updateData(encodeTime, fileData, finalSettings);
-  console.log(
-    `The processing is complete! Enjoy your video. It took ${encodeTime} seconds`
-  );
+  updateData(encodeTime);
+  clearTerminal();
+  console.log(`The processing is complete! Enjoy your video. It took ${encodeTime} seconds`);
 };
 
-const createVideoObject = (processedFile: Uint8Array, videoType: string) => {
-  const blobUrl = URL.createObjectURL(
-    new Blob([processedFile.buffer], { type: videoType })
-  );
-  console.info(blobUrl);
-  transcoded.update(() => blobUrl);
-};
-
-export { handleSubmit };
-
-/** Triggers once the submit button is pressed */
-submit.subscribe((value: boolean) => {
-  if (value) {
-    handleSubmit();
-  }
-});
+export default onSubmitHandler;
+export { loadFFmpeg };

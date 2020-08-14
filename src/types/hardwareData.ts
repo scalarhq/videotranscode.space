@@ -1,19 +1,17 @@
-type HardwareDataType = {
-  inputFileSize: string;
+export type HardwareDataType = {
+  inputFileData: string;
   encodeTime: number;
   threads: number;
-  inputFileFormat: string;
-  outputFileFormat: string;
-  outputFileCodec: string;
+  configuration: string;
   browser: string;
   os: string;
   navigator: string;
   tester?: string;
 };
 
-type FileDataType = {
+export type FileDataType = {
   size: number;
   ext: string;
 };
 
-export { HardwareDataType, FileDataType };
+// export { HardwareDataType, FileDataType };

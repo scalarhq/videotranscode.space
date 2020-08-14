@@ -1,0 +1,5 @@
+name: VP9
+compressionRange:
+  min: 1
+  max: 63
+ffmpegLib: libvpx-vp9
