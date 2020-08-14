@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 // Unit Testing for Newly Added Codecs
 const fs = require('fs');
 const cluster = require('cluster');
@@ -26,6 +27,7 @@ describe('FFmpeg Testing', () => {
     await loadFFmpeg();
   });
   afterAll(() => {
+    // eslint-disable-next-line no-restricted-syntax
     for (const workerId in cluster.workers) {
       cluster.workers[workerId].kill();
     }
@@ -80,6 +82,7 @@ describe('FFmpeg Testing', () => {
                 const output = `output${extension}`;
                 try {
                   await ffmpeg.run(
+                    // eslint-disable-next-line comma-dangle
                     ` -i input.mp4 -c:v ${codec.ffmpegLib} ${compression} ${output}`
                   );
                 } catch (err) {
