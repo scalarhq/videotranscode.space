@@ -29,12 +29,16 @@ const Video = ({ url }: { url: string }) => {
 
     // PLAYER FUNCTIONS
     function togglePlay() {
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
+      try {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+        playBtn.classList.toggle('playing');
+      } catch (err) {
+        console.error(err.message, 'Video Object', video);
       }
-      playBtn.classList.toggle('playing');
     }
     function togglePlayBtn() {
       playBtn.classList.toggle('paused');
