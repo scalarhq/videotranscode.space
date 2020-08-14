@@ -11,14 +11,16 @@ const validateCodec = (key, codec) => {
   const propNames = ['name', 'compressionRange', 'ffmpegLib'];
   let err;
   propNames.forEach((name) => {
-    if (codec[name] === null || codec[name] === undefined)
+    if (codec[name] === null || codec[name] === undefined) {
       err = new Error(`Missing required codec property: ${name}`);
+    }
   });
 
   if (err) return err;
 
-  if (!codec.compressionRange.min || !codec.compressionRange.max)
+  if (!codec.compressionRange.min || !codec.compressionRange.max) {
     return new Error('Invalid compression range');
+  }
 
   if (CODEC_TYPES[key]) return new Error(`Codec type for: (${key}) already exists`);
 };
