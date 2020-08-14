@@ -27,6 +27,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm run test-codecs
+      - run: yarn install --frozen-lockfile
+      - run: yarn test-codecs
