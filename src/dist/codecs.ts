@@ -1,1 +1,0 @@
-const codecs = {"H264":{"name":"H.264","compressionRange":{"min":1,"max":51},"ffmpegLib":"libx264"},"MPEG4":{"name":"MPEG-4","compressionRange":{"min":1,"max":31},"ffmpegLib":"libx264","notSupported":true},"WINDOWS":{"name":"Windows Media Video","compressionRange":{"min":1,"max":51},"ffmpegLib":"wmv2"}}; export default codecs;
