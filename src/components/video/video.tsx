@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, {
-  useEffect, useRef, useState,
+  useEffect, useState,
 } from 'react';
 
 const Video = ({ url }: { url: string }) => {
@@ -19,7 +19,7 @@ const Video = ({ url }: { url: string }) => {
     const progressSlider = document.querySelector('.progress') as HTMLElement;
     const progressFill = document.querySelector('.progress-filled') as HTMLElement;
     const textCurrent = document.querySelector('.time-current') as HTMLElement;
-    const textTotal = document.querySelector('.time-total');
+    // const textTotal = document.querySelector('.time-total');
     const speedBtns = document.querySelectorAll('.speed-item');
     const fullscreenBtn = document.querySelector('.fullscreen') as HTMLElement;
 
@@ -530,7 +530,7 @@ const DownloadButton = ({ url, ext }: { url: string, ext: string }) => {
       downloadButton.current.href = url;
       downloadButton.current.setAttribute('download', `output.${ext}`);
     }
-  }, [url]);
+  }, [url, ext]);
   return (
     <div className="row" style={{ paddingTop: '3%' }}>
       <a id="download" ref={downloadButton} className="btn btn-primary" data-testid="download-button">

@@ -4,7 +4,7 @@ import codecs from '../../dist/codecs';
 import List from '../../clui-ui-components/List';
 
 import FFmpegFeature from '../FFmpegFeature';
-import { FormatType, CodecType } from '../../types/formats';
+import { CodecType } from '../../types/formats';
 
 import ComponentStore from '../../store/componentStore';
 

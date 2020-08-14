@@ -10,11 +10,11 @@ export type FFmpegDataType = {
   ffmpegCommands: string;
 };
 // @ts-ignore Defined later
-const exportedElements: {
-  ffmpegWriter: (file: File) => Promise<string>;
-  ffmpegReader: (fileName: string) => Promise<Uint8Array>;
-  ffmpegRunner: (fileName: string, ffmpegData: FFmpegDataType) => Promise<string>;
-} = {};
+// const exportedElements: {
+//   ffmpegWriter: (file: File) => Promise<string>;
+//   ffmpegReader: (fileName: string) => Promise<Uint8Array>;
+//   ffmpegRunner: (fileName: string, ffmpegData: FFmpegDataType) => Promise<string>;
+// } = {};
 
 const ffmpeg = createFFmpeg({
   log: true,

@@ -79,14 +79,13 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
     if (input.current) {
       const { value } = input.current;
       if (value !== 'Clear') {
-        console.info(value, command);
         setInputMessage(value);
       }
       input.current.blur();
     }
 
     props.item.insertAfter(state.run(), <Prompt {...props} autoRun={false} value="" />).next();
-  }, [props.item, state.run]);
+  }, [props, state]);
 
   useEffect(() => {
     if (ran.current) {

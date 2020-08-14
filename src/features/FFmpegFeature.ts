@@ -1,4 +1,4 @@
-import { ffmpegRunner, FFmpegDataType } from '../ts/ffmpeg';
+import { ffmpegRunner } from '../ts/ffmpeg';
 
 import ComponentStore from '../store/componentStore';
 

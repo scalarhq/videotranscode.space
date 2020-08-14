@@ -199,6 +199,18 @@ export function Footer() {
           {/* <a href="#">Faq</a> */}
 
           <a href="mailto:cryogenic@videotranscode.space">Contact</a>
+
+          <a
+            className="typeform-share link middle-footer"
+            href="https://rahultarak12345.typeform.com/to/Fn78Sd"
+            data-mode="drawer_right"
+            style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
+            data-submit-close-delay="0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join our Mailing List!
+          </a>
         </p>
 
         <p>

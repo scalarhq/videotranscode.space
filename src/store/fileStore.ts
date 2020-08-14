@@ -32,7 +32,7 @@ class FileStore {
       const renamedFiles: File[] = [];
       let count = 0;
       for (const file of value) {
-        const { name, size } = file;
+        const { name } = file;
         if (this.terminalStore && this.terminalStore.updateTerminalText) {
           this.terminalStore.updateTerminalText(`Received File ${name}`);
         }

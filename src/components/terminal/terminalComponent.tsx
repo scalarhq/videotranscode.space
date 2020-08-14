@@ -64,7 +64,9 @@ const TerminalComponent: React.FC = () => {
 		);
 
 		return () => {
-			const removeTM = document.getElementById('terminalEmulator')?.remove();
+			// Void Expression
+			// eslint-disable-next-line no-unused-expressions
+			document.getElementById('terminalEmulator')?.remove();
 			delete componentStore.terminalStore.t1;
 			componentStore.terminalStore.terminalEmulator = null;
 			componentStore.terminalStore.updateTerminalText = null;
@@ -77,7 +79,7 @@ const TerminalComponent: React.FC = () => {
 		if (loaded) {
 			updateTerminalText('Loaded FFmpeg!');
 		}
-	}, [loaded]);
+	}, [loaded, updateTerminalText]);
 
 	return (
 		<>

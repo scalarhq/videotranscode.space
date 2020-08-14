@@ -1,8 +1,6 @@
 /* eslint-disable import/extensions */
 import { observable, action } from 'mobx';
 
-import { HardwareDataType } from '../types/hardwareData';
-
 // Stores
 import CluiStore from './cluiStore';
 import TerminalStore from './terminalStore';

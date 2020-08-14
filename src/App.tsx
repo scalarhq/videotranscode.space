@@ -71,7 +71,7 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
         updateVideoDisplay(isDisplayable);
       }
     }
-  }, [processed]);
+  }, [processed, toDisplay, isDisplayable, updateVideoDisplay]);
 
   if (!loaded) {
     return (
