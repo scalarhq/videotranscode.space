@@ -198,7 +198,7 @@ const Video = ({ url }: { url: string }) => {
   }, [url]);
 
   return (
-    <div className="row">
+    <div className="row" style={{ maxWidth: '70vw' }}>
       <div className="player-container">
         <div className="player">
           <video ref={videoDom} id="video" src="" autoPlay loop playsInline />

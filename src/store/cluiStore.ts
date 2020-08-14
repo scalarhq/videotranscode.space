@@ -73,7 +73,7 @@ class CluiStore {
     this.configuration = configuration;
 
     this.configurationJS = toJS(configuration);
-    console.table(this.configurationJS);
+    // console.table(this.configurationJS);
   };
 }
 

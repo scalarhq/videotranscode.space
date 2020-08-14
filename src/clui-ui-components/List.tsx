@@ -49,7 +49,6 @@ const List = (props: ListProps) => {
   const [current, setCurrent] = useState<ListElement>(props.current);
 
   useEffect(() => {
-    console.log(current.child);
     const defaultConfiguration = { name: current.name, value: current.value };
     updateConfiguration(defaultConfiguration, [...parents]);
   }, []);

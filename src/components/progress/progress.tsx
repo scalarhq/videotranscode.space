@@ -51,12 +51,12 @@ const ProgressBar = ({ name, color, progress }: { progress: number, color: strin
         {`
       .bg-danger {
         background-color: #dc3545 !important;
-      }import ProgressStore from '../../store/progressStore';
+      }
 
       .progress-wrapper {
         display: flex;
         margin: auto;
-        width: 30vh;
+        width: 30vw;
       }
       .row {
         flex-direction: row;
