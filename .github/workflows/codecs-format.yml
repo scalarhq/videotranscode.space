@@ -5,15 +5,13 @@ name: Codecs And Formats CI
 
 on:
   push:
-    branches: [master]
     paths:
-      - "codecs/**"
-      - "formats/**"
+      - 'codecs/**'
+      - 'formats/**'
   pull_request:
-    branches: [master]
     paths:
-      - "codecs/**"
-      - "formats/**"
+      - 'codecs/**'
+      - 'formats/**'
 
 jobs:
   build:
