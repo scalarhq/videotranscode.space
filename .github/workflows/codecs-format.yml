@@ -5,6 +5,7 @@ name: Codecs And Formats CI
 
 on:
   push:
+    branch: master
     paths:
       - 'codecs/**'
       - 'formats/**'
