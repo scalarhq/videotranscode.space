@@ -50,7 +50,9 @@ describe('FFmpeg Testing', () => {
                 expect(type).toBeDefined();
                 const output = `output${extension}`;
                 try {
-                  await ffmpeg.run(` -i input.mp4 -c:v ${codec.ffmpegLib} ${output}`);
+                  await ffmpeg.run(
+                    ` -i input.mp4 -threads 4 -strict -2 -c:v ${codec.ffmpegLib} ${output}`
+                  );
                 } catch (err) {
                   console.error(err);
                   throw new Error('Unable to run ffmpeg', err.message);
@@ -83,7 +85,7 @@ describe('FFmpeg Testing', () => {
                 try {
                   await ffmpeg.run(
                     // eslint-disable-next-line comma-dangle
-                    ` -i input.mp4 -c:v ${codec.ffmpegLib} ${compression} ${output}`
+                    ` -i input.mp4 -threads 4 -strict -2 -c:v ${codec.ffmpegLib} ${compression} ${output}`
                   );
                 } catch (err) {
                   console.error(err);
