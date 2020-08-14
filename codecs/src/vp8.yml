@@ -1,0 +1,5 @@
+name: VP8
+compressionRange:
+  min: 4
+  max: 63
+ffmpegLib: libvpx

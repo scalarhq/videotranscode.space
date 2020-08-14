@@ -1,0 +1,8 @@
+name: 'WEBm'
+extension: '.webm'
+type: 'video/webm'
+display: true
+defaultCodec: VP8
+codecs:
+  - VP9
+  - VP8
