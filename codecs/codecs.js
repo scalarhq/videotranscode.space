@@ -12,14 +12,16 @@ const validateCodec = (key, codec) => {
   let err;
   propNames.forEach((name) => {
     if (codec[name] === null || codec[name] === undefined) {
-      err = new Error(`Missing required codec property: ${name}`);
+      err = new Error(`Missing required codec property: ${name} for codec ${key}`);
     }
   });
 
   if (err) return err;
 
   if (!codec.compressionRange.min || !codec.compressionRange.max) {
-    return new Error('Invalid compression range');
+    return new Error(
+      `Invalid compression range for codec ${key}. Expect Compression Range to be set from 1 to max`
+    );
   }
 
   if (CODEC_TYPES[key]) return new Error(`Codec type for: (${key}) already exists`);

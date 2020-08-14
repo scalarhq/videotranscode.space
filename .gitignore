@@ -21,3 +21,4 @@ public/test.mp4
 public/hello!(1).mp4
 src/dist/codecs.ts
 src/dist/formats.ts
+tests/codecs-testing/localCodecTester.js
