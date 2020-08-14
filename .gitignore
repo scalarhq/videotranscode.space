@@ -2,7 +2,6 @@ node_modules/
 public/build/
 public/build/bundle.css public/build/bundle.css.map public/build/bundle.js public/build/bundle.js.map
 
-*.logsrc/dist
 src/dist/
 public/bundle.css public/bundle.css.map public/bundle.js public/bundle.js.map
 public/bundle.js.map
@@ -20,3 +19,5 @@ build
 docs
 public/test.mp4
 public/hello!(1).mp4
+src/dist/codecs.ts
+src/dist/formats.ts
