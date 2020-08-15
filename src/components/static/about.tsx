@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Footer } from './static';
+
 const AboutPage = () => (
   <div className="about-wrapper">
     <h1 className="title">Browser Based Video Transcoder</h1>
@@ -91,6 +93,7 @@ const AboutPage = () => (
       </div>
 
       <div className="final" />
+      <Footer />
     </div>
     {/* @ts-ignore Styled JSX */}
     <style jsx>

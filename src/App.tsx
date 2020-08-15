@@ -78,32 +78,34 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
 
       <>
         <Router>
-          <Loader />
+          <>
+            <Loader />
+            <Footer />
+          </>
         </Router>
-        {' '}
-        <Footer />
       </>
     );
   }
   if (isLoadingError) {
     return (
 
-      <>
-        <Router>
+      <Router>
+        <>
           <main>
             <Header />
             <ErrorScreen loadingErrorObj={loadingErrorObj} />
           </main>
-        </Router>
-        <Footer />
-      </>
+          <Footer />
+        </>
+
+      </Router>
 
     );
   }
   return (
 
-    <>
-      <Router>
+    <Router>
+      <>
         <main>
           <Header />
 
@@ -241,9 +243,10 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
             </div>
           </div>
         </main>
-      </Router>
-      <Footer />
-    </>
+
+        <Footer />
+      </>
+    </Router>
 
   );
 };

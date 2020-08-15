@@ -4,7 +4,11 @@ import {
   BrowserView,
 } from 'react-device-detect';
 
+import { Link } from 'react-router-dom';
+
 import './static.css';
+
+import ComponentStore from '../../store/componentStore';
 
 export function Loader() {
   return (
@@ -42,7 +46,7 @@ export function Loader() {
 export function Header() {
   return (
     <div className="header">
-      <a href="#home" className="link">
+      <a onClick={() => { ComponentStore.reset(); }} className="link">
         <h1 className="title">Browser Based Video Transcoder</h1>
       </a>
       <h4>
@@ -174,11 +178,12 @@ export function Footer() {
       <div className="footer-left">
 
         <p className="footer-links">
-          <a className="link-1" href="/">Home</a>
+          <Link className="link-class link-1" to="/">Home</Link>
 
-          <a href="/about">About</a>
+          <Link className="link-class" to="/about">About</Link>
 
           <a
+            className="link-class"
             href="https://docs.videotranscode.space/"
             target="_blank"
             rel="noopener noreferrer"
@@ -188,6 +193,7 @@ export function Footer() {
           </a>
 
           <a
+            className="link-class"
             href="https://github.com/Etwas-Builders/Video-Transcoder"
             target="_blank"
             rel="noopener noreferrer"
@@ -198,10 +204,10 @@ export function Footer() {
 
           {/* <a href="#">Faq</a> */}
 
-          <a href="mailto:cryogenic@videotranscode.space">Contact</a>
+          <a className="link-class" href="mailto:cryogenic@videotranscode.space">Contact</a>
 
           <a
-            className="typeform-share link middle-footer"
+            className="link-class typeform-share link middle-footer"
             href="https://rahultarak12345.typeform.com/to/Fn78Sd"
             data-mode="drawer_right"
             style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}

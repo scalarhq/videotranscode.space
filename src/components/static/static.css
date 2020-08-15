@@ -99,7 +99,7 @@ h4 {
     transition: ease 0.25s;
 }
 
-.footer-distributed p.footer-links a {
+.footer-distributed p.footer-links .link-class {
     display: inline-block;
     line-height: 1.8;
     text-decoration: none;
@@ -107,7 +107,7 @@ h4 {
     transition: ease 0.25s;
 }
 
-.footer-distributed .footer-links a:before {
+.footer-distributed .footer-links .link-class:before {
     content: '·';
     font-size: 20px;
     left: 0;
