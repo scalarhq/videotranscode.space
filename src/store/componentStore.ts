@@ -1,6 +1,8 @@
 /* eslint-disable import/extensions */
 import { observable, action } from 'mobx';
 
+import AbstractStore from './store';
+
 // Stores
 import CluiStore from './cluiStore';
 import TerminalStore from './terminalStore';
@@ -9,38 +11,72 @@ import VideoStore from './videoStore';
 import FileStore from './fileStore';
 import HardwareStore from './hardwareStore';
 
-class ComponentStore {
+class ComponentStore extends AbstractStore {
+  // Observables
+
+  @observable transcoded: string = '';
+
+  @observable processed: boolean = false;
+
+  @observable isLoadingError = false;
+
+  @observable loadingErrorObj: Error = new Error();
+
+  @observable loaded = false;
+
+  constructor() {
+    super();
+    this.init();
+  }
+
+  // Init
+
+  @action init = () => {
+    this.transcoded = '';
+    this.processed = false;
+    this.isLoadingError = false;
+    this.loadingErrorObj = new Error();
+    this.loaded = false;
+  };
+
+  @action reset = () => {
+    this.CluiStore.reset();
+    this.terminalStore.reset();
+    this.FileStore.reset();
+    this.ProgressStore.reset();
+    this.VideoStore.reset();
+    this.FileStore.reset();
+    this.HardwareStore.reset();
+    const originalLoadedState = this.loaded;
+    this.init();
+    this.loaded = originalLoadedState;
+  };
+
+  // Stores
+
   @observable CluiStore = CluiStore;
 
   @observable terminalStore = TerminalStore;
 
-  @observable ProgressStore = new ProgressStore();
+  @observable ProgressStore = ProgressStore;
 
-  @observable VideoStore = new VideoStore();
+  @observable VideoStore = VideoStore;
 
   @observable FileStore = FileStore;
 
   @observable HardwareStore = HardwareStore;
 
-  @observable transcoded = '';
-
-  @observable processed = false;
+  // Actions
 
   @action
   updateProcessedState = (newState: boolean) => {
     this.processed = newState;
   };
 
-  @observable loaded = false;
-
   @action('Update Loaded')
   updateLoaded = (value: boolean) => {
     this.loaded = value;
   };
-
-  @observable isLoadingError = false;
-
-  @observable loadingErrorObj: Error = new Error();
 
   @action('Update Load Error')
   updateLoadError = (state: boolean, err: Error) => {

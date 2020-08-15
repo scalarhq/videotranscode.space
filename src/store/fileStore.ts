@@ -1,23 +1,43 @@
 import { observable, action, computed } from 'mobx';
 
 import formats from '../dist/formats';
+import AbstractStore from './store';
 
 import TerminalStore from './terminalStore';
 
-class FileStore {
-  @observable oldFiles: Array<string> = [];
-
+class FileStore extends AbstractStore {
+  // Stores
   @observable terminalStore = TerminalStore;
 
+  // Observables
+
+  @observable oldFiles: Array<string> = [];
+
   @observable currentFileName: string = '';
+
+  @observable files: { uploaded: boolean; values: File[] } = { uploaded: false, values: [] };
+
+  // Constructor
+
+  constructor() {
+    super();
+    this.init();
+  }
+
+  // Init
+  @action init = () => {
+    this.oldFiles = [];
+    this.currentFileName = '';
+    this.files = { uploaded: false, values: [] };
+  };
+
+  // Actions
 
   @action
   updateCurrentFile = (fileName: string) => {
     this.oldFiles.push(this.currentFileName);
     this.currentFileName = fileName;
   };
-
-  @observable files: { uploaded: boolean; values: File[] } = { uploaded: false, values: [] };
 
   renameFile = (originalFile: File, count: number, extension: string) =>
     // eslint-disable-next-line implicit-arrow-linebreak
@@ -51,6 +71,8 @@ class FileStore {
       }
     }
   };
+
+  // Computed
 
   /**
    * Returns current file extension **without the dot**
