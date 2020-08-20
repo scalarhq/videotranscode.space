@@ -3,9 +3,8 @@ main {
   width: 100%;
   align-self: stretch;
   text-align: center;
-  padding: 1em;
   max-width: 30.379vh;
-  margin: 0 auto;
+  margin: -1.3em auto 0;
   font-family: "Ubuntu Mono", monospace;
   font-weight: 400;
 }

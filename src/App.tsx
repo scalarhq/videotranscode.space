@@ -24,15 +24,12 @@ import Clui from './clui/clui';
 import BasicFeatures from './components/basic-features/basicFeature';
 
 // Types
-import { ComponentStoreType } from './types/store';
 
 // Stores
 import TerminalStore from './store/terminalStore';
+import ComponentStore from './store/componentStore';
 
-type AppProps = {
-  componentStore: ComponentStoreType,
-};
-const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
+const App = () => {
   const {
     loaded,
     processed,
@@ -43,7 +40,7 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
     FileStore,
     CluiStore,
     VideoStore,
-  } = componentStore;
+  } = ComponentStore;
   const { isSubmitted } = CluiStore;
 
   const { currentFileExtension, files, isDisplayable } = FileStore;
@@ -73,19 +70,25 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
     }
   }, [processed, toDisplay, isDisplayable, updateVideoDisplay]);
 
-  if (!loaded) {
-    return (
+  useEffect(() => {
+    if (loaded) {
+      const { updateTerminalText } = TerminalStore;
+      /**
+      * Overriding Console for Terminal
+      *
+      */
+      const newConsole = (oldConsole: typeof window.console) => ({
+        ...oldConsole,
+        log(text: any) {
+          oldConsole.log(text);
+          if (updateTerminalText) { updateTerminalText(text); }
+        },
+      });
 
-      <>
-        <Router>
-          <>
-            <Loader />
-            <Footer />
-          </>
-        </Router>
-      </>
-    );
-  }
+      window.console = newConsole(window.console);
+    }
+  }, [loaded]);
+
   if (isLoadingError) {
     return (
 
@@ -123,9 +126,19 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
               : !isSubmitted ? (
 
                 <div className="configuration-wrapper">
-                  <Fade bottom>
-                    {cluiToggle ? <Clui /> : <BasicFeatures />}
-                  </Fade>
+                  {cluiToggle
+                    ? (
+                      <Fade bottom>
+                        <Clui />
+                      </Fade>
+                    )
+                    : (
+                      <Fade bottom>
+                        {' '}
+                        <BasicFeatures />
+                        {' '}
+                      </Fade>
+                    )}
                   <div className="toggle">
                     <div className="toggle-label">
                       <p>Basic Features</p>
@@ -252,19 +265,3 @@ const App: React.FC<AppProps> = ({ componentStore }: AppProps) => {
 };
 
 export default observer(App);
-
-const { updateTerminalText } = TerminalStore;
-
-/**
- * Overriding Console for Terminal
- *
- */
-const newConsole = (oldConsole: typeof window.console) => ({
-  ...oldConsole,
-  log(text: any) {
-    oldConsole.log(text);
-    if (updateTerminalText) { updateTerminalText(text); }
-  },
-});
-
-window.console = newConsole(window.console);
