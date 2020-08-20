@@ -47,6 +47,9 @@ class ComponentStore extends AbstractStore {
     this.VideoStore.reset();
     this.FileStore.reset();
     this.HardwareStore.reset();
+    if (this.isLoadingError) {
+      window.location.reload();
+    }
     const originalLoadedState = this.loaded;
     this.init();
     this.loaded = originalLoadedState;
