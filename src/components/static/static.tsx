@@ -50,12 +50,11 @@ export function Header() {
         <h1 className="title">Browser Based Video Transcoder</h1>
       </a>
       <h4>
-        Your files will
-        <span className="highlight"> not be uploaded anywhere.</span>
+        A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
       </h4>
       <h4>
-        All the processing will be done on your browser,
-        <span className="highlight">completely protecting your privacy</span>
+        Your files are
+        <span className="highlight"> not uploaded anywhere.</span>
       </h4>
       {/* @ts-ignore Styled JSX  */}
       <style jsx>
