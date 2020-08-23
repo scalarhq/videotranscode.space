@@ -47,7 +47,6 @@ const TerminalComponent: React.FC = () => {
 			el.appendChild(t1.html);
 		}
 		const terminalEmulator = document.getElementById('terminalEmulator');
-		console.info(terminalEmulator);
 		componentStore.terminalStore.terminalEmulator = terminalEmulator;
 		t1.clear();
 		updateTerminalText('Hello, I am a Video Transcoder!', true);

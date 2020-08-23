@@ -58,7 +58,7 @@ class TerminalStore extends AbstractStore {
       // eslint-disable-next-line no-console
       this.t1.print(`${noflag ? '' : '$'} ${message}`);
       const { terminalEmulator } = this;
-      console.info(terminalEmulator);
+      // console.info(terminalEmulator);
       if (terminalEmulator) {
         terminalEmulator.scrollTop = terminalEmulator.scrollHeight;
       }
