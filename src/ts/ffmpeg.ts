@@ -1,20 +1,16 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
 import ComponentStore from '../store/componentStore';
 
+import { CustomFileType } from '../types/fileTypes';
+
 const { ProgressStore, updateLoaded, updateLoadError } = ComponentStore;
 const { updateProgress } = ProgressStore;
 
 export type FFmpegDataType = {
-  outputFileName: string;
+  outputFile: CustomFileType;
   threads: number;
   ffmpegCommands: string;
 };
-// @ts-ignore Defined later
-// const exportedElements: {
-//   ffmpegWriter: (file: File) => Promise<string>;
-//   ffmpegReader: (fileName: string) => Promise<Uint8Array>;
-//   ffmpegRunner: (fileName: string, ffmpegData: FFmpegDataType) => Promise<string>;
-// } = {};
 
 const ffmpeg = createFFmpeg({
   log: true,
@@ -37,16 +33,16 @@ const loadFFmpeg = async () => {
       `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
     );
     updateLoadError(true, loadError);
-    try {
-      await ffmpeg.load();
-      updateLoadError(false, new Error());
-    } catch (secondErr) {
-      console.error(window.navigator.userAgent, secondErr.message);
-      const secondLoadErr = new Error(
-        `${secondErr.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
-      );
-      updateLoadError(true, secondLoadErr);
-    }
+    // try {
+    //   await ffmpeg.load();
+    //   updateLoadError(false, new Error());
+    // } catch (secondErr) {
+    //   console.error(window.navigator.userAgent, secondErr.message);
+    //   const secondLoadErr = new Error(
+    //     `${secondErr.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
+    //   );
+    //   updateLoadError(true, secondLoadErr);
+    // }
   }
   updateLoaded(true);
 };
@@ -78,14 +74,14 @@ const ffmpegReader = async (fileName: string) => {
  * @param ffmpegData is the parameters of the executed and are of type {@link FFmpegDataType}
  * @return a file name as string of the processed file.
  */
-const ffmpegRunner = async (fileName: string, ffmpegData: FFmpegDataType) => {
-  const { outputFileName, threads, ffmpegCommands } = ffmpegData;
-  const commandString = `-i '${fileName}' -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFileName}`;
+const ffmpegRunner = async (inputFileCommand: string, ffmpegData: FFmpegDataType) => {
+  const { outputFile, threads, ffmpegCommands } = ffmpegData;
+  const commandString = `${inputFileCommand} -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFile.name}`;
   console.log('Running FFmpeg', commandString);
   try {
     const promise = await ffmpeg.run(commandString);
     console.log('Returning output', promise);
-    return outputFileName;
+    return outputFile;
   } catch (err) {
     console.trace();
     console.info(err.message);

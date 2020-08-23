@@ -3,6 +3,39 @@ h1.title {
     font-size: 46px;
 }
 
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-wrapper {
+    text-align: center;
+}
+
+.link-button {
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.highlight {
+    color: #ff3e00;
+}
+
+.moz-builders {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+    margin-top: 5px !important;
+    line-height: 0px !important;
+}
+
 h4 {
     color: white;
     font-weight: 400;

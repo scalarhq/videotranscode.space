@@ -1,6 +1,6 @@
 {
   "extends": ["airbnb"],
-  //   "plugins": ["eslint-plugin-prettier"],
+  "plugins": ["eslint-plugin-prettier", "react", "react-hooks"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "no-restricted-syntax": ["error", "ForInStatement"],

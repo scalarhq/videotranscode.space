@@ -18,6 +18,7 @@ const { updateChosenFeatures } = CluiStore;
 const WorkflowUi = ({ steps }: { steps: Array<string> }) => {
   useEffect(() => {
     updateChosenFeatures(steps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const featuresInUse: Array<FeatureElement> = [];

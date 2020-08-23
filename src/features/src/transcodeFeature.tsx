@@ -36,6 +36,7 @@ class TranscodeFeature extends FFmpegFeature {
     this.updateDisplay(display);
     this.setFFmpegCommands(defaultCodec, chosenCodec);
     this.setProgress();
+    this.setFileConfig();
     updateBlobType(type);
   }
 
@@ -46,9 +47,8 @@ class TranscodeFeature extends FFmpegFeature {
    *
    * @param newExtension Expect a string of the format name **with the dot** Example .mp4, .avi
    */
-
   private changeFileExtension = (newExtension: string): void => {
-    this.outputFileName = `${this.inputFileName.split('.')[0]}-output${newExtension}`;
+    this.outputFile.name = `output-${this.inputFile.name.split('.')[0]}${newExtension}`;
   };
 
   /**
@@ -64,6 +64,10 @@ class TranscodeFeature extends FFmpegFeature {
   setProgress = () => {
     this.progressBar.name = 'Transcoding ...';
     this.progressBar.color = '#0d6efd';
+  }
+
+  setFileConfig = () => {
+    this.fileConfig = { types: [{ name: 'video', number: { min: 1, max: 1 } }], primaryType: 'video' };
   }
 
   parseConfiguration = () => {
@@ -114,9 +118,17 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
       title: 'Choose Codec',
       parents: [...currentParents, 'CODEC'],
       current: currentFormat.defaultCodec
-        ? { name: currentFormat.defaultCodec.name, value: createCodecValue(currentFormat.defaultCodec.name) }
-        : { name: currentFormat.codecs[0].name, value: createCodecValue(currentFormat.codecs[0].name) },
-      list: currentFormat.codecs.map((codec) => ({ name: codec.name, value: createCodecValue(codec.name) })),
+        ? {
+          name: currentFormat.defaultCodec.name,
+          value: createCodecValue(currentFormat.defaultCodec.name),
+        }
+        : {
+          name: currentFormat.codecs[0].name,
+          value: createCodecValue(currentFormat.codecs[0].name),
+        },
+      list: currentFormat.codecs.map((codec) => ({
+        name: codec.name, value: createCodecValue(codec.name),
+      })),
     };
     const child = { component: List, props: childProps };
     const returnObject = { name: formatKey, value: formatKey, child };
@@ -130,7 +142,9 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     current: mp4Format.defaultCodec
       ? { name: mp4Format.defaultCodec.name, value: createCodecValue(mp4Format.defaultCodec.name) }
       : { name: mp4Format.codecs[0].name, value: createCodecValue(mp4Format.codecs[0].name) },
-    list: mp4Format.codecs.map((codec) => ({ name: codec.name, value: createCodecValue(codec.name) })),
+    list: mp4Format.codecs.map((codec) => ({
+      name: codec.name, value: createCodecValue(codec.name),
+    })),
   };
 
   const props = {
