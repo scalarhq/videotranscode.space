@@ -65,6 +65,8 @@
     border-bottom-color: "none";
     border: "1px solid #4A5063";
     max-height: 50vh;
+    min-height: 40vh;
+    width: 40vw;
 }
 
 .preview-wrapper>* {
