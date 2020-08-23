@@ -17,6 +17,7 @@ const FeatureUi = ({ ui, featureKey }: { ui: JSX.Element | string, featureKey: s
   useEffect(() => {
     // Sets the chosen features array as a single element feature
     updateChosenFeatures([featureKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 import { ffmpegWriter } from './ffmpeg';
 
-import { FileConfigType, FileTypes, InputFilesType } from '../types/fileTypes';
+import { FileTypes } from '../types/fileTypes';
 
 import FileStore from '../store/fileStore';
 

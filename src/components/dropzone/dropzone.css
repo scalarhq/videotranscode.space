@@ -50,7 +50,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin: auto 8px auto;
-    max-height: 60vh;
+    max-height: 50vh;
     overflow-y: auto;
 }
 
@@ -64,10 +64,19 @@
     border-top-color: "none";
     border-bottom-color: "none";
     border: "1px solid #4A5063";
-    max-height: 60vh;
+    max-height: 50vh;
 }
 
 .preview-wrapper>* {
     grid-column: 1 / 1;
     grid-row: 1 / 1;
+}
+
+.scrollable-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }

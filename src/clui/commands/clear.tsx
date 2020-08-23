@@ -7,6 +7,7 @@ const Clear = (props: any) => {
     }
 
     window.scrollTo({ top: 0, left: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div />;

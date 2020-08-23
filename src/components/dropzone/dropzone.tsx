@@ -96,7 +96,7 @@ const Dropzone = () => {
     }
   };
 
-  useEventListener(document.getElementById('dropzone') || dropzoneRef, 'wheel', translateScroll);
+  useEventListener(dropzoneRef, 'wheel', translateScroll);
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
@@ -147,15 +147,17 @@ const Dropzone = () => {
     </div>
   ));
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: ['video/*', 'image/*', 'audio/*'] });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: ['video/*', 'image/*', 'audio/*'] });
 
   return (
     <div className="preview-wrapper">
-      <div className="dropzone" id="dropzone" ref={dropzoneRef} {...getRootProps()}>
-        <input {...getInputProps()} />
 
-        {files.length > 0 ? null : (<p>Drag and drop some files here, or click to select files</p>)}
+      <div className="dropzone" id="dropzone" {...getRootProps()}>
+        <div className="scrollable-wrapper" ref={dropzoneRef}>
+          <input {...getInputProps()} />
 
+          {files.length > 0 ? null : (<p>Drag and drop some files here, or click to select files</p>)}
+        </div>
       </div>
       <aside ref={thumbnailRef} className="thumbs-container">
         {thumbs}

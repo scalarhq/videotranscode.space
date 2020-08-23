@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { action } from 'mobx';
 
 abstract class AbstractStore {
   @action public abstract init = () => {};

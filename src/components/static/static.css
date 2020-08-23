@@ -12,9 +12,15 @@ h1.title {
     text-align: center;
 }
 
-.link {
+.link-button {
     color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     text-decoration: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
 }
 
 .highlight {

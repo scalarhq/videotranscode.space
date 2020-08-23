@@ -7,6 +7,7 @@ const CustomComp = (props: any) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(count + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (count) {

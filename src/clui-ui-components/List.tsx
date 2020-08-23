@@ -53,6 +53,7 @@ const List = (props: ListProps) => {
   useEffect(() => {
     const defaultConfiguration = { name: current.name, value: current.value };
     updateConfiguration(defaultConfiguration, [...parents]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = (e: React.MouseEvent, element: ListElement) => {

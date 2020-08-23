@@ -72,6 +72,7 @@ const TerminalComponent: React.FC = () => {
 
 			// unmount
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
