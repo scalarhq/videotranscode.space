@@ -19,6 +19,7 @@ class CompressionFeature extends FFmpegFeature {
     const command = this.compressCommand(compressionValue);
     this.setFFmpegCommands(command);
     this.setProgress();
+    this.setFileConfig();
   }
 
   setFFmpegCommands(command: string) {
@@ -28,6 +29,10 @@ class CompressionFeature extends FFmpegFeature {
   setProgress = () => {
     this.progressBar.name = 'Compressing ...';
     this.progressBar.color = '#3FBD71';
+  }
+
+  setFileConfig = () => {
+    this.fileConfig = { types: [{ name: 'video', number: { min: 1, max: 1 } }], primaryType: 'video' };
   }
 
   /**

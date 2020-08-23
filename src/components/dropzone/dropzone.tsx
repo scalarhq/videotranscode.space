@@ -8,13 +8,15 @@ import { useDropzone } from 'react-dropzone';
 
 import './dropzone.css';
 
-import FileStore, { FileTransform } from '../../store/fileStore';
+import FileStore from '../../store/fileStore';
+
+import { FileTransformType } from '../../types/fileTypes';
 
 import useEventListener from '../../ts/useEventListener';
 
 type FileWithPreview = File & {
   preview: string;
-  type: 'video' | 'audio' | 'image' | 'other';
+  customType: 'video' | 'audio' | 'image' | 'other';
 }
 
 const { updateFiles } = FileStore;
@@ -101,27 +103,27 @@ const Dropzone = () => {
     const newFiles: Array<FileWithPreview> = await Promise.all(acceptedFiles.map(
       async (file: File) => {
         if (file.type.match('image')) {
-          return Object.assign(file, { preview: URL.createObjectURL(file), type: 'image' });
+          return Object.assign(file, { preview: URL.createObjectURL(file), customType: 'image' });
         }
         if (file.type.match('video')) {
           // Generate preview for Video
           try {
             const videoThumbnail = await createVideoThumbnail(file);
-            return Object.assign(file, { preview: videoThumbnail, type: 'video' });
+            return Object.assign(file, { preview: videoThumbnail, customType: 'video' });
           } catch (err) {
-            return Object.assign(file, { preview: '', type: 'video' });
+            return Object.assign(file, { preview: '', customType: 'video' });
           }
         }
         if (file.type.match('audio')) {
-          return Object.assign(file, { preview: '', type: 'audio' });
+          return Object.assign(file, { preview: '', customType: 'audio' });
         }
 
-        return Object.assign(file, { preview: '', type: 'other' });
+        return Object.assign(file, { preview: '', customType: 'other' });
       },
     ));
-    const transforms: FileTransform[] = [];
+    const transforms: FileTransformType[] = [];
     for (const newFile of newFiles) {
-      const newTransform: FileTransform = { type: newFile.type, file: newFile, state: 'Insert' };
+      const newTransform: FileTransformType = { type: newFile.customType, file: newFile, state: 'Insert' };
       transforms.push(newTransform);
     }
     updateFiles(transforms);
