@@ -27,18 +27,6 @@ export function Loader() {
         <h1>Loading ...</h1>
         <h3>This can take upto 30 seconds, please be patient with us</h3>
       </div>
-      {/* @ts-ignore Styled JSX */}
-      <style jsx>
-        {`
-          .loader-wrapper {
-            display: flex;
-            flex-direction: column;
-          }
-          .text-wrapper {
-            text-align: center;
-          }
-        `}
-      </style>
     </div>
   );
 }
@@ -56,42 +44,9 @@ export function Header() {
         Your files are
         <span className="highlight"> not uploaded anywhere.</span>
       </h4>
-      {/* @ts-ignore Styled JSX  */}
-      <style jsx>
-        {`
-          .link {
-            color: inherit;
-            text-decoration: none;
-          }
-          .highlight {
-            color: #ff3e00;
-          }
-        `}
-      </style>
     </div>
   );
 }
-
-// export function Footer() {
-//   return (
-//     <div className="footer">
-//
-//       <a
-//         className="typeform-share link middle-footer"
-//         href="https://rahultarak12345.typeform.com/to/Fn78Sd"
-//         data-mode="drawer_right"
-//         style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
-//         data-submit-close-delay="0"
-//         target="_blank"
-//         rel="noopener noreferrer"
-//       >
-//         Join our Mailing List!
-//       </a>
-//       {/* <ReactTypeformEmbed url="https://rahultarak12345.typeform.com/to/Fn78Sd" popup={true} buttonText="Mailing List!" mode="drawer_right" style={{ color: "#3FD71", textDecoration: "underline", fontSize: "20px" }} >Join the mailing list!</ReactTypeformEmbed> */}
-
-// </div>
-//   );
-// }
 
 const HeartSvg = () => (
   <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
@@ -156,19 +111,7 @@ export function Footer() {
 
               <img style={{ width: '15vw' }} src="/images/mozilla-builders-logo.png" alt="Mozilla Builders Logo" />
             </a>
-            {/* @ts-ignore Styled JSX */}
-            <style jsx>
-              {`
-            .moz-builders {
-              display : flex;
-              flex-direction : column;
-              align-items: center !important;
-              justify-content: center;
-              margin-top: 5px !important;
-              line-height : 0px !important;
-            }
-            `}
-            </style>
+
           </div>
 
         </div>
