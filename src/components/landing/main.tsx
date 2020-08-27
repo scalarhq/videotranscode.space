@@ -3,7 +3,7 @@ import Cell from './cell';
 import FormCell from './formCell';
 
 const Main = (props: { children: JSX.Element[] }) => {
-  const [state, setState] = useState<{ cells: JSX.Element[] | null }>({ cells: null });
+  const [state, setState] = useState<{ cells: (JSX.Element | null)[] | any }>({ cells: null });
 
   useEffect(() => {
     if (props.children) {

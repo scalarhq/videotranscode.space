@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { observer } from 'mobx-react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import ComponentStore from '../../store/componentStore';
 
-export default () =>
-  // let alt = props.alt || "image avatar";
-  (
+const Header = () => {
+  const [clicked, setClicked] = useState(0);
+
+  // const [usingLander, setUsingLander] = useState(false);
+
+  useEffect(() => {
+    let counter = 0;
+    setInterval(() => {
+      // Check clicks
+      const { hash } = window.location;
+      if (hash === '#' || hash === '') {
+        if (clicked === 0) {
+          ComponentStore.updateLanding(false);
+        }
+        if (clicked > 0) {
+          if (clicked < counter) {
+            ComponentStore.updateLanding(false);
+          }
+        }
+      }
+      counter += 1;
+    }, 10000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
     <header id="header">
       <div className="logo">
         <FontAwesomeIcon icon={faVideo} size="2x" />
@@ -44,16 +69,16 @@ export default () =>
       <nav>
         <ul>
           <li>
-            <a href="#intro">Why</a>
+            <a href="#why" onClick={() => { setClicked(clicked + 1); }}>Why</a>
           </li>
           <li>
-            <a href="#work">Features</a>
+            <a href="#features" onClick={() => { setClicked(clicked + 1); }}>Features</a>
           </li>
           <li>
-            <a href="https://docs.videotranscode.space/" target="_blank" rel="noopener noreferrer">Docs</a>
+            <a href="https://docs.videotranscode.space/" target="_blank" rel="noopener noreferrer" onClick={() => { setClicked(clicked + 1); }}>Docs</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact" onClick={() => { setClicked(clicked + 1); }}>Contact</a>
           </li>
         </ul>
       </nav>
@@ -85,3 +110,6 @@ export default () =>
       </style>
     </header>
   );
+};
+
+export default observer(Header);

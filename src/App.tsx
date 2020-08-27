@@ -109,12 +109,15 @@ const App = () => {
 
     <Router>
       <>
+
         <div className="overlay-wrapper">
-          {landing ? (
+          <Fade top when={landing}>
+            {/* {landing ? ( */}
             <div className="overlay">
               <Wrapper />
             </div>
-          ) : null}
+            {/* ) : null}  */}
+          </Fade>
           <div className="blur">
             <main>
               <Header />
