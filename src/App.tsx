@@ -22,6 +22,8 @@ import VideoPlayer from './components/video/video';
 import ErrorScreen from './components/error/Error';
 import Configuration from './components/configuration/configuration';
 
+import Wrapper from './components/landing/wrapper';
+
 // Types
 
 // Stores
@@ -35,6 +37,7 @@ const App = () => {
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
+    landing,
 
     FileStore,
     CluiStore,
@@ -106,47 +109,81 @@ const App = () => {
 
     <Router>
       <>
-        <main>
-          <Header />
+        <div className="overlay-wrapper">
+          {landing ? (
+            <div className="overlay">
+              <Wrapper />
+            </div>
+          ) : null}
+          <div className="blur">
+            <main>
+              <Header />
 
-          <div className="flex-wrapper">
-            {!isSubmitted
-              ? (
+              <div className="flex-wrapper">
+                {!isSubmitted
+                  ? (
 
-                <div className="col dropzone-wrapper">
-                  <Fade bottom>
-                    <Dropzone />
-                  </Fade>
-                </div>
+                    <div className="col dropzone-wrapper">
+                      <Fade bottom>
+                        <Dropzone />
+                      </Fade>
+                    </div>
 
-              )
-              : !processed ? (
-                <Fade bottom>
-                  <ProgressBar {...ProgressStore} />
-                </Fade>
-              )
-                : (
-                  <Fade bottom>
-                    <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
-                  </Fade>
-                )}
+                  )
+                  : !processed ? (
+                    <Fade bottom>
+                      <ProgressBar {...ProgressStore} />
+                    </Fade>
+                  )
+                    : (
+                      <Fade bottom>
+                        <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                      </Fade>
+                    )}
 
-            {!isSubmitted ? (
-              <Configuration />
+                {!isSubmitted ? (
+                  <Configuration />
 
-            )
-              : (
-                <div className="terminal-wrapper">
-                  <Fade bottom>
-                    <TerminalComponent />
-                  </Fade>
-                </div>
-              )}
+                )
+                  : (
+                    <div className="terminal-wrapper">
+                      <Fade bottom>
+                        <TerminalComponent />
+                      </Fade>
+                    </div>
+                  )}
 
+              </div>
+            </main>
           </div>
-        </main>
+          {/* @ts-ignore Styled JSX */}
+          <style jsx>
+            {`
+            .blur {
+            filter: ${landing ? 'blur(4px)' : 'unset'};
+              z-index: 0;
+            }
+            .overlay {
+              z-index: 1;
+            }
+            .overlay-wrapper {
+              display: grid;
+              grid-template: 1fr / 1fr;
+            }
+            .overlay-wrapper > * {
+              grid-column: 1 / 1;
+              grid-row: 1 / 1;
+            }
+            ul {
+              max-width: unset !important;
+              background-color: transparent !important;
+            }
+            `}
 
-        <Footer />
+          </style>
+        </div>
+        {!landing ? (<Footer />) : null}
+
       </>
     </Router>
 
