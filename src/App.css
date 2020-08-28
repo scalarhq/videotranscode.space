@@ -22,11 +22,12 @@ main {
   flex: 1 0;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .dropzone-wrapper {
   width: 50%;
+  margin-bottom: 3rem;
 }
 
 .video-wrapper {
