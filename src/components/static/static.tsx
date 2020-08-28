@@ -37,7 +37,7 @@ export function Header() {
       <button type="button" className="link-button" onClick={() => { ComponentStore.reset(); }}>
         <h1 className="title">Browser Based Video Transcoder</h1>
       </button>
-      <h4>
+      <h4 className="subtitle">
         A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
       </h4>
       <h4>
