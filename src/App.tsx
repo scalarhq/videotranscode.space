@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 
 // Modules
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { Fade } from 'react-reveal';
@@ -50,6 +50,15 @@ const App = () => {
   } = FileStore;
 
   const { toDisplay, updateVideoDisplay, url } = VideoStore;
+
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (landing === false && isLoading === false) {
+      setLoading(true);
+      setTimeout(() => { loadFFmpeg(); }, 200);
+    }
+  }, [landing]);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -110,7 +119,7 @@ const App = () => {
 
           {landing ? (
             <div className="overlay">
-              <Wrapper loadFFmpeg={loadFFmpeg} />
+              <Wrapper />
             </div>
           ) : null}
 

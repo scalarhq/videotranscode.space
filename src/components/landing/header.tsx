@@ -63,17 +63,17 @@ const Header = () => {
             convert videos right in your browser while protecting your privacy.
           </p>
           <div className="start">
-            {loaded ? (
-              <>
+            {/* {loaded ? ( */}
+            <>
+              {' '}
+
+              <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
                 {' '}
+                <FontAwesomeIcon icon={faPlay} size="3x" />
+              </button>
 
-                <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
-                  {' '}
-                  <FontAwesomeIcon icon={faPlay} size="3x" />
-                </button>
-
-              </>
-            ) : <Loader />}
+            </>
+            {/* ) : <Loader />} */}
           </div>
         </div>
       </div>
