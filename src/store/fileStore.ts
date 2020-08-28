@@ -212,21 +212,22 @@ class FileStore extends AbstractStore {
    * Returns an array of all the files from all category
    *
    */
-  @computed private get allFiles() {
-    const { loadedFiles } = this;
-    const fileValues: File[] = [];
-    if (loadedFiles.audio) {
-      fileValues.concat(loadedFiles.audio);
+  @computed get allFiles() {
+    const { files } = this;
+    let fileValues: File[] = [];
+    if (files.audio) {
+      fileValues = fileValues.concat(files.audio);
     }
-    if (loadedFiles.video) {
-      fileValues.concat(loadedFiles.video);
+    if (files.video) {
+      fileValues = fileValues.concat(files.video);
     }
-    if (loadedFiles.image) {
-      fileValues.concat(loadedFiles.image);
+    if (files.image) {
+      fileValues = fileValues.concat(files.image);
     }
-    if (loadedFiles.other) {
-      fileValues.concat(loadedFiles.other);
+    if (files.other) {
+      fileValues = fileValues.concat(files.other);
     }
+    console.info('File Values', fileValues);
     return fileValues;
   }
 

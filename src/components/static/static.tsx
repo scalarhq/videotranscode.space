@@ -25,7 +25,7 @@ export function Loader() {
       </div>
       <div className="text-wrapper">
         <h1>Loading ...</h1>
-        <h3>This can take upto 30 seconds, please be patient with us</h3>
+        {/* <h3>This can take upto 30 seconds, please be patient with us</h3> */}
       </div>
     </div>
   );

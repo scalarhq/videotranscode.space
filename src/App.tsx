@@ -111,13 +111,13 @@ const App = () => {
       <>
 
         <div className="overlay-wrapper">
-          <Fade top when={landing}>
-            {/* {landing ? ( */}
+
+          {landing ? (
             <div className="overlay">
               <Wrapper />
             </div>
-            {/* ) : null}  */}
-          </Fade>
+          ) : null}
+
           <div className="blur">
             <main>
               <Header />
@@ -164,7 +164,7 @@ const App = () => {
             {`
             .blur {
             filter: ${landing ? 'blur(4px)' : 'unset'};
-              z-index: 0;
+              z-index:  ${landing ? '0' : '10'};;
             }
             .overlay {
               z-index: 1;

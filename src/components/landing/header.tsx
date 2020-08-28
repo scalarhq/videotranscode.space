@@ -7,7 +7,11 @@ import { faVideo, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import ComponentStore from '../../store/componentStore';
 
+import { Loader } from '../static/static';
+
 const Header = () => {
+  const { loaded } = ComponentStore;
+
   const [clicked, setClicked] = useState(0);
 
   // const [usingLander, setUsingLander] = useState(false);
@@ -16,14 +20,16 @@ const Header = () => {
     let counter = 0;
     setInterval(() => {
       // Check clicks
-      const { hash } = window.location;
-      if (hash === '#' || hash === '') {
-        if (clicked === 0) {
-          ComponentStore.updateLanding(false);
-        }
-        if (clicked > 0) {
-          if (clicked < counter) {
+      if (loaded) {
+        const { hash } = window.location;
+        if (hash === '#' || hash === '') {
+          if (clicked === 0) {
             ComponentStore.updateLanding(false);
+          }
+          if (clicked > 0) {
+            if (clicked < counter) {
+              ComponentStore.updateLanding(false);
+            }
           }
         }
       }
@@ -57,12 +63,17 @@ const Header = () => {
             convert videos right in your browser while protecting your privacy.
           </p>
           <div className="start">
-            <h3 className="special-strong" style={{ fontSize: '30px' }}>Start</h3>
-            <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
-              {' '}
-              <FontAwesomeIcon icon={faPlay} size="3x" />
-            </button>
-            <h3 className="special-strong" style={{ fontSize: '30px' }}>Now!</h3>
+            {loaded ? (
+              <>
+                {' '}
+
+                <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
+                  {' '}
+                  <FontAwesomeIcon icon={faPlay} size="3x" />
+                </button>
+
+              </>
+            ) : <Loader />}
           </div>
         </div>
       </div>
@@ -92,7 +103,7 @@ const Header = () => {
         }
         .play-button {
           background-color: transparent;
-          color : white;
+          color : inherit;
           border: none;
           padding: 0 3%;
         }
