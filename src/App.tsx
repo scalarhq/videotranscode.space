@@ -52,10 +52,6 @@ const App = () => {
   const { toDisplay, updateVideoDisplay, url } = VideoStore;
 
   useEffect(() => {
-    loadFFmpeg();
-  }, []);
-
-  useEffect(() => {
     if (isSubmitted) {
       processor();
     }
@@ -114,7 +110,7 @@ const App = () => {
 
           {landing ? (
             <div className="overlay">
-              <Wrapper />
+              <Wrapper loadFFmpeg={loadFFmpeg} />
             </div>
           ) : null}
 
