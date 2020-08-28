@@ -28,7 +28,7 @@ const loadFFmpeg = async () => {
   try {
     await ffmpeg.load();
   } catch (err) {
-    console.info('Error', window.navigator.userAgent, err.message);
+    console.error('Error', window.navigator.userAgent, err.message);
     const loadError = new Error(
       `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
     );

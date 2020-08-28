@@ -38,6 +38,7 @@ const App = () => {
     isLoadingError,
     loadingErrorObj,
     landing,
+    updateLoadError,
 
     FileStore,
     CluiStore,
@@ -100,6 +101,7 @@ const App = () => {
     if (isLoadingError && secondLoad === false) {
       loadFFmpeg();
       setSecondLoad(true);
+      updateLoadError(false, new Error());
     }
   }, [isLoadingError]);
 
