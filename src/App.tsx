@@ -53,6 +53,8 @@ const App = () => {
 
   const [isLoading, setLoading] = useState(false);
 
+  const [secondLoad, setSecondLoad] = useState(false);
+
   useEffect(() => {
     if (landing === false && isLoading === false) {
       setLoading(true);
@@ -93,6 +95,13 @@ const App = () => {
       window.console = newConsole(window.console);
     }
   }, [loaded]);
+
+  useEffect(() => {
+    if (isLoadingError && secondLoad === false) {
+      loadFFmpeg();
+      setSecondLoad(true);
+    }
+  }, [isLoadingError]);
 
   if (isLoadingError) {
     return (
