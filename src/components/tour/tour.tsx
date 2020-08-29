@@ -36,10 +36,12 @@ const Tour = ({ children, landing }: TourProps) => {
 };
 
 const TourWrapper = ({ children, landing }: TourProps) => (
-  // @ts-ignore
-  <ShepherdTour steps={steps} tourOptions={tourOptions}>
-    <Tour landing={landing}>{children}</Tour>
-  </ShepherdTour>
+  <div>
+    {/* @ts-ignore Tour Step */}
+    <ShepherdTour steps={steps} tourOptions={tourOptions}>
+      <Tour landing={landing}>{children}</Tour>
+    </ShepherdTour>
+  </div>
 );
 
 export default TourWrapper;
