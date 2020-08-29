@@ -37,6 +37,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-shepherd": "^3.3.0",
+    "shepherd.js": "^8.0.2",
     "styled-jsx": "^3.3.0",
     "typescript": "^3.9.6"
   },
