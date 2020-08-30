@@ -12,6 +12,7 @@ const { updateConfiguration } = CluiStore;
 type SingleInputProps = {
   parents: Array<string>
   type: string
+  defaultValue: any,
   placeholder?: string
   otherProps?: any
   className?: string
@@ -27,13 +28,13 @@ type SingleInputProps = {
  */
 
 const SingleInput = ({
-  parents, type, placeholder, child, otherProps, className,
+  parents, type, placeholder, child, otherProps, className, defaultValue,
 }: SingleInputProps) => {
-  const [inputValue, setInputValue] = useState<any>();
+  const [inputValue, setInputValue] = useState<any>(defaultValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    updateConfiguration({ value: inputValue }, [...parents]);
+    updateConfiguration({ value: e.target.value }, [...parents]);
   };
 
   return (

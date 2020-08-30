@@ -18,6 +18,8 @@ class PhotoMontageFeature extends FFmpegFeature {
 
   transcoder: TranscodeFeature
 
+  frameRate: number
+
   constructor(config: PhotoMontageConfig) {
     super();
 
@@ -26,6 +28,8 @@ class PhotoMontageFeature extends FFmpegFeature {
     this.transcoder = new TranscodeFeature(config.PHOTO_MONTAGE);
 
     const { frameRate } = this.parseConfiguration();
+
+    this.frameRate = frameRate;
 
     // Get Transcoder Properties
     const {
@@ -40,7 +44,7 @@ class PhotoMontageFeature extends FFmpegFeature {
     this.updateDisplay(display, type);
     this.changeFileExtension(extension);
 
-    this.setFFmpegCommands(ffmpegCommands, frameRate);
+    this.setFFmpegCommands(ffmpegCommands);
     this.setProgress();
     this.setFileConfig();
     this.setFFmpegInputCommand();
@@ -48,15 +52,15 @@ class PhotoMontageFeature extends FFmpegFeature {
     console.info('Check Settings', this.outputFile, this.ffmpegInputCommand);
   }
 
-  setFFmpegCommands = (transcodeCommand: string, frameRate: number) => {
+  setFFmpegCommands = (transcodeCommand: string) => {
     const outputCommand = transcodeCommand || '-c:v libx264 out.mp4';
 
-    this.ffmpegCommands = `-framerate ${frameRate}  -shortest -pix_fmt yuv420p ${outputCommand}`;
+    this.ffmpegCommands = `-r 30  -shortest -pix_fmt yuv420p ${outputCommand}`;
   }
 
   setFFmpegInputCommand = () => {
     // Set Default Image Input Command
-    this.ffmpegInputCommand = this.imageInputType(this.FileStore.currentFileExtension);
+    this.imageInputType(this.frameRate, this.FileStore.currentFileExtension);
     const audioFiles = this.FileStore.files.audio;
     if (audioFiles) {
       // Append Image Input Command with Audio Input
@@ -68,7 +72,10 @@ class PhotoMontageFeature extends FFmpegFeature {
     const { configuration } = this;
     const { PHOTO_MONTAGE } = configuration;
     const { FRAMERATE } = PHOTO_MONTAGE;
-    return { frameRate: FRAMERATE.value };
+
+    const frameRate = typeof FRAMERATE.value === 'string' ? parseInt(FRAMERATE.value, 10) : FRAMERATE.value;
+    console.info('Frame Rate', frameRate, typeof FRAMERATE.value);
+    return { frameRate };
   }
 
   setFileConfig = () => {
@@ -103,6 +110,8 @@ const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
       props: {
         parents: newParents,
         type: 'number',
+        defaultValue: 1,
+        otherProps: { min: 1 },
         child: {
           component: TranscodeUi,
           props: { parents: parents.concat('TRANSCODE') },

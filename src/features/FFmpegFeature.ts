@@ -124,7 +124,11 @@ abstract class FFmpegFeature implements FFmpegInterface {
    * **You will have to do further changes to the FFmpeg Command to use Images**
    * This command just loads the images
    */
-  public imageInputType = (ext: string) => `-pattern_type glob -i 'image*.${ext}'`;
+  public imageInputType = (frameRate: number, ext: string) => {
+    this.ffmpegInputCommand = `-framerate ${
+      frameRate > 0 ? frameRate : 1
+    } -pattern_type glob -i 'image*.${ext}'`;
+  };
 
   /**
    * Sets FFmpeg Input Command for reading from input file
