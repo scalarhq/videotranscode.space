@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import ComponentStore from '../store/componentStore';
 
+import './list.css';
+
 const { CluiStore } = ComponentStore;
 
 const { updateConfiguration } = CluiStore;
@@ -51,6 +53,7 @@ const List = (props: ListProps) => {
   useEffect(() => {
     const defaultConfiguration = { name: current.name, value: current.value };
     updateConfiguration(defaultConfiguration, [...parents]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = (e: React.MouseEvent, element: ListElement) => {
@@ -61,82 +64,38 @@ const List = (props: ListProps) => {
   };
 
   return (
-    <>
-      <div className="options-list-wrapper">
-        <h1>{title}</h1>
-        <div className="options-list">
-          {list.map((item) => (
-            <div className="options-list-item-wrapper">
-              <div
-                className={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
-              >
 
-                <button type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
-              </div>
+    <div className="options-list-wrapper">
+      <h1>{title}</h1>
+      <div className="options-list">
+        {list.map((item) => (
+          <div className="options-list-item-wrapper" key={item.name}>
+            <div
+              className={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
+            >
+
+              <button type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
             </div>
-          ))}
-        </div>
-        {current.child && (
-          <div className="child"><current.child.component {...current.child.props} /></div>
-        )}
-        {/* @ts-ignore */}
+          </div>
+        ))}
+      </div>
+      {current.child && (
+        <div className="child">
+          <current.child.component {...current.child.props} />
 
-        <style jsx>
-          {`
+        </div>
+      )}
+      {/* @ts-ignore Styled JSX */}
+      <style jsx>
+        {`
           .child {
             padding-top: ${current.child && current.child.paddingTop ? current.child.paddingTop : 0}%
           }
-         .options-list-wrapper h1 {
-            color: #959cb4;
-          }
-
-          .options-list-wrapper {
-            display: flex;
-            flex: 2 0 50%;
-            padding: 1rem;
-            flex-wrap: wrap;
-            flex-direction: column;
-          }
-
-          .options-list {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-          }
-
-          .options-list-item-wrapper {
-            flex: 1 1 30%;
-            padding-left: 10%;
-          }
-
-          .options-list-item {
-            flex: 0 0 auto;
-            color: #959cb4;
-            padding: 0.4rem;
-            border-radius: 5px;
-            width: 100%;
-          }
-
-          .options-list-item.active {
-            flex: 0 0 auto;
-            background-color: rgba(62, 187, 112, 0.25);
-            border: 1px solid #47b372;
-            color: #f7f7f7;
-            width: 100%;
-          }
-
-          .options-list-item a {
-            color: inherit;
-            padding-left: 3%;
-          }
-
-          .options-list-item a:hover {
-            cursor: pointer;
-          }
+         
         `}
-        </style>
-      </div>
-    </>
+      </style>
+    </div>
+
   );
 };
 

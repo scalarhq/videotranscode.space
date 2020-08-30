@@ -1,7 +1,6 @@
 import platform from 'platform';
 import ComponentStore from '../store/componentStore';
-import { FileDataType, HardwareDataType } from '../types/hardwareData';
-import { FinalSettingsType } from '../types/formats';
+import { HardwareDataType } from '../types/hardwareData';
 
 const { HardwareStore, CluiStore, FileStore } = ComponentStore;
 

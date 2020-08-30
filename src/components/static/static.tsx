@@ -4,7 +4,11 @@ import {
   BrowserView,
 } from 'react-device-detect';
 
+import { Link } from 'react-router-dom';
+
 import './static.css';
+
+import ComponentStore from '../../store/componentStore';
 
 export function Loader() {
   return (
@@ -21,20 +25,8 @@ export function Loader() {
       </div>
       <div className="text-wrapper">
         <h1>Loading ...</h1>
-        <h3>This can take upto 30 seconds, please be patient with us</h3>
+        {/* <h3>This can take upto 30 seconds, please be patient with us</h3> */}
       </div>
-      {/* @ts-ignore Styled JSX */}
-      <style jsx>
-        {`
-          .loader-wrapper {
-            display: flex;
-            flex-direction: column;
-          }
-          .text-wrapper {
-            text-align: center;
-          }
-        `}
-      </style>
     </div>
   );
 }
@@ -42,53 +34,19 @@ export function Loader() {
 export function Header() {
   return (
     <div className="header">
-      <a href="#home" className="link">
+      <button type="button" className="link-button" onClick={() => { ComponentStore.reset(); }}>
         <h1 className="title">Browser Based Video Transcoder</h1>
-      </a>
-      <h4>
-        Your files will
-        <span className="highlight"> not be uploaded anywhere.</span>
+      </button>
+      <h4 className="subtitle">
+        A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
       </h4>
       <h4>
-        All the processing will be done on your browser,
-        <span className="highlight">completely protecting your privacy</span>
+        Your files are
+        <span className="highlight"> not uploaded anywhere.</span>
       </h4>
-      {/* @ts-ignore Styled JSX  */}
-      <style jsx>
-        {`
-          .link {
-            color: inherit;
-            text-decoration: none;
-          }
-          .highlight {
-            color: #ff3e00;
-          }
-        `}
-      </style>
     </div>
   );
 }
-
-// export function Footer() {
-//   return (
-//     <div className="footer">
-//
-//       <a
-//         className="typeform-share link middle-footer"
-//         href="https://rahultarak12345.typeform.com/to/Fn78Sd"
-//         data-mode="drawer_right"
-//         style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
-//         data-submit-close-delay="0"
-//         target="_blank"
-//         rel="noopener noreferrer"
-//       >
-//         Join our Mailing List!
-//       </a>
-//       {/* <ReactTypeformEmbed url="https://rahultarak12345.typeform.com/to/Fn78Sd" popup={true} buttonText="Mailing List!" mode="drawer_right" style={{ color: "#3FD71", textDecoration: "underline", fontSize: "20px" }} >Join the mailing list!</ReactTypeformEmbed> */}
-
-// </div>
-//   );
-// }
 
 const HeartSvg = () => (
   <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
@@ -153,19 +111,7 @@ export function Footer() {
 
               <img style={{ width: '15vw' }} src="/images/mozilla-builders-logo.png" alt="Mozilla Builders Logo" />
             </a>
-            {/* @ts-ignore Styled JSX */}
-            <style jsx>
-              {`
-            .moz-builders {
-              display : flex;
-              flex-direction : column;
-              align-items: center !important;
-              justify-content: center;
-              margin-top: 5px !important;
-              line-height : 0px !important;
-            }
-            `}
-            </style>
+
           </div>
 
         </div>
@@ -174,11 +120,12 @@ export function Footer() {
       <div className="footer-left">
 
         <p className="footer-links">
-          <a className="link-1" href="/">Home</a>
+          <Link className="link-class link-1" to="/">Home</Link>
 
-          <a href="/about">About</a>
+          <Link className="link-class" to="/about">About</Link>
 
           <a
+            className="link-class"
             href="https://docs.videotranscode.space/"
             target="_blank"
             rel="noopener noreferrer"
@@ -188,6 +135,7 @@ export function Footer() {
           </a>
 
           <a
+            className="link-class"
             href="https://github.com/Etwas-Builders/Video-Transcoder"
             target="_blank"
             rel="noopener noreferrer"
@@ -198,7 +146,19 @@ export function Footer() {
 
           {/* <a href="#">Faq</a> */}
 
-          <a href="mailto:cryogenic@videotranscode.space">Contact</a>
+          <a className="link-class" href="mailto:cryogenic@videotranscode.space">Contact</a>
+
+          <a
+            className="link-class typeform-share link middle-footer"
+            href="https://rahultarak12345.typeform.com/to/Fn78Sd"
+            data-mode="drawer_right"
+            style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
+            data-submit-close-delay="0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join our Mailing List!
+          </a>
         </p>
 
         <p>

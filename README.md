@@ -10,7 +10,7 @@
 [![Zack Radisic](https://img.shields.io/badge/Contributor-Zack%20Radisic-green)](https://github.com/zackradisic)
 [![Arnav Bansal](https://img.shields.io/badge/Contributor-Arnav%20Bansal-green)](https://github.com/lunaroyster)
 
-A video transcoder and converter built use Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy
+A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
 
 **This project is still very early in development and only a proof of concept**
 

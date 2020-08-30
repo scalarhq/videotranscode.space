@@ -2,11 +2,9 @@ import React, {
   useEffect,
 } from 'react';
 
-import { observer } from 'mobx-react';
+type ProgressProps = { progress: number, color: string, name: string }
 
-import ProgressStoreClass from '../../store/progressStore';
-
-const ProgressBar = ({ name, color, progress }: { progress: number, color: string, name: string }) => {
+const ProgressBar = ({ name, color, progress }: ProgressProps) => {
   const progressBar = React.useRef<null | HTMLDivElement>(null);
   useEffect(() => {
     if (progressBar && progressBar.current) {

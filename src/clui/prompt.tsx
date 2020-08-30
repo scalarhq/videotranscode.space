@@ -79,14 +79,13 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
     if (input.current) {
       const { value } = input.current;
       if (value !== 'Clear') {
-        console.info(value, command);
         setInputMessage(value);
       }
       input.current.blur();
     }
 
     props.item.insertAfter(state.run(), <Prompt {...props} autoRun={false} value="" />).next();
-  }, [props.item, state.run]);
+  }, [props, state]);
 
   useEffect(() => {
     if (ran.current) {
@@ -104,6 +103,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
       input.current.focus();
       input.current.selectionStart = value.length;
     }
+    // eslint-disable-next-line
   }, [props.autoFocus, input.current]);
 
   const isLastSession = props.item && props.item.index === props.item.session.currentIndex;
@@ -130,6 +130,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
           autoFocus: true,
           spellCheck: false,
           autoComplete: 'off',
+          id: 'clui-input',
           placeholder: 'Hi I am a Clui! You can set your configuration here',
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),

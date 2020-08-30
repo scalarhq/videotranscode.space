@@ -1,11 +1,27 @@
 import { observable, action } from 'mobx';
+import AbstractStore from './store';
 
-class ProgressStore {
+class ProgressStore extends AbstractStore {
+  // Observables
+
   @observable progress: number = 1;
 
   @observable color: string = '';
 
   @observable name: string = '';
+
+  // Constructor
+  constructor() {
+    super();
+    this.init();
+  }
+
+  // Init
+  @action init = () => {
+    this.progress = 1;
+    this.color = '';
+    this.name = '';
+  };
 
   @action
   updateStatic = (newName: string, newColor: string) => {
@@ -19,4 +35,4 @@ class ProgressStore {
   };
 }
 
-export default ProgressStore;
+export default new ProgressStore();

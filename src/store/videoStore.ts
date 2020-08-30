@@ -1,21 +1,34 @@
 import { observable, action } from 'mobx';
+import AbstractStore from './store';
 
-class VideoStore {
+class VideoStore extends AbstractStore {
+  // Observables
   @observable url: string = '';
+
+  @observable blobType: string = '';
+
+  @observable toDisplay: boolean = false;
+
+  constructor() {
+    super();
+    this.init();
+  }
+
+  @action init = () => {
+    this.url = '';
+    this.blobType = '';
+    this.toDisplay = false;
+  };
 
   @action
   updateBlobUrl = (newUrl: string) => {
     this.url = newUrl;
   };
 
-  @observable toDisplay: boolean = false;
-
   @action
   updateVideoDisplay = (value: boolean) => {
     this.toDisplay = value;
   };
-
-  @observable blobType: string = '';
 
   @action
   updateBlobType = (value: string) => {
@@ -23,4 +36,4 @@ class VideoStore {
   };
 }
 
-export default VideoStore;
+export default new VideoStore();

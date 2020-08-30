@@ -5,15 +5,14 @@ import 'mobx-react/batchingForReactDom';
 
 import './index.css';
 import App from './App';
-import componentStore from './store/componentStore';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     {/* <Provider store={store}> */}
-    <App componentStore={componentStore} />
+    <App />
     {/* </Provider> */}
-  </React.StrictMode>,
+  </>,
   document.getElementById('root'),
 );
 

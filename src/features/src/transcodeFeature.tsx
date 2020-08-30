@@ -4,27 +4,16 @@ import codecs from '../../dist/codecs';
 import List from '../../clui-ui-components/List';
 
 import FFmpegFeature from '../FFmpegFeature';
-import { FormatType, CodecType } from '../../types/formats';
+import { CodecType } from '../../types/formats';
 
-import ComponentStore from '../../store/componentStore';
-
-const { VideoStore } = ComponentStore;
-
-const { updateVideoDisplay, updateBlobType } = VideoStore;
-
-type TranscodeConfig = {
+export type TranscodeConfig = {
   'TRANSCODE': { 'FORMAT': { 'CODEC': { value: string, [name: string]: any }, value: string, [name: string]: any } },
   [name: string]: any
 }
 
 class TranscodeFeature extends FFmpegFeature {
   // @ts-ignore Set in Constructor
-  display: boolean;
-
-  // @ts-ignore Set in Constructor
   configuration: TranscodeConfig;
-
-  specialType = 'Transcode Function';
 
   constructor(configuration: TranscodeConfig) {
     super();
@@ -33,37 +22,19 @@ class TranscodeFeature extends FFmpegFeature {
       extension, display, defaultCodec, chosenCodec, type,
     } = this.parseConfiguration();
     this.changeFileExtension(extension);
-    this.updateDisplay(display);
+    this.updateDisplay(display, type);
     this.setFFmpegCommands(defaultCodec, chosenCodec);
     this.setProgress();
-    updateBlobType(type);
+    this.setFileConfig();
   }
-
-  /**
-   * Changes the File Extension After this Feature is Executed
-   *
-   * **This Changes the format of video file, check formats folder to see supported formats**
-   *
-   * @param newExtension Expect a string of the format name **with the dot** Example .mp4, .avi
-   */
-
-  private changeFileExtension = (newExtension: string): void => {
-    this.outputFileName = `${this.inputFileName.split('.')[0]}-output${newExtension}`;
-  };
-
-  /**
-   * Updates the video display parameter for a format, which determines
-   * if it is showed in the video player or not.
-   * @param displayType Expect a boolean of if the video format can be shown in an HTML5 <video> tag
-   */
-  private updateDisplay = (displayType: boolean): void => {
-    this.display = displayType;
-    updateVideoDisplay(displayType);
-  };
 
   setProgress = () => {
     this.progressBar.name = 'Transcoding ...';
     this.progressBar.color = '#0d6efd';
+  }
+
+  setFileConfig = () => {
+    this.fileConfig = { types: [{ name: 'video', number: { min: 1, max: 1 } }], primaryType: 'video' };
   }
 
   parseConfiguration = () => {
@@ -114,9 +85,17 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
       title: 'Choose Codec',
       parents: [...currentParents, 'CODEC'],
       current: currentFormat.defaultCodec
-        ? { name: currentFormat.defaultCodec.name, value: createCodecValue(currentFormat.defaultCodec.name) }
-        : { name: currentFormat.codecs[0].name, value: createCodecValue(currentFormat.codecs[0].name) },
-      list: currentFormat.codecs.map((codec) => ({ name: codec.name, value: createCodecValue(codec.name) })),
+        ? {
+          name: currentFormat.defaultCodec.name,
+          value: createCodecValue(currentFormat.defaultCodec.name),
+        }
+        : {
+          name: currentFormat.codecs[0].name,
+          value: createCodecValue(currentFormat.codecs[0].name),
+        },
+      list: currentFormat.codecs.map((codec) => ({
+        name: codec.name, value: createCodecValue(codec.name),
+      })),
     };
     const child = { component: List, props: childProps };
     const returnObject = { name: formatKey, value: formatKey, child };
@@ -130,7 +109,9 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     current: mp4Format.defaultCodec
       ? { name: mp4Format.defaultCodec.name, value: createCodecValue(mp4Format.defaultCodec.name) }
       : { name: mp4Format.codecs[0].name, value: createCodecValue(mp4Format.codecs[0].name) },
-    list: mp4Format.codecs.map((codec) => ({ name: codec.name, value: createCodecValue(codec.name) })),
+    list: mp4Format.codecs.map((codec) => ({
+      name: codec.name, value: createCodecValue(codec.name),
+    })),
   };
 
   const props = {

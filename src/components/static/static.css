@@ -3,6 +3,53 @@ h1.title {
     font-size: 46px;
 }
 
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-wrapper {
+    text-align: center;
+}
+
+.link-button {
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline;
+    padding: 0;
+    margin-bottom: -10px !important;
+}
+
+.highlight {
+    color: #ff3e00;
+}
+
+.moz-builders {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+    margin-top: 5px !important;
+    line-height: 0px !important;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header>* {
+    margin: 10px auto;
+}
+
+.subtitle {
+    max-width: 60vw;
+}
+
 h4 {
     color: white;
     font-weight: 400;
@@ -99,7 +146,7 @@ h4 {
     transition: ease 0.25s;
 }
 
-.footer-distributed p.footer-links a {
+.footer-distributed p.footer-links .link-class {
     display: inline-block;
     line-height: 1.8;
     text-decoration: none;
@@ -107,7 +154,7 @@ h4 {
     transition: ease 0.25s;
 }
 
-.footer-distributed .footer-links a:before {
+.footer-distributed .footer-links .link-class:before {
     content: '·';
     font-size: 20px;
     left: 0;

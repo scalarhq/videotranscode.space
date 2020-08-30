@@ -4,6 +4,8 @@ import features from '../features/features';
 
 import { updateData } from './hardware';
 
+import { CustomFileType, FileNameTypes, FileTypes } from '../types/fileTypes';
+
 import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
 import loadFiles from './file';
@@ -24,32 +26,60 @@ const createVideoObject = (processedFile: Uint8Array) => {
   return blobUrl;
 };
 
+const setCurrentFile = (loadedFiles: FileNameTypes) => {
+  if (loadedFiles.video && loadedFiles.video[0]) {
+    return { name: loadedFiles.video[0], type: 'video' as FileTypes };
+  }
+  if (loadedFiles.image && loadedFiles.image[0]) {
+    return { name: loadedFiles.image[0], type: 'image' as FileTypes };
+  }
+  if (loadedFiles.audio && loadedFiles.audio[0]) {
+    return { name: loadedFiles.audio[0], type: 'audio' as FileTypes };
+  }
+  if (loadedFiles.other) {
+    return { name: loadedFiles.other[0], type: 'other' as FileTypes };
+  }
+  throw new Error('Could not find valid file');
+};
+
 const onSubmitHandler = async () => {
   const start = new Date().getTime();
   const { configuration, chosenFeatures } = CluiStore;
   const loadedFiles = await loadFiles();
 
-  // Currently Supports only Single Uploaded File, plan to support more in the future
-  let currentFileName = loadedFiles[0];
-  updateCurrentFile(currentFileName);
-  // console.group('Feature Execution');
+  let currentFile: CustomFileType = setCurrentFile(loadedFiles);
+  updateCurrentFile(currentFile);
+
   for (const key of chosenFeatures) {
     const CurrentFeature = features[key].feature;
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature(configuration);
-    // console.log(featureObject);
-
-    featureObject.setProgress();
-    featureObject.updateProgress();
-    // Expectation is each feature to run in blocking
-    // eslint-disable-next-line no-await-in-loop
-    currentFileName = await featureObject.runFFmpeg();
+    const { primaryType } = featureObject.fileConfig;
+    console.info('Primary Type', primaryType);
+    if (primaryType !== 'video') {
+      currentFile = {
+        name: loadedFiles[primaryType as FileTypes][0],
+        type: primaryType as FileTypes,
+      };
+      console.info('New Current File', currentFile);
+      updateCurrentFile(currentFile);
+    }
+    if (currentFile) {
+      featureObject.setProgress();
+      featureObject.updateProgress();
+      // Expectation is each feature to run in blocking
+      // eslint-disable-next-line no-await-in-loop
+      currentFile = await featureObject.runFFmpeg();
+    }
   }
-  // console.groupEnd();
-  const processedFile = await ffmpegReader(currentFileName);
+  const processedFile = await ffmpegReader(currentFile.name);
   const blobUrl = createVideoObject(processedFile);
   updateBlobUrl(blobUrl);
-  await ffmpegGarbageCollector([...oldFiles, currentFileName]);
+  try {
+    await ffmpegGarbageCollector([...oldFiles, currentFile.name]);
+  } catch (err) {
+    console.info('Unable to garbage collect', err);
+  }
   updateProcessedState(true);
   const end = new Date().getTime();
   const encodeTime = (end - start) / 1000;

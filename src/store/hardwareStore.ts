@@ -1,12 +1,25 @@
 import { observable, action } from 'mobx';
 
 import { HardwareDataType } from '../types/hardwareData';
+import AbstractStore from './store';
 
 type FormData = HardwareDataType & { 'form-name': string };
 
-class HardwareStore {
+class HardwareStore extends AbstractStore {
+  // Observables
+
   // @ts-ignore Set in setting function
-  @observable data: HardwareDataType;
+  @observable data: HardwareDataType = {};
+
+  // Constructor
+  constructor() {
+    super();
+    this.init();
+  }
+
+  @action init = () => {
+    Object.assign(this.data, {});
+  };
 
   @action('Update Hardware Data')
   updateHardwareData = (newData: HardwareDataType) => {

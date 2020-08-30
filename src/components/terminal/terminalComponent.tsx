@@ -47,7 +47,6 @@ const TerminalComponent: React.FC = () => {
 			el.appendChild(t1.html);
 		}
 		const terminalEmulator = document.getElementById('terminalEmulator');
-		console.info(terminalEmulator);
 		componentStore.terminalStore.terminalEmulator = terminalEmulator;
 		t1.clear();
 		updateTerminalText('Hello, I am a Video Transcoder!', true);
@@ -64,20 +63,23 @@ const TerminalComponent: React.FC = () => {
 		);
 
 		return () => {
-			const removeTM = document.getElementById('terminalEmulator')?.remove();
+			// Void Expression
+			// eslint-disable-next-line no-unused-expressions
+			document.getElementById('terminalEmulator')?.remove();
 			delete componentStore.terminalStore.t1;
 			componentStore.terminalStore.terminalEmulator = null;
 			componentStore.terminalStore.updateTerminalText = null;
 
 			// unmount
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (loaded) {
 			updateTerminalText('Loaded FFmpeg!');
 		}
-	}, [loaded]);
+	}, [loaded, updateTerminalText]);
 
 	return (
 		<>
