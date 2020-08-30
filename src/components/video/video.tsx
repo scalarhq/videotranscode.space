@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/media-has-caption */
 // @ts-nocheck
+/* eslint-disable */
 import React, {
   useEffect, useState,
 } from 'react';

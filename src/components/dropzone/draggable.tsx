@@ -9,7 +9,7 @@ type DraggableWrapperProps = {
 
 const DraggableWrapper = ({ files }: DraggableWrapperProps) => {
   const [activeDrags, setActiveDrags] = useState(0);
-  const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 });
+  // const [deltaPosition, setDeltaPosition] = useState({ x: 0, y: 0 });
 
   const onStart = () => {
     setActiveDrags(activeDrags + 1);

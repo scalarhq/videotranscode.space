@@ -31,7 +31,6 @@ const Tour = ({ children, landing }: TourProps) => {
       // @ts-ignore
       const diffTime = Math.abs(currentDate - prevDate);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.info('Date Difference', diffDays);
       if (diffDays > 30) {
         conductTour = true;
         window.localStorage.removeItem('tour');
@@ -45,6 +44,7 @@ const Tour = ({ children, landing }: TourProps) => {
       tour.start();
       window.localStorage.setItem('tour', `${new Date().toISOString()}`);
     }
+    // eslint-disable-next-line
   }, [landing]);
 
   return (

@@ -11,6 +11,7 @@ const useEventListener = (ref: any, type: any, listener: Function, ...options: a
         ref.current.removeEventListener(type, listener, ...options);
       }
     };
+    // eslint-disable-next-line
   }, [ref, ref.current, type, listener, options]);
 };
 
