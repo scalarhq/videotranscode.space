@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/media-has-caption */
+// @ts-nocheck
+/* eslint-disable */
 import React, {
   useEffect, useState,
 } from 'react';
@@ -10,170 +12,153 @@ const Video = ({ url }: { url: string }) => {
   const [aspectRatioPadding, setAspectRatio] = useState('56.25%');
 
   useEffect(() => {
-    const video = videoDom.current as HTMLVideoElement;
-    const player = document.querySelector('.player') as HTMLElement;
-    const playBtn = document.querySelector('.play-btn') as Element;
-    const volumeBtn = document.querySelector('.volume-btn') as HTMLElement;
-    const volumeSlider = document.querySelector('.volume-slider') as HTMLElement;
-    const volumeFill = document.querySelector('.volume-filled') as HTMLElement;
-    const progressSlider = document.querySelector('.progress') as HTMLElement;
-    const progressFill = document.querySelector('.progress-filled') as HTMLElement;
-    const textCurrent = document.querySelector('.time-current') as HTMLElement;
-    // const textTotal = document.querySelector('.time-total');
+    const video = videoDom.current;
+    const player = document.querySelector('.player');
+    const playBtn = document.querySelector('.play-btn');
+    const volumeBtn = document.querySelector('.volume-btn');
+    const volumeSlider = document.querySelector('.volume-slider');
+    const volumeFill = document.querySelector('.volume-filled');
+    const progressSlider = document.querySelector('.progress');
+    const progressFill = document.querySelector('.progress-filled');
+    const textCurrent = document.querySelector('.time-current');
+    const textTotal = document.querySelector('.time-total');
     const speedBtns = document.querySelectorAll('.speed-item');
-    const fullscreenBtn = document.querySelector('.fullscreen') as HTMLElement;
-
+    const fullscreenBtn = document.querySelector('.fullscreen');
     // GLOBAL VARS
     let lastVolume = 1;
     let isMouseDown = false;
-
     // PLAYER FUNCTIONS
     function togglePlay() {
-      try {
-        if (video.paused) {
+      console.info(video);
+
+      if (video.paused) {
+        try {
           video.play();
-        } else {
-          video.pause();
+        } catch (err) {
+          console.error('Video Play Toggle Error', err);
         }
-        playBtn.classList.toggle('playing');
-      } catch (err) {
-        console.error(err.message, 'Video Object', video);
+      } else {
+        try {
+          video.pause();
+        } catch (err) {
+          console.error('Video Play Toggle Error', err);
+        }
       }
+
+      playBtn.classList.toggle('paused');
     }
     function togglePlayBtn() {
-      playBtn.classList.toggle('paused');
+      playBtn.classList.toggle('playing');
     }
     function toggleMute() {
       if (video.volume) {
         lastVolume = video.volume;
         video.volume = 0;
         volumeBtn.classList.add('muted');
-        volumeFill.style.width = '0';
+        volumeFill.style.width = 0;
       } else {
         video.volume = lastVolume;
         volumeBtn.classList.remove('muted');
         volumeFill.style.width = `${lastVolume * 100}%`;
       }
     }
-    function changeVolume(e: MouseEvent) {
+    function changeVolume(e) {
       volumeBtn.classList.remove('muted');
       let volume = e.offsetX / volumeSlider.offsetWidth;
-      volume = volume < 0.1 ? 0 : volume;
+      volume < 0.1 ? (volume = 0) : (volume = volume);
       volumeFill.style.width = `${volume * 100}%`;
       video.volume = volume;
       if (volume > 0.7) {
         volumeBtn.classList.add('loud');
       } else if (volume < 0.7 && volume > 0) {
         volumeBtn.classList.remove('loud');
-      } else if (volume === 0) {
+      } else if (volume == 0) {
         volumeBtn.classList.add('muted');
       }
       lastVolume = volume;
     }
-    function neatTime(time: number) {
-      // let hours = Math.floor((time % 86400)/3600)
+    function neatTime(time) {
+      // var hours = Math.floor((time % 86400)/3600)
       const minutes = Math.floor((time % 3600) / 60);
-      let seconds: number | string = Math.floor(time % 60);
+      let seconds = Math.floor(time % 60);
       seconds = seconds > 9 ? seconds : `0${seconds}`;
       return `${minutes}:${seconds}`;
     }
-    function updateProgress(e: Event) {
+    function updateProgress(e) {
       progressFill.style.width = `${(video.currentTime / video.duration)
         * 100}%`;
       textCurrent.innerHTML = `${neatTime(video.currentTime)} / ${neatTime(
         video.duration,
       )}`;
       // textTotal.innerHTML = neatTime(video.duration);
+      // console.log(progressFill.style.width);
     }
-    function setProgress(e: MouseEvent) {
+    function setProgress(e) {
       const newTime = e.offsetX / progressSlider.offsetWidth;
       progressFill.style.width = `${newTime * 100}%`;
       video.currentTime = newTime * video.duration;
     }
-    function launchIntoFullscreen(element: Element) {
+    function launchIntoFullscreen(element) {
       if (element.requestFullscreen) {
         element.requestFullscreen();
-        // @ts-ignore Not on actual browser specification
       } else if (element.mozRequestFullScreen) {
-        // @ts-ignore Not on actual browser specification
         element.mozRequestFullScreen();
-        // @ts-ignore Not on actual browser specification
       } else if (element.webkitRequestFullscreen) {
-        // @ts-ignore Not on actual browser specification
         element.webkitRequestFullscreen();
-        // @ts-ignore Not on actual browser specification
       } else if (element.msRequestFullscreen) {
-        // @ts-ignore Not on actual browser specification
         element.msRequestFullscreen();
       }
     }
     function exitFullscreen() {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-        // @ts-ignore Not on actual browser specification
       } else if (document.mozCancelFullScreen) {
-        // @ts-ignore Not on actual browser specification
         document.mozCancelFullScreen();
-        // @ts-ignore Not on actual browser specification
       } else if (document.webkitExitFullscreen) {
-        // @ts-ignore Not on actual browser specification
         document.webkitExitFullscreen();
       }
     }
     let fullscreen = false;
     function toggleFullscreen() {
-      if (fullscreen) { exitFullscreen(); } else { launchIntoFullscreen(player); }
+      fullscreen ? exitFullscreen() : launchIntoFullscreen(player);
       fullscreen = !fullscreen;
     }
-    function setSpeed(e: Event) {
-      /**
-       * This in the function refers to the HTML Dom element
-       */
-
-      // @ts-ignore Type of this
-      // eslint-disable-next-line react/no-this-in-sfc
+    function setSpeed(e) {
+      // console.log(parseFloat(this.dataset.speed));
       video.playbackRate = this.dataset.speed;
       speedBtns.forEach((speedBtn) => speedBtn.classList.remove('active'));
-      // @ts-ignore Type of this
-      // eslint-disable-next-line react/no-this-in-sfc
       this.classList.add('active');
     }
-    function handleKeypress(e: globalThis.KeyboardEvent) {
+    function handleKeypress(e) {
       switch (e.key) {
         case ' ':
           togglePlay();
-          break;
         case 'ArrowRight':
           video.currentTime += 5;
-          break;
         case 'ArrowLeft':
           video.currentTime -= 5;
-          break;
         default:
       }
     }
-
-    if (videoDom && video) {
-      // EVENT LISTENERS
-      playBtn.addEventListener('click', togglePlay);
-      video.addEventListener('click', togglePlay);
-      video.addEventListener('play', togglePlayBtn);
-      video.addEventListener('pause', togglePlayBtn);
-      video.addEventListener('ended', togglePlayBtn);
-      video.addEventListener('timeupdate', updateProgress);
-      video.addEventListener('canplay', updateProgress);
-      volumeBtn.addEventListener('click', toggleMute);
-      window.addEventListener('mousedown', () => { isMouseDown = true; });
-      window.addEventListener('mouseup', () => { isMouseDown = false; });
-      // volumeSlider.addEventListener('mouseover', changeVolume);
-      volumeSlider.addEventListener('click', changeVolume);
-      progressSlider.addEventListener('click', setProgress);
-      fullscreenBtn.addEventListener('click', toggleFullscreen);
-      speedBtns.forEach((speedBtn) => {
-        speedBtn.addEventListener('click', setSpeed);
-      });
-      window.addEventListener('keydown', handleKeypress);
-    }
+    // EVENT LISTENERS
+    playBtn.addEventListener('click', togglePlay);
+    video.addEventListener('click', togglePlay);
+    video.addEventListener('play', togglePlayBtn);
+    video.addEventListener('pause', togglePlayBtn);
+    video.addEventListener('ended', togglePlayBtn);
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('canplay', updateProgress);
+    volumeBtn.addEventListener('click', toggleMute);
+    window.addEventListener('mousedown', () => (isMouseDown = true));
+    window.addEventListener('mouseup', () => (isMouseDown = false));
+    // volumeSlider.addEventListener('mouseover', changeVolume);
+    volumeSlider.addEventListener('click', changeVolume);
+    progressSlider.addEventListener('click', setProgress);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    speedBtns.forEach((speedBtn) => {
+      speedBtn.addEventListener('click', setSpeed);
+    });
+    window.addEventListener('keydown', handleKeypress);
   });
 
   // const { videoHeight, videoWidth } = video || { videoHeight: null, videoWidth: null };
@@ -480,18 +465,22 @@ const Video = ({ url }: { url: string }) => {
         .play-btn:before {
           -webkit-clip-path: polygon(0 10%, 100% 10%, 100% 40%, 0 40%);
           shape-inside: polygon(0 10%, 100% 10%, 100% 40%, 0 40%);
+          clip-path : polygon(0 10%, 100% 10%, 100% 40%, 0 40%);
         }
         .play-btn:after {
           -webkit-clip-path: polygon(0 60%, 100% 60%, 100% 90%, 0 90%);
           shape-inside: polygon(0 60%, 100% 60%, 100% 90%, 0 90%);
+          clip-path:polygon(0 60%, 100% 60%, 100% 90%, 0 90%);
         }
         .play-btn.paused:before {
           -webkit-clip-path: polygon(10% 0, 90% 51%, 90% 51%, 10% 51%);
           shape-inside: polygon(0 0, 100% 51%, 100% 51%, 0 51%);
+          clip-path: polygon(10% 0, 90% 51%, 90% 51%, 10% 51%);
         }
         .play-btn.paused:after {
           -webkit-clip-path: polygon(10% 49.5%, 80% 49.5%, 90% 49.5%, 10% 100%);
           shape-inside: polygon(10% 49.5%, 80% 49.5%, 90% 49.5%, 10% 100%);
+          clip-path: polygon(10% 49.5%, 80% 49.5%, 90% 49.5%, 10% 100%);
         }
         button:focus {
           outline: none;

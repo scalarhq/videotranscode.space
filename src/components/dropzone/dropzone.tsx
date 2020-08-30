@@ -10,14 +10,11 @@ import './dropzone.css';
 
 import FileStore from '../../store/fileStore';
 
-import { FileTransformType } from '../../types/fileTypes';
+import { FileTransformType, FileWithPreview } from '../../types/fileTypes';
+
+import DraggableWrapper from './draggable';
 
 import useEventListener from '../../ts/useEventListener';
-
-type FileWithPreview = File & {
-  preview: string;
-  customType: 'video' | 'audio' | 'image' | 'other';
-}
 
 const { updateFiles } = FileStore;
 
@@ -135,18 +132,6 @@ const Dropzone = () => {
     files.forEach((file) => { if (file.preview) URL.revokeObjectURL(file.preview); });
   }, [files]);
 
-  const thumbs = files.map((file) => (
-    <div className="thumb" key={file.name.replace('-', '').replace('.', '').replace(' ', '_')}>
-      <div className="thumb-inner">
-        <img
-          src={file.preview}
-          alt={file.name}
-          className="thumb-img"
-        />
-      </div>
-    </div>
-  ));
-
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: ['video/*', 'image/*', 'audio/*'] });
 
   return (
@@ -156,11 +141,12 @@ const Dropzone = () => {
         <div className="scrollable-wrapper" ref={dropzoneRef}>
           <input {...getInputProps()} />
 
-          {files.length > 0 ? null : (<p>Drag and drop some files here, or click to select files</p>)}
+          {files.length > 0 ? null
+            : (<p>Drag and drop some files here, or click to select files</p>)}
         </div>
       </div>
       <aside ref={thumbnailRef} className="thumbs-container">
-        {thumbs}
+        <DraggableWrapper files={files} />
       </aside>
     </div>
   );

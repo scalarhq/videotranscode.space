@@ -7,8 +7,6 @@ import { faVideo, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import ComponentStore from '../../store/componentStore';
 
-import { Loader } from '../static/static';
-
 const Header = () => {
   const { loaded } = ComponentStore;
 

@@ -31,6 +31,7 @@ const Submit = observer(() => {
         submit.current.removeAttribute('data-tooltip');
       }
     }
+    // eslint-disable-next-line
   }, [loaded, allFiles, submit, submit.current]);
 
   return useObserver(() => (

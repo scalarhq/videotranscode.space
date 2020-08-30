@@ -5,6 +5,13 @@ export type InputFilesType = {
   other?: File[];
 };
 
+export type FileNameTypes = {
+  video?: string[];
+  audio?: string[];
+  image?: string[];
+  other?: string[];
+};
+
 export type FileTypes = keyof InputFilesType;
 
 export type FileTransformType = {

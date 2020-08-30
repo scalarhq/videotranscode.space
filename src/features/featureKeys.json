@@ -1,4 +1,5 @@
 {
   "TRANSCODE": true,
-  "COMPRESS": true
+  "COMPRESS": true,
+  "PhotoMontage": true
 }

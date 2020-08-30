@@ -103,6 +103,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
       input.current.focus();
       input.current.selectionStart = value.length;
     }
+    // eslint-disable-next-line
   }, [props.autoFocus, input.current]);
 
   const isLastSession = props.item && props.item.index === props.item.session.currentIndex;

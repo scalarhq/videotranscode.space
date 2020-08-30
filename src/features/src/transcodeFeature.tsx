@@ -6,25 +6,14 @@ import List from '../../clui-ui-components/List';
 import FFmpegFeature from '../FFmpegFeature';
 import { CodecType } from '../../types/formats';
 
-import ComponentStore from '../../store/componentStore';
-
-const { VideoStore } = ComponentStore;
-
-const { updateVideoDisplay, updateBlobType } = VideoStore;
-
-type TranscodeConfig = {
+export type TranscodeConfig = {
   'TRANSCODE': { 'FORMAT': { 'CODEC': { value: string, [name: string]: any }, value: string, [name: string]: any } },
   [name: string]: any
 }
 
 class TranscodeFeature extends FFmpegFeature {
   // @ts-ignore Set in Constructor
-  display: boolean;
-
-  // @ts-ignore Set in Constructor
   configuration: TranscodeConfig;
-
-  specialType = 'Transcode Function';
 
   constructor(configuration: TranscodeConfig) {
     super();
@@ -33,33 +22,11 @@ class TranscodeFeature extends FFmpegFeature {
       extension, display, defaultCodec, chosenCodec, type,
     } = this.parseConfiguration();
     this.changeFileExtension(extension);
-    this.updateDisplay(display);
+    this.updateDisplay(display, type);
     this.setFFmpegCommands(defaultCodec, chosenCodec);
     this.setProgress();
     this.setFileConfig();
-    updateBlobType(type);
   }
-
-  /**
-   * Changes the File Extension After this Feature is Executed
-   *
-   * **This Changes the format of video file, check formats folder to see supported formats**
-   *
-   * @param newExtension Expect a string of the format name **with the dot** Example .mp4, .avi
-   */
-  private changeFileExtension = (newExtension: string): void => {
-    this.outputFile.name = `output-${this.inputFile.name.split('.')[0]}${newExtension}`;
-  };
-
-  /**
-   * Updates the video display parameter for a format, which determines
-   * if it is showed in the video player or not.
-   * @param displayType Expect a boolean of if the video format can be shown in an HTML5 <video> tag
-   */
-  private updateDisplay = (displayType: boolean): void => {
-    this.display = displayType;
-    updateVideoDisplay(displayType);
-  };
 
   setProgress = () => {
     this.progressBar.name = 'Transcoding ...';

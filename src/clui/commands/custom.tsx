@@ -14,6 +14,7 @@ const CustomComp = (props: any) => {
       // After data has loaded, call `next` to show next child (which is another Prompt)
       props.item.next();
     }
+    // eslint-disable-next-line
   }, [count]);
   return props.ui || 'No ui was provided';
 };

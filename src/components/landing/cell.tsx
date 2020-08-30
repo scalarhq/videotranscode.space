@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 type CellProps = { key: string, title: string, img: string, alt: string, text: string }
 

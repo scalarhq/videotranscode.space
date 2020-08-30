@@ -6,7 +6,7 @@ import { getThreads } from '../ts/hardware';
 
 import { FileConfigType, FileTypes, CustomFileType } from '../types/fileTypes';
 
-const { FileStore, ProgressStore } = ComponentStore;
+const { FileStore, ProgressStore, VideoStore } = ComponentStore;
 
 const { updateStatic } = ProgressStore;
 
@@ -46,6 +46,12 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   public ffmpegInputCommand = '';
 
+  public display: boolean = false;
+
+  public FileStore = FileStore;
+
+  public VideoStore = VideoStore;
+
   /**
    * Determines the configuration of how you plan to use files in your feature
    * Default Settings
@@ -76,12 +82,11 @@ abstract class FFmpegFeature implements FFmpegInterface {
     [name: string]: { value: any; [name: string]: any };
   };
 
-  // /**
-  //  * CLUI UI Component for this feature, can choose this component from list of CLUI Components
-  //  * if no component is specified, this feature will be treated as a flag,
-  //  * i.e as a boolean only on or off
-  //  */
-  // // public abstract ui: JSX.Element;
+  /**
+   * CLUI UI Component for this feature, can choose this component from list of CLUI Components
+   * if no component is specified, this feature will be treated as a flag,
+   * i.e as a boolean only on or off
+   */
 
   constructor() {
     const inputFile = this.getCurrentFile();
@@ -119,8 +124,10 @@ abstract class FFmpegFeature implements FFmpegInterface {
    * **You will have to do further changes to the FFmpeg Command to use Images**
    * This command just loads the images
    */
-  public imageInputType = () => {
-    this.ffmpegInputCommand = "-pattern_type glob -i 'image*'";
+  public imageInputType = (frameRate: number, ext: string) => {
+    this.ffmpegInputCommand = `-framerate ${
+      frameRate > 0 ? frameRate : 1
+    } -pattern_type glob -i 'image*.${ext}'`;
   };
 
   /**
@@ -150,15 +157,37 @@ abstract class FFmpegFeature implements FFmpegInterface {
   public runFFmpeg = async (): Promise<CustomFileType> => {
     const { threads, outputFile, ffmpegCommands, ffmpegInputCommand } = this;
 
-    console.info('Calling FFmpeg', ffmpegInputCommand);
-
     const ffmpegData = { threads, outputFile, ffmpegCommands };
+    console.info('Calling FFmpeg', ffmpegInputCommand, ffmpegData);
     const fileName = await ffmpegRunner(ffmpegInputCommand, ffmpegData);
     if (fileName) {
       updateCurrentFile(fileName);
       return fileName;
     }
     return this.inputFile;
+  };
+
+  /**
+   * Changes the File Extension After this Feature is Executed
+   *
+   * **This Changes the format of video file, check formats folder to see supported formats**
+   *
+   * @param newExtension Expect a string of the format name **with the dot** Example .mp4, .avi
+   */
+  changeFileExtension = (newExtension: string): void => {
+    this.outputFile.name = `output-${this.inputFile.name.split('.')[0]}${newExtension}`;
+  };
+
+  /**
+   * Updates the video display parameter for a format, which determines
+   * if it is showed in the video player or not.
+   * @param displayType Expect a boolean of if the video format can be shown in an HTML5 <video> tag
+   */
+  updateDisplay = (displayType: boolean, type: string): void => {
+    const { updateVideoDisplay, updateBlobType } = this.VideoStore;
+    this.display = displayType;
+    updateVideoDisplay(displayType);
+    updateBlobType(type);
   };
 
   /**
@@ -192,7 +221,8 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   /**
    * Function is Expected to the configuration of files for this feature
-   * this.files : {number : {min : number, max : number}, types : string[], filesObject : File[]}
+   * this.fileConfig :
+   * {primaryType : string, types : [{name : string,number : {min : number, max : number}]}}
    */
   public abstract setFileConfig: () => void;
 }

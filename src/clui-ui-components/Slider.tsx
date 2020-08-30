@@ -31,8 +31,9 @@ const Slider = ({
   const [sliderValue, setSliderValue] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSliderValue(parseInt(e.target.value, 10));
-    updateConfiguration({ value: sliderValue }, [...parents]);
+    const newValue = parseInt(e.target.value, 10);
+    setSliderValue(newValue);
+    updateConfiguration({ value: newValue }, [...parents]);
   };
 
   return (

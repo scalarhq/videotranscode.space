@@ -62,6 +62,7 @@ const App = () => {
       setLoading(true);
       setTimeout(() => { loadFFmpeg(); }, 200);
     }
+    // eslint-disable-next-line
   }, [landing]);
 
   useEffect(() => {
@@ -104,6 +105,7 @@ const App = () => {
       setSecondLoad(true);
       updateLoadError(false, new Error());
     }
+    // eslint-disable-next-line
   }, [isLoadingError]);
 
   if (isLoadingError && secondLoad) {

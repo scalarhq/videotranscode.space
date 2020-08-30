@@ -25,6 +25,7 @@ const Main = (props: { children: JSX.Element[] }) => {
       });
       setState({ cells });
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
