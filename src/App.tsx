@@ -106,13 +106,12 @@ const App = () => {
     }
   }, [isLoadingError]);
 
-  if (isLoadingError) {
+  if (isLoadingError && secondLoad) {
     return (
 
       <Router>
         <>
           <main>
-            <Header />
             <ErrorScreen loadingErrorObj={loadingErrorObj} />
           </main>
           <Footer />

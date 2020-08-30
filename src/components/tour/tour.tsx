@@ -22,11 +22,28 @@ const Tour = ({ children, landing }: TourProps) => {
   const tour = useContext(ShepherdTourContext);
 
   useEffect(() => {
-    console.info('Updated landing', landing);
-    if (!landing) {
+    let conductTour = false;
+    const tourSession = window.localStorage.getItem('tour');
+    console.info(tourSession);
+    if (tourSession) {
+      const prevDate = new Date(tourSession);
+      const currentDate = new Date();
+      // @ts-ignore
+      const diffTime = Math.abs(currentDate - prevDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      console.info('Date Difference', diffDays);
+      if (diffDays > 30) {
+        conductTour = true;
+        window.localStorage.removeItem('tour');
+      }
+    } else {
+      conductTour = true;
+    }
+    if (!landing && conductTour) {
       console.info('Starting Tour!');
       // @ts-ignore
       tour.start();
+      window.localStorage.setItem('tour', `${new Date().toISOString()}`);
     }
   }, [landing]);
 
