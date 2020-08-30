@@ -26,11 +26,11 @@ const Configuration = () => {
             {' '}
           </Fade>
         )}
-      <div className="toggle">
+      <div className="toggle basic-feature-toggle">
         <div className="toggle-label">
           <p>Basic Features</p>
         </div>
-        <label className="switch">
+        <label className="switch basic-feature-switch">
           <input
             type="checkbox"
             checked={cluiToggle}

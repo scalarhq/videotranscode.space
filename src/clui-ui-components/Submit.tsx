@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { observer, useObserver } from 'mobx-react';
 
@@ -8,29 +8,34 @@ import ComponentStore from '../store/componentStore';
  * Basic Submit button that tells store that configuration is locked
  */
 const Submit = observer(() => {
-  const { CluiStore, loaded } = ComponentStore;
+  const { CluiStore, FileStore, loaded } = ComponentStore;
 
   const { setSubmitStatus } = CluiStore;
 
+  const { allFiles } = FileStore;
+
   const submit = React.useRef<HTMLButtonElement | null>(null);
 
-  const disabledTip = 'Please wait while FFmpeg loads in the background, the entire process can take up to 30 seconds';
+  const [disabledTip, setTip] = useState('Please wait while FFmpeg loads in the background, the entire process can take up to 30 seconds');
 
   const handleSubmit = () => {
     setSubmitStatus(true);
   };
 
   useEffect(() => {
-    if (submit && submit.current) {
-      if (loaded) {
+    if (loaded && allFiles.length === 0) {
+      setTip('Please Add A File!');
+    }
+    if (loaded && allFiles.length > 0) {
+      if (submit && submit.current) {
         submit.current.removeAttribute('data-tooltip');
       }
     }
-  }, [loaded]);
+  }, [loaded, allFiles, submit, submit.current]);
 
   return useObserver(() => (
     <>
-      <button className="submitButton" data-tooltip={disabledTip} ref={submit} type="submit" onClick={handleSubmit} disabled={!loaded}>
+      <button className="submitButton" data-tooltip={disabledTip} ref={submit} type="submit" onClick={handleSubmit} disabled={!loaded || allFiles.length === 0}>
         Submit
         {/* @ts-ignore Styled JSX */}
         <style jsx>

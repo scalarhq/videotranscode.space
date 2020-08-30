@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 
 // Modules
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { Fade } from 'react-reveal';
@@ -21,6 +21,9 @@ import ProgressBar from './components/progress/progress';
 import VideoPlayer from './components/video/video';
 import ErrorScreen from './components/error/Error';
 import Configuration from './components/configuration/configuration';
+import Tour from './components/tour/tour';
+
+import Wrapper from './components/landing/wrapper';
 
 // Types
 
@@ -35,6 +38,8 @@ const App = () => {
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
+    landing,
+    updateLoadError,
 
     FileStore,
     CluiStore,
@@ -48,9 +53,16 @@ const App = () => {
 
   const { toDisplay, updateVideoDisplay, url } = VideoStore;
 
+  const [isLoading, setLoading] = useState(false);
+
+  const [secondLoad, setSecondLoad] = useState(false);
+
   useEffect(() => {
-    loadFFmpeg();
-  }, []);
+    if (landing === false && isLoading === false) {
+      setLoading(true);
+      setTimeout(() => { loadFFmpeg(); }, 200);
+    }
+  }, [landing]);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -86,13 +98,20 @@ const App = () => {
     }
   }, [loaded]);
 
-  if (isLoadingError) {
+  useEffect(() => {
+    if (isLoadingError && secondLoad === false) {
+      loadFFmpeg();
+      setSecondLoad(true);
+      updateLoadError(false, new Error());
+    }
+  }, [isLoadingError]);
+
+  if (isLoadingError && secondLoad) {
     return (
 
       <Router>
         <>
           <main>
-            <Header />
             <ErrorScreen loadingErrorObj={loadingErrorObj} />
           </main>
           <Footer />
@@ -106,47 +125,86 @@ const App = () => {
 
     <Router>
       <>
-        <main>
-          <Header />
 
-          <div className="flex-wrapper">
-            {!isSubmitted
-              ? (
+        <div className="overlay-wrapper">
 
-                <div className="col dropzone-wrapper">
-                  <Fade bottom>
-                    <Dropzone />
-                  </Fade>
+          {landing ? (
+            <div className="overlay">
+              <Wrapper />
+            </div>
+          ) : null}
+
+          <div className="blur">
+            <Tour landing={landing}>
+              <main>
+                <Header />
+
+                <div className="flex-wrapper">
+                  {!isSubmitted
+                    ? (
+
+                      <div className="col dropzone-wrapper">
+                        <Fade bottom>
+                          <Dropzone />
+                        </Fade>
+                      </div>
+
+                    )
+                    : !processed ? (
+                      <Fade bottom>
+                        <ProgressBar {...ProgressStore} />
+                      </Fade>
+                    )
+                      : (
+                        <Fade bottom>
+                          <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                        </Fade>
+                      )}
+
+                  {!isSubmitted ? (
+                    <Configuration />
+
+                  )
+                    : (
+                      <div className="terminal-wrapper">
+                        <Fade bottom>
+                          <TerminalComponent />
+                        </Fade>
+                      </div>
+                    )}
+
                 </div>
-
-              )
-              : !processed ? (
-                <Fade bottom>
-                  <ProgressBar {...ProgressStore} />
-                </Fade>
-              )
-                : (
-                  <Fade bottom>
-                    <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
-                  </Fade>
-                )}
-
-            {!isSubmitted ? (
-              <Configuration />
-
-            )
-              : (
-                <div className="terminal-wrapper">
-                  <Fade bottom>
-                    <TerminalComponent />
-                  </Fade>
-                </div>
-              )}
-
+              </main>
+            </Tour>
           </div>
-        </main>
+          {/* @ts-ignore Styled JSX */}
+          <style jsx>
+            {`
+            .blur {
+            filter: ${landing ? 'blur(4px)' : 'unset'};
+              z-index:  ${landing ? '0' : '10'};;
+            }
+            .overlay {
+              z-index: 1;
+            }
+            .overlay-wrapper {
+              display: grid;
+              grid-template: 1fr / 1fr;
+            }
+            .overlay-wrapper > * {
+              grid-column: 1 / 1;
+              grid-row: 1 / 1;
+            }
+            ul {
+              max-width: unset !important;
+              background-color: transparent !important;
+            }
+            `}
 
-        <Footer />
+          </style>
+        </div>
+        {!landing ? (<Footer />) : null}
+
       </>
     </Router>
 

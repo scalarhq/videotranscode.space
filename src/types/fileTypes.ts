@@ -24,3 +24,8 @@ export type CustomFileType = {
   name: string;
   type: FileTypes;
 };
+
+export type FileWithPreview = File & {
+  preview: string;
+  customType: 'video' | 'audio' | 'image' | 'other';
+};

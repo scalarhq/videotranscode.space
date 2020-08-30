@@ -129,6 +129,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
           autoFocus: true,
           spellCheck: false,
           autoComplete: 'off',
+          id: 'clui-input',
           placeholder: 'Hi I am a Clui! You can set your configuration here',
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),

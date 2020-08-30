@@ -1,21 +1,30 @@
 import React from 'react';
 import newGithubIssueUrl from 'new-github-issue-url';
 
+const ReloadSvg = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="15rem">
+    <path
+      fill="#5596ff"
+      d="M12.5,21A7.5,7.5,0,0,1,6.713,8.729a.5.5,0,1,1,.771.637A6.5,6.5,0,1,0,12.5,7h-3a.5.5,0,0,1,0-1h3a7.5,7.5,0,0,1,0,15Z"
+    />
+    <path
+      fill="#5596ff"
+      d="M11.5,9a.5.5,0,0,1-.354-.146l-2-2a.5.5,0,0,1,.708-.708l2,2A.5.5,0,0,1,11.5,9Z"
+    />
+    <path
+      fill="#5596ff"
+      d="M9.5,7a.5.5,0,0,1-.354-.854l2-2a.5.5,0,0,1,.708.708l-2,2A.5.5,0,0,1,9.5,7Z"
+    />
+  </svg>
+);
+
 const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
   <div className="error-wrapper">
-    <h1 style={{ color: 'white', textAlign: 'center' }}>Oops! Something went wrong</h1>
+    <h1 style={{ color: 'white', textAlign: 'center', marginTop: '5vh' }}>Oops! Something went wrong</h1>
+    <h3 style={{ color: 'white', textAlign: 'center', fontWeight: 'lighter' }}>Often, reloading the page will fix this error.</h3>
+
     <div className="error-icon">
-      {/* <svg viewBox="0 0 32.00199890136719 32" width="24vh" height="24vh"><path xmlns="http://www.w3.org/2000/svg" d="M2.062 32h27.812a2 2 0 0 0 1.766-2.942l-13.876-26A1.997 1.997 0 0 0 16.002 2H16c-.738 0-1.414.406-1.762 1.056L.3 29.056a2.004 2.004 0 0 0 .046 1.972A2.005 2.005 0 0 0 2.062 32zM16 24a2 2 0 1 1-.001 4.001A2 2 0 0 1 16 24zm-2-3.968v-8a2 2 0 0 1 4 0v8a2 2 0 0 1-4 0z" /></svg> */}
-      <svg xmlns="http://www.w3.org/2000/svg" width="24vh" height="24vh" viewBox="0 0 24 24">
-        <g data-name="Layer 2">
-          <g data-name="alert-circle">
-            <rect width="24" height="24" opacity="0" />
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
-            <circle cx="12" cy="16" r="1" />
-            <path d="M12 7a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0V8a1 1 0 0 0-1-1z" />
-          </g>
-        </g>
-      </svg>
+      <button type="button" className="transparent-button" onClick={() => { window.location.reload(); }}><ReloadSvg /></button>
     </div>
     <div className="error-message">
 
@@ -47,7 +56,7 @@ const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
         <picture className="picture-wrapper">
           <source type="image/webp" srcSet="/images/support/browserSupport.webp" />
           <source type="image/png" srcSet="/images/support/browserSupport.png" />
-          <img className="img-class" src="/images/support/browserSupport.jpg" alt="Data on support for the sharedarraybuffer feature across the major browsers from caniuse.com" />
+          <img className="img-class" src="/images/support/browserSupport.jpg" alt="Data on support for the SharedArrayBuffer feature across the major browsers from caniuse.com" />
         </picture>
       </a>
     </div>
@@ -85,6 +94,10 @@ const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
       }
       .error-message a {
         color: white;
+      }
+      .transparent-button {
+        background-color : transparent;
+        border: none;
       }
       `}
     </style>

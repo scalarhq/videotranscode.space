@@ -19,8 +19,8 @@ h1.title {
     cursor: pointer;
     text-decoration: none;
     display: inline;
-    margin: 0;
     padding: 0;
+    margin-bottom: -10px !important;
 }
 
 .highlight {
@@ -34,6 +34,20 @@ h1.title {
     justify-content: center;
     margin-top: 5px !important;
     line-height: 0px !important;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header>* {
+    margin: 10px auto;
+}
+
+.subtitle {
+    max-width: 60vw;
 }
 
 h4 {
