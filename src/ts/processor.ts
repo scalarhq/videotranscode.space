@@ -4,7 +4,7 @@ import features from '../features/features';
 
 import { updateData } from './hardware';
 
-import { CustomFileType } from '../types/fileTypes';
+import { CustomFileType, FileNameTypes, FileTypes } from '../types/fileTypes';
 
 import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
@@ -26,17 +26,44 @@ const createVideoObject = (processedFile: Uint8Array) => {
   return blobUrl;
 };
 
+const setCurrentFile = (loadedFiles: FileNameTypes) => {
+  if (loadedFiles.video && loadedFiles.video[0]) {
+    return { name: loadedFiles.video[0], type: 'video' as FileTypes };
+  }
+  if (loadedFiles.image && loadedFiles.image[0]) {
+    return { name: loadedFiles.image[0], type: 'image' as FileTypes };
+  }
+  if (loadedFiles.audio && loadedFiles.audio[0]) {
+    return { name: loadedFiles.audio[0], type: 'audio' as FileTypes };
+  }
+  if (loadedFiles.other) {
+    return { name: loadedFiles.other[0], type: 'other' as FileTypes };
+  }
+  throw new Error('Could not find valid file');
+};
+
 const onSubmitHandler = async () => {
   const start = new Date().getTime();
   const { configuration, chosenFeatures } = CluiStore;
   const loadedFiles = await loadFiles();
-  let currentFile: CustomFileType = { name: loadedFiles.video[0], type: 'video' };
+
+  let currentFile: CustomFileType = setCurrentFile(loadedFiles);
   updateCurrentFile(currentFile);
 
   for (const key of chosenFeatures) {
     const CurrentFeature = features[key].feature;
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature(configuration);
+    const { primaryType } = featureObject.fileConfig;
+    console.info('Primary Type', primaryType);
+    if (primaryType !== 'video') {
+      currentFile = {
+        name: loadedFiles[primaryType as FileTypes][0],
+        type: primaryType as FileTypes,
+      };
+      console.info('New Current File', currentFile);
+      updateCurrentFile(currentFile);
+    }
     if (currentFile) {
       featureObject.setProgress();
       featureObject.updateProgress();
@@ -48,7 +75,11 @@ const onSubmitHandler = async () => {
   const processedFile = await ffmpegReader(currentFile.name);
   const blobUrl = createVideoObject(processedFile);
   updateBlobUrl(blobUrl);
-  await ffmpegGarbageCollector([...oldFiles, currentFile.name]);
+  try {
+    await ffmpegGarbageCollector([...oldFiles, currentFile.name]);
+  } catch (err) {
+    console.info('Unable to garbage collect', err);
+  }
   updateProcessedState(true);
   const end = new Date().getTime();
   const encodeTime = (end - start) / 1000;
