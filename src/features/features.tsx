@@ -11,8 +11,9 @@ export type Feature = typeof TranscodeFeature |
   typeof CompressionFeature | typeof PhotoMontageFeature;
 
 export type FeatureElement = {
-  feature: Feature;
+  name: string;
   description: string;
+  feature: Feature;
   ui: JSX.Element | string;
 };
 
@@ -22,18 +23,21 @@ export type Features = {
 
 const FEATURES: Features = {
   TRANSCODE: {
-    feature: TranscodeFeature,
+    name: 'Convert',
     description: 'Choose which format to convert your video to',
+    feature: TranscodeFeature,
     ui: <TranscodeUi parents={['TRANSCODE']} />,
   },
   COMPRESS: {
-    feature: CompressionFeature,
+    name: 'Compress',
     description: 'Choose how much you want to compress your video',
+    feature: CompressionFeature,
     ui: <CompressionUi parents={['COMPRESS']} />,
   },
   PhotoMontage: {
-    feature: PhotoMontageFeature,
+    name: 'Photo_Montages',
     description: 'Create a video montage from photos(you can add audio too!)',
+    feature: PhotoMontageFeature,
     ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,
   },
 };

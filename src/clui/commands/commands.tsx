@@ -50,7 +50,7 @@ const generateFeatures: () => Array<CommandType> = () => {
   for (const key of featureKeys) {
     const currentFeature = features[key as keyof typeof features];
     const newFeature: CommandType = {
-      command: key as string,
+      command: `${currentFeature.name}`,
       description: currentFeature.description,
       ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as string} />),
       steps: [currentFeature.feature],
