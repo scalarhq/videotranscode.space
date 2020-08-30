@@ -21,6 +21,7 @@ import ProgressBar from './components/progress/progress';
 import VideoPlayer from './components/video/video';
 import ErrorScreen from './components/error/Error';
 import Configuration from './components/configuration/configuration';
+import Tour from './components/tour/tour';
 
 import Wrapper from './components/landing/wrapper';
 
@@ -105,13 +106,12 @@ const App = () => {
     }
   }, [isLoadingError]);
 
-  if (isLoadingError) {
+  if (isLoadingError && secondLoad) {
     return (
 
       <Router>
         <>
           <main>
-            <Header />
             <ErrorScreen loadingErrorObj={loadingErrorObj} />
           </main>
           <Footer />
@@ -135,45 +135,47 @@ const App = () => {
           ) : null}
 
           <div className="blur">
-            <main>
-              <Header />
+            <Tour landing={landing}>
+              <main>
+                <Header />
 
-              <div className="flex-wrapper">
-                {!isSubmitted
-                  ? (
+                <div className="flex-wrapper">
+                  {!isSubmitted
+                    ? (
 
-                    <div className="col dropzone-wrapper">
+                      <div className="col dropzone-wrapper">
+                        <Fade bottom>
+                          <Dropzone />
+                        </Fade>
+                      </div>
+
+                    )
+                    : !processed ? (
                       <Fade bottom>
-                        <Dropzone />
+                        <ProgressBar {...ProgressStore} />
                       </Fade>
-                    </div>
+                    )
+                      : (
+                        <Fade bottom>
+                          <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                        </Fade>
+                      )}
 
-                  )
-                  : !processed ? (
-                    <Fade bottom>
-                      <ProgressBar {...ProgressStore} />
-                    </Fade>
+                  {!isSubmitted ? (
+                    <Configuration />
+
                   )
                     : (
-                      <Fade bottom>
-                        <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
-                      </Fade>
+                      <div className="terminal-wrapper">
+                        <Fade bottom>
+                          <TerminalComponent />
+                        </Fade>
+                      </div>
                     )}
 
-                {!isSubmitted ? (
-                  <Configuration />
-
-                )
-                  : (
-                    <div className="terminal-wrapper">
-                      <Fade bottom>
-                        <TerminalComponent />
-                      </Fade>
-                    </div>
-                  )}
-
-              </div>
-            </main>
+                </div>
+              </main>
+            </Tour>
           </div>
           {/* @ts-ignore Styled JSX */}
           <style jsx>
