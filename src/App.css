@@ -26,8 +26,9 @@ main {
 }
 
 .dropzone-wrapper {
-  width: 50%;
+  max-width: 50%;
   margin-bottom: 3rem;
+  width: 40vw;
 }
 
 .video-wrapper {
