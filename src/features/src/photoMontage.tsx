@@ -38,8 +38,6 @@ class PhotoMontageFeature extends FFmpegFeature {
 
     const { extension, type } = parseConfiguration();
 
-    console.info('Change File Extension', extension);
-
     // Call Transcoder Functions
     this.updateDisplay(display, type);
     this.changeFileExtension(extension);

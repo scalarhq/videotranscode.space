@@ -38,5 +38,6 @@ A few common ones are here:
 
 - {@link List}
 - {@link Slider}
+- {@link SingleInput}
 
 If you want a deeper understand of what we are going to be doing with the parents prop, please read more {@page Parents Architecture}.

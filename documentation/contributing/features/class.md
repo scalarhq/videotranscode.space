@@ -1,27 +1,71 @@
 # The Feature Class
 
-To start this process, we need to look at the FFmpegInterface. It is attached below but you can explore the entire interface {@link FFmpegInterface}
+To start this process, we need to look at the FFmpegInterface. It is attached below but you can explore the entire interface {@link FFmpegInterface}.
+The full interface reference, has the entire documentation for all the methods and values below and a few other methods too.
 
 ```ts
 interface FFmpegInterface {
+  // Stores
+
+  FileStore: typeof FileStore;
+
+  VideoStore: typeof VideoStore;
+
+  ComponentStore: typeof ComponentStore;
+
+  // Values
+
+  ffmpegCommands: string;
+
+  threads: number;
+
+  inputFile: CustomFileType;
+
+  outputFile: CustomFileType;
+
+  progressBar: { name: string; color: string };
+
+  ffmpegInputCommand: string;
+
+  display: boolean;
+
+  fileConfig: FileConfigType;
+
+  // Abstract Values
+
   configuration: {
     [name: string]: { value: any; [name: string]: any };
   };
-  ffmpegCommands: string;
-  threads: number;
-  inputFileName: string;
-  outputFileName: string;
-  progressBar: { name: string; color: string };
-  runFFmpeg: () => Promise<string>;
-  getCurrentFileName: () => string;
-  setFFmpegCommands: (...args: any[]) => void;
-  parseConfiguration: () => { [name: string]: any };
-  setProgress: () => void;
+
+  // Methods
+
+  getCurrentFile: () => { name: string; type: FileTypes };
+
+  setFFmpegInputCommand: () => void;
+
+  runFFmpeg: () => Promise<CustomFileType>;
+
+  changeFileExtension: (newExtension: string) => void;
+
+  updateDisplay: (displayType: boolean, type: string) => void;
+
   updateProgress: () => void;
+
+  // Abstract Methods
+
+  setFFmpegCommands: (...args: any[]) => void;
+
+  parseConfiguration: () => { [name: string]: any };
+
+  setProgress: () => void;
+
+  setFileConfig: () => void;
 }
 ```
 
 **You don't have to implement most of these functions**, they are already implemented for you at {@link FFmpegFeature}
+
+_Note: you have access to all the values in the Stores directly for VideoStore and FileStore, but all other stores through ComponentStore._ You can access them at {@link ComponentStore}, {@link VideoStore} and {@link FileStore}
 
 The abstract elements you have to implement in your class are the following.
 
@@ -34,6 +78,7 @@ Of course, you have to implement **your own constructor** and call the **super c
   parseConfiguration: () => { [name: string]: any };
   setProgress: () => void;
   setFFmpegCommands: (...args: any[]) => void;
+  setFileConfig: () => void;
 ```
 
 Let's talk about each of these abstract elements
@@ -79,13 +124,53 @@ The expectation is that this command uses the users configuration to change the 
 
 For example, for compression the extra ffmpeg command is the following, where the value is read from the user.
 
-```
+```bash
 -crf ${value}
 ```
 
 These commands can get as complicated as you'd like them to as long as FFmpeg supports its.
 
 **General linux commands are not supported**, don't try to add a pipe here.
+
+## {@link FFmpegFeature.setFileConfig}
+
+This method will mutate `this.fileConfig` which is the configuration of files used by this function.
+
+The expectation is that this command will determine the files used by this function, and load the appropriate users files
+
+There are four primary types of files accepts {@link InputFilesType} which are the following:
+
+```ts
+type InputFilesType = {
+  video?: File[];
+  audio?: File[];
+  image?: File[];
+  other?: File[];
+};
+```
+
+`this.fileConfig` should be of type {@link FileConfigType} which is as follows:
+
+```ts
+ primaryType: FileTypes | string;
+  types: Array<{ name: FileTypes | string; number: { min: number; max: number } }>;
+```
+
+Min, Max values determine how many files are loaded, set **max** to `-1` to load all files, and set **min equal to max** to load one file.
+
+Example method from {@link PhotoMontageFeature}, this method accepts all images added and the first audio file added.
+
+```ts
+setFileConfig = () => {
+  this.fileConfig = {
+    primaryType: 'image',
+    types: [
+      { name: 'image', number: { min: 1, max: -1 } },
+      { name: 'audio', number: { min: 1, max: 1 } },
+    ],
+  };
+};
+```
 
 ## Constructor
 
