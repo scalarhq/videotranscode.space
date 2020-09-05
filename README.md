@@ -12,7 +12,7 @@
 
 A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
 
-**This project is still very early in development and only a proof of concept**
+**This project is in alpha stage of development**
 
 ## [Contributing](https://docs.videotranscode.space/pages/get%20started/contributingguidelines)
 
@@ -26,16 +26,16 @@ Full documentation is at https://docs.videotranscode.space/
 
 The API Reference is [here](https://docs.videotranscode.space/globals.html)
 
+## [Project Structure](https://docs.videotranscode.space/pages/get%20started/projectstructure)
+
 ## Browser Support
 
 Our build of FFmpeg needs SharedArrayBuffer support so our browser support depends on that
 
 <picture>
-			<source type="image/webp" srcset="https://caniuse.bitsofco.de/image/sharedarraybuffer.webp">
-			<source type="image/png" srcset="https://caniuse.bitsofco.de/image/sharedarraybuffer.png">
-			<img src="https://caniuse.bitsofco.de/image/sharedarraybuffer.jpg" alt="Data on support for the sharedarraybuffer feature across the major browsers from caniuse.com">
-		</picture>
+	<source type="image/webp" srcset="https://caniuse.bitsofco.de/image/sharedarraybuffer.webp">
+	<source type="image/png" srcset="https://caniuse.bitsofco.de/image/sharedarraybuffer.png">
+	<img src="https://caniuse.bitsofco.de/image/sharedarraybuffer.jpg" alt="Data on support for the sharedarraybuffer feature across the major browsers from caniuse.com">
+</picture>
 
 Learn more https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#Browser_compatibility or https://caniuse.com/#feat=sharedarraybuffer
-
-## [Project Structure](https://docs.videotranscode.space/pages/get%20started/projectstructure)
