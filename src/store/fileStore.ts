@@ -5,7 +5,13 @@ import AbstractStore from './store';
 
 import TerminalStore from './terminalStore';
 
-import { InputFilesType, FileTransformType, FileTypes, CustomFileType } from '../types/fileTypes';
+import {
+  InputFilesType,
+  FileTransformType,
+  FileTypes,
+  CustomFileType,
+  FileNameTypes,
+} from '../types/fileTypes';
 
 class FileStore extends AbstractStore {
   // Stores
@@ -20,7 +26,7 @@ class FileStore extends AbstractStore {
   @observable files: InputFilesType = {};
 
   // Files added to FFmpeg
-  @observable loadedFiles: InputFilesType = {};
+  @observable loadedFiles: FileNameTypes = {};
 
   // Constructor
 
@@ -164,6 +170,11 @@ class FileStore extends AbstractStore {
       this.files[type] = currentFileList;
     }
     console.info('Updated Files', this.fileReference);
+  };
+
+  @action('Update Loaded Files')
+  updateLoadedFiles = (loadedFiles: FileNameTypes) => {
+    this.loadedFiles = loadedFiles;
   };
 
   // Computed
