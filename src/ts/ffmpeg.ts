@@ -87,4 +87,6 @@ const ffmpegGarbageCollector = async (oldFileNames: Array<string>) => {
   }
 };
 
+export default ffmpeg;
+
 export { loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter, ffmpegGarbageCollector };

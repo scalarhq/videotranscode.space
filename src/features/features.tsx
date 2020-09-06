@@ -4,11 +4,12 @@ import React from 'react';
 import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature';
 import CompressionFeature, { CompressionUi } from './src/compressionFeature';
 import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage';
+import ConcatFeature, { ConcatUi } from './src/concatFeature';
 
 import keys from './featureKeys.json';
 
 export type Feature = typeof TranscodeFeature |
-  typeof CompressionFeature | typeof PhotoMontageFeature;
+  typeof CompressionFeature | typeof PhotoMontageFeature | typeof ConcatFeature;
 
 export type FeatureElement = {
   name: string;
@@ -39,6 +40,12 @@ const FEATURES: Features = {
     description: 'Create a video montage from photos(you can add audio too!)',
     feature: PhotoMontageFeature,
     ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,
+  },
+  Concat: {
+    name: 'Combine-Videos',
+    description: 'Combine multiple videos',
+    feature: ConcatFeature,
+    ui: <ConcatUi />,
   },
 };
 

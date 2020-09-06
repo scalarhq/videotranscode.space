@@ -12,7 +12,7 @@ import loadFiles from './file';
 
 const { CluiStore, VideoStore, FileStore, updateProcessedState, terminalStore } = ComponentStore;
 
-const { updateCurrentFile, oldFiles } = FileStore;
+const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore;
 
 const { updateBlobUrl, blobType } = VideoStore;
 
@@ -46,7 +46,7 @@ const onSubmitHandler = async () => {
   const start = new Date().getTime();
   const { configuration, chosenFeatures } = CluiStore;
   const loadedFiles = await loadFiles();
-
+  updateLoadedFiles(loadedFiles);
   let currentFile: CustomFileType = setCurrentFile(loadedFiles);
   updateCurrentFile(currentFile);
 
