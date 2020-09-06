@@ -7,7 +7,7 @@ const AboutPage = () => (
     <h1 className="title">Browser Based Video Transcoder</h1>
     <div className="sections">
       <div className="what">
-        <h3 className="sub-title">$ What is a Based Video Transcoder?</h3>
+        <h3 className="sub-title">$ What is a Browser Based Video Transcoder?</h3>
         <p>
           {'>'}
           {' '}

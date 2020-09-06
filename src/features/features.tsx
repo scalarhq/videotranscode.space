@@ -15,7 +15,7 @@ export type FeatureElement = {
   name: string;
   description: string;
   feature: Feature;
-  ui: JSX.Element | string;
+  ui?: JSX.Element | string;
 };
 
 export type Features = {
