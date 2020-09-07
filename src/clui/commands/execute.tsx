@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import CluiStore from '../../store/cluiStore';
+import ComponentStore from '../../store/componentStore';
 
-const { setSubmitStatus } = CluiStore;
+const DirectExecute = ({ featureKey }: { featureKey: string }) => {
+  const { CluiStore, loaded } = ComponentStore;
 
-const DirectExecute = (props: any) => {
+  const { setSubmitStatus, updateChosenFeatures } = CluiStore;
+
   React.useEffect(() => {
-    setSubmitStatus(true);
-  }, []);
+    if (loaded) {
+      updateChosenFeatures([featureKey]);
+      setSubmitStatus(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
 
-  return <div />;
+  if (loaded) {
+    return <div />;
+  }
+  return <h3 style={{ color: 'white' }}>Loading FFmpeg....</h3>;
 };
 
 export default DirectExecute;

@@ -70,7 +70,7 @@ const generateFeatures = () => {
       const runnableFeature = {
         [currentFeature.name]: {
           description: currentFeature.description,
-          run: () => <DirectExecute />,
+          run: () => <DirectExecute featureKey={key as string} />,
         },
       };
       featuresWithoutUI.push(runnableFeature);
