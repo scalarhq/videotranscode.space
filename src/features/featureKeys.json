@@ -2,5 +2,6 @@
   "TRANSCODE": true,
   "COMPRESS": true,
   "PhotoMontage": true,
-  "Concat": true
+  "Concat": true,
+  "GreyScale": true
 }

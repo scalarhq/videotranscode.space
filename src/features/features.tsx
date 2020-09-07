@@ -7,15 +7,20 @@ import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage';
 import ConcatFeature, { ConcatUi } from './src/concatFeature';
 
 import keys from './featureKeys.json';
+import GreyScaleFeature from './src/greyScaleFeature';
 
-export type Feature = typeof TranscodeFeature |
-  typeof CompressionFeature | typeof PhotoMontageFeature | typeof ConcatFeature;
+export type Feature =
+  typeof TranscodeFeature
+  | typeof CompressionFeature
+  | typeof PhotoMontageFeature
+  | typeof ConcatFeature
+  | typeof GreyScaleFeature;
 
 export type FeatureElement = {
   name: string;
   description: string;
   feature: Feature;
-  ui: JSX.Element | string;
+  ui?: JSX.Element | string;
 };
 
 export type Features = {
@@ -46,6 +51,11 @@ const FEATURES: Features = {
     description: 'Combine multiple videos',
     feature: ConcatFeature,
     ui: <ConcatUi />,
+  },
+  GreyScale: {
+    name: 'Greyscale',
+    description: 'Make Video black and white',
+    feature: GreyScaleFeature,
   },
 };
 
