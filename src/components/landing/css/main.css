@@ -626,6 +626,7 @@ table.alt tfoot {
   position: relative;
   max-width: 100vw;
   padding: 4rem 2rem;
+  padding-top: 0.7rem !important;
   z-index: 3;
 }
 

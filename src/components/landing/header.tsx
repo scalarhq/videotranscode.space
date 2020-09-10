@@ -5,11 +5,13 @@ import { observer } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
-import { faVideo, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import { isMobile } from 'react-device-detect';
 
 import ComponentStore from '../../store/componentStore';
+
+import Logo from '../logo';
 
 const Header = () => {
   const { loaded } = ComponentStore;
@@ -43,7 +45,11 @@ const Header = () => {
   return (
     <header id="header">
       <div className="logo">
-        <FontAwesomeIcon icon={faVideo} size="2x" />
+        {/* <FontAwesomeIcon icon={Logo} size="2x" /> */}
+        <div className="logo-wrapper">
+          {' '}
+          <Logo />
+        </div>
       </div>
       <div className="content">
         <div className="inner">
@@ -136,6 +142,14 @@ const Header = () => {
           display : flex;
           align-items: center;
           justify-content: center;
+          width : 10vw !important;
+          height: 10vw !important;
+        }
+        .logo-wrapper {
+          display : flex;
+          align-items: center;
+          justify-content: center;
+          width : 6.5vw;
         }
         .start {
           display: flex;
