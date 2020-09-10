@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+
 import { faVideo, faPlay } from '@fortawesome/free-solid-svg-icons';
+
+import { isMobile } from 'react-device-detect';
 
 import ComponentStore from '../../store/componentStore';
 
@@ -56,22 +60,41 @@ const Header = () => {
             {' '}
             machine.
           </p>
-          <p style={{ maxWidth: '70vw', fontSize: '12px', color: 'white' }}>
+          <p style={{ maxWidth: isMobile ? '' : '70vw', fontSize: '12px', color: 'white' }}>
             A video transcoder and converter built using Web Assembly and FFMPEG to transcode and
             convert videos right in your browser while protecting your privacy.
           </p>
-          <div className="start">
-            {/* {loaded ? ( */}
-            <>
-              {' '}
+          {isMobile ? <h3 style={{ textAlign: 'center', color: 'white', padding: '0 10px' }}>Unfortunately, mobile browser support is extremely limited and not available right now.</h3> : null}
 
+          <div className="start">
+            {!isMobile ? (
               <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
                 {' '}
                 <FontAwesomeIcon icon={faPlay} size="3x" />
               </button>
+            )
+              : (
+                <div className="mobile-options">
+                  <a
+                    className="link-class typeform-share link middle-footer"
+                    href="https://rahultarak12345.typeform.com/to/Fn78Sd"
+                    data-mode="drawer_right"
+                    style={{
+                      color: '#3FBD71', textDecoration: 'underline', fontSize: '20px', textAlign: 'center', padding: '0 10px',
+                    }}
+                    data-submit-close-delay="0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Be the first to know when mobile support is available!
+                  </a>
+                  <a style={{ marginTop: '10%' }} href="https://github.com/Etwas-Builders/Video-Transcoder" target="_blank" rel="noopener noreferrer">
+                    {' '}
+                    <FontAwesomeIcon icon={faGithub} size="3x" />
+                  </a>
 
-            </>
-            {/* ) : <Loader />} */}
+                </div>
+              )}
           </div>
         </div>
       </div>
@@ -94,6 +117,10 @@ const Header = () => {
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
+        .mobile-options {
+          display: flex;
+          flex-direction: column;
+        }
         .special-strong {
           color: white;
           font-size: 16px;
