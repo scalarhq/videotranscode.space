@@ -18,7 +18,7 @@ const ReloadSvg = () => (
   </svg>
 );
 
-const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
+const ErrorScreen = ({ errorObj, componentStack }: { errorObj?: Error, componentStack?: string }) => (
   <div className="error-wrapper">
     <h1 style={{ color: 'white', textAlign: 'center', marginTop: '5vh' }}>Oops! Something went wrong</h1>
     <h3 style={{ color: 'white', textAlign: 'center', fontWeight: 'lighter' }}>Often, reloading the page will fix this error.</h3>
@@ -28,7 +28,8 @@ const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
     </div>
     <div className="error-message">
 
-      <p style={{ color: 'white' }}>{loadingErrorObj?.message ? loadingErrorObj.message : 'Unknown Error'}</p>
+      <p style={{ color: 'white' }}>{errorObj?.message ? errorObj.message : 'Unknown Error'}</p>
+      <pre style={{ color: 'white' }}>{componentStack}</pre>
       <p style={{ color: 'white', fontSize: '14px' }}>
         Your current browser version is
         {' '}
@@ -39,7 +40,7 @@ const ErrorScreen = ({ loadingErrorObj }: { loadingErrorObj: Error }) => (
         {' '}
         <a
           href={newGithubIssueUrl({
-            user: 'Etwas-Builders', repo: 'Video-Transcoder', body: `\n\n\n-----\n Browser Version: ${window.navigator.userAgent} \n\n-----\n **Error Message : ${loadingErrorObj?.message ? loadingErrorObj.message : 'Unknown Error'}**`, title: '[BUG] [CRASH]', labels: ['bug', 'crash-report'],
+            user: 'Etwas-Builders', repo: 'Video-Transcoder', body: `\n\n\n-----\n Browser Version: ${window.navigator.userAgent} \n\n-----\n **Error Message : ${errorObj?.message ? errorObj.message : 'Unknown Error'}** \n\n-----\n Call Stack : ${componentStack}`, title: '[BUG] [CRASH]', labels: ['bug', 'crash-report'],
           })}
           target="_blank"
           rel="noopener noreferrer"

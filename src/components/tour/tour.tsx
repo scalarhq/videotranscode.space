@@ -24,7 +24,7 @@ const Tour = ({ children, landing }: TourProps) => {
   useEffect(() => {
     let conductTour = false;
     const tourSession = window.localStorage.getItem('tour');
-    console.info(tourSession);
+    // console.info(tourSession);
     if (tourSession) {
       const prevDate = new Date(tourSession);
       const currentDate = new Date();

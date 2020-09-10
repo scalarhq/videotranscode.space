@@ -91,7 +91,7 @@ const App = () => {
       const newConsole = (oldConsole: typeof window.console) => ({
         ...oldConsole,
         log(text: any) {
-          oldConsole.log(text);
+          oldConsole.log(`Escaped - ${text}`);
           if (updateTerminalText) { updateTerminalText(text); }
         },
       });
@@ -115,7 +115,7 @@ const App = () => {
       <Router>
         <>
           <main>
-            <ErrorScreen loadingErrorObj={loadingErrorObj} />
+            <ErrorScreen errorObj={loadingErrorObj} />
           </main>
           <Footer />
         </>
