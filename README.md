@@ -1,5 +1,7 @@
 # [Video Transcoder and Converter](https://videotranscode.space/)
 
+![Logo](./documentation/logo.png)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4b6c9412-f596-4f31-82a3-25e276a37c31/deploy-status)](https://app.netlify.com/sites/react-clui/deploys)
 ![Codecs And Formats CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder/workflows/Codecs%20And%20Formats%20CI/badge.svg)
 ![CodeQL](https://github.com/Etwas-Builders/Video-Transcoder/workflows/CodeQL/badge.svg)

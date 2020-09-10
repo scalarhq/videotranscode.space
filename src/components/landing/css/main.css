@@ -624,8 +624,9 @@ table.alt tfoot {
   -ms-justify-content: space-between;
   justify-content: space-between;
   position: relative;
-  width: 100%;
+  max-width: 100vw;
   padding: 4rem 2rem;
+  padding-top: 0.7rem !important;
   z-index: 3;
 }
 

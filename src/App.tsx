@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { Fade } from 'react-reveal';
+import { isMobile } from 'react-device-detect';
 import processor, { loadFFmpeg } from './ts/processor';
 
 // Styling
@@ -90,7 +91,7 @@ const App = () => {
       const newConsole = (oldConsole: typeof window.console) => ({
         ...oldConsole,
         log(text: any) {
-          oldConsole.log(text);
+          oldConsole.log(`Escaped - ${text}`);
           if (updateTerminalText) { updateTerminalText(text); }
         },
       });
@@ -114,7 +115,7 @@ const App = () => {
       <Router>
         <>
           <main>
-            <ErrorScreen loadingErrorObj={loadingErrorObj} />
+            <ErrorScreen errorObj={loadingErrorObj} />
           </main>
           <Footer />
         </>
@@ -135,50 +136,51 @@ const App = () => {
               <Wrapper />
             </div>
           ) : null}
+          {!isMobile ? (
+            <div className="blur">
+              <Tour landing={landing}>
+                <main>
+                  <Header />
 
-          <div className="blur">
-            <Tour landing={landing}>
-              <main>
-                <Header />
+                  <div className="flex-wrapper">
+                    {!isSubmitted
+                      ? (
 
-                <div className="flex-wrapper">
-                  {!isSubmitted
-                    ? (
+                        <div className="col dropzone-wrapper">
+                          <Fade bottom>
+                            <Dropzone />
+                          </Fade>
+                        </div>
 
-                      <div className="col dropzone-wrapper">
+                      )
+                      : !processed ? (
                         <Fade bottom>
-                          <Dropzone />
+                          <ProgressBar {...ProgressStore} />
                         </Fade>
-                      </div>
+                      )
+                        : (
+                          <Fade bottom>
+                            <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                          </Fade>
+                        )}
 
-                    )
-                    : !processed ? (
-                      <Fade bottom>
-                        <ProgressBar {...ProgressStore} />
-                      </Fade>
+                    {!isSubmitted ? (
+                      <Configuration />
+
                     )
                       : (
-                        <Fade bottom>
-                          <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
-                        </Fade>
+                        <div className="terminal-wrapper">
+                          <Fade bottom>
+                            <TerminalComponent />
+                          </Fade>
+                        </div>
                       )}
 
-                  {!isSubmitted ? (
-                    <Configuration />
-
-                  )
-                    : (
-                      <div className="terminal-wrapper">
-                        <Fade bottom>
-                          <TerminalComponent />
-                        </Fade>
-                      </div>
-                    )}
-
-                </div>
-              </main>
-            </Tour>
-          </div>
+                  </div>
+                </main>
+              </Tour>
+            </div>
+          ) : null}
           {/* @ts-ignore Styled JSX */}
           <style jsx>
             {`
@@ -205,6 +207,7 @@ const App = () => {
 
           </style>
         </div>
+
         {!landing ? (<Footer />) : null}
 
       </>

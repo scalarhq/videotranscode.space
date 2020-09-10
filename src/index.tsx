@@ -4,13 +4,14 @@ import ReactDOM from 'react-dom';
 import 'mobx-react/batchingForReactDom';
 
 import './index.css';
-import App from './App';
+// import App from './App';
+import GlobalErrorWrapper from './ErrorWrapper';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <>
     {/* <Provider store={store}> */}
-    <App />
+    <GlobalErrorWrapper />
     {/* </Provider> */}
   </>,
   document.getElementById('root'),
