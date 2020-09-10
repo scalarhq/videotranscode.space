@@ -34,7 +34,7 @@ const Wrapper = () => (
           color: white;
         }
         .features-list {
-	        list-style: disclosure-closed;
+          list-style: disclosure-closed;
         }
         `}
     </style>

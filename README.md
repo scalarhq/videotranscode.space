@@ -3,7 +3,7 @@
   <br>
   <br>
   <p>
-    <b>A free open-source web assembly based video transcoder/convertor</b>
+    <b>A free open-source web assembly based privacy first video transcoder/convertor</b>
   </p>
   <p>
      <i>A video transcoder/converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.</a></i>

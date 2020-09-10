@@ -142,14 +142,14 @@ const Header = () => {
           display : flex;
           align-items: center;
           justify-content: center;
-          width : 10vw !important;
-          height: 10vw !important;
+          width : ${isMobile ? '30vw !important' : '10vw !important'}; 
+          height: ${isMobile ? '30vw !important' : '10vw !important'};
         }
         .logo-wrapper {
           display : flex;
           align-items: center;
           justify-content: center;
-          width : 6.5vw;
+          width :${isMobile ? '20vw !important' : '6.5vw !important'}; 
         }
         .start {
           display: flex;
