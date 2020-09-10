@@ -1,20 +1,29 @@
-# [Video Transcoder and Converter](https://videotranscode.space/)
-
-![Logo](./documentation/logo.png)
+<div align="center">
+  <a href="https://videotranscode.space"><img src="./documentation/logo.png" alt="videotranscode.space logo" height="160"></a>
+  <br>
+  <br>
+  <p>
+    <b>A free open-source web assembly based video transcoder/convertor</b>
+  </p>
+  <p>
+     <i>A video transcoder/converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.</a></i>
+  </p>
+  <p>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4b6c9412-f596-4f31-82a3-25e276a37c31/deploy-status)](https://app.netlify.com/sites/react-clui/deploys)
 ![Codecs And Formats CI](https://github.com/Mozilla-Open-Lab-Etwas/Video-Transcoder/workflows/Codecs%20And%20Formats%20CI/badge.svg)
 ![CodeQL](https://github.com/Etwas-Builders/Video-Transcoder/workflows/CodeQL/badge.svg)
 
-[![Rahul Tarak](https://img.shields.io/badge/Author-Rahul%20Tarak-green)](https://cryogenicplanet.tech/)
+  </p>
+  <p>
+    <sub>Built with ❤︎ by
+      <a href="https://github.com/CryogenicPlanet">CryogenicPlanet</a> and
+      <a href="https://github.com/etwas-builders/video-transcoder/graphs/contributors">contributors</a>
+    </sub>
+  </p>
+</div>
 
-[![Rithvik Mahindra](https://img.shields.io/badge/Contributor-Rithvik%20Mahindra-green)](https://www.linkedin.com/in/rithvik-mahindra/)
-[![Zack Radisic](https://img.shields.io/badge/Contributor-Zack%20Radisic-green)](https://github.com/zackradisic)
-[![Arnav Bansal](https://img.shields.io/badge/Contributor-Arnav%20Bansal-green)](https://github.com/lunaroyster)
-
-A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
-
-**This project is in alpha stage of development**
+---
 
 ## [Contributing](https://docs.videotranscode.space/pages/get%20started/contributingguidelines)
 
