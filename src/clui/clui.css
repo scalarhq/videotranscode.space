@@ -3,11 +3,43 @@
   width: 40vw;
   height: 60vh;
   background-color: rgb(39, 44, 49, 0.6);
-  box-shadow: 5px 10px rgb(39, 44, 49);
+  display: grid;
+  grid-template: 1fr / 1fr;
+  /* box-shadow: 5px 10px rgb(39, 44, 49); */
   color: #3FBD71;
   max-height: 40vh;
-  overflow: auto;
-  word-wrap: break-word
+  overflow-y: auto;
+  word-wrap: break-word;
+  scrollbar-color: #77f0a0 transparent;
+  scrollbar-width: thin;
+}
+
+.clui-background {
+  z-index: 0;
+}
+
+.clui-overlay {
+  z-index: 1;
+}
+
+.clui-wrapper>* {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.clui-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+.clui-wrapper::-webkit-scrollbar-thumb {
+  background: #77f0a0;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, .25), inset -2px -2px 2px rgba(0, 0, 0, .25);
+}
+
+.clui-wrapper::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* prompt icon css */
@@ -40,6 +72,7 @@ span {
 .root {
   word-break: break-word;
   color: white;
+  background-color: rgba(39, 44, 49, 0.9);
 }
 
 .value {
@@ -47,7 +80,7 @@ span {
 }
 
 .value :global(b) {
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 .description {
@@ -55,7 +88,7 @@ span {
   font-size: 12px;
   padding: 5px 10px;
   font-family: Ubuntu Mono;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -73,11 +106,11 @@ span {
   color: inherit;
   display: flex;
   cursor: text;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
 .prompt.active {
-  opacity: 1;
+  /* opacity: 1; */
 }
 
 .prompt:focus-within> :global(div:first-child) {

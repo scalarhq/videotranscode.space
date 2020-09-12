@@ -14,7 +14,7 @@ type IconProps = {
 
 const PromptIcon: React.FC<IconProps> = (props: IconProps) => (
   <div className={classnames('icon', props)}>
-    <span>
+    <span style={{ lineHeight: 'unset' }}>
       {Icon[props.icon || 'CARET']}
       {' '}
     </span>

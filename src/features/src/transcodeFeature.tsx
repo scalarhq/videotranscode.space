@@ -1,7 +1,7 @@
 import React from 'react';
 import formats from '../../dist/formats';
 import codecs from '../../dist/codecs';
-import List from '../../clui-ui-components/List';
+import Dropdown from '../../clui-ui-components/Dropdown';
 
 import FFmpegFeature from '../FFmpegFeature';
 import { CodecType } from '../../types/formats';
@@ -93,11 +93,11 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
           name: currentFormat.codecs[0].name,
           value: createCodecValue(currentFormat.codecs[0].name),
         },
-      list: currentFormat.codecs.map((codec) => ({
+      dropdown: currentFormat.codecs.map((codec) => ({
         name: codec.name, value: createCodecValue(codec.name),
       })),
     };
-    const child = { component: List, props: childProps };
+    const child = { component: Dropdown, props: childProps };
     const returnObject = { name: formatKey, value: formatKey, child };
     return returnObject;
   });
@@ -109,7 +109,7 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     current: mp4Format.defaultCodec
       ? { name: mp4Format.defaultCodec.name, value: createCodecValue(mp4Format.defaultCodec.name) }
       : { name: mp4Format.codecs[0].name, value: createCodecValue(mp4Format.codecs[0].name) },
-    list: mp4Format.codecs.map((codec) => ({
+    dropdown: mp4Format.codecs.map((codec) => ({
       name: codec.name, value: createCodecValue(codec.name),
     })),
   };
@@ -117,12 +117,12 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
   const props = {
     title: 'Choose Format',
     parents: currentParents,
-    current: { name: 'MP4', value: 'MP4', child: { component: List, props: mp4ChildProps } },
-    list,
+    current: { name: 'MP4', value: 'MP4', child: { component: Dropdown, props: mp4ChildProps } },
+    dropdown: list,
   };
 
   return (
-    <List {...props} />
+    <Dropdown {...props} />
   );
 };
 

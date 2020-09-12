@@ -24,8 +24,13 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
 
   return (
     <div>
+      <div className="flex justify-center -mb-10">
+        <div className="w-1/2 image-container">
+          <img src="images/processing.png" alt="Processing png" />
+        </div>
+      </div>
       <div className="row">
-        <h3>{name}</h3>
+        <h3 className="text-xl font-bold">{name}</h3>
       </div>
       <div className="progress-wrapper">
         <div className="progress">
@@ -44,6 +49,7 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
           </div>
         </div>
       </div>
+
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
@@ -55,6 +61,9 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
         display: flex;
         margin: auto;
         width: 30vw;
+      }
+      .image-container {
+        object-fit: cover;
       }
       .row {
         flex-direction: row;

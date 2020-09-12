@@ -43,11 +43,16 @@ h1.title {
 }
 
 .header>* {
-    margin: 10px auto;
+    margin: 10px auto !important;
+}
+
+.footer-made-margin {
+    margin-left: 0.2rem !important;
 }
 
 .subtitle {
     max-width: 60vw;
+    margin-top: -4vh !important;
 }
 
 h4 {
@@ -120,13 +125,17 @@ h4 {
 }
 
 .footer-distributed {
-    background-color: #292c2f;
+    background-color: rgba(23, 20, 29, 0.65);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
     text-align: left;
     font: normal 16px Ubuntu Mono;
     padding: 15px 50px;
+}
+
+.footer-copyright {
+    margin-top: -4vh;
 }
 
 .footer-distributed .footer-left p {
@@ -210,6 +219,14 @@ h4 {
 .footer-distributed p.footer-links a:hover {
     text-decoration: underline;
 }
+
+.image-container {
+    display: block;
+    border-radius: 50;
+    object-fit: cover;
+}
+
+
 
 /* Media Queries */
 

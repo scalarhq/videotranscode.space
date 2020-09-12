@@ -1,18 +1,30 @@
 import React from 'react';
 import { Session } from '@replit/clui-session';
+
+import { observer } from 'mobx-react';
 import Prompt from './prompt';
 import command from './commands/commands';
 import './clui.css';
+
+import CluiStore from '../store/cluiStore';
 
 /**
  * Parent of the entire CLUI Component
  */
 const Clui = () => (
   <div className="clui-wrapper">
-    <Session>
-      <Prompt command={command} />
-    </Session>
+    <div className="clui-overlay">
+      <Session>
+        <Prompt command={command} />
+      </Session>
+    </div>
+    <div className="clui-background flex justify-end">
+      <div className="w-2/3">
+        {CluiStore.ran ? null : <img alt="Setting Svg" src="images/undraw_adjustments_p22m.svg" />}
+        {/* <img src="images/undraw_set_preferences_kwia.svg" /> */}
+      </div>
+    </div>
   </div>
 );
 
-export default Clui;
+export default observer(Clui);

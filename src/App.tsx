@@ -137,7 +137,7 @@ const App = () => {
             </div>
           ) : null}
           {!isMobile ? (
-            <div className="blur">
+            <div className="blur bg-blue">
               <Tour landing={landing}>
                 <main>
                   <Header />
@@ -146,7 +146,7 @@ const App = () => {
                     {!isSubmitted
                       ? (
 
-                        <div className="col dropzone-wrapper">
+                        <div className="dropzone-wrapper">
                           <Fade bottom>
                             <Dropzone />
                           </Fade>

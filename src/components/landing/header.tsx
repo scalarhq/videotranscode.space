@@ -52,9 +52,11 @@ const Header = () => {
         </div>
       </div>
       <div className="content">
-        <div className="inner">
-          <h1>Browser Based Video Transcoder</h1>
-          <p style={{ fontSize: '16px' }}>
+        <div className="inner" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
+          <div className="flex justify-center">
+            <h1 className="text-3xl font-extrabold">Browser Based Video Transcoder </h1>
+          </div>
+          <p className="subpixel-antialiased font-bold" style={{ fontSize: '16px' }}>
             {' '}
             Convert
             {' '}
@@ -66,15 +68,15 @@ const Header = () => {
             {' '}
             machine.
           </p>
-          <p style={{ maxWidth: isMobile ? '' : '70vw', fontSize: '12px', color: 'white' }}>
+          <p className="subpixel-antialiased" style={{ maxWidth: isMobile ? '' : '70vw', fontSize: '14px', color: 'white' }}>
             A video transcoder and converter built using Web Assembly and FFMPEG to transcode and
             convert videos right in your browser while protecting your privacy.
           </p>
-          {isMobile ? <h3 style={{ textAlign: 'center', color: 'white', padding: '0 10px' }}>Unfortunately, mobile browser support is extremely limited and not available right now.</h3> : null}
+          {isMobile ? <h3 className="text-xl" style={{ textAlign: 'center', color: 'white', padding: '0 10px' }}>Unfortunately, mobile browser support is extremely limited and not available right now.</h3> : null}
 
           <div className="start">
             {!isMobile ? (
-              <button type="button" className="play-button" onClick={() => { ComponentStore.updateLanding(false); }}>
+              <button type="button" className="play-button outline-none" onClick={() => { ComponentStore.updateLanding(false); }}>
                 {' '}
                 <FontAwesomeIcon icon={faPlay} size="3x" />
               </button>
@@ -136,7 +138,12 @@ const Header = () => {
           background-color: transparent;
           color : inherit;
           border: none;
-          padding: 0 3%;
+          padding: 0 3% !important;
+          transition: all 0.2s ease-in-out;
+        }
+        .play-button:hover {
+          color: #6C63FF;
+          transform : rotate(90deg); 
         }
         .logo {
           display : flex;

@@ -20,8 +20,8 @@ const ReloadSvg = () => (
 
 const ErrorScreen = ({ errorObj, componentStack }: { errorObj?: Error, componentStack?: string }) => (
   <div className="error-wrapper">
-    <h1 style={{ color: 'white', textAlign: 'center', marginTop: '5vh' }}>Oops! Something went wrong</h1>
-    <h3 style={{ color: 'white', textAlign: 'center', fontWeight: 'lighter' }}>Often, reloading the page will fix this error.</h3>
+    <p className="text-3xl" style={{ color: 'white', textAlign: 'center', marginTop: '5vh' }}>Oops! Something went wrong</p>
+    <p className="text-xl" style={{ color: 'white', textAlign: 'center', fontWeight: 'lighter' }}>Often, reloading the page will fix this error.</p>
 
     <div className="error-icon">
       <button type="button" className="transparent-button" onClick={() => { window.location.reload(); }}><ReloadSvg /></button>

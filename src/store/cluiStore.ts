@@ -17,6 +17,8 @@ class CluiStore extends AbstractStore {
 
   @observable configurationJS = {};
 
+  @observable ran: boolean = false;
+
   // Constructor
   constructor() {
     super();
@@ -94,6 +96,11 @@ class CluiStore extends AbstractStore {
 
     this.configurationJS = toJS(configuration);
     // console.table(this.configurationJS);
+  };
+
+  @action('Update Ran')
+  updateRun = (value = true) => {
+    this.ran = value;
   };
 }
 

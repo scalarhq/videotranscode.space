@@ -74,7 +74,7 @@ const List = (props: ListProps) => {
               className={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
             >
 
-              <button type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
+              <button className="outline-none" type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
             </div>
           </div>
         ))}
