@@ -165,7 +165,9 @@ const App = () => {
                         )}
 
                     {!isSubmitted ? (
-                      <Configuration />
+                      <Fade bottom>
+                        <Configuration />
+                      </Fade>
 
                     )
                       : (

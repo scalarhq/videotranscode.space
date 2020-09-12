@@ -13,19 +13,17 @@ const Configuration = () => {
   return (
 
     <div className="configuration-wrapper">
-      {cluiToggle
-        ? (
-          <Fade bottom>
-            <Clui />
-          </Fade>
-        )
-        : (
-          <Fade bottom>
-            {' '}
-            <BasicFeatures />
-            {' '}
-          </Fade>
-        )}
+      <div className="config">
+        <Fade right collapse opposite when={cluiToggle} delay={200} duration={1000}>
+          <Clui />
+        </Fade>
+
+        <Fade right collapse opposite when={!cluiToggle} delay={500} duration={1000}>
+          {' '}
+          <BasicFeatures />
+          {' '}
+        </Fade>
+      </div>
       <div className="toggle basic-feature-toggle">
         <div className="toggle-label">
           <p>Basic Features</p>

@@ -66,11 +66,6 @@ const BasicFeatures = () => {
             flex-direction: column;
             width: 40vw;
             height: 100%;
-            max-height: 50vh;
-            background: rgb(39, 44, 49, 0.6);
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-            border: 1px solid #4a5063;
-            border-radius: 5px;
           }
 
           .toggle {
