@@ -1,9 +1,7 @@
 import React from 'react';
 
 const LogoSvg = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.19 31.99" fill="rgba(63, 189, 113, 0.8)">
-    {/* <defs><clipPath id="clip-path" transform="translate(-943.91 -524)"><rect x="944" y="524" width="32" height="32" fill="none" /></clipPath></defs> */}
-    {/* <title>Clapperboard-padlocl</title> */}
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.19 31.99" width="100%" height="100%" xmlnsXlink="http://www.w3.org/1999/xlink" fill="rgba(63, 189, 113, 0.8)">
     <g id="Layer_1" data-name="Layer 1">
       <g clipPath="url(#clip-path)">
         <path d="M973,556H947a3,3,0,0,1-3-3V531h32v22a3,3,0,0,1-3,3Zm-27-23v20a1,1,0,0,0,1,1h26a1,1,0,0,0,1-1V533Zm0,0" transform="translate(-943.91 -524)" />
