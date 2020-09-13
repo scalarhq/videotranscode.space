@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 import './static.css';
 
+import Logo from '../logo';
+
 import ComponentStore from '../../store/componentStore';
 
 export function Loader() {
@@ -34,13 +36,17 @@ export function Loader() {
 export function Header() {
   return (
     <div className="header">
-      <button type="button" className="link-button" onClick={() => { ComponentStore.reset(); }}>
-        <h1 className="title">Browser Based Video Transcoder</h1>
+      <button type="button" className="link-button " onClick={() => { ComponentStore.reset(); }}>
+
+        <div className="flex items-center">
+          {/* <div className="logo-wrapper w-1/4 "><Logo /></div> */}
+          <h1 className="title"> Browser Based Video Transcoder</h1>
+        </div>
       </button>
-      <h4 className="subtitle">
+      {/* <h4 className="subtitle">
         A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
-      </h4>
-      <h4>
+      </h4> */}
+      <h4 className="subtitle">
         Your files are
         <span className="highlight"> not uploaded anywhere.</span>
       </h4>
@@ -71,8 +77,8 @@ export function Footer() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="64"
-                  height="64"
+                  width="32"
+                  height="32"
                   viewBox="0 0 256 249"
                   fill="white"
                 >
@@ -88,29 +94,19 @@ export function Footer() {
             <div>
               {/* <p style={{ fontSize: '20px', width: '10vw' }}>Powered by</p>s */}
               <a href="https://webassembly.org/" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#654ff0">
-                  <path
-                    d="M39.32 0v.345a7.34 7.34 0 0 1-7.338 7.338A7.34 7.34 0 0 1
-            24.644.345V0H0v64h64V0zm-8.778 57.15l-3.116-15.42h-.054L24
-            57.15h-4.294L14.84 34.493h4.24l2.902
-            15.42h.054l3.497-15.42H29.5l3.14 15.6h.054l3.312-15.6h4.163L34.765
-            57.15zm23.347 0l-1.445-5.043h-7.63l-1.112
-            5.043h-4.24l5.483-22.657h6.7L58.31 57.15zm-4.607-17.074h-1.784l-1.85
-            8.314h5.757z"
-                  />
-                </svg>
+                <img src="/images/webassembly-icon.svg" className="footer-icon" alt="Webassembly Logo" />
               </a>
             </div>
           </div>
           <div className="image-container">
             <div className="moz-builders">
               <p style={{
-                fontSize: '20px', paddingRight: '3%', width: '10vw', marginTop: '0 !important',
+                fontSize: '20px', paddingRight: '3%', width: '10vw', paddingBottom: '1.2rem',
               }}
               >
                 Supported by
               </p>
-              <a href="https://builders.mozilla.community/" target="_blank" rel="noopener noreferrer">
+              <a href="https://builders.mozilla.community/" target="_blank" rel="noopener noreferrer" className="footer-icon">
 
                 <img style={{ width: '15vw' }} src="/images/mozilla-builders-logo.png" alt="Mozilla Builders Logo" />
               </a>

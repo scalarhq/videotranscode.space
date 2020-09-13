@@ -1,6 +1,6 @@
 /* @import url(font-awesome.min.css); */
 
-blockquote,
+/* blockquote,
 dl,
 dd,
 h1,
@@ -14,7 +14,7 @@ figure,
 p,
 pre {
   margin: revert !important;
-}
+} */
 
 h1 {
   margin-left: 0.4rem !important;

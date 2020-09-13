@@ -144,23 +144,31 @@ const Dropzone = () => {
           {files.length > 0 ? null
             : (
               <>
+                <div className="w-1/3 px-2">
+                  <img alt="Video file svg" src="images/upload.svg" />
+                </div>
                 {isDragActive
                   ? <p>Drop the files here ...</p>
                   : (
                     <p>
-                      Drag and drop some files here, or
+                      <u>Click</u>
                       {' '}
-                      <u>click</u>
+                      or Drag to upload
                       {' '}
-to select files
                     </p>
                   )}
-                <div className="w-2/3 px-2">
-                  <img alt="Video file svg" src="images/undraw_video_files_fu10.svg" />
-                </div>
+
               </>
             )}
         </div>
+        {/* @ts-ignore Styled JSX */}
+        <style jsx>
+          {`
+          .dropzone {
+            width : ${files.length > 0 ? '90%' : '100%'};
+          }
+          `}
+        </style>
       </div>
       <aside ref={thumbnailRef} className="thumbs-container">
         <DraggableWrapper files={files} />

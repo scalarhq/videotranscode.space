@@ -66,7 +66,7 @@ const List = (props: ListProps) => {
   return (
 
     <div className="options-list-wrapper">
-      <h1>{title}</h1>
+      <h1 className="text-xl font-bold">{title}</h1>
       <div className="options-list">
         {list.map((item) => (
           <div className="options-list-item-wrapper" key={item.name}>

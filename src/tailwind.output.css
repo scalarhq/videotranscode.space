@@ -22393,7 +22393,7 @@ body {
   box-sizing: border-box;
 }
 
-blockquote,
+/* blockquote,
 dl,
 dd,
 h1,
@@ -22406,8 +22406,8 @@ hr,
 figure,
 p,
 pre {
-  margin: inherit;
-}
+    margin: inherit;
+} */
 
 @media (min-width: 640px) {
   .sm\:container {

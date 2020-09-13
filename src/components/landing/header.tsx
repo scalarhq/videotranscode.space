@@ -140,6 +140,7 @@ const Header = () => {
           border: none;
           padding: 0 3% !important;
           transition: all 0.2s ease-in-out;
+          border-radius : 50%;
         }
         .play-button:hover {
           color: #6C63FF;

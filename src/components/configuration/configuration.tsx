@@ -14,32 +14,50 @@ const Configuration = () => {
 
     <div className="configuration-wrapper">
       <div className="config">
-        <Fade right collapse opposite when={cluiToggle} delay={200} duration={1000}>
-          <Clui />
-        </Fade>
-
-        <Fade right collapse opposite when={!cluiToggle} delay={500} duration={1000}>
-          {' '}
-          <BasicFeatures />
-          {' '}
-        </Fade>
-      </div>
-      <div className="toggle basic-feature-toggle">
-        <div className="toggle-label">
-          <p>Basic Features</p>
+        <div className="clui-transition">
+          <Fade right opposite when={cluiToggle} duration={1000}>
+            <Clui />
+          </Fade>
         </div>
-        <label className="switch basic-feature-switch">
-          <input
-            type="checkbox"
-            checked={cluiToggle}
-            onChange={(e) => {
-              setCluiToggle(!cluiToggle);
-            }}
-          />
-          <span className="toggle-slider round" />
-        </label>
-        <div className="toggle-label">
-          <p>All Features (CLUI)</p>
+        <div className="basic-transition">
+          <Fade right collapse opposite when={!cluiToggle} duration={1000}>
+            {' '}
+            <BasicFeatures />
+            {' '}
+          </Fade>
+        </div>
+        {/* @ts-ignore Styled JSX */}
+        <style jsx>
+          {`
+          .clui-transition {
+            display : ${cluiToggle ? 'block' : 'none'};
+            transition: display 1s linear;
+          }
+          .basic-transition {
+            display : ${!cluiToggle ? 'block' : 'none'};
+            transition: display 1s linear;
+          }
+          `}
+        </style>
+      </div>
+      <div className="relative">
+        <div className="toggle basic-feature-toggle">
+          <div className="toggle-label">
+            <p>Basic Features</p>
+          </div>
+          <label className="switch basic-feature-switch">
+            <input
+              type="checkbox"
+              checked={cluiToggle}
+              onChange={(e) => {
+                setCluiToggle(!cluiToggle);
+              }}
+            />
+            <span className="toggle-slider round" />
+          </label>
+          <div className="toggle-label">
+            <p>All Features (CLUI)</p>
+          </div>
         </div>
       </div>
     </div>

@@ -4,9 +4,9 @@
   justify-content: center;
   align-items: center;
   z-index: 2;
-  width: 90%;
   height: 100%;
-  min-height: 30vh;
+  /* min-height: 30vh; */
+  max-height: 50vh;
 }
 
 .dropzone-text {
@@ -83,7 +83,7 @@
   border-bottom-color: 'none';
   border: '1px solid #4A5063';
   max-height: 50vh;
-  min-height: 40vh;
+  height: 50vh;
   width: 100%;
 }
 
@@ -96,6 +96,7 @@
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;

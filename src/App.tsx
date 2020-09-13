@@ -187,7 +187,7 @@ const App = () => {
           <style jsx>
             {`
             .blur {
-            filter: ${landing ? 'blur(4px)' : 'unset'};
+              filter: ${landing ? 'blur(4px)' : 'unset'};
               z-index:  ${landing ? '0' : '10'};;
             }
             .overlay {
