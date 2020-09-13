@@ -141,7 +141,7 @@ const Header = () => {
           background-color: transparent;
           color : inherit;
           border: none;
-          padding: 0 3% !important;
+          padding: 2% 3% 0 !important;
           transition: all 0.2s ease-in-out;
           border-radius : 50%;
         }
