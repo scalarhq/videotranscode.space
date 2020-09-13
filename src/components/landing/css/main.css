@@ -648,6 +648,7 @@ table.alt tfoot {
   padding: 4rem 2rem;
   padding-top: 0.7rem !important;
   z-index: 3;
+  font-family: Rajdhani;
 }
 
 #wrapper:before {

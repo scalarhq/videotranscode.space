@@ -54,9 +54,9 @@ const Header = () => {
       <div className="content">
         <div className="inner" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
           <div className="flex justify-center">
-            <h1 className="text-3xl font-extrabold">Browser Based Video Transcoder </h1>
+            <h1 className="landing-title text-3xl font-extrabold">Browser Based Video Transcoder </h1>
           </div>
-          <p className="subpixel-antialiased font-bold" style={{ fontSize: '16px' }}>
+          <p className="landing-subtitle subpixel-antialiased font-bold" style={{ fontSize: '16px' }}>
             {' '}
             Convert
             {' '}
@@ -68,7 +68,7 @@ const Header = () => {
             {' '}
             machine.
           </p>
-          <p className="subpixel-antialiased" style={{ maxWidth: isMobile ? '' : '70vw', fontSize: '14px', color: 'white' }}>
+          <p className="landing-p subpixel-antialiased" style={{ maxWidth: isMobile ? '' : '70vw', fontSize: '14px', color: 'white' }}>
             A video transcoder and converter built using Web Assembly and FFMPEG to transcode and
             convert videos right in your browser while protecting your privacy.
           </p>
@@ -125,6 +125,9 @@ const Header = () => {
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
+        .landing-subtitle {
+          padding: 10px 0;
+        }
         .mobile-options {
           display: flex;
           flex-direction: column;

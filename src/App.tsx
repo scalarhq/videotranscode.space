@@ -31,6 +31,7 @@ import Wrapper from './components/landing/wrapper';
 // Stores
 import TerminalStore from './store/terminalStore';
 import ComponentStore from './store/componentStore';
+import StepComponent from './components/steps/steps';
 
 const App = () => {
   const {
@@ -137,49 +138,52 @@ const App = () => {
             </div>
           ) : null}
           {!isMobile ? (
-            <div className="blur bg-blue">
+            <div className="blur">
               <Tour landing={landing}>
-                <main>
-                  <Header />
+                <>
+                  <main>
+                    <Header />
 
-                  <div className="flex-wrapper">
-                    {!isSubmitted
-                      ? (
+                    <div className="flex-wrapper">
+                      {!isSubmitted
+                        ? (
 
-                        <div className="dropzone-wrapper">
+                          <div className="dropzone-wrapper">
+                            <Fade bottom>
+                              <Dropzone />
+                            </Fade>
+                          </div>
+
+                        )
+                        : !processed ? (
                           <Fade bottom>
-                            <Dropzone />
+                            <ProgressBar {...ProgressStore} />
                           </Fade>
-                        </div>
+                        )
+                          : (
+                            <Fade bottom>
+                              <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                            </Fade>
+                          )}
 
-                      )
-                      : !processed ? (
+                      {!isSubmitted ? (
                         <Fade bottom>
-                          <ProgressBar {...ProgressStore} />
+                          <Configuration />
                         </Fade>
+
                       )
                         : (
-                          <Fade bottom>
-                            <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
-                          </Fade>
+                          <div className="terminal-wrapper">
+                            <Fade bottom>
+                              <TerminalComponent />
+                            </Fade>
+                          </div>
                         )}
 
-                    {!isSubmitted ? (
-                      <Fade bottom>
-                        <Configuration />
-                      </Fade>
-
-                    )
-                      : (
-                        <div className="terminal-wrapper">
-                          <Fade bottom>
-                            <TerminalComponent />
-                          </Fade>
-                        </div>
-                      )}
-
-                  </div>
-                </main>
+                    </div>
+                  </main>
+                  <StepComponent />
+                </>
               </Tour>
             </div>
           ) : null}
@@ -208,6 +212,7 @@ const App = () => {
             `}
 
           </style>
+
         </div>
 
         {!landing ? (<Footer />) : null}
