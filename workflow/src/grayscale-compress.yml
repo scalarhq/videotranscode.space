@@ -1,5 +1,5 @@
 # User Facing Name of your Workflow
-name: Compress-Graeyscale
+name: Compress-Greyscale
 # User Facing Description of your Workflow
 description: Workflow to grayscale and compress your videos
 # Which features to execute in order
