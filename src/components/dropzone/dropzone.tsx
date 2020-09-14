@@ -132,18 +132,43 @@ const Dropzone = () => {
     files.forEach((file) => { if (file.preview) URL.revokeObjectURL(file.preview); });
   }, [files]);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: ['video/*', 'image/*', 'audio/*'] });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: ['video/*', 'image/*', 'audio/*'] });
 
   return (
     <div className="preview-wrapper">
 
-      <div className="dropzone" id="dropzone" {...getRootProps()}>
-        <div className="scrollable-wrapper" ref={dropzoneRef}>
+      <div className="dropzone outline-none" id="dropzone" {...getRootProps()}>
+        <div className="scrollable-wrapper outline-none" ref={dropzoneRef}>
           <input {...getInputProps()} />
 
           {files.length > 0 ? null
-            : (<p>Drag and drop some files here, or click to select files</p>)}
+            : (
+              <>
+                <div className="w-1/3 px-2">
+                  <img alt="Video file svg" src="images/upload.svg" />
+                </div>
+                {isDragActive
+                  ? <p>Drop the files here ...</p>
+                  : (
+                    <p>
+                      <u>Click</u>
+                      {' '}
+                      or Drag to upload
+                      {' '}
+                    </p>
+                  )}
+
+              </>
+            )}
         </div>
+        {/* @ts-ignore Styled JSX */}
+        <style jsx>
+          {`
+          .dropzone {
+            width : ${files.length > 0 ? '90%' : '100%'};
+          }
+          `}
+        </style>
       </div>
       <aside ref={thumbnailRef} className="thumbs-container">
         <DraggableWrapper files={files} />

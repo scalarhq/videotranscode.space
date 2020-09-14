@@ -129,9 +129,9 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
         const inputProps = ds.getInputProps({
           autoFocus: true,
           spellCheck: false,
-          autoComplete: 'off',
+          autoComplete: 'on',
           id: 'clui-input',
-          placeholder: 'Hi I am a Clui! You can set your configuration here',
+          placeholder: 'Set your configuration here... (? for help)',
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),
           onKeyUp,

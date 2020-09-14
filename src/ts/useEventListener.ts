@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 
 const useEventListener = (ref: any, type: any, listener: Function, ...options: any) => {
+  const cur = ref.current;
   useEffect(() => {
     // console.info('Use Event Listener', ref, ref.current);
-    if (ref?.current) {
-      ref.current.addEventListener(type, listener, ...options);
+    if (cur) {
+      cur.addEventListener(type, listener, ...options);
     }
     return () => {
-      if (ref?.current) {
-        ref.current.removeEventListener(type, listener, ...options);
+      if (cur) {
+        cur.removeEventListener(type, listener, ...options);
       }
     };
     // eslint-disable-next-line

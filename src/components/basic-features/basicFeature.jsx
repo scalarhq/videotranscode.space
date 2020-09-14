@@ -24,7 +24,7 @@ const BasicFeatures = () => {
   }, [transcodeToggle]);
 
   return (
-    <div className="feature-wrapper">
+    <div className="basic-feature-wrapper">
       <div className="toggle">
         <div className="toggle-label">
           <p>Convert (Transcode)</p>
@@ -50,6 +50,9 @@ const BasicFeatures = () => {
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
+          .single-feature-wrapper {
+            padding-top: 3vh;
+          }
           .row {
             display: flex;
             flex-direction: row;
@@ -61,16 +64,11 @@ const BasicFeatures = () => {
             padding-top: 0rem !important;
             padding-bottom: 0rem !important;
           }
-          .feature-wrapper {
+          .basic-feature-wrapper {
             display: flex;
             flex-direction: column;
             width: 40vw;
             height: 100%;
-            max-height: 60vh;
-            background: #272c31;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-            border: 1px solid #4a5063;
-            border-radius: 5px;
           }
 
           .toggle {
@@ -122,7 +120,7 @@ const BasicFeatures = () => {
           }
 
           input:checked + .toggle-slider {
-            background-color: #2196f3;
+            background-color: #6c63ff;
           }
 
           input:focus + .toggle-slider {

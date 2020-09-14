@@ -3,6 +3,14 @@ h1.title {
     font-size: 46px;
 }
 
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem !important;
+    padding-top: 10px;
+}
+
 .loader-wrapper {
     display: flex;
     flex-direction: column;
@@ -19,8 +27,8 @@ h1.title {
     cursor: pointer;
     text-decoration: none;
     display: inline;
-    padding: 0;
-    margin-bottom: -10px !important;
+    padding: 10px;
+
 }
 
 .highlight {
@@ -42,12 +50,15 @@ h1.title {
     align-items: center;
 }
 
-.header>* {
-    margin: 10px auto;
+
+.footer-made-margin {
+    margin-left: 0.2rem !important;
 }
 
 .subtitle {
     max-width: 60vw;
+    /* margin-top: -4vh !important; */
+    padding: 10px;
 }
 
 h4 {
@@ -115,12 +126,13 @@ h4 {
 }
 
 .footer-icon {
-    font-size: 3rem;
-    color: white;
+    /* font-size: 3rem;
+    color: white; */
+    max-height: 5vh;
 }
 
 .footer-distributed {
-    background-color: #292c2f;
+    background-color: rgba(23, 20, 29, 0.65);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
@@ -128,6 +140,10 @@ h4 {
     font: normal 16px Ubuntu Mono;
     padding: 15px 50px;
 }
+
+/* .footer-copyright {
+    margin-top: -4vh;
+} */
 
 .footer-distributed .footer-left p {
     color: #8f9296;
@@ -170,6 +186,8 @@ h4 {
 .footer-distributed .footer-right {
     float: right;
     margin-top: 6px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .footer-distributed .footer-right div {
@@ -210,6 +228,14 @@ h4 {
 .footer-distributed p.footer-links a:hover {
     text-decoration: underline;
 }
+
+.image-container {
+    display: block;
+    border-radius: 50;
+    object-fit: cover;
+}
+
+
 
 /* Media Queries */
 

@@ -3,10 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { CommandType } from './commands';
 
+import CluiStore from '../../store/cluiStore';
+
 const CustomComp = (props: any) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(count + 1);
+    CluiStore.updateRun(true);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {

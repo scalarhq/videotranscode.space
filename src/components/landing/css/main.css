@@ -1,5 +1,25 @@
 /* @import url(font-awesome.min.css); */
 
+/* blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: revert !important;
+} */
+
+h1 {
+  margin-left: 0.4rem !important;
+}
+
 /*
 	Dimension by HTML5 UP
 	html5up.net | @ajlkn
@@ -628,6 +648,7 @@ table.alt tfoot {
   padding: 4rem 2rem;
   padding-top: 0.7rem !important;
   z-index: 3;
+  font-family: Rajdhani;
 }
 
 #wrapper:before {
@@ -741,7 +762,7 @@ table.alt tfoot {
   -ms-transition-delay: 0.25s;
   transition-delay: 0.25s;
   padding: 3rem 2rem;
-  max-height: 40rem;
+  /* max-height: 40rem; */
   overflow: hidden;
 }
 
@@ -883,7 +904,7 @@ body.is-loading #header .content .inner {
   }
 
   #header .content .inner {
-    padding: 2.5rem 0;
+    padding: 2.5rem 1rem;
   }
 
   #header nav ul {

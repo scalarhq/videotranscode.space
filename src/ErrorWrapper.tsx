@@ -25,7 +25,7 @@ const GlobalErrorWrapper = () => {
       console.info(`Caught Error from Worker ${message}`);
       setGlobalError({ state: true, message: message as string });
     };
-  }, [window]);
+  }, []);
 
   if (globalError.state) {
     return (<ErrorScreen errorObj={new Error(globalError.message)} />);

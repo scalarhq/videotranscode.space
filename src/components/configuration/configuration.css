@@ -1,76 +1,87 @@
 .configuration-wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  max-height: 50vh;
+  background: rgb(39, 44, 49, 0.6);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  min-height: 50vh;
+}
+
+.config {
+  min-height: 43vh;
+  max-height: 43vh;
 }
 
 .toggle {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  max-height: 5vh;
+  padding-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .toggle-label {
-    padding: 0 2%;
-    font-weight: 400;
+  padding: 0 2%;
+  font-weight: 400;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .toggle-slider:before {
-    position: absolute;
-    content: '';
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-input:checked+.toggle-slider {
-    background-color: #2196f3;
+input:checked + .toggle-slider {
+  background-color: #6c63ff;
 }
 
-input:focus+.toggle-slider {
-    box-shadow: 0 0 1px #2196f3;
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.toggle-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+input:checked + .toggle-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .toggle-slider.round {
-    border-radius: 34px;
+  border-radius: 34px;
 }
 
 .toggle-slider.round:before {
-    border-radius: 50%;
+  border-radius: 50%;
 }

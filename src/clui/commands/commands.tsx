@@ -88,8 +88,8 @@ const generateFeatures = () => {
 
 const command = {
   commands: {
+    Features: { description: 'All Available Features', ...generateFeatures() },
     Workflows: { description: 'Automated Workflows', ...custom(generateWorkflows()) },
-    Feature: { description: 'All Available Features', ...generateFeatures() },
     Clear: clear,
   },
 };

@@ -66,6 +66,7 @@ const Slider = ({
           border-radius: 100px;
           padding: 0em !important;
           border: 1px solid #2723c1 !important;
+          height : 0;
         }
 
         .slider::-webkit-slider-thumb {

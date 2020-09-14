@@ -36,7 +36,7 @@ const Submit = observer(() => {
 
   return useObserver(() => (
     <>
-      <button className="submitButton" data-tooltip={disabledTip} ref={submit} type="submit" onClick={handleSubmit} disabled={!loaded || allFiles.length === 0}>
+      <button className={`text-white font-bold py-2 px-4 mb-12 rounded ${!loaded || allFiles.length === 0 ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500'} `} data-tooltip={disabledTip} ref={submit} type="submit" onClick={handleSubmit} disabled={!loaded || allFiles.length === 0}>
         Submit
         {/* @ts-ignore Styled JSX */}
         <style jsx>

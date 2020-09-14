@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 
 import 'mobx-react/batchingForReactDom';
 
-import './index.css';
+// import './index.css';
+import './tailwind.output.css';
 // import App from './App';
 import GlobalErrorWrapper from './ErrorWrapper';
 import * as serviceWorker from './serviceWorker';

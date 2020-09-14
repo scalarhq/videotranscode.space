@@ -522,18 +522,10 @@ const DownloadButton = ({ url, ext }: { url: string, ext: string }) => {
   }, [url, ext]);
   return (
     <div className="row" style={{ paddingTop: '3%' }}>
-      <a id="download" ref={downloadButton} className="btn btn-primary" data-testid="download-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="22px" viewBox="0 0 20 22">
-          <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-            <g id="Artboard" transform="translate(-1627.000000, -1567.000000)" stroke="#000" strokeWidth="2">
-              <g id="download" transform="translate(1628.000000, 1568.000000)">
-                <path d="M0 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" id="Shape" />
-                <path id="Shape" d="M5 10l4 4 4-4" />
-                <path d="M9 0v14" id="Shape" />
-              </g>
-            </g>
-          </g>
-        </svg>
+
+      <a id="download" ref={downloadButton} data-testid="download-button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+        <span>Download</span>
       </a>
     </div>
   );

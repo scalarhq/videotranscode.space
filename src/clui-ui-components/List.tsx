@@ -66,7 +66,7 @@ const List = (props: ListProps) => {
   return (
 
     <div className="options-list-wrapper">
-      <h1>{title}</h1>
+      <h1 className="text-xl font-bold">{title}</h1>
       <div className="options-list">
         {list.map((item) => (
           <div className="options-list-item-wrapper" key={item.name}>
@@ -74,7 +74,7 @@ const List = (props: ListProps) => {
               className={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
             >
 
-              <button type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
+              <button className="outline-none" type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
             </div>
           </div>
         ))}
