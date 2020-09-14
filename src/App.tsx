@@ -23,6 +23,7 @@ import VideoPlayer from './components/video/video';
 import ErrorScreen from './components/error/Error';
 import Configuration from './components/configuration/configuration';
 import Tour from './components/tour/tour';
+import Util from './components/utils/util';
 
 import Wrapper from './components/landing/wrapper';
 
@@ -139,10 +140,10 @@ const App = () => {
           ) : null}
           {!isMobile ? (
             <div className="blur">
+              <Util />
               <Tour landing={landing}>
                 <>
                   <main>
-                    <Header />
 
                     <div className="flex-wrapper">
                       {!isSubmitted
@@ -181,8 +182,10 @@ const App = () => {
                         )}
 
                     </div>
+
                   </main>
                   <StepComponent />
+                  <Header />
                 </>
               </Tour>
             </div>
@@ -204,6 +207,10 @@ const App = () => {
             .overlay-wrapper > * {
               grid-column: 1 / 1;
               grid-row: 1 / 1;
+            }
+            main {
+              max-width: ${isSubmitted ? '80vw' : 'unset'};
+              padding-top: ${isSubmitted ? '15vh' : 'unset'};
             }
             ul {
               max-width: unset !important;

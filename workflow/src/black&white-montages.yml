@@ -1,0 +1,5 @@
+name: Black&White-Montages
+description: Montages of photos in black and white
+steps:
+  - PhotoMontage
+  - GreyScale

@@ -40,19 +40,19 @@ const FEATURES: Features = {
     feature: CompressionFeature,
     ui: <CompressionUi parents={['COMPRESS']} />,
   },
-  PhotoMontage: {
+  PHOTOMONTAGE: {
     name: 'Photo_Montages',
     description: 'Create a video montage from photos(you can add audio too!)',
     feature: PhotoMontageFeature,
     ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,
   },
-  Concat: {
+  CONCAT: {
     name: 'Combine-Videos',
     description: 'Combine multiple videos',
     feature: ConcatFeature,
     ui: <ConcatUi />,
   },
-  GreyScale: {
+  GREYSCALE: {
     name: 'Greyscale',
     description: 'Make Video black and white',
     feature: GreyScaleFeature,

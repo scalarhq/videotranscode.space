@@ -6,7 +6,7 @@
   z-index: 2;
   height: 100%;
   /* min-height: 30vh; */
-  max-height: 50vh;
+  max-height: 70vh;
 }
 
 .dropzone-text {
@@ -82,8 +82,8 @@
   border-top-color: 'none';
   border-bottom-color: 'none';
   border: '1px solid #4A5063';
-  max-height: 50vh;
-  height: 50vh;
+  max-height: 70vh;
+  height: 70vh;
   width: 100%;
 }
 
