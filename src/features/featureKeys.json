@@ -1,7 +1,7 @@
 {
   "TRANSCODE": true,
   "COMPRESS": true,
-  "PhotoMontage": true,
-  "Concat": true,
-  "GreyScale": true
+  "PHOTOMONTAGE": true,
+  "CONCAT": true,
+  "GREYSCALE": true
 }
