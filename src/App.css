@@ -28,13 +28,14 @@ main {
   width: 100%;
   align-self: stretch;
   text-align: center;
-  max-width: 30.379vh;
-  margin: -1.3em auto 0;
-  font-family: "Ubuntu Mono", monospace;
+  /* max-width: 30.379vh; */
+  /* margin: -1.3em auto 0; */
+  font-family: 'Ubuntu Mono', monospace;
   font-weight: 400;
 }
 
 .flex-wrapper {
+  padding-top: 5vh;
   display: flex;
   flex-direction: row;
   max-width: 100%;
@@ -43,12 +44,21 @@ main {
   height: 100%;
 }
 
+.tooltip .tooltip-text {
+  visibility: hidden;
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
 
 .dropzone-wrapper {
   flex: 1 0;
   flex-direction: column;
   max-width: 50%;
-  margin-bottom: 3rem;
   width: 40vw;
   padding: 0 1rem;
 }
@@ -69,6 +79,6 @@ main {
 
 @media (min-width: 640px) {
   main {
-    max-width: 150vh;
+    /* max-width: 150vh; */
   }
 }

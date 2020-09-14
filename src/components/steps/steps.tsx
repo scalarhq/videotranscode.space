@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useRef,
+  useState, useEffect,
 } from 'react';
 
 import Steps, { Step } from 'rc-steps';
@@ -39,7 +39,7 @@ const StepComponent = () => {
   const { isSubmitted } = CluiStore;
 
   useEffect(() => {
-    if (allFiles.length > 0 && current === 0) {
+    if (allFiles.length > 0) {
       setStatues((cur) => ({ ...cur, file: 'finish' }));
       setCurrent(1);
     }
@@ -54,7 +54,7 @@ const StepComponent = () => {
 
   useEffect(() => {
     if (processed) {
-      setStatues((cur) => ({ ...cur, processing: 'finish' }));
+      setStatues((cur) => ({ ...cur, processing: 'finish', download: 'finish' }));
       setCurrent(3);
     }
   }, [processed]);
@@ -65,14 +65,14 @@ const StepComponent = () => {
         <Step title="Add File" icon={<FontAwesomeIcon icon={faFile} />} status={statues.file} />
         <Step title="Choose Settings" icon={<FontAwesomeIcon icon={faCogs} />} status={statues.settings} />
         <Step title="Processing" icon={<FontAwesomeIcon icon={faClock} />} status={statues.processing} />
-        <Step title="Download" icon={<FontAwesomeIcon icon={faDownload} />} />
+        <Step title="Download" icon={<FontAwesomeIcon icon={faDownload} />} status={statues.download} />
       </Steps>
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
         .step-wrapper {
           color : inherit !important;
-          padding-top : 10vh;
+          padding-top : 2vh;
         }
         .rc-steps-item-title {
           color : inherit !important;

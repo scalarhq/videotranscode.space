@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 
 import './static.css';
 
-import Logo from '../logo';
-
 import ComponentStore from '../../store/componentStore';
 
 export function Loader() {
@@ -36,16 +34,6 @@ export function Loader() {
 export function Header() {
   return (
     <div className="header">
-      <button type="button" className="link-button " onClick={() => { ComponentStore.reset(); }}>
-
-        <div className="flex items-center">
-          {/* <div className="logo-wrapper w-1/4 "><Logo /></div> */}
-          <h1 className="title"> Browser Based Video Transcoder</h1>
-        </div>
-      </button>
-      {/* <h4 className="subtitle">
-        A video transcoder and converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.
-      </h4> */}
       <h4 className="subtitle">
         Your files are
         <span className="highlight"> not uploaded anywhere.</span>
