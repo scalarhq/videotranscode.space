@@ -44,7 +44,7 @@ const DIR_NAME = './src';
 let WORKFLOWS = {};
 
 // eslint-disable-next-line consistent-return
-const validateWorkflow = (key, workflow, features) => {
+const validateWorkflow = (key, workflow) => {
   const propNames = ['name', 'steps'];
   let err;
   propNames.forEach((name) => {
@@ -66,7 +66,7 @@ const validateWorkflow = (key, workflow, features) => {
   if (WORKFLOWS[key]) return new Error(`Codec type for: (${key}) already exists`);
 };
 
-const init = (features) => {
+const init = () => {
   const errs = [];
   fs.readdirSync(path.join(__dirname, DIR_NAME))
     .filter((file) => file.slice(file.length - 4) === '.yml' && file !== path.basename(__filename))
@@ -76,7 +76,7 @@ const init = (features) => {
     ])
     .forEach((e) => {
       e[1].steps = e[1].steps.map((step) => step.toUpperCase());
-      const err = validateWorkflow(...e, features);
+      const err = validateWorkflow(...e);
       if (err) {
         errs.push(err);
       } else {
@@ -99,7 +99,7 @@ const deleteWorkflow = () => {
 };
 
 // const features = getFeatures();
-init(features);
+init();
 
 const fileData = `
 export type WorkflowElement = { name: string;
