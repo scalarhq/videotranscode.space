@@ -25,6 +25,7 @@ export type FeatureElement = {
   description: string;
   feature: Feature;
   ui?: JSX.Element | string;
+  noDisplay?: boolean;
 };
 
 export type Features = {
