@@ -6,6 +6,7 @@ import CompressionFeature, { CompressionUi } from './src/compressionFeature';
 import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage';
 import ConcatFeature, { ConcatUi } from './src/concatFeature';
 import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature';
+import TrimFeature, { TrimUi } from './src/trimFeature';
 
 // Custom Run Feature
 
@@ -23,7 +24,8 @@ export type Feature =
   | typeof ConcatFeature
   | typeof GreyScaleFeature
   | typeof AspectRatioFeature
-  | typeof RunFeature;
+  | typeof RunFeature
+  | typeof TrimFeature;
 
 export type FeatureElement = {
   name: string;
@@ -50,12 +52,19 @@ const FEATURES: Features = {
     feature: CompressionFeature,
     ui: <CompressionUi parents={['COMPRESS']} />,
   },
+  TRIM: {
+    name: 'TRIM/CUT',
+    description: 'Trim or cut your video',
+    feature: TrimFeature,
+    ui: <TrimUi parents={['TRIM']} />,
+  },
   PHOTOMONTAGE: {
     name: 'Photo_Montages',
     description: 'Create a video montage from photos(you can add audio too!)',
     feature: PhotoMontageFeature,
     ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,
   },
+
   CONCAT: {
     name: 'Combine-Videos',
     description: 'Combine multiple videos',

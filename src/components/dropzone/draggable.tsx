@@ -21,7 +21,7 @@ const DraggableWrapper = ({ files }: DraggableWrapperProps) => {
 
   const dragHandlers = { onStart, onStop };
 
-  const thumbs = files.map((file) => (
+  const thumbs = files.map(({ file, preview }) => (
     <Draggable
       grid={[50, 50]}
       {...dragHandlers}
@@ -31,7 +31,7 @@ const DraggableWrapper = ({ files }: DraggableWrapperProps) => {
         <div className="thumb-inner">
 
           <img
-            src={file.preview}
+            src={preview}
             alt={file.name}
             className="thumb-img"
           />

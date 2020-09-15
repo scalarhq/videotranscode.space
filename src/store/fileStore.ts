@@ -86,17 +86,19 @@ class FileStore extends AbstractStore {
     type: string,
     count: number,
     extension: string
-  ): FileWithMetadata =>
-    // eslint-disable-next-line implicit-arrow-linebreak
-    ({
-      ...new File([originalFile], `${type}-input-${count}.${extension}`, {
-        type: originalFile.type,
-        lastModified: originalFile.lastModified,
-      }),
+  ): FileWithMetadata => {
+    const { file } = originalFile;
+    const newFile = new File([file], `${type}-input-${count}.${extension}`, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return {
+      file: newFile,
       preview: originalFile.preview,
       customType: originalFile.customType,
       videoMetadata: originalFile.videoMetadata,
-    });
+    };
+  };
 
   // Actions
 
@@ -133,13 +135,13 @@ class FileStore extends AbstractStore {
                 currentFileList[secondPosition],
                 type,
                 secondPosition,
-                getFileExtension(currentFileList[secondPosition].name)
+                getFileExtension(currentFileList[secondPosition].file.name)
               );
               const newFileForSecondPosition = renameFile(
                 currentFileList[position],
                 type,
                 position,
-                getFileExtension(currentFileList[position].name)
+                getFileExtension(currentFileList[position].file.name)
               );
               // Insert Position
               currentFileList[position] = newFileForPosition;
@@ -158,20 +160,23 @@ class FileStore extends AbstractStore {
           break;
         }
         case 'Insert': {
-          console.info('Insert State');
-          const { file } = transform;
-          if (file) {
-            const renamedFile = renameFile(
-              file,
-              type,
-              currentFileList?.length || 0,
-              getFileExtension(file.name)
-            );
-            currentFileList.push(renamedFile);
-            console.info('Updated File', renamedFile, 'to', currentFileList);
+          const { fileObj } = transform;
+          console.info('Insert State', fileObj);
+          if (fileObj) {
+            const { file } = fileObj;
+            if (file) {
+              const renamedFile = renameFile(
+                fileObj,
+                type,
+                currentFileList?.length || 0,
+                getFileExtension(file.name)
+              );
+              currentFileList.push(renamedFile);
+              console.info('Updated File', renamedFile, 'to', currentFileList);
 
-            if (this.terminalStore && this.terminalStore.updateTerminalText) {
-              this.terminalStore.updateTerminalText(`Received File ${file.name}`);
+              if (this.terminalStore && this.terminalStore.updateTerminalText) {
+                this.terminalStore.updateTerminalText(`Received File ${file.name}`);
+              }
             }
           }
           break;
@@ -240,7 +245,7 @@ class FileStore extends AbstractStore {
    */
   @computed get allFiles() {
     const { files } = this;
-    let fileValues: File[] = [];
+    let fileValues: FileWithMetadata[] = [];
     if (files.audio) {
       fileValues = fileValues.concat(files.audio);
     }
@@ -260,7 +265,7 @@ class FileStore extends AbstractStore {
   @computed get fileData() {
     const { allFiles, getFileExtension, sizeHumanReadable } = this;
 
-    const fileData: Array<{ size: string; ext: string }> = allFiles.map((file) => ({
+    const fileData: Array<{ size: string; ext: string }> = allFiles.map(({ file }) => ({
       size: sizeHumanReadable(file.size),
       ext: getFileExtension(file.name),
     }));

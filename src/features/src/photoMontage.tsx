@@ -62,7 +62,7 @@ class PhotoMontageFeature extends FFmpegFeature {
     const audioFiles = this.FileStore.files.audio;
     if (audioFiles) {
       // Append Image Input Command with Audio Input
-      this.ffmpegInputCommand = `${this.ffmpegInputCommand} -i ${audioFiles[0].name}`;
+      this.ffmpegInputCommand = `${this.ffmpegInputCommand} -i ${audioFiles[0].file.name}`;
     }
   }
 

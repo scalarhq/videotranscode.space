@@ -113,27 +113,29 @@ const Dropzone = () => {
     const newFiles: Array<FileWithMetadata> = await Promise.all(acceptedFiles.map(
       async (file: File) => {
         if (file.type.match('image')) {
-          return Object.assign(file, { preview: URL.createObjectURL(file), customType: 'image' });
+          return { file, preview: URL.createObjectURL(file), customType: 'image' };
         }
         if (file.type.match('video')) {
           // Generate preview for Video
           try {
             const videoData = await createVideoThumbnail(file);
-            return Object.assign(file, { preview: videoData.preview, customType: 'video', videoMetadata: videoData.videoMetadata });
+            return {
+              file, preview: videoData.preview, customType: 'video', videoMetadata: videoData.videoMetadata,
+            };
           } catch (err) {
-            return Object.assign(file, { preview: '', customType: 'video' });
+            return { file, preview: '', customType: 'video' };
           }
         }
         if (file.type.match('audio')) {
-          return Object.assign(file, { preview: '', customType: 'audio' });
+          return { file, preview: '', customType: 'audio' };
         }
 
-        return Object.assign(file, { preview: '', customType: 'other' });
+        return { file, preview: '', customType: 'other' };
       },
     ));
     const transforms: FileTransformType[] = [];
     for (const newFile of newFiles) {
-      const newTransform: FileTransformType = { type: newFile.customType, file: newFile, state: 'Insert' };
+      const newTransform: FileTransformType = { type: newFile.customType, fileObj: newFile, state: 'Insert' };
       transforms.push(newTransform);
     }
     updateFiles(transforms);

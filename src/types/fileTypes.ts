@@ -17,12 +17,13 @@ export type FileTypes = keyof InputFilesType;
 export type FileTransformType = {
   state: 'Move' | 'Insert' | 'Delete';
   position?: number;
-  file?: FileWithMetadata;
+  fileObj?: FileWithMetadata;
   type: FileTypes;
   secondPosition?: number;
 };
 
-export type FileWithMetadata = File & {
+export type FileWithMetadata = {
+  file: File;
   preview: string;
   customType: 'video' | 'audio' | 'image' | 'other';
   videoMetadata?: {
