@@ -58,22 +58,24 @@ const generateFeatures = () => {
   const featureKeys = Object.keys(features);
   for (const key of featureKeys) {
     const currentFeature = features[key as keyof typeof features];
-    if (currentFeature.ui) {
-      const newFeature: CommandType = {
-        command: `${currentFeature.name}`,
-        description: currentFeature.description,
-        ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as string} />),
-        steps: [currentFeature.feature],
-      };
-      featuresWithUI.push(newFeature);
-    } else {
-      const runnableFeature = {
-        [currentFeature.name]: {
+    if (!currentFeature.noDisplay) {
+      if (currentFeature.ui) {
+        const newFeature: CommandType = {
+          command: `${currentFeature.name}`,
           description: currentFeature.description,
-          run: () => <DirectExecute featureKey={key as string} />,
-        },
-      };
-      featuresWithoutUI.push(runnableFeature);
+          ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as string} />),
+          steps: [currentFeature.feature],
+        };
+        featuresWithUI.push(newFeature);
+      } else {
+        const runnableFeature = {
+          [currentFeature.name]: {
+            description: currentFeature.description,
+            run: () => <DirectExecute featureKey={key as string} />,
+          },
+        };
+        featuresWithoutUI.push(runnableFeature);
+      }
     }
   }
   const renderedFeatures = custom(featuresWithUI);
@@ -86,10 +88,23 @@ const generateFeatures = () => {
   return { commands: output };
 };
 
+const { CUSTOM_RUN } = features;
+
+const customRunCommand = () => {
+  const customRunFeature: CommandType = {
+    command: `${CUSTOM_RUN.name}`,
+    description: CUSTOM_RUN.description,
+    ui: (<FeatureUi ui={CUSTOM_RUN.ui as JSX.Element} featureKey="CUSTOM_RUN" />),
+    steps: [CUSTOM_RUN.feature],
+  };
+  return custom([customRunFeature]);
+};
+
 const command = {
   commands: {
     Features: { description: 'All Available Features', ...generateFeatures() },
     Workflows: { description: 'Automated Workflows', ...custom(generateWorkflows()) },
+    ...customRunCommand().commands,
     Clear: clear,
   },
 };
