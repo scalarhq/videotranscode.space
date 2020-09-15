@@ -25,8 +25,6 @@ import Configuration from './components/configuration/configuration';
 import Tour from './components/tour/tour';
 import Util from './components/utils/util';
 
-import Wrapper from './components/landing/wrapper';
-
 // Types
 
 // Stores
@@ -41,7 +39,6 @@ const App = () => {
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
-    landing,
     updateLoadError,
 
     FileStore,
@@ -61,12 +58,12 @@ const App = () => {
   const [secondLoad, setSecondLoad] = useState(false);
 
   useEffect(() => {
-    if (landing === false && isLoading === false) {
+    if (isLoading === false) {
       setLoading(true);
-      setTimeout(() => { loadFFmpeg(); }, 200);
+      setTimeout(() => { loadFFmpeg(); }, 500);
     }
     // eslint-disable-next-line
-  }, [landing]);
+  }, []);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -133,15 +130,10 @@ const App = () => {
 
         <div className="overlay-wrapper">
 
-          {landing ? (
-            <div className="overlay">
-              <Wrapper />
-            </div>
-          ) : null}
           {!isMobile ? (
             <div className="blur">
               <Util />
-              <Tour landing={landing}>
+              <Tour>
                 <>
                   <main>
 
@@ -163,7 +155,11 @@ const App = () => {
                         )
                           : (
                             <Fade bottom>
-                              <VideoPlayer url={url} toDisplay={toDisplay} ext={currentFileExtension} />
+                              <VideoPlayer
+                                url={url}
+                                toDisplay={toDisplay}
+                                ext={currentFileExtension}
+                              />
                             </Fade>
                           )}
 
@@ -193,13 +189,6 @@ const App = () => {
           {/* @ts-ignore Styled JSX */}
           <style jsx>
             {`
-            .blur {
-              filter: ${landing ? 'blur(4px)' : 'unset'};
-              z-index:  ${landing ? '0' : '10'};;
-            }
-            .overlay {
-              z-index: 1;
-            }
             .overlay-wrapper {
               display: grid;
               grid-template: 1fr / 1fr;
@@ -222,7 +211,7 @@ const App = () => {
 
         </div>
 
-        {!landing ? (<Footer />) : null}
+        <Footer />
 
       </>
     </Router>

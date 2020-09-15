@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://videotranscode.space"><img src="./documentation/logo.png" alt="videotranscode.space logo" height="160"></a>
+  <a href="https://modfy.video"><img src="./documentation/logo.png" alt="modfy.video logo" height="160"></a>
   <br>
   <br>
   <p>
@@ -18,26 +18,26 @@
   <p>
     <sub>Built with ❤︎ by
       <a href="https://github.com/CryogenicPlanet">CryogenicPlanet</a> and
-      <a href="https://github.com/etwas-builders/video-transcoder/graphs/contributors">contributors</a>
+      <a href="https://github.com/etwas-builders/modfy.video/graphs/contributors">contributors</a>
     </sub>
   </p>
 </div>
 
 ---
 
-## [Contributing](https://docs.videotranscode.space/pages/get%20started/contributingguidelines)
+## [Contributing](https://docs.modfy.video/pages/get%20started/contributingguidelines)
 
-See [Quick Start](https://docs.videotranscode.space/pages/get%20started/quickstart) to learn how to get the project setup and working.
+See [Quick Start](https://docs.modfy.video/pages/get%20started/quickstart) to learn how to get the project setup and working.
 
-Our [Contributing Guidelines](https://docs.videotranscode.space/pages/get%20started/contributingguidelines) also should be a good starting point.
+Our [Contributing Guidelines](https://docs.modfy.video/pages/get%20started/contributingguidelines) also should be a good starting point.
 
-## [Documentation](https://docs.videotranscode.space/)
+## [Documentation](https://docs.modfy.video/)
 
 Full documentation is at https://docs.videotranscode.space/
 
-The API Reference is [here](https://docs.videotranscode.space/globals.html)
+The API Reference is [here](https://docs.modfy.video/globals.html)
 
-## [Project Structure](https://docs.videotranscode.space/pages/get%20started/projectstructure)
+## [Project Structure](https://docs.modfy.video/pages/get%20started/projectstructure)
 
 ## Browser Support
 
