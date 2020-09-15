@@ -1,6 +1,6 @@
 {
-  "short_name": "Video Transcoder",
-  "name": "Browser Based Video Transcoder using WebAssembly",
+  "short_name": "Modfy",
+  "name": "Modfy - Browser Based Video Transcoder using WebAssembly",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "https://videotranscode.space/",
+  "start_url": "https://modfy.video/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
