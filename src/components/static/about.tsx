@@ -11,7 +11,7 @@ const AboutPage = () => (
         <p>
           {'>'}
           {' '}
-          A Browser Based Video Transcoder is a fancy way of saying that we process video/audio on your browser. To elaborate, we are not processing these video files in a server like conventional video tools on the internet. But rather are using your own computer and browser to process these files.
+          A Browser Based Video Transcoder is a fancy way of saying that we process video/audio on your browser. To elaborate, we are not processing these video files in a server like conventional video tools on the internet;rather, we are using your own computer and browser to process these files.
           {' '}
         </p>
       </div>
@@ -88,6 +88,9 @@ const AboutPage = () => (
           <ul>
             <li>Converting Video Formats(Transcoding)</li>
             <li>Reducing Size of Video(Compressing)</li>
+            <li>Make Montages of Photos</li>
+            <li>Change Aspect Ratio of Videos</li>
+            <li>Combine Videos(Concating)</li>
           </ul>
         </p>
       </div>
