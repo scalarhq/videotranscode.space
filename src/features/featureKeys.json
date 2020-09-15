@@ -3,5 +3,6 @@
   "COMPRESS": true,
   "PHOTOMONTAGE": true,
   "CONCAT": true,
-  "GREYSCALE": true
+  "GREYSCALE": true,
+  "ASPECT_RATIO": true
 }

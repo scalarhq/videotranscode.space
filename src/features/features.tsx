@@ -5,16 +5,20 @@ import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature';
 import CompressionFeature, { CompressionUi } from './src/compressionFeature';
 import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage';
 import ConcatFeature, { ConcatUi } from './src/concatFeature';
+import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature';
+
+// UI LESS Features
+import GreyScaleFeature from './src/greyScaleFeature';
 
 import keys from './featureKeys.json';
-import GreyScaleFeature from './src/greyScaleFeature';
 
 export type Feature =
   typeof TranscodeFeature
   | typeof CompressionFeature
   | typeof PhotoMontageFeature
   | typeof ConcatFeature
-  | typeof GreyScaleFeature;
+  | typeof GreyScaleFeature
+  | typeof AspectRatioFeature;
 
 export type FeatureElement = {
   name: string;
@@ -56,6 +60,12 @@ const FEATURES: Features = {
     name: 'Greyscale',
     description: 'Make Video black and white',
     feature: GreyScaleFeature,
+  },
+  ASPECT_RATIO: {
+    name: 'Aspect-Ratio',
+    description: 'Change the aspect ratio for the video',
+    feature: AspectRatioFeature,
+    ui: <AspectRatioUi parents={['ASPECT_RATIO']} />,
   },
 };
 
