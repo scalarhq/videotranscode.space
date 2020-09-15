@@ -112,7 +112,7 @@ export function Footer() {
 
           <a
             className="link-class"
-            href="https://docs.videotranscode.space/"
+            href="https://docs.modfy.video/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -122,7 +122,7 @@ export function Footer() {
 
           <a
             className="link-class"
-            href="https://github.com/Etwas-Builders/Video-Transcoder"
+            href="https://github.com/Etwas-Builders/modfy.video"
             target="_blank"
             rel="noopener noreferrer"
           >

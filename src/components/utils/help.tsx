@@ -24,7 +24,7 @@ const HoverGuide = () => (
                 {' '}
                 Add Files
               </div>
-              <p className="text-white text-base">Drag and drop as many files here.</p>
+              <p className="text-white text-base">Drag and drop as many files as you want here.</p>
               {' '}
               <p className="text-white text-base">  Videos, Audio and Images are accepted. </p>
             </div>
@@ -70,7 +70,11 @@ const HoverGuide = () => (
                   {' '}
                   Intimated by the CLUI?
                 </div>
-                <p className="text-white text-base">Do not understand the CLUI no issues, just toggle</p>
+                <p className="text-white text-base">
+                  Don't
+                  {' '}
+                  understand the CLUI? No problem, just click the toggle!
+                </p>
               </div>
             </div>
           </div>

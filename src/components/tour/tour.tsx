@@ -16,9 +16,9 @@ const tourOptions = {
   scrollTo: { behavior: 'smooth', block: 'center' },
 };
 
-type TourProps = { children: JSX.Element, landing: boolean }
+type TourProps = { children: JSX.Element, }
 
-const Tour = ({ children, landing }: TourProps) => {
+const Tour = ({ children }: TourProps) => {
   const tour = useContext(ShepherdTourContext);
 
   useEffect(() => {
@@ -38,25 +38,25 @@ const Tour = ({ children, landing }: TourProps) => {
     } else {
       conductTour = true;
     }
-    if (!landing && conductTour) {
+    if (conductTour) {
       console.info('Starting Tour!');
       // @ts-ignore
       tour.start();
       window.localStorage.setItem('tour', `${new Date().toISOString()}`);
     }
     // eslint-disable-next-line
-  }, [landing]);
+  }, []);
 
   return (
     <div>{children}</div>
   );
 };
 
-const TourWrapper = ({ children, landing }: TourProps) => (
+const TourWrapper = ({ children }: TourProps) => (
   <div>
     {/* @ts-ignore Tour Step */}
     <ShepherdTour steps={steps} tourOptions={tourOptions}>
-      <Tour landing={landing}>{children}</Tour>
+      <Tour>{children}</Tour>
     </ShepherdTour>
   </div>
 );
