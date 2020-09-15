@@ -7,6 +7,10 @@ import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage';
 import ConcatFeature, { ConcatUi } from './src/concatFeature';
 import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature';
 
+// Custom Run Feature
+
+import RunFeature, { RunUi } from './src/runFeature';
+
 // UI LESS Features
 import GreyScaleFeature from './src/greyScaleFeature';
 
@@ -18,7 +22,8 @@ export type Feature =
   | typeof PhotoMontageFeature
   | typeof ConcatFeature
   | typeof GreyScaleFeature
-  | typeof AspectRatioFeature;
+  | typeof AspectRatioFeature
+  | typeof RunFeature;
 
 export type FeatureElement = {
   name: string;
@@ -57,16 +62,28 @@ const FEATURES: Features = {
     feature: ConcatFeature,
     ui: <ConcatUi />,
   },
-  GREYSCALE: {
-    name: 'Greyscale',
-    description: 'Make Video black and white',
-    feature: GreyScaleFeature,
-  },
+
   ASPECT_RATIO: {
     name: 'Aspect-Ratio',
     description: 'Change the aspect ratio for the video',
     feature: AspectRatioFeature,
     ui: <AspectRatioUi parents={['ASPECT_RATIO']} />,
+  },
+
+  CUSTOM_RUN: {
+    name: 'Custom-Run(Experimental)',
+    description: 'Run your own ffmpeg command',
+    feature: RunFeature,
+    ui: <RunUi parents={['RUN']} />,
+    noDisplay: true,
+  },
+
+  // UI LESS FEATURES
+
+  GREYSCALE: {
+    name: 'Greyscale',
+    description: 'Make Video black and white',
+    feature: GreyScaleFeature,
   },
 };
 

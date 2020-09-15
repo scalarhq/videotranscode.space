@@ -4,5 +4,6 @@
   "PHOTOMONTAGE": true,
   "CONCAT": true,
   "GREYSCALE": true,
-  "ASPECT_RATIO": true
+  "ASPECT_RATIO": true,
+  "CUSTOM_RUN": true
 }

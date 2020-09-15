@@ -88,10 +88,23 @@ const generateFeatures = () => {
   return { commands: output };
 };
 
+const { CUSTOM_RUN } = features;
+
+const customRunCommand = () => {
+  const customRunFeature: CommandType = {
+    command: `${CUSTOM_RUN.name}`,
+    description: CUSTOM_RUN.description,
+    ui: (<FeatureUi ui={CUSTOM_RUN.ui as JSX.Element} featureKey="CUSTOM_RUN" />),
+    steps: [CUSTOM_RUN.feature],
+  };
+  return custom([customRunFeature]);
+};
+
 const command = {
   commands: {
     Features: { description: 'All Available Features', ...generateFeatures() },
     Workflows: { description: 'Automated Workflows', ...custom(generateWorkflows()) },
+    ...customRunCommand().commands,
     Clear: clear,
   },
 };
