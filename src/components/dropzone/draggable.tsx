@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 
-import { FileWithPreview } from '../../types/fileTypes';
+import { FileWithMetadata } from '../../types/fileTypes';
 
 type DraggableWrapperProps = {
-  files: FileWithPreview[]
+  files: FileWithMetadata[]
 }
 
 const DraggableWrapper = ({ files }: DraggableWrapperProps) => {

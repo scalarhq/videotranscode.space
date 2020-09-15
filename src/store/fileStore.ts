@@ -11,6 +11,8 @@ import {
   FileTypes,
   CustomFileType,
   FileNameTypes,
+  VideoFilesType,
+  FileWithMetadata,
 } from '../types/fileTypes';
 
 class FileStore extends AbstractStore {
@@ -24,6 +26,9 @@ class FileStore extends AbstractStore {
   @observable currentFile: CustomFileType = { name: '', type: 'video' };
 
   @observable files: InputFilesType = {};
+
+  // An array of just video files, duplicated with video metadata
+  @observable videoFiles: VideoFilesType = [];
 
   // Files added to FFmpeg
   @observable loadedFiles: FileNameTypes = {};
@@ -76,11 +81,21 @@ class FileStore extends AbstractStore {
    * @param count Number of files in file category
    * @param extension File's extension
    */
-  renameFile = (originalFile: File, type: string, count: number, extension: string) =>
+  renameFile = (
+    originalFile: FileWithMetadata,
+    type: string,
+    count: number,
+    extension: string
+  ): FileWithMetadata =>
     // eslint-disable-next-line implicit-arrow-linebreak
-    new File([originalFile], `${type}-input-${count}.${extension}`, {
-      type: originalFile.type,
-      lastModified: originalFile.lastModified,
+    ({
+      ...new File([originalFile], `${type}-input-${count}.${extension}`, {
+        type: originalFile.type,
+        lastModified: originalFile.lastModified,
+      }),
+      preview: originalFile.preview,
+      customType: originalFile.customType,
+      videoMetadata: originalFile.videoMetadata,
     });
 
   // Actions

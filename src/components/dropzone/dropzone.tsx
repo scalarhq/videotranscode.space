@@ -10,7 +10,7 @@ import './dropzone.css';
 
 import FileStore from '../../store/fileStore';
 
-import { FileTransformType, FileWithPreview } from '../../types/fileTypes';
+import { FileTransformType, FileWithMetadata } from '../../types/fileTypes';
 
 import DraggableWrapper from './draggable';
 
@@ -19,7 +19,12 @@ import useEventListener from '../../ts/useEventListener';
 const { updateFiles } = FileStore;
 
 const createVideoThumbnail = (videoFile: File) => {
-  const thumbnail = new Promise<string>((resolve, reject) => {
+  const thumbnail = new Promise<{
+    preview: string, videoMetadata?: {
+      height: number, width: number, duration: number;
+      otherMetadata: any;
+    }
+  }>((resolve, reject) => {
     try {
       const videoElement = document.createElement('video');
       const canPlay = videoElement.canPlayType(videoFile.type);
@@ -37,7 +42,15 @@ const createVideoThumbnail = (videoFile: File) => {
         const img = videoCanvas.toDataURL();
         const success = img.length > 100000;
         if (success) {
-          resolve(img);
+          resolve({
+            preview: img,
+            videoMetadata: {
+              height: videoElement.videoHeight,
+              width: videoElement.videoWidth,
+              duration: videoElement.duration,
+              otherMetadata: videoElement,
+            },
+          });
         }
         return success;
       };
@@ -73,7 +86,7 @@ const createVideoThumbnail = (videoFile: File) => {
 };
 
 const Dropzone = () => {
-  const [files, setFiles] = useState<Array<FileWithPreview>>([]);
+  const [files, setFiles] = useState<Array<FileWithMetadata>>([]);
 
   const [scroll, setScroll] = useState(0);
 
@@ -97,7 +110,7 @@ const Dropzone = () => {
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
-    const newFiles: Array<FileWithPreview> = await Promise.all(acceptedFiles.map(
+    const newFiles: Array<FileWithMetadata> = await Promise.all(acceptedFiles.map(
       async (file: File) => {
         if (file.type.match('image')) {
           return Object.assign(file, { preview: URL.createObjectURL(file), customType: 'image' });
@@ -105,8 +118,8 @@ const Dropzone = () => {
         if (file.type.match('video')) {
           // Generate preview for Video
           try {
-            const videoThumbnail = await createVideoThumbnail(file);
-            return Object.assign(file, { preview: videoThumbnail, customType: 'video' });
+            const videoData = await createVideoThumbnail(file);
+            return Object.assign(file, { preview: videoData.preview, customType: 'video', videoMetadata: videoData.videoMetadata });
           } catch (err) {
             return Object.assign(file, { preview: '', customType: 'video' });
           }
