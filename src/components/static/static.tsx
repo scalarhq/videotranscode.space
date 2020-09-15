@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 
 import './static.css';
 
-import ComponentStore from '../../store/componentStore';
-
 export function Loader() {
   return (
     <div className="loader-wrapper">
