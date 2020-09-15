@@ -147,7 +147,7 @@ export function Footer() {
           </a>
         </p>
 
-        <div className="flex items-end footer-copyright">
+        <div className="footer-copyright">
           <p>
             Made
             with
