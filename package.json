@@ -42,8 +42,7 @@
     "react-select": "^3.1.0",
     "react-shepherd": "^3.3.0",
     "shepherd.js": "^8.0.2",
-    "styled-jsx": "^3.3.0",
-    "typescript": "^3.9.6"
+    "styled-jsx": "^3.3.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -71,11 +70,12 @@
     "tailwindcss": "^1.8.8",
     "typedoc": "^0.17.8",
     "typedoc-plugin-pages": "^1.0.1",
+    "typescript": "^4.0.2",
     "ytdl-core": "^3.1.2",
     "ytsr": "^0.1.15"
   },
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js' --html",
+    "analyze": "source-map-explorer 'build/static/js/*.js' --html ./analyze.html",
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
     "prestart": "yarn build:tailwind",
     "prebuild": "NODE_ENV=production yarn build:tailwind",
