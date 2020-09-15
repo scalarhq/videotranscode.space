@@ -1,10 +1,10 @@
 module.exports = {
-  purge: {
-    content: ['./src/*.ts', './src/*.tsx'],
-    options: {
-      whitelist: ['bg-color-500'],
-    },
-  },
+  // purge: {
+  //   content: ['./src/*.ts', './src/*.tsx'],
+  //   options: {
+  //     whitelist: ['bg-color-500'],
+  //   },
+  // },
   theme: {
     extend: {},
   },

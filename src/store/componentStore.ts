@@ -24,8 +24,6 @@ class ComponentStore extends AbstractStore {
 
   @observable loaded = false;
 
-  @observable landing = true;
-
   constructor() {
     super();
     this.init();
@@ -87,11 +85,6 @@ class ComponentStore extends AbstractStore {
   updateLoadError = (state: boolean, err: Error) => {
     this.isLoadingError = state;
     this.loadingErrorObj = err;
-  };
-
-  @action('Update Landing')
-  updateLanding = (state: boolean) => {
-    this.landing = state;
   };
 }
 // @ts-ignore
