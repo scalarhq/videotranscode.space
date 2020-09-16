@@ -31,7 +31,7 @@ h1.title {
 }
 
 .highlight {
-  color: #ff3e00;
+  color: #6c63ff;
 }
 
 .moz-builders {
@@ -237,6 +237,7 @@ h4 {
 /* Media Queries */
 
 @media (max-width: 600px) {
+
   .footer-distributed .footer-left,
   .footer-distributed .footer-right {
     text-align: center;

@@ -158,7 +158,7 @@ const HelpUtl = () => {
         <div className="help-utl">
           <div className="hover-container">
             {/* @ts-ignore */}
-            <div className="hoverable" ref={hoverRef}><HelpSvg width="2rem" /></div>
+            <div className="hoverable" ref={hoverRef}><HelpSvg width="2.5rem" /></div>
             <div className="hover-display" ref={hoverDisplay}>
               <HoverGuide />
             </div>

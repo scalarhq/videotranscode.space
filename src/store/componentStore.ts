@@ -24,6 +24,8 @@ class ComponentStore extends AbstractStore {
 
   @observable loaded = false;
 
+  @observable startTour: () => void = () => {};
+
   constructor() {
     super();
     this.init();

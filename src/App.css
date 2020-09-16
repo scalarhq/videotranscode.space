@@ -60,7 +60,7 @@ main {
   flex-direction: column;
   max-width: 50%;
   width: 40vw;
-  padding: 0 1rem;
+  padding-right: 1rem;
 }
 
 .video-wrapper {
