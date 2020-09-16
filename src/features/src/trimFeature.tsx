@@ -123,7 +123,7 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
     handleStyle: {
       height: 30,
       width: 30,
-      border: '5px solid black',
+      border: '3px solid black',
       backgroundColor: '#3FBD71',
     },
   };

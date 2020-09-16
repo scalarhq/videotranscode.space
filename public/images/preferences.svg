@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" fill="#6c63ff" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#6c63ff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+<path class="st0" d="M102,30c4.4,0,8,3.6,8,8v60c0,4.4-3.6,8-8,8H30c-4.4,0-8-3.6-8-8V38c0-4.4,3.6-8,8-8H102z" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="41" y1="46" x2="92" y2="46" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="54" y1="52" x2="54" y2="40" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="41" y1="86" x2="92" y2="86" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="66" y1="92" x2="66" y2="80" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="92" y1="66" x2="41" y2="66" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+<line class="st0" x1="82" y1="72" x2="82" y2="60" style="fill: none; stroke: #6c63ff; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 4;"/>
+
+	
+	
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="Preferences, Options, Settings, Interface" dc:description="Preferences, Options, Settings, Interface" dc:publisher="Iconscout" dc:date="2016-12-14" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Kirill Kazachek</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>
