@@ -20,8 +20,8 @@ const Clui = () => (
     </div>
     <div className="clui-background flex flex-col justify-center h-full">
       <div className="flex justify-end">
-        <div className="w-2/3">
-          {CluiStore.ran ? null : <img alt="Setting Svg" src="images/undraw_adjustments_p22m.svg" />}
+        <div className="w-1/2">
+          {CluiStore.ran ? null : <img alt="Setting Svg" src="images/preferences.svg" />}
           {/* <img src="images/undraw_set_preferences_kwia.svg" /> */}
         </div>
       </div>

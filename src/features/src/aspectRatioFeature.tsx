@@ -74,19 +74,20 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
 
   return (
     <div className="flex flex-col">
+      <p className="text-xl font-bold">Aspect Ratio Feature</p>
       <div className="dar-input-wrapper">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide  text-xs font-bold mb-2" htmlFor="dar-width">
               Width
             </label>
-            <input className="appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="dar-width" type="number" value={width} onChange={(e) => setWidth(parseInt(e.target.value, 10))} />
+            <input className="input-like-text appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75" id="dar-width" type="number" value={width} onChange={(e) => setWidth(parseInt(e.target.value, 10))} />
           </div>
           <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide  text-xs font-bold mb-2" htmlFor="dar-height">
               Height
             </label>
-            <input className="appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="dar-height" type="number" value={height} onChange={(e) => setHeight(parseInt(e.target.value, 10))} />
+            <input className="input-like-text appearance-none block w-full bg-gray-700 bg-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none  focus:bg-opacity-75" id="dar-height" type="number" value={height} onChange={(e) => setHeight(parseInt(e.target.value, 10))} />
           </div>
         </div>
       </div>

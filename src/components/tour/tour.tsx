@@ -6,6 +6,8 @@ import steps from './steps';
 
 import 'shepherd.js/dist/css/shepherd.css';
 
+import ComponentStore from '../../store/componentStore';
+
 const tourOptions = {
   defaultStepOptions: {
     cancelIcon: {
@@ -44,6 +46,13 @@ const Tour = ({ children }: TourProps) => {
       tour.start();
       window.localStorage.setItem('tour', `${new Date().toISOString()}`);
     }
+
+    ComponentStore.startTour = tour ? tour.start : () => { };
+
+    return () => {
+      ComponentStore.startTour = () => { };
+    };
+
     // eslint-disable-next-line
   }, []);
 

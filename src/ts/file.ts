@@ -20,8 +20,8 @@ const loadFiles = async () => {
     const currentFileList = files[type as FileTypes];
     if (currentFileList) {
       console.info('Chosen files', currentFileList);
-      for (const file of currentFileList) {
-        uploadFiles[type as FileTypes].push(ffmpegWriter(file));
+      for (const fileObj of currentFileList) {
+        uploadFiles[type as FileTypes].push(ffmpegWriter(fileObj.file));
       }
     }
   }

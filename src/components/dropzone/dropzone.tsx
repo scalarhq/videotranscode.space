@@ -8,18 +8,26 @@ import { useDropzone } from 'react-dropzone';
 
 import './dropzone.css';
 
-import FileStore from '../../store/fileStore';
+import { observer } from 'mobx-react';
+import ComponentStore from '../../store/componentStore';
 
-import { FileTransformType, FileWithPreview } from '../../types/fileTypes';
+import { FileTransformType, FileWithMetadata } from '../../types/fileTypes';
 
 import DraggableWrapper from './draggable';
 
 import useEventListener from '../../ts/useEventListener';
 
+const { FileStore } = ComponentStore;
+
 const { updateFiles } = FileStore;
 
 const createVideoThumbnail = (videoFile: File) => {
-  const thumbnail = new Promise<string>((resolve, reject) => {
+  const thumbnail = new Promise<{
+    preview: string, videoMetadata?: {
+      height: number, width: number, duration: number;
+      otherMetadata: any;
+    }
+  }>((resolve, reject) => {
     try {
       const videoElement = document.createElement('video');
       const canPlay = videoElement.canPlayType(videoFile.type);
@@ -37,7 +45,15 @@ const createVideoThumbnail = (videoFile: File) => {
         const img = videoCanvas.toDataURL();
         const success = img.length > 100000;
         if (success) {
-          resolve(img);
+          resolve({
+            preview: img,
+            videoMetadata: {
+              height: videoElement.videoHeight,
+              width: videoElement.videoWidth,
+              duration: videoElement.duration,
+              otherMetadata: videoElement,
+            },
+          });
         }
         return success;
       };
@@ -73,13 +89,21 @@ const createVideoThumbnail = (videoFile: File) => {
 };
 
 const Dropzone = () => {
-  const [files, setFiles] = useState<Array<FileWithPreview>>([]);
+  const [files, setFiles] = useState<Array<FileWithMetadata>>([]);
 
   const [scroll, setScroll] = useState(0);
 
   const dropzoneRef = React.useRef<HTMLDivElement | null>(null);
 
   const thumbnailRef = React.useRef<HTMLDivElement | null>(null);
+
+  const { globalReset } = ComponentStore;
+
+  useEffect(() => {
+    if (globalReset) {
+      setFiles([]);
+    }
+  }, [globalReset]);
 
   const translateScroll = (e: WheelEvent) => {
     const maxScroll = thumbnailRef?.current?.scrollHeight || 500;
@@ -97,30 +121,32 @@ const Dropzone = () => {
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
-    const newFiles: Array<FileWithPreview> = await Promise.all(acceptedFiles.map(
+    const newFiles: Array<FileWithMetadata> = await Promise.all(acceptedFiles.map(
       async (file: File) => {
         if (file.type.match('image')) {
-          return Object.assign(file, { preview: URL.createObjectURL(file), customType: 'image' });
+          return { file, preview: URL.createObjectURL(file), customType: 'image' };
         }
         if (file.type.match('video')) {
           // Generate preview for Video
           try {
-            const videoThumbnail = await createVideoThumbnail(file);
-            return Object.assign(file, { preview: videoThumbnail, customType: 'video' });
+            const videoData = await createVideoThumbnail(file);
+            return {
+              file, preview: videoData.preview, customType: 'video', videoMetadata: videoData.videoMetadata,
+            };
           } catch (err) {
-            return Object.assign(file, { preview: '', customType: 'video' });
+            return { file, preview: '', customType: 'video' };
           }
         }
         if (file.type.match('audio')) {
-          return Object.assign(file, { preview: '', customType: 'audio' });
+          return { file, preview: '', customType: 'audio' };
         }
 
-        return Object.assign(file, { preview: '', customType: 'other' });
+        return { file, preview: '', customType: 'other' };
       },
     ));
     const transforms: FileTransformType[] = [];
     for (const newFile of newFiles) {
-      const newTransform: FileTransformType = { type: newFile.customType, file: newFile, state: 'Insert' };
+      const newTransform: FileTransformType = { type: newFile.customType, fileObj: newFile, state: 'Insert' };
       transforms.push(newTransform);
     }
     updateFiles(transforms);
@@ -176,4 +202,4 @@ const Dropzone = () => {
     </div>
   );
 };
-export default Dropzone;
+export default observer(Dropzone);

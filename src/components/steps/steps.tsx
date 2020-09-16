@@ -25,14 +25,18 @@ type Statuses = {
   download: Status
 }
 
+const defaultStatus: Statuses = {
+  file: 'wait', settings: 'wait', processing: 'wait', download: 'wait',
+};
+
 const StepComponent = () => {
   const [current, setCurrent] = useState(0);
 
-  const [statues, setStatues] = useState<Statuses>({
-    file: 'wait', settings: 'wait', processing: 'wait', download: 'wait',
-  });
+  const [statues, setStatues] = useState<Statuses>(defaultStatus);
 
-  const { processed, CluiStore, FileStore } = ComponentStore;
+  const {
+    processed, globalReset, CluiStore, FileStore,
+  } = ComponentStore;
 
   const { allFiles } = FileStore;
 
@@ -44,6 +48,13 @@ const StepComponent = () => {
       setCurrent(1);
     }
   }, [allFiles]);
+
+  useEffect(() => {
+    if (globalReset) {
+      setStatues(defaultStatus);
+      setCurrent(0);
+    }
+  }, [globalReset]);
 
   useEffect(() => {
     if (isSubmitted) {

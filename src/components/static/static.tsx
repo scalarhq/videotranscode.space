@@ -34,7 +34,7 @@ export function Header() {
     <div className="header">
       <h4 className="subtitle">
         Your files are
-        <span className="highlight"> not uploaded anywhere.</span>
+        <span className="highlight font-bold"> not uploaded anywhere.</span>
       </h4>
     </div>
   );
@@ -147,7 +147,7 @@ export function Footer() {
           </a>
         </p>
 
-        <div className="flex items-end footer-copyright">
+        <div className="footer-copyright">
           <p>
             Made
             with

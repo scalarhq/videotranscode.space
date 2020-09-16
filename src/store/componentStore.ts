@@ -24,6 +24,10 @@ class ComponentStore extends AbstractStore {
 
   @observable loaded = false;
 
+  @observable startTour: () => void = () => {};
+
+  @observable globalReset = false;
+
   constructor() {
     super();
     this.init();
@@ -40,6 +44,7 @@ class ComponentStore extends AbstractStore {
   };
 
   @action reset = () => {
+    this.globalReset = true;
     this.CluiStore.reset();
     this.terminalStore.reset();
     this.FileStore.reset();
@@ -53,6 +58,9 @@ class ComponentStore extends AbstractStore {
     const originalLoadedState = this.loaded;
     this.init();
     this.loaded = originalLoadedState;
+    setTimeout(() => {
+      this.globalReset = false;
+    }, 100);
   };
 
   // Stores

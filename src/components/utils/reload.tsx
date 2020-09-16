@@ -21,10 +21,15 @@ const ReloadSvg = ({ width, fill = '#5596ff' }: { width: string, fill?: string }
 
 const ReloadUtil = () => (
   <div className="reload-utl">
-    <button type="button" className="hidden-button tooltip" onClick={() => { ComponentStore.reset(); }}>
-      <ReloadSvg width="2rem" fill="rgba(255,255,255,0.6)" />
-      <span className="tooltip-text text-xl p-3 -ml-12 rounded">Reset</span>
-    </button>
+    <div className="flex flex-col">
+      <button type="button" className="hidden-button tooltip" onClick={() => { ComponentStore.reset(); }}>
+        <ReloadSvg width="2.5rem" fill="rgba(255,255,255,0.6)" />
+        <span className="tooltip-text text-xl p-3 -ml-12 rounded">Reset</span>
+      </button>
+      <button type="button" className="bg-gray-700 bg-opacity-75 hover:bg-indigo-700 text-white font-bold mt-12 py-2 px-4 " onClick={() => { ComponentStore.startTour(); }}>
+        <span>Tour</span>
+      </button>
+    </div>
     {/* @ts-ignore Styled JSX */}
     <style jsx>
       {`

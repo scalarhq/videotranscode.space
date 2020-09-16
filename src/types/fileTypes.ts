@@ -1,8 +1,8 @@
 export type InputFilesType = {
-  video?: File[];
-  audio?: File[];
-  image?: File[];
-  other?: File[];
+  video?: FileWithMetadata[];
+  audio?: FileWithMetadata[];
+  image?: FileWithMetadata[];
+  other?: FileWithMetadata[];
 };
 
 export type FileNameTypes = {
@@ -17,9 +17,21 @@ export type FileTypes = keyof InputFilesType;
 export type FileTransformType = {
   state: 'Move' | 'Insert' | 'Delete';
   position?: number;
-  file?: File;
+  fileObj?: FileWithMetadata;
   type: FileTypes;
   secondPosition?: number;
+};
+
+export type FileWithMetadata = {
+  file: File;
+  preview: string;
+  customType: 'video' | 'audio' | 'image' | 'other';
+  videoMetadata?: {
+    height: number;
+    width: number;
+    duration: number;
+    otherMetadata: any;
+  };
 };
 
 export type FileConfigType = {
@@ -32,7 +44,4 @@ export type CustomFileType = {
   type: FileTypes;
 };
 
-export type FileWithPreview = File & {
-  preview: string;
-  customType: 'video' | 'audio' | 'image' | 'other';
-};
+export type VideoFilesType = Array<FileWithMetadata>;
