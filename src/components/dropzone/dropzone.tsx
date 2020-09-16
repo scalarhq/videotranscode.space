@@ -8,13 +8,16 @@ import { useDropzone } from 'react-dropzone';
 
 import './dropzone.css';
 
-import FileStore from '../../store/fileStore';
+import { observer } from 'mobx-react';
+import ComponentStore from '../../store/componentStore';
 
 import { FileTransformType, FileWithMetadata } from '../../types/fileTypes';
 
 import DraggableWrapper from './draggable';
 
 import useEventListener from '../../ts/useEventListener';
+
+const { FileStore } = ComponentStore;
 
 const { updateFiles } = FileStore;
 
@@ -93,6 +96,14 @@ const Dropzone = () => {
   const dropzoneRef = React.useRef<HTMLDivElement | null>(null);
 
   const thumbnailRef = React.useRef<HTMLDivElement | null>(null);
+
+  const { globalReset } = ComponentStore;
+
+  useEffect(() => {
+    if (globalReset) {
+      setFiles([]);
+    }
+  }, [globalReset]);
 
   const translateScroll = (e: WheelEvent) => {
     const maxScroll = thumbnailRef?.current?.scrollHeight || 500;
@@ -191,4 +202,4 @@ const Dropzone = () => {
     </div>
   );
 };
-export default Dropzone;
+export default observer(Dropzone);
