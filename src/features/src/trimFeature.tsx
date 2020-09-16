@@ -129,33 +129,36 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
   };
 
   return (
-    <div className="range-slider-wrapper flex w-full">
-      <p className="text-m font-bold w-1/4">{(() => hmsToTimeStamp(secondsToTime(value.start)))()}</p>
-      <div className="range-wrapper w-1/2">
-        <RangeSlider
-          value={value}
-          step={1}
-          min={0}
-          max={end}
-          onChange={(v: { start: number, end: number }) => {
-            const deltaS = v.start - value.start;
-            const deltaT = value.end - v.end;
-            console.info('Changing ', v, 'deltaS', deltaS, 'deltaT', deltaT);
-            if (Math.abs(deltaS) < 5 && Math.abs(deltaT) < 5) {
-              setValue((oldValue) => ({ start: oldValue.start + deltaS, end: oldValue.end - deltaT }));
-            }
-          }}
-          afterChange={(v: { start: number, end: number }) => { console.info('Completed Change', v); }}
-          wrapperStyle={styles.slider}
-          trackStyle={styles.trackStyle}
-          highlightedTrackStyle={styles.highlightedTrackStyle}
-          handleStyle={styles.handleStyle}
-          hoveredHandleStyle={styles.handleStyle}
-          focusedHandleStyle={styles.handleStyle}
-          activeHandleStyle={styles.handleStyle}
-        />
+    <div className="flex flex-col">
+      <p className="text-xl font-bold">Trim Settings</p>
+      <div className="range-slider-wrapper flex w-full">
+        <p className="text-m font-bold w-1/4">{(() => hmsToTimeStamp(secondsToTime(value.start)))()}</p>
+        <div className="range-wrapper w-1/2">
+          <RangeSlider
+            value={value}
+            step={1}
+            min={0}
+            max={end}
+            onChange={(v: { start: number, end: number }) => {
+              const deltaS = v.start - value.start;
+              const deltaT = value.end - v.end;
+              console.info('Changing ', v, 'deltaS', deltaS, 'deltaT', deltaT);
+              if (Math.abs(deltaS) < 5 && Math.abs(deltaT) < 5) {
+                setValue((oldValue) => ({ start: oldValue.start + deltaS, end: oldValue.end - deltaT }));
+              }
+            }}
+            afterChange={(v: { start: number, end: number }) => { console.info('Completed Change', v); }}
+            wrapperStyle={styles.slider}
+            trackStyle={styles.trackStyle}
+            highlightedTrackStyle={styles.highlightedTrackStyle}
+            handleStyle={styles.handleStyle}
+            hoveredHandleStyle={styles.handleStyle}
+            focusedHandleStyle={styles.handleStyle}
+            activeHandleStyle={styles.handleStyle}
+          />
+        </div>
+        <p className="text-m font-bold w-1/4">{(() => hmsToTimeStamp(secondsToTime(value.end)))()}</p>
       </div>
-      <p className="text-m font-bold w-1/4">{(() => hmsToTimeStamp(secondsToTime(value.end)))()}</p>
     </div>
   );
 };

@@ -59,7 +59,7 @@ const FEATURES: Features = {
     ui: <TrimUi parents={['TRIM']} />,
   },
   PHOTOMONTAGE: {
-    name: 'Photo_Montages',
+    name: 'Photo-Montages',
     description: 'Create a video montage from photos(you can add audio too!)',
     feature: PhotoMontageFeature,
     ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,

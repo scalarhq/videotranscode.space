@@ -40,7 +40,7 @@ const SingleInput = ({
   return (
     <div className="single-input-wrapper">
       <div className="single-input">
-        <input type={type} value={inputValue} placeholder={placeholder} onChange={handleChange} className={className || 'single-input-element'} {...otherProps} />
+        <input type={type} value={inputValue} placeholder={placeholder} onChange={handleChange} className={className || 'single-input-element appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75'} {...otherProps} />
       </div>
 
       {child && (
@@ -61,19 +61,11 @@ const SingleInput = ({
           width : 100%;
         }
         .single-input-element {
-          background-color: #30363b;
-          border-radius: 5px;
+           -moz-appearance: textfield;
         }
 
         .single-input {
-          -moz-appearance: none;
-          -webkit-appearance: none;
-          appearance: none;
-          transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-          background: transparent;
-          border-radius: 4px;
-          border: solid 1px #ffffff;
-          color: inherit;
+         
           display: block;
           outline: 0;
           padding: 0 1rem;

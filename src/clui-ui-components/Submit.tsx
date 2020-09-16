@@ -65,7 +65,7 @@ const Submit = observer(() => {
             /* Position tooltip above the element */
             [data-tooltip]:before {
               position: absolute;
-              bottom: 150%;
+              top: 110%;
               left: 50%;
               margin-bottom: 5px;
               margin-left: -8vw;
@@ -86,7 +86,7 @@ const Submit = observer(() => {
             /* Triangle hack to make tooltip look like a speech bubble */
             [data-tooltip]:after {
               position: absolute;
-              bottom: 150%;
+              top: 110%;
               left: 50%;
               margin-left: -5px;
               width: 0;

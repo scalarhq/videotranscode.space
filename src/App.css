@@ -63,6 +63,10 @@ main {
   padding-right: 1rem;
 }
 
+.input-like-text {
+  -moz-appearance: textfield;
+}
+
 .video-wrapper {
   width: 50%;
 }
