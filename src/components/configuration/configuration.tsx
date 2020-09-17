@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Fade } from 'react-reveal';
 
@@ -9,6 +9,37 @@ import './configuration.css';
 
 const Configuration = () => {
   const [cluiToggle, setCluiToggle] = useState(true);
+
+  useEffect(() => {
+    const cluiToggleStorage = window.localStorage.getItem('clui-toggle');
+    const cluiToggleSession: { setting?: boolean, expiry?: string } = cluiToggleStorage ? JSON.parse(cluiToggleStorage) : {};
+
+    console.info('Session Data', cluiToggleSession, cluiToggleStorage);
+
+    if (cluiToggleSession.setting !== undefined && cluiToggleSession.expiry) {
+      const prevDate = new Date(cluiToggleSession.expiry);
+      const currentDate = new Date();
+      // @ts-ignore
+      const diffTime = Math.abs(currentDate - prevDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays > 30) {
+        setCluiToggle(true);
+        window.localStorage.removeItem('clui-toggle');
+      } else {
+        setCluiToggle(cluiToggleSession.setting);
+        window.localStorage.setItem('clui-toggle', JSON.stringify({ setting: cluiToggleSession.setting, expiry: new Date().toISOString() }));
+      }
+    } else {
+      setCluiToggle(true);
+      window.localStorage.setItem('clui-toggle', JSON.stringify({ setting: true, expiry: new Date().toISOString() }));
+    }
+
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('clui-toggle', JSON.stringify({ setting: cluiToggle, expiry: new Date().toISOString() }));
+  }, [cluiToggle]);
 
   return (
 

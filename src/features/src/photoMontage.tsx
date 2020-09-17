@@ -130,13 +130,16 @@ const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
 
   const props = {
     parents: newParents,
-    title: 'Photo Montage Settings',
+    title: 'Choose Framerate',
     current,
     list: ListElements,
   };
 
   return (
-    <List {...props} />
+    <div className="flex flex-col">
+      <p className="text-3xl font-bold">Photo Montage Settings</p>
+      <List {...props} />
+    </div>
   );
 };
 

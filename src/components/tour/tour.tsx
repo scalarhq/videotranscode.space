@@ -13,6 +13,7 @@ const tourOptions = {
     cancelIcon: {
       enabled: true,
     },
+    classes: 'shepherd-font',
   },
   useModalOverlay: true,
   scrollTo: { behavior: 'smooth', block: 'center' },
