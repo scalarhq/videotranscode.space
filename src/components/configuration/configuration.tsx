@@ -7,6 +7,8 @@ import Clui from '../../clui/clui';
 import BasicFeatures from '../basic-features/basicFeature';
 import './configuration.css';
 
+import CluiStore from '../../store/cluiStore';
+
 const Configuration = () => {
   const [cluiToggle, setCluiToggle] = useState(true);
 
@@ -38,6 +40,7 @@ const Configuration = () => {
   }, []);
 
   useEffect(() => {
+    CluiStore.updateCluiToggle(cluiToggle);
     window.localStorage.setItem('clui-toggle', JSON.stringify({ setting: cluiToggle, expiry: new Date().toISOString() }));
   }, [cluiToggle]);
 
