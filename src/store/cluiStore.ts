@@ -19,6 +19,8 @@ class CluiStore extends AbstractStore {
 
   @observable ran: boolean = false;
 
+  @observable cluiToggle = true;
+
   // Constructor
   constructor() {
     super();
@@ -101,6 +103,11 @@ class CluiStore extends AbstractStore {
   @action('Update Ran')
   updateRun = (value = true) => {
     this.ran = value;
+  };
+
+  @action('Update cluiToggle')
+  updateCluiToggle = (value = true) => {
+    this.cluiToggle = value;
   };
 }
 
