@@ -85,7 +85,7 @@ const onSubmitHandler = async () => {
   const encodeTime = (end - start) / 1000;
   updateData(encodeTime);
   clearTerminal();
-  console.log(`The processing is complete! Enjoy your video. It took ${encodeTime} seconds`);
+  console.log(`Done, Enjoy your video! The process was completed in ${encodeTime} seconds`);
 };
 
 export default onSubmitHandler;

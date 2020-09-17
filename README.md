@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://modfy.video"><img src="./documentation/logo.png" alt="modfy.video logo" height="160"></a>
+  <a href="https://modfy.video"><img src="https://modfy.video/images/logo.png" alt="modfy.video logo" height="160"></a>
   <br>
   <br>
   <p>
