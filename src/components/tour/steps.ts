@@ -96,7 +96,7 @@ export default [
       <p><strong>Features</strong><p> A single one of feature to do a single specific task.<br /> <i>An example of a feature is just converting your video.</i></p></p>
       `,
     ],
-    attachTo: { element: '.clui-wrapper', on: 'left' },
+    attachTo: { element: '.configuration-wrapper', on: 'left' },
     buttons: [
       {
         type: 'back',
@@ -114,12 +114,12 @@ export default [
     title: 'Choosing Settings /2',
     text: [
       `
-      <p>Use your keyboard to choose the specific feature, workflow, and settings you want, then hit Submit and Modfy will do all the hard work for you!</p>
-      <p>Keep in mind that the larger the file or more complex the task, the longer Modfy will take to complete it. </p>
-      <p>Feel free to just leave the tab open and come back later!</p>
+      <p>Use your <i>keyboard</i> to choose the specific feature, workflow, and settings you want, then hit <b>Submit</b> and Modfy will do all the hard work for you!</p>
+      <p><i>Keep in mind that the larger the file or more complex the task, the longer Modfy will take to complete it.</i> </p>
+      <p><i>Feel free to just leave the tab open and come back later!</i></p>
       `,
     ],
-    attachTo: { element: '.clui-wrapper', on: 'left' },
+    attachTo: { element: '.configuration-wrapper', on: 'left' },
     buttons: [
       {
         type: 'back',
