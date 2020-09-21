@@ -265,10 +265,13 @@ class FileStore extends AbstractStore {
   @computed get fileData() {
     const { allFiles, getFileExtension, sizeHumanReadable } = this;
 
-    const fileData: Array<{ size: string; ext: string }> = allFiles.map(({ file }) => ({
-      size: sizeHumanReadable(file.size),
-      ext: getFileExtension(file.name),
-    }));
+    const fileData: Array<{ size: string; ext: string }> = allFiles.map(
+      ({ file, videoMetadata }) => ({
+        size: sizeHumanReadable(file.size),
+        ext: getFileExtension(file.name),
+        duration: videoMetadata?.duration || 'undefined',
+      })
+    );
     return fileData;
   }
 

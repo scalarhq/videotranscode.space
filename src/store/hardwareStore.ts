@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 
+import axios from 'axios';
 import { HardwareDataType } from '../types/hardwareData';
 import AbstractStore from './store';
 
@@ -27,21 +28,17 @@ class HardwareStore extends AbstractStore {
   };
 
   @action('Send Data')
-  sendHardwareData = () => {
-    if (this.data) {
-      // const data = { ...this.data, 'form-name': 'data' };
-      // const rawData = new URLSearchParams(
-      //   Object.keys(data).map((key: string) => [
-      //     key,
-      //     // @ts-ignore Tester won't be here unless defined
-      //     data[key as keyof FormData].toString(),
-      //   ])
-      // );
-      // console.info(rawData.toString());
-      // const request = new XMLHttpRequest();
-      // request.open('POST', '/');
-      // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      // request.send(rawData.toString());
+  sendHardwareData = async () => {
+    const { data } = this;
+    if (data) {
+      await axios.post(
+        atob(
+          'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw=='
+        ),
+        {
+          data,
+        }
+      );
     }
   };
 }

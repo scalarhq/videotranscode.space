@@ -5,6 +5,8 @@ import FFmpegFeature from '../FFmpegFeature';
 
 import ComponentStore from '../../store/componentStore';
 
+import { hmsToTimeStamp, secondsToTime } from '../../ts/time';
+
 const { CluiStore, FileStore } = ComponentStore;
 
 const { updateConfiguration } = CluiStore;
@@ -13,25 +15,6 @@ type TrimConfig = {
   'TRIM': { 'START': { value: number }, 'STOP': { value: number }, value: number },
   [name: string]: any
 }
-
-const secondsToTime = (secs: number) => {
-  const hours = Math.floor(secs / (60 * 60));
-
-  const divisorForMinutes = secs % (60 * 60);
-  const minutes = Math.floor(divisorForMinutes / 60);
-
-  const divisorForSeconds = divisorForMinutes % 60;
-  const seconds = Math.ceil(divisorForSeconds);
-
-  const obj = {
-    hours,
-    minutes,
-    seconds,
-  };
-  return obj;
-};
-
-const hmsToTimeStamp = ({ hours, minutes, seconds }: { hours: number, minutes: number, seconds: number }) => `${hours}:${minutes}:${seconds}`;
 
 class TrimFeature extends FFmpegFeature {
   configuration: TrimConfig

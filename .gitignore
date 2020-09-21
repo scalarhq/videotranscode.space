@@ -27,3 +27,4 @@ html5up-dimension
 src/tailwind.output.css
 analyze.html
 cloud-functions/form-data/secrets.js
+cloud-functions/form-data/credentials.json
