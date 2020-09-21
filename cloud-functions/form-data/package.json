@@ -1,0 +1,20 @@
+{
+  "name": "modfy-cf-form-data",
+  "version": "1.0.0",
+  "description": "Modfy.video cloud function for form data",
+  "main": "index.js",
+  "author": "Rahul Tarak",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "google-spreadsheet": "^3.0.13",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
