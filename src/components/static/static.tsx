@@ -1,3 +1,6 @@
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 import {
@@ -54,9 +57,40 @@ export function Footer() {
       <BrowserView>
         <div className="footer-right">
           <div className="image-container">
+            <a
+              href="https://spectrum.chat/modfy?tab=posts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-icon"
+            >
+              <FontAwesomeIcon
+                icon={faComments}
+                style={{
+                  color: 'white', width: '32px', height: '32px', marginBottom: '-5px',
+                }}
+              />
+            </a>
+          </div>
+          <div className="image-container">
+            <a
+              href="https://discord.gg/dnD6FHx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-icon"
+            >
+              <FontAwesomeIcon
+                icon={faDiscord}
+                style={{
+                  color: 'white', width: '32px', height: '32px', marginBottom: '-5px',
+                }}
+              />
+            </a>
+          </div>
+
+          <div className="image-container">
             <div>
               <a
-                href="https://github.com/Etwas-Builders/Video-Transcoder"
+                href="https://github.com/Etwas-Builders/modfy.video"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-icon"
@@ -90,7 +124,7 @@ export function Footer() {
                 fontSize: '20px', paddingRight: '3%', width: '10vw', paddingBottom: '1.2rem',
               }}
               >
-                Supported by
+                Launched with
               </p>
               <a href="https://builders.mozilla.community/" target="_blank" rel="noopener noreferrer" className="footer-icon">
 
@@ -130,13 +164,11 @@ export function Footer() {
 
           </a>
 
-          {/* <a href="#">Faq</a> */}
-
           <a className="link-class" href="mailto:cryogenic@videotranscode.space">Contact</a>
 
           <a
             className="link-class typeform-share link middle-footer"
-            href="https://rahultarak12345.typeform.com/to/Fn78Sd"
+            href="https://cryogenicplanet.typeform.com/to/Fn78Sd"
             data-mode="drawer_right"
             style={{ color: '#3FBD71', textDecoration: 'underline', fontSize: '20px' }}
             data-submit-close-delay="0"
