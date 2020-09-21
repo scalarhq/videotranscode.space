@@ -3,6 +3,17 @@ h1.title {
   font-size: 46px;
 }
 
+.flat-btn {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all 0.2s ease-in-out;
+}
+
+
 .logo-wrapper {
   display: flex;
   align-items: center;
