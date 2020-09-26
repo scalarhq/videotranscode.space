@@ -179,7 +179,7 @@ const Dropzone = () => {
                     <p>
                       <u>Click</u>
                       {' '}
-                      or Drag to upload
+                      or Drag to add files.
                       {' '}
                     </p>
                   )}
