@@ -5,10 +5,10 @@ export default [
     text: [
       `
       <p>
-      This product is a completely browser based video converter and compressor, which converts your video without uploading to any servers
+      This product is a completely browser-based video converter and compressor, which converts your video without uploading to any servers.
       </p>
       <strong>
-      This is a guided tour on how to use this product, feel free to skip it at any time.
+      This is a guided tour on how to use this product. Feel free to skip it at any time.
       </strong>
       `,
     ],
@@ -50,7 +50,7 @@ export default [
     text: [
       `
       <p>The CLUI is where you can choose your settings.</p>
-      <p> It is a mix between a graphical interface and a terminal, which give it super powers in the number of options it has.</p>
+      <p> It is a mix between a graphical interface and a terminal, which gives it super powers in the number of options it has.</p>
       `,
     ],
     attachTo: { element: '.clui-wrapper', on: 'left' },
@@ -68,7 +68,7 @@ export default [
   },
   {
     id: 'basic-features',
-    title: 'Feel Intimated by the CLUI?',
+    title: 'Feeling Intimidated by the CLUI?',
     text: [
       `
       <p>If you'd prefer not to use the CLUI, just click the toggle to switch to Basic Mode!</p>`,
@@ -93,7 +93,7 @@ export default [
       `
       <p>There are <strong>TWO</strong> primary types of settings available:</p>
       <p><strong>Workflows</strong><p> A workflow is an automated series of features that are executed to give you a final video. <br /><i>An example of a workflow is to convert and then compress your video.</i></p></p>
-      <p><strong>Features</strong><p> A single one of feature to do a single specific task.<br /> <i>An example of a feature is just converting your video.</i></p></p>
+      <p><strong>Features</strong><p> A feature is a single, specific task.<br /> <i>An example of a feature is just converting your video.</i></p></p>
       `,
     ],
     attachTo: { element: '.configuration-wrapper', on: 'left' },
