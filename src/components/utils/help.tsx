@@ -68,7 +68,7 @@ const HoverGuide = () => (
                 <div className="text-white font-bold text-xl mb-2">
                   <FontAwesomeIcon icon={faToggleOn} />
                   {' '}
-                  Intimated by the CLUI?
+                  Intimidated by the CLUI?
                 </div>
                 <p className="text-white text-base">
                   Don't
