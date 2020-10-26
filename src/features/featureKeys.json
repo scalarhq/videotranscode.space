@@ -1,4 +1,5 @@
 {
+  "COMBINED_EXEC_FEATURE": true,
   "TRANSCODE": true,
   "COMPRESS": true,
   "PHOTOMONTAGE": true,
