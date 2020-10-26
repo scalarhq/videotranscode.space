@@ -1,13 +1,7 @@
 <div align="center">
-  <a href="https://modfy.video"><img src="https://modfy.video/images/logo.png" alt="modfy.video logo" height="160"></a>
+  <a href="https://modfy.video"><img src="https://socialify.git.ci/modfy/modfy.video/image?description=1&descriptionEditable=A%20free%20open-source%20web%20assembly%20based%20privacy%20first%20video%20transcoder%2Fconvertor&language=1&logo=https%3A%2F%2Fmodfy.video%2Fimages%2Flogo.png&owner=1&pattern=Plus&stargazers=1&theme=Dark" alt="modfy.video" width="640" height="320" /></a>
   <br>
   <br>
-  <p>
-    <b>A free open-source web assembly based privacy first video transcoder/convertor</b>
-  </p>
-  <p>
-     <i>A video transcoder/converter built using Web Assembly and FFMPEG to transcode and convert videos right in your browser while protecting your privacy.</a></i>
-  </p>
   <p>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4b6c9412-f596-4f31-82a3-25e276a37c31/deploy-status)](https://app.netlify.com/sites/react-clui/deploys)
