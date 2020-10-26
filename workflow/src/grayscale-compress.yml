@@ -5,5 +5,7 @@ description: Workflow to grayscale and compress your videos
 # Which features to execute in order
 # The features name are not case sensitive
 steps:
-  - Compress
-  - Greyscale
+  - name: COMBINED_EXEC_FEATURE
+    steps:
+      - Compress
+      - Greyscale
