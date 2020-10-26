@@ -30,7 +30,7 @@ const BasicFeatures = () => {
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    updateChosenFeatures([selectedKey]);
+    updateChosenFeatures([{ name: selectedKey as keyof typeof features }]);
   }, [selectedKey]);
 
   const noOfFeatures = (

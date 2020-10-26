@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { observable, action, toJS } from 'mobx';
-import features from '../features/features';
+import { WorkflowStep } from '../dist/workflow';
 import AbstractStore from './store';
 
 class CluiStore extends AbstractStore {
@@ -11,7 +11,7 @@ class CluiStore extends AbstractStore {
 
   @observable isSubmitted: boolean = false;
 
-  @observable chosenFeatures: Array<keyof typeof features> = [];
+  @observable chosenFeatures: Array<WorkflowStep> = [];
 
   @observable configuration: { [name: string]: { value: any; [name: string]: any } } = {};
 
@@ -56,10 +56,9 @@ class CluiStore extends AbstractStore {
    *  Updates the store of chosen features to make it easier to parse the configuration on submit
    * @param newChosenFeatures Array of chosen features in order set by workflow or feature wrapper
    */
-  @action updateChosenFeatures = (newChosenFeatures: Array<string>) => {
+  @action updateChosenFeatures = (newChosenFeatures: Array<WorkflowStep>) => {
     if (newChosenFeatures.length > 0) {
-      console.table(newChosenFeatures, ['Chosen Features']);
-      this.chosenFeatures = newChosenFeatures as Array<keyof typeof features>;
+      this.chosenFeatures = newChosenFeatures;
     }
   };
 
@@ -74,7 +73,7 @@ class CluiStore extends AbstractStore {
    */
   @action updateConfiguration = (
     newConfiguration: { value: any; [name: string]: any },
-    parents: Array<string>
+    parents: Array<string>,
   ) => {
     const { configuration } = this;
     function updateObject(object: any) {
