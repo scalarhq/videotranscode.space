@@ -5,41 +5,6 @@ const path = require('path');
 
 const features = require('../src/features/featureKeys.json');
 
-// const getFeatures = () => {
-//   const featuresFile = fs.readFileSync(
-//     path.join(__dirname, '../src/features/features.tsx'),
-//     'utf-8'
-//   );
-//   // console.log(featuresFile);
-//   let start = featuresFile.indexOf('const FEATURES');
-//   let featuresObject = featuresFile.slice(start);
-//   const end = featuresObject.indexOf('};');
-//   featuresObject = featuresObject.slice(0, end + 1);
-//   start = featuresObject.indexOf('{');
-//   featuresObject = featuresObject.slice(start);
-//   let lineByLine = featuresObject.split('\n').slice(1, -1);
-//   console.log(lineByLine);
-//   lineByLine = lineByLine.map((line) => {
-//     console.log(line);
-//     const splitByColon = line.split(':');
-//     if (splitByColon.length === 2) {
-//       const newLine = `"${splitByColon[0].replace(/ /g, '')}":"${splitByColon[1]
-//         .slice(0, -1)
-//         .replace(/ /g, '')}",`;
-//       return newLine;
-//     }
-//     return line;
-//   });
-
-//   lineByLine[lineByLine.length - 1] = lineByLine[lineByLine.length - 1].slice(0, -1);
-//   lineByLine.push('}');
-//   lineByLine = ['{'].concat(lineByLine);
-//   lineByLine = lineByLine.join('\n');
-
-//   const featuresJSON = JSON.parse(lineByLine);
-//   return featuresJSON;
-// };
-
 const DIR_NAME = './src';
 let WORKFLOWS = {};
 
@@ -54,14 +19,14 @@ const validateWorkflow = (key, workflow) => {
   });
 
   workflow.steps.forEach((step) => {
-    if (!(step in features)) {
-      err = new Error(`Not Valid Feature: ${step}`);
+    if (!(step.name in features)) {
+      err = new Error(`Not Valid Feature: ${step.name}`);
     }
   });
 
   if (err) return err;
 
-  if (workflow.steps.length < 2) return new Error('Workflows require minimum two steps');
+  // if (workflow.steps.length < 2) return new Error('Workflows require minimum two steps');
 
   if (WORKFLOWS[key]) return new Error(`Codec type for: (${key}) already exists`);
 };
@@ -75,7 +40,20 @@ const init = () => {
       yaml.safeLoad(fs.readFileSync(path.join(__dirname, DIR_NAME, file))),
     ])
     .forEach((e) => {
-      e[1].steps = e[1].steps.map((step) => step.toUpperCase());
+      // console.log(e);
+      e[1].steps = e[1].steps.map((step) => {
+        if (!(typeof step === 'object')) {
+          return { name: step.toUpperCase() };
+        }
+        console.log('Step', step);
+        const stepName = step.name.toUpperCase();
+        const configuration = { ...step };
+        if (step.steps) {
+          const objectSteps = step.steps.map((s) => ({ name: s.toUpperCase() }));
+          Object.assign(configuration, { steps: objectSteps });
+        }
+        return { configuration, name: stepName };
+      });
       const err = validateWorkflow(...e);
       if (err) {
         errs.push(err);
@@ -102,11 +80,20 @@ const deleteWorkflow = () => {
 init();
 
 const fileData = `
-export type WorkflowElement = { name: string;
+import features from "../features/features"
+
+export type WorkflowStep = {
+  name : keyof typeof features,
+  configuration? : {steps? : Array<WorkflowStep>, [name:string] : any}
+}
+
+export type WorkflowElement = { 
+  name: string;
   description: string;
   ui: JSX.Element | string | null;
   child?: any;
-  steps: Array<string>;};
+  steps: Array<WorkflowStep>;
+};
 
 export type WorkflowType = {
  [name:string] : WorkflowElement
