@@ -14,6 +14,7 @@ import RunFeature, { RunUi } from './src/runFeature';
 
 // UI LESS Features
 import GreyScaleFeature from './src/greyScaleFeature';
+import CombinedExecFeature from './src/combinedExecFeature';
 
 import keys from './featureKeys.json';
 
@@ -25,7 +26,8 @@ export type Feature =
   | typeof GreyScaleFeature
   | typeof AspectRatioFeature
   | typeof RunFeature
-  | typeof TrimFeature;
+  | typeof TrimFeature
+  | typeof CombinedExecFeature;
 
 export type FeatureElement = {
   name: string;
@@ -93,6 +95,13 @@ const FEATURES: Features = {
     name: 'Greyscale',
     description: 'Make Video black and white',
     feature: GreyScaleFeature,
+  },
+
+  COMBINED_EXEC_FEATURE: {
+    name: 'Combined-Execution',
+    description: 'Running multiple commands together',
+    feature: CombinedExecFeature,
+    noDisplay: true,
   },
 };
 
