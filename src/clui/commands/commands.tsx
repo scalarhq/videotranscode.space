@@ -2,7 +2,7 @@ import React from 'react';
 import clear from './clear';
 import custom from './custom';
 import DirectExecute from './execute';
-import workflows from '../../dist/workflow';
+import workflows, { WorkflowStep } from '../../dist/workflow';
 import features, { Feature } from '../../features/features';
 
 import WorkflowUi from '../components/workflow-ui';
@@ -13,7 +13,7 @@ type CommandType = {
   description: string;
   ui?: JSX.Element | string;
   child?: Array<CommandType>;
-  steps: Array<string | Feature>;
+  steps: Array<WorkflowStep | Feature>;
 };
 
 type RunnableFeature = {
@@ -63,7 +63,7 @@ const generateFeatures = () => {
         const newFeature: CommandType = {
           command: `${currentFeature.name}`,
           description: currentFeature.description,
-          ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as string} />),
+          ui: (<FeatureUi ui={currentFeature.ui} featureKey={key as keyof typeof features} />),
           steps: [currentFeature.feature],
         };
         featuresWithUI.push(newFeature);

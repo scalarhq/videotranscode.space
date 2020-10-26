@@ -4,8 +4,6 @@ import axios from 'axios';
 import { HardwareDataType } from '../types/hardwareData';
 import AbstractStore from './store';
 
-type FormData = HardwareDataType & { 'form-name': string };
-
 class HardwareStore extends AbstractStore {
   // Observables
 
@@ -33,11 +31,11 @@ class HardwareStore extends AbstractStore {
     if (data) {
       await axios.post(
         atob(
-          'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw=='
+          'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw==',
         ),
         {
           data,
-        }
+        },
       );
     }
   };

@@ -10,7 +10,9 @@ import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg';
 
 import loadFiles from './file';
 
-const { CluiStore, VideoStore, FileStore, updateProcessedState, terminalStore } = ComponentStore;
+const {
+  CluiStore, VideoStore, FileStore, updateProcessedState, terminalStore,
+} = ComponentStore;
 
 const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore;
 
@@ -20,7 +22,8 @@ const { clearTerminal } = terminalStore;
 
 const createVideoObject = (processedFile: Uint8Array) => {
   const blobUrl = URL.createObjectURL(
-    new Blob([processedFile.buffer], { type: blobType || ComponentStore.FileStore.defaultBlobType })
+    new Blob([processedFile.buffer],
+      { type: blobType || ComponentStore.FileStore.defaultBlobType }),
   );
   console.info(blobUrl, 'Type', blobType || ComponentStore.FileStore.defaultBlobType);
   return blobUrl;
@@ -51,9 +54,9 @@ const onSubmitHandler = async () => {
   updateCurrentFile(currentFile);
 
   for (const key of chosenFeatures) {
-    const CurrentFeature = features[key].feature;
+    const CurrentFeature = features[key.name].feature;
     // @ts-ignore Fix with @lunaroyster later
-    const featureObject = new CurrentFeature(configuration);
+    const featureObject = new CurrentFeature({ ...configuration, KEY_CONFIG: key.configuration });
     const { primaryType } = featureObject.fileConfig;
     console.info('Primary Type', primaryType);
     if (primaryType !== 'video') {

@@ -1,4 +1,5 @@
 import React from 'react';
+import features from '../../features/features';
 
 import ComponentStore from '../../store/componentStore';
 
@@ -9,7 +10,7 @@ const DirectExecute = ({ featureKey }: { featureKey: string }) => {
 
   React.useEffect(() => {
     if (loaded) {
-      updateChosenFeatures([featureKey]);
+      updateChosenFeatures([{ name: featureKey as keyof typeof features }]);
       setSubmitStatus(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
