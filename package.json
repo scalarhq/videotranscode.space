@@ -44,7 +44,8 @@
     "react-shepherd": "^3.3.0",
     "reactrangeslider": "^3.0.6",
     "shepherd.js": "^8.0.2",
-    "styled-jsx": "^3.3.0"
+    "styled-jsx": "^3.3.0",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
