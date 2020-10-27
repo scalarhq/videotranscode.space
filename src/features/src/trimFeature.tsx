@@ -112,7 +112,7 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <p className="text-xl font-bold">Trim Settings</p>
       <div className="range-slider-wrapper flex w-full">
         <p className="text-m font-bold w-1/4">{(() => hmsToTimeStamp(secondsToTime(value.start)))()}</p>
@@ -127,7 +127,8 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
               const deltaT = value.end - v.end;
               console.info('Changing ', v, 'deltaS', deltaS, 'deltaT', deltaT);
               if (Math.abs(deltaS) < 5 && Math.abs(deltaT) < 5) {
-                setValue((oldValue) => ({ start: oldValue.start + deltaS, end: oldValue.end - deltaT }));
+                setValue((oldValue) => (
+                  { start: oldValue.start + deltaS, end: oldValue.end - deltaT }));
               }
             }}
             afterChange={(v: { start: number, end: number }) => { console.info('Completed Change', v); }}
