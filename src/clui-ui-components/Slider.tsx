@@ -37,7 +37,7 @@ const Slider = ({
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div className="configure-slider">
         <input type="range" min={min} max={max} value={sliderValue} onChange={handleChange} className="slider" />
       </div>
