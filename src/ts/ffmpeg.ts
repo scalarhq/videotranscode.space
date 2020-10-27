@@ -30,7 +30,7 @@ const loadFFmpeg = async () => {
   } catch (err) {
     console.error('Error', window.navigator.userAgent, err.message);
     const loadError = new Error(
-      `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`
+      `${err.message} This is because it either timed out or we do not support your browser yet. Please try reloading or using another browser, sorry for the inconvenience.`,
     );
     updateLoadError(true, loadError);
   }
@@ -67,7 +67,7 @@ const ffmpegReader = async (fileName: string) => {
 const ffmpegRunner = async (inputFileCommand: string, ffmpegData: FFmpegDataType) => {
   const { outputFile, threads, ffmpegCommands } = ffmpegData;
   const commandString = `${inputFileCommand} -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFile.name}`;
-  console.log('Running FFmpeg', commandString);
+  console.info('Running FFmpeg', commandString);
   try {
     const promise = await ffmpeg.run(commandString);
     console.log('Returning output', promise);
@@ -89,4 +89,6 @@ const ffmpegGarbageCollector = async (oldFileNames: Array<string>) => {
 
 export default ffmpeg;
 
-export { loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter, ffmpegGarbageCollector };
+export {
+  loadFFmpeg, ffmpegRunner, ffmpegReader, ffmpegWriter, ffmpegGarbageCollector,
+};

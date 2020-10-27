@@ -5,9 +5,15 @@ import Dropdown from '../../clui-ui-components/Dropdown';
 
 import FFmpegFeature from '../FFmpegFeature';
 import { CodecType } from '../../types/formats';
+import GIFTranscode, { GIFConfiguration, GIFUi } from './gifTranscode';
 
 export type TranscodeConfig = {
-  'TRANSCODE': { 'FORMAT': { 'CODEC': { value: string, [name: string]: any }, value: string, [name: string]: any } },
+  'TRANSCODE': {
+    'FORMAT': {
+      'CODEC': { value: string, [name: string]: any }, value: string, [name: string]: any, 'CONFIG'?: GIFConfiguration[
+      'TRANSCODE']['FORMAT']['CONFIG']
+    }
+  },
   [name: string]: any
 }
 
@@ -18,18 +24,28 @@ class TranscodeFeature extends FFmpegFeature {
   constructor(configuration: TranscodeConfig) {
     super();
     this.configuration = configuration;
-    const {
-      extension, display, defaultCodec, chosenCodec, type,
-    } = this.parseConfiguration();
-    this.changeFileExtension(extension);
-    this.updateDisplay(display, type);
-    this.setFFmpegCommands(defaultCodec, chosenCodec);
-    this.setProgress();
-    this.setFileConfig();
+    if (configuration.TRANSCODE.FORMAT.value !== 'GIF') {
+      const {
+        extension, display, defaultCodec, chosenCodec, type,
+      } = this.parseConfiguration();
+      this.changeFileExtension(extension);
+      this.updateDisplay(display, type);
+      this.setFFmpegCommands(defaultCodec, chosenCodec);
+      this.setProgress();
+      this.setFileConfig();
+    } else {
+      const gifTranscode = new GIFTranscode(configuration as GIFConfiguration);
+      const { ffmpegCommands, outputFile, progressBar } = gifTranscode;
+      console.info('GIF TRANSCODE Command', ffmpegCommands);
+      this.ffmpegCommands = ffmpegCommands;
+      this.outputFile = outputFile;
+      this.progressBar = progressBar;
+      this.updateDisplay(false, 'image/gif');
+    }
   }
 
   setProgress = () => {
-    this.progressBar.name = 'Transcoding ...';
+    this.progressBar.name = 'Converting ...';
     this.progressBar.color = '#0d6efd';
   }
 
@@ -74,12 +90,21 @@ export default TranscodeFeature;
  */
 const createCodecValue = (name: string) => name.replace('-', '').replace('.', '').replace(' ', '_').toUpperCase();
 
+type TranscodeFormatList = {
+  name: string
+  value: string
+  child?: {
+    component: (props: any) => JSX.Element
+    props: { [name: string]: any }
+  }
+}
+
 const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
   const formatList = Object.keys(formats);
 
   const currentParents = [...parents, 'FORMAT'];
 
-  const list = formatList.map((formatKey) => {
+  const list: Array<TranscodeFormatList> = formatList.map((formatKey) => {
     const currentFormat = formats[formatKey];
     const childProps = {
       title: 'Choose Codec',
@@ -100,6 +125,17 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     const child = { component: Dropdown, props: childProps };
     const returnObject = { name: formatKey, value: formatKey, child };
     return returnObject;
+  });
+
+  list.push({
+    name: 'GIF',
+    value: 'GIF',
+    child: {
+      component: GIFUi,
+      props: {
+        parents: currentParents,
+      },
+    },
   });
 
   const mp4Format = formats.MP4;
