@@ -67,7 +67,7 @@ const onSubmitHandler = async () => {
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature({
       ...configuration,
-      KEY_CONFIG: key.configuration
+      KEY_CONFIG: { ...key.configuration, value: 0 }
     })
     const { primaryType } = featureObject.fileConfig
     console.info('Primary Type', primaryType)
