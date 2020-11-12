@@ -1,8 +1,8 @@
-import { FileConfigType, FileTypes, CustomFileType } from '../types/fileTypes';
+import { FileConfigType, FileTypes, CustomFileType } from '../types/fileTypes'
 
-import ComponentStore from '../store/componentStore';
+import ComponentStore from '../store/componentStore'
 
-const { FileStore, VideoStore } = ComponentStore;
+const { FileStore, VideoStore } = ComponentStore
 
 export default interface FFmpegInterface {
   // Stores
@@ -10,39 +10,39 @@ export default interface FFmpegInterface {
   /**
    * Reference to the FileStore {@link FileStore}
    */
-  FileStore: typeof FileStore;
+  FileStore: typeof FileStore
 
   /**
    *  Reference to the VideoStore {@link VideoStore}
    */
-  VideoStore: typeof VideoStore;
+  VideoStore: typeof VideoStore
 
   /**
    * Reference to entire component store, which is the store that contains all stores
    * {@link ComponentStore}
    */
-  ComponentStore: typeof ComponentStore;
+  ComponentStore: typeof ComponentStore
 
   // Values
 
   /** String Representing the ffmpeg command executed */
-  ffmpegCommands: string;
+  ffmpegCommands: string
 
   /** Number of threads in a user's computer */
-  threads: number;
+  threads: number
 
-  inputFile: CustomFileType;
+  inputFile: CustomFileType
 
-  outputFile: CustomFileType;
+  outputFile: CustomFileType
 
   /** Object determining the text and color of the progress bar */
-  progressBar: { name: string; color: string };
+  progressBar: { name: string; color: string }
 
   /** String representing the how files are inputted to FFmpeg */
-  ffmpegInputCommand: string;
+  ffmpegInputCommand: string
 
   /** Boolean indicating if a video file can be displayed in the browser or not */
-  display: boolean;
+  display: boolean
 
   /**
    * Determines the configuration of how you plan to use files in your feature
@@ -59,17 +59,17 @@ export default interface FFmpegInterface {
    *  'video', 'image', 'audio', 'other'(represents any other file, eg text files)
    *
    */
-  fileConfig: FileConfigType;
+  fileConfig: FileConfigType
 
   /**
    * If a function needs a specific type of input command, other than default
    * then this object as a few common inputs that can be used
    */
   commonInputTypes: {
-    default: () => void;
-    images: (frameRate: number, ext: string) => void;
-    fileRead: (filename: string) => void;
-  };
+    default: () => void
+    images: (frameRate: number, ext: string) => void
+    fileRead: (filename: string) => void
+  }
 
   // Abstract Values
 
@@ -87,15 +87,15 @@ export default interface FFmpegInterface {
    * @param configuration Reference to  {@link CluiStore.configuration}
    */
   configuration: {
-    [name: string]: { value: any; [name: string]: any };
-  };
+    [name: string]: { value: any; [name: string]: any }
+  }
 
   // Methods
 
   /**
    * Retrieves the current file of the last modified file from the store
    */
-  getCurrentFile: () => { name: string; type: FileTypes };
+  getCurrentFile: () => { name: string; type: FileTypes }
 
   /**
    * Sets the FFmpeg Input Command, this function can and
@@ -106,13 +106,13 @@ export default interface FFmpegInterface {
    *
    * Check {@link commonInputTypes} to see already implemented functions for you
    */
-  setFFmpegInputCommand: () => void;
+  setFFmpegInputCommand: () => void
 
   /**
    Calls FFmpeg with the given ffmpegCommands and appropriate inputFileName
   * @returns The file name of the processed file
   */
-  runFFmpeg: () => Promise<CustomFileType>;
+  runFFmpeg: () => Promise<CustomFileType>
 
   /**
    * Changes the File Extension After this Feature is Executed
@@ -121,19 +121,19 @@ export default interface FFmpegInterface {
    *
    * @param newExtension Expect a string of the format name **with the dot** Example .mp4, .avi
    */
-  changeFileExtension: (newExtension: string) => void;
+  changeFileExtension: (newExtension: string) => void
 
   /**
    * Updates the video display parameter for a format, which determines
    * if it is showed in the video player or not.
    * @param displayType Expect a boolean of if the video format can be shown in an HTML5 <video> tag
    */
-  updateDisplay: (displayType: boolean, type: string) => void;
+  updateDisplay: (displayType: boolean, type: string) => void
 
   /**
    * Function sets the chosen progressBar values to the store
    */
-  updateProgress: () => void;
+  updateProgress: () => void
 
   /**
    * Sets FFmpeg Input Command for reading images for any function
@@ -142,7 +142,7 @@ export default interface FFmpegInterface {
    *
    * This command just loads the images
    */
-  imageInputType: (frameRate: number, ext: string) => void;
+  imageInputType: (frameRate: number, ext: string) => void
 
   /**
    * Sets FFmpeg Input Command for reading from input file
@@ -159,7 +159,7 @@ export default interface FFmpegInterface {
    *
    *  @param fileName A string that is the name of the text file
    */
-  fileInputType: (fileName: string) => void;
+  fileInputType: (fileName: string) => void
 
   // Abstract Methods
 
@@ -168,14 +168,14 @@ export default interface FFmpegInterface {
    *
    * This method can take N number of arguments of any type
    */
-  setFFmpegCommands: (...args: any[]) => void;
+  setFFmpegCommands: (...args: any[]) => void
 
   /**
    * Function Expected to parse the required values from
    * this.configuration and return to constructor
    *
    */
-  parseConfiguration: () => { [name: string]: any };
+  parseConfiguration: () => { [name: string]: any }
 
   /**
    * Function is Expected to set the name and color of the progress bar for this feature
@@ -184,7 +184,7 @@ export default interface FFmpegInterface {
    *
    * This function is expected to be called in constructor
    */
-  setProgress: () => void;
+  setProgress: () => void
   /**
    * Function is Expected to the configuration of files for this feature
    *
@@ -192,5 +192,5 @@ export default interface FFmpegInterface {
    *
    * {primaryType : string, types : [{name : string,number : {min : number, max : number}]}}
    */
-  setFileConfig: () => void;
+  setFileConfig: () => void
 }

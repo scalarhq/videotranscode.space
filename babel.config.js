@@ -4,10 +4,10 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: {
-          node: 'current',
-        },
-      },
-    ],
+          node: 'current'
+        }
+      }
+    ]
   ],
-  plugins: ['styled-jsx/babel'],
-};
+  plugins: ['styled-jsx/babel']
+}

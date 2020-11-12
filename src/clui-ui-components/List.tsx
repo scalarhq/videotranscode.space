@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import ComponentStore from '../store/componentStore';
+import ComponentStore from '../store/componentStore'
 
-import './list.css';
+import './list.css'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateConfiguration } = CluiStore;
+const { updateConfiguration } = CluiStore
 
 /**
  * Element of a List displayed as buttons
@@ -16,10 +16,10 @@ const { updateConfiguration } = CluiStore;
  */
 
 type ListElement = {
-  name: string,
+  name: string
   value: any
   child?: {
-    component: any,
+    component: any
     props: any
     paddingTop?: number
   }
@@ -45,36 +45,42 @@ type ListProps = {
  */
 
 const List = (props: ListProps) => {
-  const { list, title, parents } = props;
+  const { list, title, parents } = props
 
   // eslint-disable-next-line react/destructuring-assignment
-  const [current, setCurrent] = useState<ListElement>(props.current);
+  const [current, setCurrent] = useState<ListElement>(props.current)
 
   useEffect(() => {
-    const defaultConfiguration = { name: current.name, value: current.value };
-    updateConfiguration(defaultConfiguration, [...parents]);
+    const defaultConfiguration = { name: current.name, value: current.value }
+    updateConfiguration(defaultConfiguration, [...parents])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleClick = (e: React.MouseEvent, element: ListElement) => {
-    e.preventDefault();
-    setCurrent(element);
-    const newConfiguration = { name: element.name, value: element.value };
-    updateConfiguration(newConfiguration, [...parents]);
-  };
+    e.preventDefault()
+    setCurrent(element)
+    const newConfiguration = { name: element.name, value: element.value }
+    updateConfiguration(newConfiguration, [...parents])
+  }
 
   return (
-
     <div className="options-list-wrapper">
       <h1 className="text-xl font-bold">{title}</h1>
       <div className="options-list">
-        {list.map((item) => (
+        {list.map(item => (
           <div className="options-list-item-wrapper" key={item.name}>
             <div
-              className={item.name === current.name ? 'options-list-item active' : 'options-list-item'}
-            >
-
-              <button className="outline-none" type="button" onClick={(e) => handleClick(e, item)}>{item.name}</button>
+              className={
+                item.name === current.name
+                  ? 'options-list-item active'
+                  : 'options-list-item'
+              }>
+              <button
+                className="outline-none"
+                type="button"
+                onClick={e => handleClick(e, item)}>
+                {item.name}
+              </button>
             </div>
           </div>
         ))}
@@ -82,21 +88,20 @@ const List = (props: ListProps) => {
       {current.child && (
         <div className="child">
           <current.child.component {...current.child.props} />
-
         </div>
       )}
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
           .child {
-            padding-top: ${current.child && current.child.paddingTop ? current.child.paddingTop : 0}%
+            padding-top: ${current.child && current.child.paddingTop
+              ? current.child.paddingTop
+              : 0}%;
           }
-         
         `}
       </style>
     </div>
+  )
+}
 
-  );
-};
-
-export default List;
+export default List

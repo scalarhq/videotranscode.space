@@ -1,9 +1,9 @@
-import { observable, action, computed, toJS, observe } from 'mobx';
+import { observable, action, computed, toJS, observe } from 'mobx'
 
-import formats from '../dist/formats';
-import AbstractStore from './store';
+import formats from '../dist/formats'
+import AbstractStore from './store'
 
-import TerminalStore from './terminalStore';
+import TerminalStore from './terminalStore'
 
 import {
   InputFilesType,
@@ -12,40 +12,40 @@ import {
   CustomFileType,
   FileNameTypes,
   VideoFilesType,
-  FileWithMetadata,
-} from '../types/fileTypes';
+  FileWithMetadata
+} from '../types/fileTypes'
 
 class FileStore extends AbstractStore {
   // Stores
-  @observable terminalStore = TerminalStore;
+  @observable terminalStore = TerminalStore
 
   // Observables
 
-  @observable oldFiles: Array<string> = [];
+  @observable oldFiles: Array<string> = []
 
-  @observable currentFile: CustomFileType = { name: '', type: 'video' };
+  @observable currentFile: CustomFileType = { name: '', type: 'video' }
 
-  @observable files: InputFilesType = {};
+  @observable files: InputFilesType = {}
 
   // An array of just video files, duplicated with video metadata
-  @observable videoFiles: VideoFilesType = [];
+  @observable videoFiles: VideoFilesType = []
 
   // Files added to FFmpeg
-  @observable loadedFiles: FileNameTypes = {};
+  @observable loadedFiles: FileNameTypes = {}
 
   // Constructor
 
   constructor() {
-    super();
-    this.init();
+    super()
+    this.init()
   }
 
   // Init
   @action init = () => {
-    this.oldFiles = [];
-    this.currentFile = { name: '', type: 'video' };
-    this.files = {};
-  };
+    this.oldFiles = []
+    this.currentFile = { name: '', type: 'video' }
+    this.files = {}
+  }
 
   // Helper Functions
 
@@ -54,25 +54,25 @@ class FileStore extends AbstractStore {
    * @param fileName as a string which is the file's name
    */
   getFileExtension = (fileName: string) => {
-    const filePathArr = fileName.split('.');
-    return filePathArr[filePathArr.length - 1];
-  };
+    const filePathArr = fileName.split('.')
+    return filePathArr[filePathArr.length - 1]
+  }
 
   /**
    * Returns a string that is file size which is human readable
    * @param inputSize file size as number of bytes
    */
   sizeHumanReadable = (inputSize: number) => {
-    let fileSize = inputSize;
-    const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
-    let i = 0;
+    let fileSize = inputSize
+    const fSExt = ['Bytes', 'KB', 'MB', 'GB']
+    let i = 0
     while (fileSize > 900) {
-      fileSize /= 1024;
-      i += 1;
+      fileSize /= 1024
+      i += 1
     }
-    const exactSize = `${Math.round(fileSize * 100) / 100} ${fSExt[i]}`;
-    return exactSize;
-  };
+    const exactSize = `${Math.round(fileSize * 100) / 100} ${fSExt[i]}`
+    return exactSize
+  }
 
   /**
    * Returns new File object with a new name
@@ -87,26 +87,26 @@ class FileStore extends AbstractStore {
     count: number,
     extension: string
   ): FileWithMetadata => {
-    const { file } = originalFile;
+    const { file } = originalFile
     const newFile = new File([file], `${type}-input-${count}.${extension}`, {
       type: file.type,
-      lastModified: file.lastModified,
-    });
+      lastModified: file.lastModified
+    })
     return {
       file: newFile,
       preview: originalFile.preview,
       customType: originalFile.customType,
-      videoMetadata: originalFile.videoMetadata,
-    };
-  };
+      videoMetadata: originalFile.videoMetadata
+    }
+  }
 
   // Actions
 
   @action('Update Current File')
   updateCurrentFile = (fileConfig: { name: string; type: FileTypes }) => {
-    this.oldFiles.push(this.currentFile.name);
-    this.currentFile = fileConfig;
-  };
+    this.oldFiles.push(this.currentFile.name)
+    this.currentFile = fileConfig
+  }
 
   /**
    * Operational Transform to change state of files
@@ -119,16 +119,16 @@ class FileStore extends AbstractStore {
    */
   @action('Update Files Operational Transform')
   updateFiles = (newTransform: FileTransformType[]) => {
-    const { files, getFileExtension, renameFile } = this;
-    console.info('New Transform', newTransform);
+    const { files, getFileExtension, renameFile } = this
+    console.info('New Transform', newTransform)
     for (const transform of newTransform) {
-      const { state, type } = transform;
-      const currentFileList = files[type] || [];
+      const { state, type } = transform
+      const currentFileList = files[type] || []
 
       switch (state) {
         case 'Move': {
           if (currentFileList) {
-            const { position, secondPosition } = transform;
+            const { position, secondPosition } = transform
             if (position && secondPosition) {
               // Rename Files
               const newFileForPosition = renameFile(
@@ -136,66 +136,68 @@ class FileStore extends AbstractStore {
                 type,
                 secondPosition,
                 getFileExtension(currentFileList[secondPosition].file.name)
-              );
+              )
               const newFileForSecondPosition = renameFile(
                 currentFileList[position],
                 type,
                 position,
                 getFileExtension(currentFileList[position].file.name)
-              );
+              )
               // Insert Position
-              currentFileList[position] = newFileForPosition;
-              currentFileList[secondPosition] = newFileForSecondPosition;
+              currentFileList[position] = newFileForPosition
+              currentFileList[secondPosition] = newFileForSecondPosition
             }
           }
-          break;
+          break
         }
         case 'Delete': {
           if (currentFileList) {
-            const { position } = transform;
+            const { position } = transform
             if (position) {
-              currentFileList.splice(position, 1);
+              currentFileList.splice(position, 1)
             }
           }
-          break;
+          break
         }
         case 'Insert': {
-          const { fileObj } = transform;
-          console.info('Insert State', fileObj);
+          const { fileObj } = transform
+          console.info('Insert State', fileObj)
           if (fileObj) {
-            const { file } = fileObj;
+            const { file } = fileObj
             if (file) {
               const renamedFile = renameFile(
                 fileObj,
                 type,
                 currentFileList?.length || 0,
                 getFileExtension(file.name)
-              );
-              currentFileList.push(renamedFile);
-              console.info('Updated File', renamedFile, 'to', currentFileList);
+              )
+              currentFileList.push(renamedFile)
+              console.info('Updated File', renamedFile, 'to', currentFileList)
 
               if (this.terminalStore && this.terminalStore.updateTerminalText) {
-                this.terminalStore.updateTerminalText(`Received File ${file.name}`);
+                this.terminalStore.updateTerminalText(
+                  `Received File ${file.name}`
+                )
               }
             }
           }
-          break;
+          break
         }
         default: {
-          break;
+          break
         }
       }
-      console.info('Pre Append', toJS(currentFileList));
+      console.info('Pre Append', toJS(currentFileList))
       // Object.assign(this.files, { ...this.files, [type]: currentFileList });
-      this.files[type] = currentFileList;
+      this.files[type] = currentFileList
     }
-    console.info('Updated Files', this.fileReference);
-  };
+    console.info('Updated Files', this.fileReference)
+  }
 
   @action('Update Loaded Files')
   updateLoadedFiles = (loadedFiles: FileNameTypes) => {
-    this.loadedFiles = loadedFiles;
-  };
+    this.loadedFiles = loadedFiles
+  }
 
   // Computed
 
@@ -204,11 +206,11 @@ class FileStore extends AbstractStore {
    * Example mov, mp4
    */
   @computed get currentFileExtension() {
-    const { currentFile } = this;
-    console.info(currentFile);
-    const nameArray = currentFile.name.split('.');
-    const ext = nameArray[nameArray.length - 1];
-    return ext;
+    const { currentFile } = this
+    console.info(currentFile)
+    const nameArray = currentFile.name.split('.')
+    const ext = nameArray[nameArray.length - 1]
+    return ext
   }
 
   /**
@@ -216,9 +218,9 @@ class FileStore extends AbstractStore {
    * and return `video/$ext`. An example would be for an test.mov file it returns `video/mov`
    */
   @computed get defaultBlobType() {
-    const { currentFileExtension } = this;
-    const blobType = `video/${currentFileExtension}`;
-    return blobType;
+    const { currentFileExtension } = this
+    const blobType = `video/${currentFileExtension}`
+    return blobType
   }
 
   /**
@@ -226,17 +228,17 @@ class FileStore extends AbstractStore {
    * i.e, can the browser video tag support this extension
    */
   @computed get isDisplayable() {
-    const ext = `.${this.currentFileExtension}`;
+    const ext = `.${this.currentFileExtension}`
 
-    console.info('Current file extension', ext);
+    console.info('Current file extension', ext)
 
     for (const key of Object.keys(formats)) {
-      const currentFormat = formats[key];
+      const currentFormat = formats[key]
       if (currentFormat.extension === ext) {
-        return currentFormat.display;
+        return currentFormat.display
       }
     }
-    return false;
+    return false
   }
 
   /**
@@ -244,44 +246,44 @@ class FileStore extends AbstractStore {
    *
    */
   @computed get allFiles() {
-    const { files } = this;
-    let fileValues: FileWithMetadata[] = [];
+    const { files } = this
+    let fileValues: FileWithMetadata[] = []
     if (files.audio) {
-      fileValues = fileValues.concat(files.audio);
+      fileValues = fileValues.concat(files.audio)
     }
     if (files.video) {
-      fileValues = fileValues.concat(files.video);
+      fileValues = fileValues.concat(files.video)
     }
     if (files.image) {
-      fileValues = fileValues.concat(files.image);
+      fileValues = fileValues.concat(files.image)
     }
     if (files.other) {
-      fileValues = fileValues.concat(files.other);
+      fileValues = fileValues.concat(files.other)
     }
-    console.info('File Values', fileValues);
-    return fileValues;
+    console.info('File Values', fileValues)
+    return fileValues
   }
 
   @computed get fileData() {
-    const { allFiles, getFileExtension, sizeHumanReadable } = this;
+    const { allFiles, getFileExtension, sizeHumanReadable } = this
 
     const fileData: Array<{ size: string; ext: string }> = allFiles.map(
       ({ file, videoMetadata }) => ({
         size: sizeHumanReadable(file.size),
         ext: getFileExtension(file.name),
-        duration: videoMetadata?.duration || 'undefined',
+        duration: videoMetadata?.duration || 'undefined'
       })
-    );
-    return fileData;
+    )
+    return fileData
   }
 
   @computed get fileReference() {
     // console.info('Returning file reference', this.files);
-    return toJS(this.files);
+    return toJS(this.files)
   }
 
   // Testing
-  disposer = observe(this.files, (change) => {
+  disposer = observe(this.files, change => {
     console.info(
       'File Change',
       change.type,
@@ -289,8 +291,8 @@ class FileStore extends AbstractStore {
       'value',
       change.object,
       change.object[change.name]
-    );
-  });
+    )
+  })
 }
 
-export default new FileStore();
+export default new FileStore()

@@ -1,40 +1,38 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import React, {
-  useState, useCallback, useEffect, useRef,
-} from 'react';
-import classnames from 'classnames';
-import Downshift from 'downshift';
-import PromptIcon from './promptIcon';
-import MatchSubString from './subString';
-import useCluiInput from './useCluiInput';
-import ComponentStore from '../store/componentStore';
+import React, { useState, useCallback, useEffect, useRef } from 'react'
+import classnames from 'classnames'
+import Downshift from 'downshift'
+import PromptIcon from './promptIcon'
+import MatchSubString from './subString'
+import useCluiInput from './useCluiInput'
+import ComponentStore from '../store/componentStore'
 
-const { CluiStore } = ComponentStore;
-const { setInputMessage } = CluiStore;
+const { CluiStore } = ComponentStore
+const { setInputMessage } = CluiStore
 
 type MenuItemProps = {
-  item: any,
-  highlighted: any,
+  item: any
+  highlighted: any
   theme?: any
-};
+}
 
 type PromptProps = {
   command?: {
     commands: {
-      [name: string]: any,
-    },
-  },
-  item?: any,
-  value?: any,
-  autoRun?: boolean,
-  autoFocus?: boolean,
+      [name: string]: any
+    }
+  }
+  item?: any
+  value?: any
+  autoRun?: boolean
+  autoFocus?: boolean
   theme?: any
-};
+}
 
 const MenuItem: React.FC<MenuItemProps> = (props: MenuItemProps) => {
-  const { item, highlighted } = props;
+  const { item, highlighted } = props
 
   return (
     <div className={classnames('root', { highlighted })}>
@@ -42,90 +40,96 @@ const MenuItem: React.FC<MenuItemProps> = (props: MenuItemProps) => {
         {item.searchValue ? (
           <MatchSubString source={item.value} match={item.searchValue} />
         ) : (
-            item.value
-          )}
+          item.value
+        )}
       </div>
       {item.data && item.data.description ? (
         <div className="description">{item.data.description}</div>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
 const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   // @ts-ignore
-  const input: any = useRef(null);
+  const input: any = useRef(null)
   // console.log(input)
-  const ran = useRef(false);
-  const [focused, setFocused] = useState(false);
+  const ran = useRef(false)
+  const [focused, setFocused] = useState(false)
 
-  const { command } = props as { command: { commands: { [name: string]: any } } };
+  const { command } = props as {
+    command: { commands: { [name: string]: any } }
+  }
 
   const [state, update] = useCluiInput({
     command,
     value: props.value || '',
-    index: props.value ? props.value.length : 0,
-  }); // like useState but for clui stuff
+    index: props.value ? props.value.length : 0
+  }) // like useState but for clui stuff
 
-  const onKeyUp = useCallback((e) => update({ index: e.target.selectionStart }), [update]);
+  const onKeyUp = useCallback(e => update({ index: e.target.selectionStart }), [
+    update
+  ])
 
   const run = useCallback(() => {
     if (!props.item || !state.run) {
-      return;
+      return
     }
 
-    ran.current = true;
+    ran.current = true
 
     if (input.current) {
-      const { value } = input.current;
+      const { value } = input.current
       if (value !== 'Clear') {
-        setInputMessage(value);
+        setInputMessage(value)
       }
-      input.current.blur();
+      input.current.blur()
     }
 
-    props.item.insertAfter(state.run(), <Prompt {...props} autoRun={false} value="" />).next();
-  }, [props, state]);
+    props.item
+      .insertAfter(state.run(), <Prompt {...props} autoRun={false} value="" />)
+      .next()
+  }, [props, state])
 
   useEffect(() => {
     if (ran.current) {
-      return;
+      return
     }
 
     if (props.autoRun && state.run) {
-      run();
+      run()
     }
-  }, [props.autoRun, state.run, run]);
+  }, [props.autoRun, state.run, run])
 
   useEffect(() => {
     if (input.current && props.autoFocus) {
-      const { value } = input.current;
-      input.current.focus();
-      input.current.selectionStart = value.length;
+      const { value } = input.current
+      input.current.focus()
+      input.current.selectionStart = value.length
     }
     // eslint-disable-next-line
-  }, [props.autoFocus, input.current]);
+  }, [props.autoFocus, input.current])
 
-  const isLastSession = props.item && props.item.index === props.item.session.currentIndex;
+  const isLastSession =
+    props.item && props.item.index === props.item.session.currentIndex
 
   return (
     <Downshift
       defaultHighlightedIndex={0}
       initialHighlightedIndex={0}
       inputValue={state.value}
-      onChange={(option) => {
+      onChange={option => {
         if (!option) {
-          return;
+          return
         }
 
         update({
           value: `${option.inputValue} `,
-          index: option.cursorTarget + 1,
-        });
+          index: option.cursorTarget + 1
+        })
       }}
-      itemToString={() => state.value}
-    >
-      {(ds) => {
+      itemToString={() => state.value}>
+      {ds => {
         const inputProps = ds.getInputProps({
           autoFocus: true,
           spellCheck: false,
@@ -138,36 +142,35 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
           onChange: ({ currentTarget }: { currentTarget: any }) => {
             update({
               value: currentTarget.value,
-              index: currentTarget.selectionStart || 0,
-            });
+              index: currentTarget.selectionStart || 0
+            })
           },
           onKeyDown: (event: any) => {
             if (event.key === 'Enter') {
               if (state.run) {
-                run();
-                return;
+                run()
+                return
               }
 
               if (ds.highlightedIndex !== undefined) {
-                ds.selectHighlightedItem();
+                ds.selectHighlightedItem()
               }
             }
 
             if (event.key === 'ArrowUp' && ds.highlightedIndex === 0) {
               // eslint-disable-next-line no-param-reassign
-              event.nativeEvent.preventDownshiftDefault = true;
-              event.preventDefault();
-              ds.setState({ highlightedIndex: null });
+              event.nativeEvent.preventDownshiftDefault = true
+              event.preventDefault()
+              ds.setState({ highlightedIndex: null })
             }
-          },
-        });
+          }
+        })
 
         return (
           <div
             className={classnames('prompt', {
-              active: isLastSession || focused,
-            })}
-          >
+              active: isLastSession || focused
+            })}>
             <PromptIcon />
             <div className="input">
               {(isLastSession || focused) && state.run ? (
@@ -178,20 +181,25 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
                   </button>
                 </div>
               ) : null}
-              <input style={{ wordWrap: 'break-word' }} ref={input} {...inputProps} />
+              <input
+                style={{ wordWrap: 'break-word' }}
+                ref={input}
+                {...inputProps}
+              />
               {focused ? (
                 <div className="menu-anchor">
                   <div className="menu">
-                    <div className="menu-offset">{state.value.slice(0, state.nodeStart || 0)}</div>
+                    <div className="menu-offset">
+                      {state.value.slice(0, state.nodeStart || 0)}
+                    </div>
                     <ul {...ds.getMenuProps()}>
                       {state.options.map((item: any, index: any) => (
                         <li
                           {...ds.getItemProps({ item })}
                           key={item.value}
                           className={classnames('item', {
-                            active: ds.highlightedIndex === index,
-                          })}
-                        >
+                            active: ds.highlightedIndex === index
+                          })}>
                           <MenuItem
                             item={item}
                             highlighted={ds.highlightedIndex === index}
@@ -205,10 +213,10 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
               ) : null}
             </div>
           </div>
-        );
+        )
       }}
     </Downshift>
-  );
-};
+  )
+}
 
-export default Prompt;
+export default Prompt

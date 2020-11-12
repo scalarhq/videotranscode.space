@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react'
 
-import Select from 'react-select';
-import ComponentStore from '../store/componentStore';
+import Select from 'react-select'
+import ComponentStore from '../store/componentStore'
 
-import './list.css';
+import './list.css'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateConfiguration } = CluiStore;
+const { updateConfiguration } = CluiStore
 
 /**
  * Element of a List displayed as buttons
@@ -17,10 +17,10 @@ const { updateConfiguration } = CluiStore;
  */
 
 type DropElement = {
-  name: string,
+  name: string
   value: any
   child?: {
-    component: any,
+    component: any
     props: any
     paddingTop?: number
   }
@@ -41,12 +41,12 @@ type DropDownProps = {
 }
 
 const generateElementRef = (dropdown: Array<DropElement>) => {
-  const object: { [name: string]: DropElement } = {};
+  const object: { [name: string]: DropElement } = {}
   for (const item of dropdown) {
-    object[item.value] = item;
+    object[item.value] = item
   }
-  return object;
-};
+  return object
+}
 
 // const generateOptions = (dropdown: Array<DropElement>) => {
 //   const object : {value:string, label:string}
@@ -57,44 +57,43 @@ const generateElementRef = (dropdown: Array<DropElement>) => {
  * @param props {@link DropDownProps}
  */
 const Dropdown = (props: DropDownProps) => {
-  const { dropdown, title, parents } = props;
+  const { dropdown, title, parents } = props
 
   // eslint-disable-next-line react/destructuring-assignment
-  const [current, setCurrent] = useState<DropElement>(props.current);
+  const [current, setCurrent] = useState<DropElement>(props.current)
 
-  const element = useRef(generateElementRef(dropdown));
+  const element = useRef(generateElementRef(dropdown))
 
   useEffect(() => {
-    const defaultConfiguration = { value: current.value, name: current.name };
-    updateConfiguration(defaultConfiguration, [...parents]);
+    const defaultConfiguration = { value: current.value, name: current.name }
+    updateConfiguration(defaultConfiguration, [...parents])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setCurrent(props.current);
-  }, [props]);
+    setCurrent(props.current)
+  }, [props])
 
   useEffect(() => {
-    element.current = generateElementRef(dropdown);
-    console.info('Update elements');
-  }, [dropdown]);
+    element.current = generateElementRef(dropdown)
+    console.info('Update elements')
+  }, [dropdown])
 
-  const handleClick = (selectedOption: { value: any;[name: string]: any }) => {
+  const handleClick = (selectedOption: { value: any; [name: string]: any }) => {
     // e.preventDefault();
-    const { value } = selectedOption;
+    const { value } = selectedOption
     if (element && element.current) {
       // console.info('Tree', element.current, value);
-      const dataValue = element.current[value as keyof typeof element.current];
-      setCurrent(dataValue);
+      const dataValue = element.current[value as keyof typeof element.current]
+      setCurrent(dataValue)
       // console.info('Data value is', dataValue, current);
-      const newConfiguration = { value: dataValue.value, name: dataValue.name };
-      updateConfiguration(newConfiguration, [...parents]);
+      const newConfiguration = { value: dataValue.value, name: dataValue.name }
+      updateConfiguration(newConfiguration, [...parents])
     }
-  };
+  }
 
   return (
-
     <div className="options-list-wrapper">
       <div className="flex justify-center items-center">
         <p className="text-xl">{title}</p>
@@ -104,47 +103,58 @@ const Dropdown = (props: DropDownProps) => {
             onChange={handleClick}
             defaultValue={{ value: current.value, label: current.name }}
             value={{ value: current.value, label: current.name }}
-            options={dropdown.map((item) => ({ value: item.value, label: item.name }))}
+            options={dropdown.map(item => ({
+              value: item.value,
+              label: item.name
+            }))}
             styles={{
-              control: (styles) => ({
-                ...styles, backgroundColor: 'transparent', border: 'none', color: 'inherit', outline: 'none', appearance: 'none', zIndex: 5,
+              control: styles => ({
+                ...styles,
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: 'inherit',
+                outline: 'none',
+                appearance: 'none',
+                zIndex: 5
               }),
-              option: (styles) => ({
-                ...styles, color: 'inherit',
+              option: styles => ({
+                ...styles,
+                color: 'inherit'
               }),
-              placeholder: (styles) => ({
-                ...styles, color: 'inherit',
+              placeholder: styles => ({
+                ...styles,
+                color: 'inherit'
               }),
-              singleValue: (styles) => ({
-                ...styles, color: 'inherit',
+              singleValue: styles => ({
+                ...styles,
+                color: 'inherit'
               }),
-              menu: (styles) => ({
-                ...styles, zIndex: 10,
-              }),
+              menu: styles => ({
+                ...styles,
+                zIndex: 10
+              })
             }}
           />
         </div>
       </div>
 
-      {
-        current.child && (
-          <div className="child">
-            <current.child.component {...current.child.props} />
-
-          </div>
-        )
-      }
+      {current.child && (
+        <div className="child">
+          <current.child.component {...current.child.props} />
+        </div>
+      )}
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
           .child {
-            padding-top: ${current.child && current.child.paddingTop ? current.child.paddingTop : 0}%
+            padding-top: ${current.child && current.child.paddingTop
+              ? current.child.paddingTop
+              : 0}%;
           }
         `}
       </style>
     </div>
+  )
+}
 
-  );
-};
-
-export default Dropdown;
+export default Dropdown

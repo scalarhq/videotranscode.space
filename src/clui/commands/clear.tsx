@@ -1,22 +1,25 @@
-import React from 'react';
+import React from 'react'
 
-import CluiStore from '../../store/cluiStore';
+import CluiStore from '../../store/cluiStore'
 
 const Clear = (props: any) => {
   React.useEffect(() => {
     if (props.item) {
-      props.item.session.reset();
+      props.item.session.reset()
     }
-    CluiStore.updateRun(false);
+    CluiStore.updateRun(false)
 
-    window.scrollTo({ top: 0, left: 0 });
+    window.scrollTo({ top: 0, left: 0 })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
-  return <div />;
-};
+  return <div />
+}
 
-export default {
+const clearObject = {
   description: 'Clears screen',
-  run: () => <Clear />,
-};
+  // eslint-disable-next-line react/display-name
+  run: () => <Clear />
+}
+
+export default clearObject

@@ -1,24 +1,20 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react'
 
-import features from '../../features/features';
+import features from '../../features/features'
 
-import Submit from '../../clui-ui-components/Submit';
+import Submit from '../../clui-ui-components/Submit'
 
-import ComponentStore from '../../store/componentStore';
+import ComponentStore from '../../store/componentStore'
 
-import './basicFeature.css';
+import './basicFeature.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import {
-  faCog,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateChosenFeatures } = CluiStore;
+const { updateChosenFeatures } = CluiStore
 
 type KeyType = keyof typeof features
 
@@ -26,18 +22,19 @@ type KeyType = keyof typeof features
  * Basic Feature UI/UX to toggle away from CLUI for users uncomfortable
  */
 const BasicFeatures = () => {
-  const [selectedKey, setFeatureKey] = useState('TRANSCODE');
-  const [selected, setSelected] = useState(0);
+  const [selectedKey, setFeatureKey] = useState('TRANSCODE')
+  const [selected, setSelected] = useState(0)
 
   useEffect(() => {
-    updateChosenFeatures([{ name: selectedKey as keyof typeof features }]);
-  }, [selectedKey]);
+    updateChosenFeatures([{ name: selectedKey as keyof typeof features }])
+  }, [selectedKey])
 
-  const noOfFeatures = (
-    () => Object.keys(features).filter(
-      (featureKey) => !features[featureKey as KeyType].noDisplay && features[featureKey as KeyType].ui,
-    ).length
-  )();
+  const noOfFeatures = (() =>
+    Object.keys(features).filter(
+      featureKey =>
+        !features[featureKey as KeyType].noDisplay &&
+        features[featureKey as KeyType].ui
+    ).length)()
 
   return (
     <div className="basic-feature-wrapper">
@@ -47,42 +44,55 @@ const BasicFeatures = () => {
             <nav id="nav" className="w-56 relative nav">
               <span
                 className="absolute w-full rounded-lg shadow ease-out highlighter transition-transform transition-medium"
-                style={{ backgroundColor: '#6c63ff', height: `${63 / noOfFeatures}vh` }}
+                style={{
+                  backgroundColor: '#6c63ff',
+                  height: `${63 / noOfFeatures}vh`
+                }}
               />
               <ul className="relative options divide-y divide-gray-700">
                 {Object.keys(features).map((featureKey, index) => {
-                  const currentFeature = features[featureKey as KeyType];
+                  const currentFeature = features[featureKey as KeyType]
                   if (!currentFeature.noDisplay && currentFeature.ui) {
                     return (
-                      <li key={currentFeature.name} className="h-full flex items-center">
+                      <li
+                        key={currentFeature.name}
+                        className="h-full flex items-center">
                         <button
                           type="button"
-                          onClick={() => { setSelected(index); setFeatureKey(featureKey); }}
+                          onClick={() => {
+                            setSelected(index)
+                            setFeatureKey(featureKey)
+                          }}
                           // ariaSelected={selected === 0}
-                          className="py-2 px-3 w-full h-full flex items-center focus:outline-none focus-visible:underline"
-                        >
-                          <FontAwesomeIcon icon={faCog} color={selected === index ? 'white' : 'inherit'} />
+                          className="py-2 px-3 w-full h-full flex items-center focus:outline-none focus-visible:underline">
+                          <FontAwesomeIcon
+                            icon={faCog}
+                            color={selected === index ? 'white' : 'inherit'}
+                          />
                           <span
                             className="ml-2 text-sm font-medium transition-all ease-out transition-medium "
-                            style={{ color: selected === index ? 'white' : 'inherit' }}
-                          >
+                            style={{
+                              color: selected === index ? 'white' : 'inherit'
+                            }}>
                             {currentFeature.name}
                           </span>
                         </button>
                       </li>
-                    );
+                    )
                   }
-                  return null;
+                  return null
                 })}
               </ul>
             </nav>
           </div>
         </div>
-        <div className="w-3/4 flex flex-col pl-4 pr-2 justify-center" style={{ height: '60vh' }}>
+        <div
+          className="w-3/4 flex flex-col pl-4 pr-2 justify-center"
+          style={{ height: '60vh' }}>
           <div className="single-flex-wrapper">
             {(() => {
-              const currentFeature = features[selectedKey as KeyType];
-              return currentFeature.ui;
+              const currentFeature = features[selectedKey as KeyType]
+              return currentFeature.ui
             })()}
           </div>
           <div className="row">
@@ -136,7 +146,7 @@ const BasicFeatures = () => {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-          }     
+          }
 
           .single-feature-wrapper {
             padding-top: 3vh;
@@ -232,7 +242,7 @@ const BasicFeatures = () => {
         `}
       </style>
     </div>
-  );
-};
+  )
+}
 
-export default BasicFeatures;
+export default BasicFeatures

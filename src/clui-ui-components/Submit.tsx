@@ -1,47 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import { observer, useObserver } from 'mobx-react';
+import { observer, useObserver } from 'mobx-react'
 
-import ComponentStore from '../store/componentStore';
+import ComponentStore from '../store/componentStore'
 
 /**
  * Basic Submit button that tells store that configuration is locked
  */
 const Submit = observer(() => {
-  const { CluiStore, FileStore, loaded } = ComponentStore;
+  const { CluiStore, FileStore, loaded } = ComponentStore
 
-  const { setSubmitStatus } = CluiStore;
+  const { setSubmitStatus } = CluiStore
 
-  const { allFiles } = FileStore;
+  const { allFiles } = FileStore
 
-  const submit = React.useRef<HTMLButtonElement | null>(null);
+  const submit = React.useRef<HTMLButtonElement | null>(null)
 
-  const [disabledTip, setTip] = useState('Please wait while FFmpeg loads in the background, the entire process can take up to 30 seconds');
+  const [disabledTip, setTip] = useState(
+    'Please wait while FFmpeg loads in the background, the entire process can take up to 30 seconds'
+  )
 
   const handleSubmit = () => {
-    setSubmitStatus(true);
-  };
+    setSubmitStatus(true)
+  }
 
   useEffect(() => {
     if (loaded && allFiles.length === 0) {
-      setTip('Please Add A File!');
+      setTip('Please Add A File!')
     }
     if (loaded && allFiles.length > 0) {
       if (submit && submit.current) {
-        submit.current.removeAttribute('data-tooltip');
+        submit.current.removeAttribute('data-tooltip')
       }
     }
     // eslint-disable-next-line
-  }, [loaded, allFiles, submit, submit.current]);
+  }, [loaded, allFiles, submit, submit.current])
 
   return useObserver(() => (
     <>
-      <button className={`text-white font-bold py-2 px-4 mb-12 rounded ${!loaded || allFiles.length === 0 ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500'} `} data-tooltip={disabledTip} ref={submit} type="submit" onClick={handleSubmit} disabled={!loaded || allFiles.length === 0}>
+      <button
+        className={`text-white font-bold py-2 px-4 mb-12 rounded ${
+          !loaded || allFiles.length === 0
+            ? 'bg-gray-500 cursor-not-allowed'
+            : 'bg-blue-500'
+        } `}
+        data-tooltip={disabledTip}
+        ref={submit}
+        type="submit"
+        onClick={handleSubmit}
+        disabled={!loaded || allFiles.length === 0}>
         Submit
         {/* @ts-ignore Styled JSX */}
         <style jsx>
           {`
-          /**
+            /**
             * Tooltip Styles
             */
 
@@ -56,7 +68,7 @@ const Submit = observer(() => {
             [data-tooltip]:before,
             [data-tooltip]:after {
               visibility: hidden;
-              -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+              -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
               filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
               opacity: 0;
               pointer-events: none;
@@ -94,7 +106,7 @@ const Submit = observer(() => {
               border-top: 5px solid hsla(0, 0%, 20%, 1);
               border-right: 5px solid transparent;
               border-left: 5px solid transparent;
-              content: " ";
+              content: ' ';
               font-size: 0;
               line-height: 0;
             }
@@ -103,7 +115,7 @@ const Submit = observer(() => {
             [data-tooltip]:hover:before,
             [data-tooltip]:hover:after {
               visibility: visible;
-              -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+              -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
               filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
               opacity: 1;
             }
@@ -111,7 +123,7 @@ const Submit = observer(() => {
         </style>
       </button>
     </>
-  ));
-});
+  ))
+})
 
-export default Submit;
+export default Submit

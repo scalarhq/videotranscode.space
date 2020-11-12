@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
-import Submit from '../../clui-ui-components/Submit';
-import features from '../../features/features';
+/* global JSX */
+import React, { useEffect } from 'react'
+import Submit from '../../clui-ui-components/Submit'
+import features from '../../features/features'
 
-import ComponentStore from '../../store/componentStore';
+import ComponentStore from '../../store/componentStore'
 
-import './clui-ui.css';
+import './clui-ui.css'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateChosenFeatures } = CluiStore;
+const { updateChosenFeatures } = CluiStore
 
-type FeatureUiProps = { ui: JSX.Element | string, featureKey: keyof typeof features }
+type FeatureUiProps = {
+  ui: JSX.Element | string
+  featureKey: keyof typeof features
+}
 
 /**
  * Creates the Feature UI Element with Submit button and proper wrappers
@@ -19,20 +23,18 @@ type FeatureUiProps = { ui: JSX.Element | string, featureKey: keyof typeof featu
 const FeatureUi = ({ ui, featureKey }: FeatureUiProps) => {
   useEffect(() => {
     // Sets the chosen features array as a single element feature
-    updateChosenFeatures([{ name: featureKey }]);
+    updateChosenFeatures([{ name: featureKey }])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <div className="feature-wrapper">
-      <div className="row">
-        {typeof ui === 'string' ? <p>{ui}</p> : ui}
-      </div>
+      <div className="row">{typeof ui === 'string' ? <p>{ui}</p> : ui}</div>
       <div className="row">
         <Submit />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FeatureUi;
+export default FeatureUi

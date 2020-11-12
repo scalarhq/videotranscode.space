@@ -1,56 +1,58 @@
 /* eslint-disable no-param-reassign */
-import { observable, action, toJS } from 'mobx';
-import { WorkflowStep } from '../dist/workflow';
-import AbstractStore from './store';
+import { observable, action, toJS } from 'mobx'
+import { WorkflowStep } from '../dist/workflow'
+import AbstractStore from './store'
 
 class CluiStore extends AbstractStore {
   // Observables
-  @observable cluiPlaceholder: string = '';
+  @observable cluiPlaceholder: string = ''
 
-  @observable inputMessage: string = '';
+  @observable inputMessage: string = ''
 
-  @observable isSubmitted: boolean = false;
+  @observable isSubmitted: boolean = false
 
-  @observable chosenFeatures: Array<WorkflowStep> = [];
+  @observable chosenFeatures: Array<WorkflowStep> = []
 
-  @observable configuration: { [name: string]: { value: any; [name: string]: any } } = {};
+  @observable configuration: {
+    [name: string]: { value: any; [name: string]: any }
+  } = {}
 
-  @observable configurationJS = {};
+  @observable configurationJS = {}
 
-  @observable ran: boolean = false;
+  @observable ran: boolean = false
 
-  @observable cluiToggle = true;
+  @observable cluiToggle = true
 
   // Constructor
   constructor() {
-    super();
-    this.init();
+    super()
+    this.init()
   }
 
   // Init
   @action init = () => {
-    this.cluiPlaceholder = 'Hi, I am a clui!';
-    this.inputMessage = '';
-    this.isSubmitted = false;
-    this.chosenFeatures = [];
-    this.configuration = {};
-    this.configurationJS = {};
-  };
+    this.cluiPlaceholder = 'Hi, I am a clui!'
+    this.inputMessage = ''
+    this.isSubmitted = false
+    this.chosenFeatures = []
+    this.configuration = {}
+    this.configurationJS = {}
+  }
 
   // Actions
 
   @action updateCluiPlaceholder(newPlaceholder: string) {
-    this.cluiPlaceholder = newPlaceholder;
+    this.cluiPlaceholder = newPlaceholder
   }
 
   @action
   public setInputMessage = (value: string) => {
-    this.inputMessage = value;
-  };
+    this.inputMessage = value
+  }
 
   @action setSubmitStatus = (value: boolean) => {
-    this.isSubmitted = value;
-  };
+    this.isSubmitted = value
+  }
 
   /**
    *  Updates the store of chosen features to make it easier to parse the configuration on submit
@@ -58,9 +60,9 @@ class CluiStore extends AbstractStore {
    */
   @action updateChosenFeatures = (newChosenFeatures: Array<WorkflowStep>) => {
     if (newChosenFeatures.length > 0) {
-      this.chosenFeatures = newChosenFeatures;
+      this.chosenFeatures = newChosenFeatures
     }
-  };
+  }
 
   /**
    * Recursively Finds Correct Config and Updates it with the value
@@ -73,41 +75,41 @@ class CluiStore extends AbstractStore {
    */
   @action updateConfiguration = (
     newConfiguration: { value: any; [name: string]: any },
-    parents: Array<string>,
+    parents: Array<string>
   ) => {
-    const { configuration } = this;
+    const { configuration } = this
     function updateObject(object: any) {
       while (parents.length > 1) {
-        const key = parents.shift() as string;
+        const key = parents.shift() as string
         if (!(key in object)) {
-          object = Object.assign(object, { [key]: {} });
+          object = Object.assign(object, { [key]: {} })
         }
-        object = object[key];
+        object = object[key]
       }
-      const key = parents.shift() as string;
+      const key = parents.shift() as string
       if (key in object) {
-        object[key] = Object.assign(object[key], newConfiguration);
+        object[key] = Object.assign(object[key], newConfiguration)
       } else {
-        object = Object.assign(object, { [key]: newConfiguration });
+        object = Object.assign(object, { [key]: newConfiguration })
       }
     }
-    updateObject(configuration);
+    updateObject(configuration)
 
-    this.configuration = configuration;
+    this.configuration = configuration
 
-    this.configurationJS = toJS(configuration);
+    this.configurationJS = toJS(configuration)
     // console.table(this.configurationJS);
-  };
+  }
 
   @action('Update Ran')
   updateRun = (value = true) => {
-    this.ran = value;
-  };
+    this.ran = value
+  }
 
   @action('Update cluiToggle')
   updateCluiToggle = (value = true) => {
-    this.cluiToggle = value;
-  };
+    this.cluiToggle = value
+  }
 }
 
-export default new CluiStore();
+export default new CluiStore()

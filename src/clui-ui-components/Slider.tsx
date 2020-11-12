@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import ComponentStore from '../store/componentStore';
+import ComponentStore from '../store/componentStore'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateConfiguration } = CluiStore;
+const { updateConfiguration } = CluiStore
 
 /**
  * Similar to {@link ListProps}
@@ -15,7 +15,7 @@ type SliderProps = {
   min: number
   max: number
   child?: {
-    component: any, // Expect a JSX Element
+    component: any // Expect a JSX Element
     props: any
   }
 }
@@ -25,63 +25,61 @@ type SliderProps = {
  * @param param0 {@link SliderProps}
  */
 
-const Slider = ({
-  parents, title, min, max, child,
-}: SliderProps) => {
-  const [sliderValue, setSliderValue] = useState(0);
+const Slider = ({ parents, title, min, max, child }: SliderProps) => {
+  const [sliderValue, setSliderValue] = useState(0)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseInt(e.target.value, 10);
-    setSliderValue(newValue);
-    updateConfiguration({ value: newValue }, [...parents]);
-  };
+    const newValue = parseInt(e.target.value, 10)
+    setSliderValue(newValue)
+    updateConfiguration({ value: newValue }, [...parents])
+  }
 
   return (
     <div style={{ width: '100%' }}>
       <div className="configure-slider">
-        <input type="range" min={min} max={max} value={sliderValue} onChange={handleChange} className="slider" />
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={sliderValue}
+          onChange={handleChange}
+          className="slider"
+        />
       </div>
       <div>
         <p>
-          {title}
-          {' '}
-          :
-          {sliderValue}
-          %
+          {title} :{sliderValue}%
         </p>
       </div>
-      {child && (
-        <child.component {...child.props} />
-      )}
+      {child && <child.component {...child.props} />}
       {/* @ts-ignore */}
       <style jsx>
         {`
-        .configure-slider {
-          background: #30363b;
-          border-radius: 5px;
-        }
-        .slider {
-          -webkit-appearance: none;
-          background: #272c31;
-          border-radius: 100px;
-          padding: 0em !important;
-          border: 1px solid #2723c1 !important;
-          height : 0;
-        }
+          .configure-slider {
+            background: #30363b;
+            border-radius: 5px;
+          }
+          .slider {
+            -webkit-appearance: none;
+            background: #272c31;
+            border-radius: 100px;
+            padding: 0em !important;
+            border: 1px solid #2723c1 !important;
+            height: 0;
+          }
 
-        .slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          height: 10px;
-          width: 10px;
-          border-radius: 50%;
-          background: #3fbd71;
-          cursor: pointer;
-        }
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background: #3fbd71;
+            cursor: pointer;
+          }
         `}
-
       </style>
     </div>
-  );
-};
+  )
+}
 
-export default Slider;
+export default Slider

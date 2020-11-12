@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
-import Help from './help';
+import Help from './help'
 
-import Reload from './reload';
+import Reload from './reload'
 
 const UtilWrapper = () => (
   <>
     <Help />
     <Reload />
   </>
-);
+)
 
-export default UtilWrapper;
+export default UtilWrapper

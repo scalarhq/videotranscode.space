@@ -1,27 +1,27 @@
-import { ffmpegWriter } from './ffmpeg';
+import { ffmpegWriter } from './ffmpeg'
 
-import { FileTypes } from '../types/fileTypes';
+import { FileTypes } from '../types/fileTypes'
 
-import FileStore from '../store/fileStore';
+import FileStore from '../store/fileStore'
 
 /**
  * Loads Originally Uploaded Files into FFmpeg Memory
  */
 const loadFiles = async () => {
-  const { files } = FileStore;
+  const { files } = FileStore
   const uploadFiles: { [name in FileTypes]: Array<Promise<string>> } = {
     audio: [],
     video: [],
     image: [],
-    other: [],
-  };
+    other: []
+  }
 
   for (const type of ['audio', 'video', 'image']) {
-    const currentFileList = files[type as FileTypes];
+    const currentFileList = files[type as FileTypes]
     if (currentFileList) {
-      console.info('Chosen files', currentFileList);
+      console.info('Chosen files', currentFileList)
       for (const fileObj of currentFileList) {
-        uploadFiles[type as FileTypes].push(ffmpegWriter(fileObj.file));
+        uploadFiles[type as FileTypes].push(ffmpegWriter(fileObj.file))
       }
     }
   }
@@ -29,9 +29,9 @@ const loadFiles = async () => {
     video: await Promise.all(uploadFiles.video),
     audio: await Promise.all(uploadFiles.audio),
     image: await Promise.all(uploadFiles.image),
-    other: await Promise.all(uploadFiles.other),
-  };
-};
+    other: await Promise.all(uploadFiles.other)
+  }
+}
 
 // const handleFirstFileLoad = async (fileConfig: FileConfigType, files: InputFilesType) => {
 //   // @ts-ignore
@@ -50,4 +50,4 @@ const loadFiles = async () => {
 //   );
 // };
 
-export default loadFiles;
+export default loadFiles

@@ -1,66 +1,65 @@
-import React, { useContext, useEffect } from 'react';
+/* global JSX */
+import React, { useContext, useEffect } from 'react'
 
-import { ShepherdTour, ShepherdTourContext } from 'react-shepherd';
+import { ShepherdTour, ShepherdTourContext } from 'react-shepherd'
 
-import steps from './steps';
+import steps from './steps'
 
-import 'shepherd.js/dist/css/shepherd.css';
+import 'shepherd.js/dist/css/shepherd.css'
 
-import ComponentStore from '../../store/componentStore';
+import ComponentStore from '../../store/componentStore'
 
 const tourOptions = {
   defaultStepOptions: {
     cancelIcon: {
-      enabled: true,
+      enabled: true
     },
-    classes: 'shepherd-font',
+    classes: 'shepherd-font'
   },
   useModalOverlay: true,
-  scrollTo: { behavior: 'smooth', block: 'center' },
-};
+  scrollTo: { behavior: 'smooth', block: 'center' }
+}
 
-type TourProps = { children: JSX.Element, }
+type TourProps = { children: JSX.Element }
 
 const Tour = ({ children }: TourProps) => {
-  const tour = useContext(ShepherdTourContext);
+  const tour = useContext(ShepherdTourContext)
 
   useEffect(() => {
-    let conductTour = false;
-    const tourSession = window.localStorage.getItem('tour');
+    let conductTour = false
+    const tourSession = window.localStorage.getItem('tour')
     // console.info(tourSession);
     if (tourSession) {
-      const prevDate = new Date(tourSession);
-      const currentDate = new Date();
+      const prevDate = new Date(tourSession)
+      const currentDate = new Date()
       // @ts-ignore
-      const diffTime = Math.abs(currentDate - prevDate);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffTime = Math.abs(currentDate - prevDate)
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
       if (diffDays > 30) {
-        conductTour = true;
-        window.localStorage.removeItem('tour');
+        conductTour = true
+        window.localStorage.removeItem('tour')
       }
     } else {
-      conductTour = true;
+      conductTour = true
     }
     if (conductTour) {
-      console.info('Starting Tour!');
+      console.info('Starting Tour!')
       // @ts-ignore
-      tour.start();
-      window.localStorage.setItem('tour', `${new Date().toISOString()}`);
+      tour.start()
+      window.localStorage.setItem('tour', `${new Date().toISOString()}`)
     }
 
-    ComponentStore.startTour = tour ? tour.start : () => { };
+    ComponentStore.startTour = tour ? tour.start : () => {}
 
     return () => {
-      ComponentStore.startTour = () => { };
-    };
+      ComponentStore.startTour = () => {}
+    }
 
     // eslint-disable-next-line
-  }, []);
+  }, [])
 
-  return (
-    <div>{children}</div>
-  );
-};
+  return <div>{children}</div>
+}
 
 const TourWrapper = ({ children }: TourProps) => (
   <div>
@@ -69,6 +68,6 @@ const TourWrapper = ({ children }: TourProps) => (
       <Tour>{children}</Tour>
     </ShepherdTour>
   </div>
-);
+)
 
-export default TourWrapper;
+export default TourWrapper
