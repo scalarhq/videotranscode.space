@@ -1,33 +1,34 @@
 .terminal-emulator {
-    flex: 0 1 auto;
-    /* border: 1px solid #4A5063; */
-    /* border-radius: 5px; */
-    min-height: 35vh;
-    max-height: 40vh;
-    text-align: left;
-    font-family: Ubuntu Mono;
-    overflow-y: auto;
-    word-wrap: break-word;
-    width: 60vh;
-    display: flex;
-    font-size: 16px;
-    background-color: #272C31;
-    color: #3FBD71 !important;
-    scrollbar-color: #77f0a0 transparent;
-    scrollbar-width: thin;
+  flex: 0 1 auto;
+  /* border: 1px solid #4A5063; */
+  /* border-radius: 5px; */
+  min-height: 35vh;
+  max-height: 40vh;
+  text-align: left;
+  font-family: Ubuntu Mono;
+  overflow-y: auto;
+  word-wrap: break-word;
+  width: 60vh;
+  display: flex;
+  font-size: 16px;
+  background-color: #272c31;
+  color: #3fbd71 !important;
+  scrollbar-color: #77f0a0 transparent;
+  scrollbar-width: thin;
 }
 
 .terminal-emulator::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
+  width: 8px;
+  height: 10px;
 }
 
 .terminal-emulator::-webkit-scrollbar-thumb {
-    background: #77f0a0;
-    border-radius: 10px;
-    box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, .25), inset -2px -2px 2px rgba(0, 0, 0, .25);
+  background: #77f0a0;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .terminal-emulator::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }

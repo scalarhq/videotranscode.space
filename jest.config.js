@@ -10,5 +10,8 @@ module.exports = {
   // // preset: 'jest-puppeteer',
   // transformIgnorePatterns: ['node_modules'],
   // moduleFileExtensions: ['tsx', 'ts', 'js', 'jsx'],
-  setupFilesAfterEnv: ['./jest.setup.js', '@testing-library/jest-dom/extend-expect'],
-};
+  setupFilesAfterEnv: [
+    './jest.setup.js',
+    '@testing-library/jest-dom/extend-expect'
+  ]
+}

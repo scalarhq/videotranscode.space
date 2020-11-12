@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import ComponentStore from '../store/componentStore';
+import ComponentStore from '../store/componentStore'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateConfiguration } = CluiStore;
+const { updateConfiguration } = CluiStore
 
 /**
  * Similar to {@link ListProps}
@@ -12,12 +12,12 @@ const { updateConfiguration } = CluiStore;
 type SingleInputProps = {
   parents: Array<string>
   type: string
-  defaultValue: any,
+  defaultValue: any
   placeholder?: string
   otherProps?: any
   className?: string
   child?: {
-    component: any, // Expect a JSX Element
+    component: any // Expect a JSX Element
     props: any
   }
 }
@@ -28,19 +28,35 @@ type SingleInputProps = {
  */
 
 const SingleInput = ({
-  parents, type, placeholder, child, otherProps, className, defaultValue,
+  parents,
+  type,
+  placeholder,
+  child,
+  otherProps,
+  className,
+  defaultValue
 }: SingleInputProps) => {
-  const [inputValue, setInputValue] = useState<any>(defaultValue);
+  const [inputValue, setInputValue] = useState<any>(defaultValue)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    updateConfiguration({ value: e.target.value }, [...parents]);
-  };
+    setInputValue(e.target.value)
+    updateConfiguration({ value: e.target.value }, [...parents])
+  }
 
   return (
     <div className="single-input-wrapper">
       <div className="single-input">
-        <input type={type} value={inputValue} placeholder={placeholder} onChange={handleChange} className={className || 'single-input-element appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75'} {...otherProps} />
+        <input
+          type={type}
+          value={inputValue}
+          placeholder={placeholder}
+          onChange={handleChange}
+          className={
+            className ||
+            'single-input-element appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75'
+          }
+          {...otherProps}
+        />
       </div>
 
       {child && (
@@ -51,33 +67,31 @@ const SingleInput = ({
       {/* @ts-ignore */}
       <style jsx>
         {`
-        .single-input-wrapper {
-          display:flex;
-          flex-direction: column;
-          align-items: center;
-          width: 100%
-        }
-        .child {
-          width : 100%;
-        }
-        .single-input-element {
-           -moz-appearance: textfield;
-        }
+          .single-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+          }
+          .child {
+            width: 100%;
+          }
+          .single-input-element {
+            -moz-appearance: textfield;
+          }
 
-        .single-input {
-         
-          display: block;
-          outline: 0;
-          padding: 0 1rem;
-          text-decoration: none;
-          width: 50%;
-          height : 2.75rem;
-        }
+          .single-input {
+            display: block;
+            outline: 0;
+            padding: 0 1rem;
+            text-decoration: none;
+            width: 50%;
+            height: 2.75rem;
+          }
         `}
-
       </style>
     </div>
-  );
-};
+  )
+}
 
-export default SingleInput;
+export default SingleInput

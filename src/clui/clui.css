@@ -26,7 +26,7 @@
   height: 100%;
 }
 
-.clui-wrapper>* {
+.clui-wrapper > * {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
 }
@@ -39,7 +39,8 @@
 .clui-wrapper::-webkit-scrollbar-thumb {
   background: #77f0a0;
   border-radius: 10px;
-  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25), inset -2px -2px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .clui-wrapper::-webkit-scrollbar-track {
@@ -117,7 +118,7 @@ span {
   /* opacity: 1; */
 }
 
-.prompt:focus-within> :global(div:first-child) {
+.prompt:focus-within > :global(div:first-child) {
   color: cornflowerblue;
 }
 

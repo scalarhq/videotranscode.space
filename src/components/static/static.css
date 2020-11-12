@@ -13,7 +13,6 @@ h1.title {
   transition: all 0.2s ease-in-out;
 }
 
-
 .logo-wrapper {
   display: flex;
   align-items: center;
@@ -248,7 +247,6 @@ h4 {
 /* Media Queries */
 
 @media (max-width: 600px) {
-
   .footer-distributed .footer-left,
   .footer-distributed .footer-right {
     text-align: center;

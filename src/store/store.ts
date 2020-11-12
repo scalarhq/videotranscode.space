@@ -1,11 +1,11 @@
-import { action } from 'mobx';
+import { action } from 'mobx'
 
 abstract class AbstractStore {
-  @action public abstract init = () => {};
+  @action public abstract init = () => {}
 
   @action public reset = () => {
-    this.init();
-  };
+    this.init()
+  }
 }
 
-export default AbstractStore;
+export default AbstractStore

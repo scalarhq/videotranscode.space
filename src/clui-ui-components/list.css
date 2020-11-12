@@ -1,42 +1,42 @@
 .options-list-wrapper {
-    display: flex;
-    flex: 2 0 50%;
-    padding: 1rem;
-    flex-wrap: wrap;
-    flex-direction: column;
+  display: flex;
+  flex: 2 0 50%;
+  padding: 1rem;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .options-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .options-list-item-wrapper {
-    flex: 1 1 30%;
-    padding-left: 10%;
+  flex: 1 1 30%;
+  padding-left: 10%;
 }
 
 .options-list-item {
-    flex: 0 0 auto;
-    padding: 0.4rem;
-    border-radius: 5px;
-    width: 100%;
+  flex: 0 0 auto;
+  padding: 0.4rem;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .options-list-item.active {
-    flex: 0 0 auto;
-    background-color: rgba(62, 187, 112, 0.25);
-    border: 1px solid #47b372;
-    color: #f7f7f7;
-    width: 100%;
+  flex: 0 0 auto;
+  background-color: rgba(62, 187, 112, 0.25);
+  border: 1px solid #47b372;
+  color: #f7f7f7;
+  width: 100%;
 }
 
 .options-list-item a {
-    color: inherit;
-    padding-left: 3%;
+  color: inherit;
+  padding-left: 3%;
 }
 
 .options-list-item a:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

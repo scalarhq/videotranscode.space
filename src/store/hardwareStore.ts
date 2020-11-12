@@ -1,44 +1,44 @@
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 
-import axios from 'axios';
-import { HardwareDataType } from '../types/hardwareData';
-import AbstractStore from './store';
+import axios from 'axios'
+import { HardwareDataType } from '../types/hardwareData'
+import AbstractStore from './store'
 
 class HardwareStore extends AbstractStore {
   // Observables
 
   // @ts-ignore Set in setting function
-  @observable data: HardwareDataType = {};
+  @observable data: HardwareDataType = {}
 
   // Constructor
   constructor() {
-    super();
-    this.init();
+    super()
+    this.init()
   }
 
   @action init = () => {
-    Object.assign(this.data, {});
-  };
+    Object.assign(this.data, {})
+  }
 
   @action('Update Hardware Data')
   updateHardwareData = (newData: HardwareDataType) => {
-    this.data = newData;
-  };
+    this.data = newData
+  }
 
   @action('Send Data')
   sendHardwareData = async () => {
-    const { data } = this;
+    const { data } = this
     if (data) {
       await axios.post(
         atob(
-          'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw==',
+          'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw=='
         ),
         {
-          data,
-        },
-      );
+          data
+        }
+      )
     }
-  };
+  }
 }
 
-export default new HardwareStore();
+export default new HardwareStore()

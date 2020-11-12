@@ -1,20 +1,21 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react'
 
-import Steps, { Step } from 'rc-steps';
+import Steps, { Step } from 'rc-steps'
 
-import 'rc-steps/assets/index.css';
+import 'rc-steps/assets/index.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
-  faFile, faClock, faDownload, faCogs,
-} from '@fortawesome/free-solid-svg-icons';
+  faFile,
+  faClock,
+  faDownload,
+  faCogs
+} from '@fortawesome/free-solid-svg-icons'
 
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
 
-import ComponentStore from '../../store/componentStore';
+import ComponentStore from '../../store/componentStore'
 
 type Status = 'wait' | 'finish' | 'error'
 
@@ -26,80 +27,97 @@ type Statuses = {
 }
 
 const defaultStatus: Statuses = {
-  file: 'wait', settings: 'wait', processing: 'wait', download: 'wait',
-};
+  file: 'wait',
+  settings: 'wait',
+  processing: 'wait',
+  download: 'wait'
+}
 
 const StepComponent = () => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0)
 
-  const [statues, setStatues] = useState<Statuses>(defaultStatus);
+  const [statues, setStatues] = useState<Statuses>(defaultStatus)
 
-  const {
-    processed, globalReset, CluiStore, FileStore,
-  } = ComponentStore;
+  const { processed, globalReset, CluiStore, FileStore } = ComponentStore
 
-  const { allFiles } = FileStore;
+  const { allFiles } = FileStore
 
-  const { isSubmitted } = CluiStore;
+  const { isSubmitted } = CluiStore
 
   useEffect(() => {
     if (allFiles.length > 0) {
-      setStatues((cur) => ({ ...cur, file: 'finish' }));
-      setCurrent(1);
+      setStatues(cur => ({ ...cur, file: 'finish' }))
+      setCurrent(1)
     }
-  }, [allFiles]);
+  }, [allFiles])
 
   useEffect(() => {
     if (globalReset) {
-      setStatues(defaultStatus);
-      setCurrent(0);
+      setStatues(defaultStatus)
+      setCurrent(0)
     }
-  }, [globalReset]);
+  }, [globalReset])
 
   useEffect(() => {
     if (isSubmitted) {
-      setStatues((cur) => ({ ...cur, settings: 'finish' }));
-      setCurrent(2);
+      setStatues(cur => ({ ...cur, settings: 'finish' }))
+      setCurrent(2)
     }
-  }, [isSubmitted]);
+  }, [isSubmitted])
 
   useEffect(() => {
     if (processed) {
-      setStatues((cur) => ({ ...cur, processing: 'finish', download: 'finish' }));
-      setCurrent(3);
+      setStatues(cur => ({ ...cur, processing: 'finish', download: 'finish' }))
+      setCurrent(3)
     }
-  }, [processed]);
+  }, [processed])
 
   return (
     <div className="step-wrapper">
       <Steps current={current}>
-        <Step title="Add File" icon={<FontAwesomeIcon icon={faFile} />} status={statues.file} />
-        <Step title="Choose Settings" icon={<FontAwesomeIcon icon={faCogs} />} status={statues.settings} />
-        <Step title="Processing" icon={<FontAwesomeIcon icon={faClock} />} status={statues.processing} />
-        <Step title="Download" icon={<FontAwesomeIcon icon={faDownload} />} status={statues.download} />
+        <Step
+          title="Add File"
+          icon={<FontAwesomeIcon icon={faFile} />}
+          status={statues.file}
+        />
+        <Step
+          title="Choose Settings"
+          icon={<FontAwesomeIcon icon={faCogs} />}
+          status={statues.settings}
+        />
+        <Step
+          title="Processing"
+          icon={<FontAwesomeIcon icon={faClock} />}
+          status={statues.processing}
+        />
+        <Step
+          title="Download"
+          icon={<FontAwesomeIcon icon={faDownload} />}
+          status={statues.download}
+        />
       </Steps>
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`
-        .step-wrapper {
-          color : inherit !important;
-          padding-top : 2vh;
-        }
-        .rc-steps-item-title {
-          color : inherit !important;
-        }
-        .rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
-          color : #6c63ff;
-        }
-        .rc-steps-item-finish .rc-steps-item-tail::after {
-          background-color : #6c63ff;
-        }
-        .rc-steps-item-finish .rc-steps-item-title::after {
-          background-color : #6c63ff;
-        }
+          .step-wrapper {
+            color: inherit !important;
+            padding-top: 2vh;
+          }
+          .rc-steps-item-title {
+            color: inherit !important;
+          }
+          .rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
+            color: #6c63ff;
+          }
+          .rc-steps-item-finish .rc-steps-item-tail::after {
+            background-color: #6c63ff;
+          }
+          .rc-steps-item-finish .rc-steps-item-title::after {
+            background-color: #6c63ff;
+          }
         `}
       </style>
     </div>
-  );
-};
-export default observer(StepComponent);
+  )
+}
+export default observer(StepComponent)

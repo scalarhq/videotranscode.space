@@ -1,29 +1,28 @@
-import React, { useEffect } from 'react';
-import features, { FeatureElement } from '../../features/features';
-import Submit from '../../clui-ui-components/Submit';
+import React, { useEffect } from 'react'
+import features, { FeatureElement } from '../../features/features'
+import Submit from '../../clui-ui-components/Submit'
 
-import './clui-ui.css';
+import './clui-ui.css'
 
-import ComponentStore from '../../store/componentStore';
-import { WorkflowStep } from '../../dist/workflow';
+import ComponentStore from '../../store/componentStore'
+import { WorkflowStep } from '../../dist/workflow'
 
-const { CluiStore } = ComponentStore;
+const { CluiStore } = ComponentStore
 
-const { updateChosenFeatures } = CluiStore;
-
+const { updateChosenFeatures } = CluiStore
 
 const displaySubFeatures = (featureKey: WorkflowStep) => {
-  const featuresInUse: Array<FeatureElement> = [];
-  if (featureKey.name === "COMBINED_EXEC_FEATURE") {
+  const featuresInUse: Array<FeatureElement> = []
+  if (featureKey.name === 'COMBINED_EXEC_FEATURE') {
     const { configuration } = featureKey
 
     for (const subFeature of configuration?.steps || []) {
-      featuresInUse.push(features[subFeature.name]);
+      featuresInUse.push(features[subFeature.name])
       featuresInUse.push(...displaySubFeatures(subFeature))
     }
   }
   console.info('Returning display sub features', featureKey.name, featuresInUse)
-  return featuresInUse;
+  return featuresInUse
 }
 
 /**
@@ -33,28 +32,37 @@ const displaySubFeatures = (featureKey: WorkflowStep) => {
  */
 const WorkflowUi = ({ steps }: { steps: Array<WorkflowStep> }) => {
   useEffect(() => {
-    updateChosenFeatures(steps);
+    updateChosenFeatures(steps)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
-  const featuresInUse: Array<FeatureElement> = [];
+  const featuresInUse: Array<FeatureElement> = []
   for (const featureKey of steps) {
-    featuresInUse.push(features[featureKey.name]);
+    featuresInUse.push(features[featureKey.name])
     featuresInUse.push(...displaySubFeatures(featureKey))
   }
-  const UiElements = featuresInUse.map((feature) => feature.ui);
+  const UiElements = featuresInUse.map(feature => feature.ui)
   return (
     <div className="workflow-wrapper">
-
-      {UiElements.map((Element) => {
+      {UiElements.map((Element, index) => {
         if (typeof Element === 'string') {
-          return (<div className="row"><p>{Element}</p></div>);
+          return (
+            <div className="row">
+              <p>{Element}</p>
+            </div>
+          )
         }
-        return (<div className="row">{Element}</div>);
+        return (
+          <div key={`elementInWorkflow${index}`} className="row">
+            {Element}
+          </div>
+        )
       })}
-      <div className="row"><Submit /></div>
+      <div className="row">
+        <Submit />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default WorkflowUi;
+export default WorkflowUi

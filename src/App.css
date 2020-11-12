@@ -67,11 +67,9 @@ main {
   -moz-appearance: textfield;
 }
 
-
 .shepherd-font {
   font-family: Inter;
 }
-
 
 .video-wrapper {
   width: 50%;
