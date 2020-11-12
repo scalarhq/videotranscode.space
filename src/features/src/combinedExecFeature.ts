@@ -3,8 +3,8 @@ import features from '../features'
 import { WorkflowStep } from '../../dist/workflow'
 
 type CombinedExecConfig = {
-  KEY_CONFIG: { value: number; steps: [WorkflowStep] }
   [name: string]: { value: any; [name: string]: any }
+  KEY_CONFIG: { value: any; steps?: WorkflowStep[] }
 }
 
 class CombinedExecFeature extends FFmpegFeature {
@@ -32,7 +32,13 @@ class CombinedExecFeature extends FFmpegFeature {
   parseConfiguration = () => {
     const { configuration } = this
     const { KEY_CONFIG } = configuration
+    if (!KEY_CONFIG) {
+      throw new Error('Invalid CombinedExecFeature')
+    }
     const { steps } = KEY_CONFIG
+    if (!steps) {
+      throw new Error('No steps defined')
+    }
     return steps
   }
 
