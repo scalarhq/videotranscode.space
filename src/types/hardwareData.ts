@@ -1,4 +1,5 @@
 export type HardwareDataType = {
+  uuid: string
   inputFileData: string
   encodeTime: number
   threads: number
