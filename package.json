@@ -100,7 +100,7 @@
     "test-codecs": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit -i tests/codecs-testing",
     "eject": "react-scripts eject",
     "document": "yarn generate; typedoc --options typedoc.json src/  --theme pages-plugin",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx,.js",
     "lint:fix": "yarn lint --fix",
     "prettier": "prettier --check src/",
     "prettier:fix": "prettier --write src/",
@@ -121,5 +121,10 @@
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
     "**/@typescript-eslint/parser": "^4.1.1"
+  },
+ "husky": {
+    "hooks": {
+      "pre-commit": "yarn verify"
+    }
   }
 }
