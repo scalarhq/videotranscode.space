@@ -97,7 +97,8 @@ app.post('/', async (req, res) => {
       os: data.os,
       navigator: data.navigator,
       tester: data.tester ? data.tester : 'null',
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      user_id: data.uuid
     }
     console.log(newRow)
     try {
@@ -140,6 +141,10 @@ app.post('/', async (req, res) => {
           {
             name: 'Navigator',
             value: JSON.stringify(data.navigator)
+          },
+          {
+            name: 'User ID',
+            value: JSON.stringify(data.uuid)
           }
         ]
       }
