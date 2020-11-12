@@ -1,0 +1,13 @@
+.babelrc 
+.circleci/
+.vscode/
+public/
+README.md 
+docker-compose.yml 
+dockerEntry.sh
+documentation/
+docs/
+src/dist/
+*.json
+*.md
+*.yml
