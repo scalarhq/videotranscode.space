@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
 
 import { faFile, faCogs, faToggleOn } from '@fortawesome/free-solid-svg-icons'
-import useHover from '../../ts/useHover'
+import useHover from '../../ts/utils/useHover'
 
 import ComponentStore from '../../store/componentStore'
 
