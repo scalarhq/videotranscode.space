@@ -1,5 +1,4 @@
 import platform from 'platform'
-import { v4 } from 'uuid'
 import ComponentStore from '../store/componentStore'
 import { HardwareDataType } from '../types/hardwareData'
 
