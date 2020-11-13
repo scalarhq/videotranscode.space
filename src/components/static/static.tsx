@@ -176,9 +176,7 @@ export function Footer() {
             Github
           </a>
 
-          <a
-            className="link-class"
-            href="mailto:cryogenic@videotranscode.space">
+          <a className="link-class" href="mailto:hello@modfy.video">
             Contact
           </a>
 

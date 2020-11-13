@@ -3,7 +3,7 @@ import { v4 } from 'uuid'
 import ComponentStore from '../store/componentStore'
 import { HardwareDataType } from '../types/hardwareData'
 
-const { HardwareStore, CluiStore, FileStore } = ComponentStore
+const { HardwareStore, CluiStore, FileStore, UserStore } = ComponentStore
 
 const { updateHardwareData, sendHardwareData } = HardwareStore
 
@@ -17,16 +17,6 @@ const getThreads = () => {
 const getBrowser = () => `${platform.name}:${platform.version} `
 const getOs = () => (platform.os ? platform.os.toString() : 'Not Found')
 const getNavigator = () => platform.description
-
-const getUUID = () => {
-  const existing = window.localStorage.getItem('uuid')
-  if (existing) {
-    return existing
-  }
-  const newUUID = v4()
-  window.localStorage.setItem('uuid', newUUID)
-  return newUUID
-}
 
 const updateData = (encodeTime: number) => {
   const testerDom = document.getElementById('tester') as HTMLInputElement
@@ -46,7 +36,7 @@ const updateData = (encodeTime: number) => {
   const inputFileData = JSON.stringify(FileStore.fileData)
 
   const currentData: HardwareDataType = {
-    uuid: getUUID(),
+    uuid: UserStore.uuid,
     inputFileData,
     encodeTime: encodeTimeData,
     threads: threadsData,

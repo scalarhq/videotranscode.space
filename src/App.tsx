@@ -24,6 +24,7 @@ import ErrorScreen from './components/error/Error'
 import Configuration from './components/configuration/configuration'
 import Tour from './components/tour/tour'
 import Util from './components/utils/util'
+import Banner from './components/banner/banner'
 
 // Types
 
@@ -132,6 +133,7 @@ const App = () => {
         <div className="overlay-wrapper">
           {!isMobile ? (
             <div className="blur">
+              <Banner />
               <Util />
               <Tour>
                 <>
@@ -189,7 +191,7 @@ const App = () => {
               }
               main {
                 max-width: ${isSubmitted ? '80vw' : 'unset'};
-                padding-top: ${isSubmitted ? '15vh' : 'unset'};
+                padding-top: ${isSubmitted ? '5vh' : 'unset'};
               }
               ul {
                 max-width: unset !important;

@@ -13,7 +13,7 @@ import { FileTransformType, FileWithMetadata } from '../../types/fileTypes'
 
 import DraggableWrapper from './draggable'
 
-import useEventListener from '../../ts/useEventListener'
+import useEventListener from '../../ts/utils/useEventListener'
 
 const { FileStore } = ComponentStore
 
