@@ -10,6 +10,7 @@ import ProgressStore from './progressStore'
 import VideoStore from './videoStore'
 import FileStore from './fileStore'
 import HardwareStore from './hardwareStore'
+import UserStore from './userStore'
 
 class ComponentStore extends AbstractStore {
   // Observables
@@ -76,6 +77,8 @@ class ComponentStore extends AbstractStore {
   @observable FileStore = FileStore
 
   @observable HardwareStore = HardwareStore
+
+  @observable UserStore = UserStore
 
   // Actions
 
