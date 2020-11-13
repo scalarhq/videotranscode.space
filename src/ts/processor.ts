@@ -15,7 +15,8 @@ const {
   VideoStore,
   FileStore,
   updateProcessedState,
-  terminalStore
+  terminalStore,
+  UserStore
 } = ComponentStore
 
 const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore
@@ -23,6 +24,8 @@ const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore
 const { updateBlobUrl, blobType } = VideoStore
 
 const { clearTerminal } = terminalStore
+
+const { updateUsageCount } = UserStore
 
 const createVideoObject = (processedFile: Uint8Array) => {
   const blobUrl = URL.createObjectURL(
@@ -95,6 +98,7 @@ const onSubmitHandler = async () => {
   } catch (err) {
     console.info('Unable to garbage collect', err)
   }
+  updateUsageCount()
   updateProcessedState(true)
   const end = new Date().getTime()
   const encodeTime = (end - start) / 1000
