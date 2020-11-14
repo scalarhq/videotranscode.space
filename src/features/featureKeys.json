@@ -7,5 +7,6 @@
   "GREYSCALE": true,
   "ASPECT_RATIO": true,
   "CUSTOM_RUN": true,
-  "TRIM": true
+  "TRIM": true,
+  "MUTE": true
 }

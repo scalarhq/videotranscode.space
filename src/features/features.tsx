@@ -18,8 +18,10 @@ import GreyScaleFeature from './src/greyScaleFeature'
 import CombinedExecFeature from './src/combinedExecFeature'
 
 import keys from './featureKeys.json'
+import MuteFeature from './src/muteFeature'
 
 export type Feature =
+  | typeof MuteFeature
   | typeof TranscodeFeature
   | typeof CompressionFeature
   | typeof PhotoMontageFeature
@@ -103,6 +105,11 @@ const FEATURES: Features = {
     description: 'Running multiple commands together',
     feature: CombinedExecFeature,
     noDisplay: true
+  },
+  MUTE: {
+    name: 'Mute',
+    description: 'Mute the audio from videos',
+    feature: MuteFeature
   }
 }
 
