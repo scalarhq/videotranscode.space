@@ -1,0 +1,7 @@
+name: Old-School
+description: Workflow to grayscale and compress your videos
+steps:
+  - name: COMBINED_EXEC_FEATURE
+    steps:
+      - Mute
+      - Greyscale
