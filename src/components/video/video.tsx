@@ -19,7 +19,7 @@ import {
 
 const Video = ({ url }: { url: string }) => {
   return (
-    <div style={{ minWidth: '40vw' }}>
+    <div style={{ minWidth: '40vw', maxWidth: '60vw' }}>
       <Player autoPlay>
         <source src={url} />
 
