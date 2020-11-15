@@ -65,7 +65,7 @@ Workflows are a series of features executed in a specific order, you can create 
 Features are different from the previous three sections as they are not yml configuration files but rather proper classes, you can contribute. ALl the features are located at `src/features/src`
 You can find out more about adding new features at {@page Features}
 
-### Clui UI ELements
+### Clui Ui Elements
 
 Clui UI Elements are the components seen inside the clui, when the users chooses a feature. They are located at `src/clui-ui-components`, learn more about adding your own react-components at {@page Clui UI Components}
 

@@ -34,6 +34,11 @@ See more {@page Core}
 
 ## Styling
 
-**We use eslint and extend airbnb and prettier, we expect this styling to be maintained across the codebase.**
+**We use eslint and extend standard and prettier, we expect this styling to be maintained across the codebase.**
+
+All code should pass through this before being submitted, there is a `husky` pre-commit script for the same.
+```shell
+yarn verify
+```
 
 Apart from this, try to follow general good coding practices, minimal ts-ignores or type assigned as any. It is fine if it absolutely required but please explain why it is.
