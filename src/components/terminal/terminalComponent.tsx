@@ -33,7 +33,7 @@ const TerminalComponent: React.FC = () => {
     // mount
 
     const t1 = new Terminal('terminal')
-    t1.setBackgroundColor('rgb(39, 44, 49, 0.6)')
+    t1.setBackgroundColor('rgb(39, 44, 49, 0.75)')
     t1.setTextColor('#3FBD7')
     t1.blinkingCursor(true)
     t1.html.style.fontFamily = 'Ubuntu Mono'

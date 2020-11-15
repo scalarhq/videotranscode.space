@@ -1,6 +1,7 @@
 import { action, computed, observable } from 'mobx'
 import { v4 } from 'uuid'
 import AbstractStore from './store'
+import { useEffect, useState } from 'react'
 
 type UserData = {
   uuid: string
@@ -23,6 +24,8 @@ class UserStore extends AbstractStore {
   }
 
   @observable localUsageCounter: number = 0
+
+  @observable disabled: boolean = false
 
   /**
    * Returns a string uuid from either local storage or creates and stores a new one.
@@ -110,6 +113,7 @@ class UserStore extends AbstractStore {
       ...userData,
       disabled: { state: true, count: localUsageCounter }
     }
+    this.disabled = true
     this.setUserData(newUserData)
   }
 
@@ -144,5 +148,26 @@ class UserStore extends AbstractStore {
     }
   }
 }
+const defaultUserStore = new UserStore()
 
-export default new UserStore()
+export default defaultUserStore
+
+export const useActiveUsers = () => {
+  const { isActiveUser, localUsageCounter, disabled } = defaultUserStore
+
+  const [displayable, setDisplay] = useState(isActiveUser)
+
+  useEffect(() => {
+    if (localUsageCounter && localUsageCounter >= 3) {
+      setDisplay(isActiveUser)
+    }
+  }, [localUsageCounter, isActiveUser])
+
+  useEffect(() => {
+    if (disabled === true) {
+      setDisplay(false)
+    }
+  }, [disabled])
+
+  return displayable
+}

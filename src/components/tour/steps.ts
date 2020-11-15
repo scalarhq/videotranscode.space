@@ -45,15 +45,14 @@ const steps = [
     ]
   },
   {
-    id: 'settings',
-    title: 'The CLUI',
+    id: 'configuration',
+    title: 'Basic Features',
     text: [
       `
-      <p>The CLUI is where you can choose your settings.</p>
-      <p> It is a mix between a graphical interface and a terminal, which gives it super powers in the number of options it has.</p>
+      <p>Choose your features here!</p>
       `
     ],
-    attachTo: { element: '.clui-wrapper', on: 'left' },
+    attachTo: { element: '.configuration-wrapper', on: 'left' },
     buttons: [
       {
         type: 'back',
@@ -68,10 +67,10 @@ const steps = [
   },
   {
     id: 'basic-features',
-    title: 'Feeling Intimidated by the CLUI?',
+    title: 'Want to use advanced features?',
     text: [
       `
-      <p>If you'd prefer not to use the CLUI, just click the toggle to switch to Basic Mode!</p>`
+      <p>You want access all the features? Use our CLUI</p>`
     ],
     attachTo: { element: '.basic-feature-toggle', on: 'top' },
     buttons: [
@@ -87,8 +86,8 @@ const steps = [
     ]
   },
   {
-    id: 'clui-options',
-    title: 'Choosing Settings',
+    id: 'configuration',
+    title: 'Advanced Options (CLUI)',
     text: [
       `
       <p>There are <strong>TWO</strong> primary types of settings available:</p>
@@ -110,8 +109,8 @@ const steps = [
     ]
   },
   {
-    id: 'clui-options',
-    title: 'Choosing Settings /2',
+    id: 'configuration',
+    title: 'Advanced Options /2',
     text: [
       `
       <p>Use your <i>keyboard</i> to choose the specific feature, workflow, and settings you want, then hit <b>Submit</b> and Modfy will do all the hard work for you!</p>

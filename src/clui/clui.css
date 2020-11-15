@@ -8,17 +8,18 @@
   grid-template: 1fr / 1fr;
   /* box-shadow: 5px 10px rgb(39, 44, 49); */
   color: #3fbd71;
-  max-height: 63vh;
+  max-height: 73vh;
   overflow-y: auto;
   overflow-x: hidden;
   word-wrap: break-word;
   scrollbar-color: #77f0a0 transparent;
   scrollbar-width: thin;
+  cursor: text;
 }
 
 .clui-background {
   z-index: 0;
-  min-height: 60vh;
+  min-height: 70vh;
 }
 
 .clui-overlay {
@@ -114,10 +115,6 @@ span {
   /* opacity: 0.8; */
 }
 
-.prompt.active {
-  /* opacity: 1; */
-}
-
 .prompt:focus-within > :global(div:first-child) {
   color: cornflowerblue;
 }
@@ -163,7 +160,7 @@ span {
 input,
 .input-shadow,
 .menu-offset {
-  font-size: 16px;
+  font-size: 18px;
   font-family: inherit;
 }
 
@@ -182,6 +179,8 @@ input {
   color: white;
   font-family: Ubuntu Mono;
   word-wrap: break-word !important;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 input:focus {

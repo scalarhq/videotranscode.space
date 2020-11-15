@@ -8,7 +8,7 @@ We have a list of pre-made features ui components, the entire list can be found 
 
 Depending on the component you choose there are certain props you need to pass to it, but regardless of component you choose you need to pass a parents props
 
-This prop represents a tree structure of where the configuration is being called for and thus very important, **if your feature is setting multiple values you will have to especially take not of this**
+This prop represents a tree structure of where the configuration is being called for and thus very important, **if your feature is setting multiple values you will have to especially take note of this**
 
 For example, the {@link TranscodeFeature} sets a FORMAT and a CODEC.
 

@@ -32,6 +32,7 @@ import Banner from './components/banner/banner'
 import TerminalStore from './store/terminalStore'
 import ComponentStore from './store/componentStore'
 import StepComponent from './components/steps/steps'
+import { useActiveUsers } from './store/userStore'
 
 const App = () => {
   const {
@@ -46,7 +47,7 @@ const App = () => {
     CluiStore,
     VideoStore
   } = ComponentStore
-  const { isSubmitted } = CluiStore
+  const { isSubmitted, cluiToggle } = CluiStore
 
   const { currentFileExtension, isDisplayable } = FileStore
 
@@ -55,6 +56,8 @@ const App = () => {
   const [isLoading, setLoading] = useState(false)
 
   const [secondLoad, setSecondLoad] = useState(false)
+
+  const isActiveUser = useActiveUsers()
 
   useEffect(() => {
     if (isLoading === false) {
@@ -130,7 +133,7 @@ const App = () => {
   return (
     <Router>
       <>
-        <div className="overlay-wrapper">
+        <div className="overlay-wrapper h-screen max-w-screen-xl w-screen">
           {!isMobile ? (
             <div className="blur">
               <Banner />
@@ -163,13 +166,19 @@ const App = () => {
                         <Fade bottom>
                           <Configuration />
                         </Fade>
-                      ) : (
+                      ) : cluiToggle ? (
                         <div className="terminal-wrapper">
                           <Fade bottom>
                             <TerminalComponent />
                           </Fade>
                         </div>
-                      )}
+                      ) : processed ? (
+                        <div className="terminal-wrapper">
+                          <Fade bottom>
+                            <TerminalComponent />
+                          </Fade>
+                        </div>
+                      ) : null}
                     </div>
                   </main>
                   <StepComponent />
@@ -181,6 +190,10 @@ const App = () => {
           {/* @ts-ignore Styled JSX */}
           <style jsx>
             {`
+              .flex-wrapper {
+                padding-top: ${isActiveUser ? '2vh' : '5vh'};
+              }
+
               .overlay-wrapper {
                 display: grid;
                 grid-template: 1fr / 1fr;

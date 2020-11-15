@@ -37,12 +37,14 @@ const ReloadUtil = () => (
         type="button"
         className="hidden-button tooltip"
         onClick={() => {
-          ComponentStore.reset()
+          window.location.reload()
         }}>
         <ReloadSvg width="2.5rem" fill="rgba(255,255,255,0.6)" />
-        <span className="tooltip-text text-xl p-3 -ml-12 rounded">Reset</span>
+        <span className="tooltip-text text-white text-xl p-3 -ml-12 rounded">
+          Reset
+        </span>
       </button>
-      {ComponentStore.CluiStore.cluiToggle ? (
+      {ComponentStore.CluiStore.isSubmitted ? null : (
         <button
           type="button"
           className="bg-gray-700 bg-opacity-75 hover:bg-indigo-700 text-white font-bold mt-12 py-2 px-4 "
@@ -51,7 +53,7 @@ const ReloadUtil = () => (
           }}>
           <span>Tour</span>
         </button>
-      ) : null}
+      )}
     </div>
     {/* @ts-ignore Styled JSX */}
     <style jsx>

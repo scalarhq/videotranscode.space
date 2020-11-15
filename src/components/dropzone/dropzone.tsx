@@ -17,7 +17,7 @@ import useEventListener from '../../ts/utils/useEventListener'
 
 const { FileStore } = ComponentStore
 
-const { updateFiles } = FileStore
+const { updateFiles, setDropzoneRef } = FileStore
 
 const createVideoThumbnail = (videoFile: File) => {
   const thumbnail = new Promise<{
@@ -109,6 +109,13 @@ const Dropzone = () => {
       setFiles([])
     }
   }, [globalReset])
+
+  useEffect(() => {
+    setDropzoneRef(dropzoneRef)
+    return () => {
+      delete FileStore.dropzoneRef
+    }
+  }, [])
 
   const translateScroll = (e: WheelEvent) => {
     const maxScroll = thumbnailRef?.current?.scrollHeight || 500

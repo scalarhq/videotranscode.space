@@ -16,6 +16,7 @@ import {
 import { observer } from 'mobx-react'
 
 import ComponentStore from '../../store/componentStore'
+import { useActiveUsers } from '../../store/userStore'
 
 type Status = 'wait' | 'finish' | 'error'
 
@@ -38,27 +39,13 @@ const StepComponent = () => {
 
   const [statues, setStatues] = useState<Statuses>(defaultStatus)
 
-  const {
-    processed,
-    globalReset,
-    CluiStore,
-    FileStore,
-    UserStore
-  } = ComponentStore
+  const { processed, globalReset, CluiStore, FileStore } = ComponentStore
 
   const { allFiles } = FileStore
 
-  const { isSubmitted } = CluiStore
+  const { isSubmitted, setCluiFocused } = CluiStore
 
-  const { isActiveUser, localUsageCounter } = UserStore
-
-  const [displayable, setDisplay] = useState(isActiveUser)
-
-  useEffect(() => {
-    if (localUsageCounter && localUsageCounter >= 3) {
-      setDisplay(isActiveUser)
-    }
-  }, [localUsageCounter, isActiveUser])
+  const displayable = useActiveUsers()
 
   useEffect(() => {
     if (allFiles.length > 0) {
@@ -95,21 +82,31 @@ const StepComponent = () => {
             title="Add File"
             icon={<FontAwesomeIcon icon={faFile} />}
             status={statues.file}
+            onClick={() => {
+              ComponentStore.FileStore.openFileDrawer()
+            }}
+            className={isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer'}
           />
           <Step
             title="Choose Settings"
             icon={<FontAwesomeIcon icon={faCogs} />}
             status={statues.settings}
+            onClick={() => {
+              setCluiFocused(true)
+            }}
+            className={isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer'}
           />
           <Step
             title="Processing"
             icon={<FontAwesomeIcon icon={faClock} />}
             status={statues.processing}
+            className="cursor-not-allowed"
           />
           <Step
             title="Download"
             icon={<FontAwesomeIcon icon={faDownload} />}
             status={statues.download}
+            className="cursor-not-allowed"
           />
         </Steps>
         {/* @ts-ignore Styled JSX */}
@@ -117,7 +114,7 @@ const StepComponent = () => {
           {`
             .step-wrapper {
               color: inherit !important;
-              padding-top: 2vh;
+              padding-top: ${isSubmitted ? '15vh' : '2vh'};
             }
             .rc-steps-item-title {
               color: inherit !important;
