@@ -23,6 +23,8 @@ class CluiStore extends AbstractStore {
 
   @observable cluiToggle = true
 
+  @observable cluiFocused: boolean = false
+
   // Constructor
   constructor() {
     super()
@@ -41,8 +43,12 @@ class CluiStore extends AbstractStore {
 
   // Actions
 
-  @action updateCluiPlaceholder(newPlaceholder: string) {
+  @action updateCluiPlaceholder = (newPlaceholder: string) => {
     this.cluiPlaceholder = newPlaceholder
+  }
+
+  @action setCluiFocused = (state: boolean) => {
+    this.cluiFocused = state
   }
 
   @action

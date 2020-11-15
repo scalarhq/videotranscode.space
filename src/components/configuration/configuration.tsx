@@ -10,7 +10,7 @@ import './configuration.css'
 import CluiStore from '../../store/cluiStore'
 
 const Configuration = () => {
-  const [cluiToggle, setCluiToggle] = useState(true)
+  const [cluiToggle, setCluiToggle] = useState(false)
 
   useEffect(() => {
     const cluiToggleStorage = window.localStorage.getItem('clui-toggle')
@@ -41,10 +41,10 @@ const Configuration = () => {
         )
       }
     } else {
-      setCluiToggle(true)
+      setCluiToggle(false)
       window.localStorage.setItem(
         'clui-toggle',
-        JSON.stringify({ setting: true, expiry: new Date().toISOString() })
+        JSON.stringify({ setting: false, expiry: new Date().toISOString() })
       )
     }
 

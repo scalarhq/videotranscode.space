@@ -8,6 +8,7 @@ import PromptIcon from './promptIcon'
 import MatchSubString from './subString'
 import useCluiInput from './useCluiInput'
 import ComponentStore from '../store/componentStore'
+import { observer } from 'mobx-react'
 
 const { CluiStore } = ComponentStore
 const { setInputMessage } = CluiStore
@@ -52,7 +53,8 @@ const MenuItem: React.FC<MenuItemProps> = (props: MenuItemProps) => {
 
 const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   // @ts-ignore
-  const input: any = useRef(null)
+  const input = useRef<HTMLInputElement | null>(null)
+
   // console.log(input)
   const ran = useRef(false)
   const [focused, setFocused] = useState(false)
@@ -60,6 +62,24 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   const { command } = props as {
     command: { commands: { [name: string]: any } }
   }
+
+  const { cluiFocused, setCluiFocused } = CluiStore
+
+  useEffect(() => {
+    setCluiFocused(focused)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focused])
+
+  useEffect(() => {
+    if (CluiStore.ran) {
+      return
+    }
+    if (cluiFocused) {
+      if (input && input.current) {
+        input.current.focus()
+      }
+    }
+  }, [cluiFocused])
 
   const [state, update] = useCluiInput({
     command,
@@ -102,6 +122,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   }, [props.autoRun, state.run, run])
 
   useEffect(() => {
+    console.info('Prompt autofocus', props.autoFocus)
     if (input.current && props.autoFocus) {
       const { value } = input.current
       input.current.focus()
@@ -182,6 +203,7 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
                 </div>
               ) : null}
               <input
+                className="clui-input"
                 style={{ wordWrap: 'break-word' }}
                 ref={input}
                 {...inputProps}
@@ -219,4 +241,4 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   )
 }
 
-export default Prompt
+export default observer(Prompt)
