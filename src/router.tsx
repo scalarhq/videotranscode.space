@@ -2,8 +2,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import AboutPage from './components/static/about'
-
 const Router = ({ children }: { children: JSX.Element }) => (
   <BrowserRouter>
     <Switch>
@@ -11,11 +9,11 @@ const Router = ({ children }: { children: JSX.Element }) => (
         exact
         path="/docs"
         component={() => {
-          window.location.href = 'https://docs.videotranscode.space/'
+          window.location.href = 'https://docs.modfy.video/'
           return null
         }}
       />
-      <Route exact path="/about" component={AboutPage} />
+
       <Route path="/">{children}</Route>
     </Switch>
   </BrowserRouter>
