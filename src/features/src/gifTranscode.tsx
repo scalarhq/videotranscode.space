@@ -42,16 +42,7 @@ class GIFTranscode extends FFmpegFeature {
   parseConfiguration = () => {
     const { configuration } = this
     const { FORMAT } = configuration.TRANSCODE
-    console.info('GIF Configuration', JSON.stringify(configuration))
     const { CONFIG } = FORMAT
-    console.info(
-      'GIF CONFIG',
-      JSON.stringify(CONFIG),
-      'GIF FORMAT',
-      JSON.stringify(FORMAT),
-      'Direct',
-      JSON.stringify(configuration.TRANSCODE.FORMAT)
-    )
     const { fps, loop, scale } = CONFIG
     return { fps, loop, scale }
   }

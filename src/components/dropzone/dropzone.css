@@ -6,7 +6,7 @@
   z-index: 2;
   height: 100%;
   /* min-height: 30vh; */
-  max-height: 70vh;
+  max-height: 80vh;
   cursor: pointer;
 }
 
@@ -74,7 +74,7 @@
 .preview-wrapper {
   display: grid;
   grid-template: 1fr / 1fr;
-  background: rgb(39, 44, 49, 0.6);
+  background: rgb(39, 44, 49, 0.75);
   /* box-shadow: -1rem 0 3rem #000; */
   /* background-image: url('/images/undraw_video_files_fu10.svg'); */
   /* background-size: contain; */
@@ -84,8 +84,8 @@
   border-top-color: 'none';
   border-bottom-color: 'none';
   border: '1px solid #4A5063';
-  max-height: 70vh;
-  height: 70vh;
+  max-height: 80vh;
+  height: 80vh;
   width: 100%;
 }
 

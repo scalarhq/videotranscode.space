@@ -67,11 +67,11 @@ const HoverGuide = () => (
             <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
               <div className="mb-8">
                 <div className="text-white font-bold text-xl mb-2">
-                  <FontAwesomeIcon icon={faToggleOn} /> Intimidated by the CLUI?
+                  <FontAwesomeIcon icon={faToggleOn} /> Want advanced features?
                 </div>
                 <p className="text-white text-base">
-                  Don{`'`}t understand the CLUI? No problem, just click the
-                  toggle!
+                  Want to use more features? and customized workflows? Use our
+                  CLUI
                 </p>
               </div>
             </div>

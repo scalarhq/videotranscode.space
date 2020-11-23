@@ -1,5 +1,4 @@
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
-import { faComments } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
@@ -54,23 +53,6 @@ export function Footer() {
         <div className="footer-right">
           <div className="image-container">
             <a
-              href="https://spectrum.chat/modfy?tab=posts"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-icon">
-              <FontAwesomeIcon
-                icon={faComments}
-                style={{
-                  color: 'white',
-                  width: '32px',
-                  height: '32px',
-                  marginBottom: '-5px'
-                }}
-              />
-            </a>
-          </div>
-          <div className="image-container">
-            <a
               href="https://discord.gg/dnD6FHx"
               target="_blank"
               rel="noopener noreferrer"
@@ -90,7 +72,7 @@ export function Footer() {
           <div className="image-container">
             <div>
               <a
-                href="https://github.com/Etwas-Builders/modfy.video"
+                href="https://github.com/modfy/modfy.video"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-icon">
@@ -108,45 +90,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-          <div className="image-container">
-            <div>
-              {/* <p style={{ fontSize: '20px', width: '10vw' }}>Powered by</p>s */}
-              <a
-                href="https://webassembly.org/"
-                target="_blank"
-                rel="noopener noreferrer">
-                <img
-                  src="/images/webassembly-icon.svg"
-                  className="footer-icon"
-                  alt="Webassembly Logo"
-                />
-              </a>
-            </div>
-          </div>
-          <div className="image-container">
-            <div className="moz-builders">
-              <p
-                style={{
-                  fontSize: '20px',
-                  paddingRight: '3%',
-                  width: '10vw',
-                  paddingBottom: '1.2rem'
-                }}>
-                Launched with
-              </p>
-              <a
-                href="https://builders.mozilla.community/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-icon">
-                <img
-                  style={{ width: '15vw' }}
-                  src="/images/mozilla-builders-logo.png"
-                  alt="Mozilla Builders Logo"
-                />
-              </a>
-            </div>
-          </div>
         </div>
       </BrowserView>
 
@@ -156,24 +99,20 @@ export function Footer() {
             Home
           </Link>
 
-          <Link className="link-class" to="/about">
-            About
-          </Link>
+          <a
+            className="link-class"
+            href="https://api.modfy.video/"
+            target="_blank"
+            rel="noopener noreferrer">
+            API
+          </a>
 
           <a
             className="link-class"
             href="https://docs.modfy.video/"
             target="_blank"
             rel="noopener noreferrer">
-            Documentation
-          </a>
-
-          <a
-            className="link-class"
-            href="https://github.com/Etwas-Builders/modfy.video"
-            target="_blank"
-            rel="noopener noreferrer">
-            Github
+            Docs
           </a>
 
           <a className="link-class" href="mailto:hello@modfy.video">

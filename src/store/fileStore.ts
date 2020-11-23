@@ -14,6 +14,7 @@ import {
   VideoFilesType,
   FileWithMetadata
 } from '../types/fileTypes'
+import { RefObject } from 'react'
 
 class FileStore extends AbstractStore {
   // Stores
@@ -32,6 +33,8 @@ class FileStore extends AbstractStore {
 
   // Files added to FFmpeg
   @observable loadedFiles: FileNameTypes = {}
+
+  @observable dropzoneRef: RefObject<HTMLDivElement> | undefined
 
   // Constructor
 
@@ -106,6 +109,19 @@ class FileStore extends AbstractStore {
   updateCurrentFile = (fileConfig: { name: string; type: FileTypes }) => {
     this.oldFiles.push(this.currentFile.name)
     this.currentFile = fileConfig
+  }
+
+  @action('Set dropzone ref')
+  setDropzoneRef = (ref: RefObject<HTMLDivElement>) => {
+    this.dropzoneRef = ref
+  }
+
+  @action('Open file drawer')
+  openFileDrawer = () => {
+    const { dropzoneRef } = this
+    if (dropzoneRef && dropzoneRef.current) {
+      dropzoneRef.current.click()
+    }
   }
 
   /**
