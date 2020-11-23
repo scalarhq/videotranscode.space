@@ -94,50 +94,53 @@ const Dropdown = (props: DropDownProps) => {
   }
 
   return (
-    <div className="options-list-wrapper">
-      <div className="flex justify-center items-center">
-        <p className="text-xl">{title}</p>
-        <div className="inline-block relative w-64" style={{ margin: '1rem' }}>
-          <Select
-            //  @ts-ignore
-            onChange={handleClick}
-            defaultValue={{ value: current.value, label: current.name }}
-            value={{ value: current.value, label: current.name }}
-            options={dropdown.map(item => ({
-              value: item.value,
-              label: item.name
-            }))}
-            styles={{
-              control: styles => ({
-                ...styles,
-                backgroundColor: 'transparent',
-                border: 'none',
-                color: 'inherit',
-                outline: 'none',
-                appearance: 'none',
-                zIndex: 5
-              }),
-              option: styles => ({
-                ...styles,
-                color: 'inherit'
-              }),
-              placeholder: styles => ({
-                ...styles,
-                color: 'inherit'
-              }),
-              singleValue: styles => ({
-                ...styles,
-                color: 'inherit'
-              }),
-              menu: styles => ({
-                ...styles,
-                zIndex: 10
-              })
-            }}
-          />
+    <>
+      <div className="options-list-wrapper">
+        <div className="flex justify-center items-center">
+          <p className="text-xl">{title}</p>
+          <div
+            className="inline-block relative w-64"
+            style={{ margin: '1rem' }}>
+            <Select
+              //  @ts-ignore
+              onChange={handleClick}
+              defaultValue={{ value: current.value, label: current.name }}
+              value={{ value: current.value, label: current.name }}
+              options={dropdown.map(item => ({
+                value: item.value,
+                label: item.name
+              }))}
+              styles={{
+                control: styles => ({
+                  ...styles,
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  color: 'inherit',
+                  outline: 'none',
+                  appearance: 'none',
+                  zIndex: 5
+                }),
+                option: styles => ({
+                  ...styles,
+                  color: 'inherit'
+                }),
+                placeholder: styles => ({
+                  ...styles,
+                  color: 'inherit'
+                }),
+                singleValue: styles => ({
+                  ...styles,
+                  color: 'inherit'
+                }),
+                menu: styles => ({
+                  ...styles,
+                  zIndex: 10
+                })
+              }}
+            />
+          </div>
         </div>
       </div>
-
       {current.child && (
         <div className="child">
           <current.child.component {...current.child.props} />
@@ -153,7 +156,7 @@ const Dropdown = (props: DropDownProps) => {
           }
         `}
       </style>
-    </div>
+    </>
   )
 }
 

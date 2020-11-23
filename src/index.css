@@ -67,7 +67,7 @@ button:disabled {
 }
 
 button:focus {
-  border-color: #666;
+  /* border-color: #666; */
 }
 
 .btn {
