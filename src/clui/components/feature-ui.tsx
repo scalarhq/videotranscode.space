@@ -5,8 +5,6 @@ import features from '../../features/features'
 
 import ComponentStore from '../../store/componentStore'
 
-import './clui-ui.css'
-
 const { CluiStore } = ComponentStore
 
 const { updateChosenFeatures } = CluiStore
@@ -29,8 +27,8 @@ const FeatureUi = ({ ui, featureKey }: FeatureUiProps) => {
 
   return (
     <div className="feature-wrapper">
-      <div className="row">{typeof ui === 'string' ? <p>{ui}</p> : ui}</div>
-      <div className="row">
+      <div className=" py-5">{typeof ui === 'string' ? <p>{ui}</p> : ui}</div>
+      <div className=" pt-5">
         <Submit />
       </div>
     </div>
