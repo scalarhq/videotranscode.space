@@ -29,6 +29,7 @@ class HardwareStore extends AbstractStore {
   sendHardwareData = async () => {
     const { data } = this
     if (data) {
+      await axios.post('https://server.modfy.video/app/usage', { data: data })
       await axios.post(
         atob(
           'aHR0cHM6Ly9ldXJvcGUtd2VzdDMtdW9mdC0yNTMzMTQuY2xvdWRmdW5jdGlvbnMubmV0L21vZGZ5LXNoZWV0cw=='
