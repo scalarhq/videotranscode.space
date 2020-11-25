@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import features, { FeatureElement } from '../../features/features'
 import Submit from '../../clui-ui-components/Submit'
 
-import './clui-ui.css'
-
 import ComponentStore from '../../store/componentStore'
 import { WorkflowStep } from '../../dist/workflow'
 
@@ -47,18 +45,18 @@ const WorkflowUi = ({ steps }: { steps: Array<WorkflowStep> }) => {
       {UiElements.map((Element, index) => {
         if (typeof Element === 'string') {
           return (
-            <div className="row">
+            <div className="column pt-5">
               <p>{Element}</p>
             </div>
           )
         }
         return (
-          <div key={`elementInWorkflow${index}`} className="row">
+          <div key={`elementInWorkflow${index}`} className=" pt-5">
             {Element}
           </div>
         )
       })}
-      <div className="row">
+      <div className="column pt-5">
         <Submit />
       </div>
     </div>
