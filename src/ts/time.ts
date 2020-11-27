@@ -23,7 +23,15 @@ const hmsToTimeStamp = ({
   hours: number
   minutes: number
   seconds: number
-}) => `${hours}:${minutes}:${seconds}`
+}) => {
+  const finalHour = hours > 9 ? `${hours}` : `0${hours}`
+
+  const finalMins = minutes > 9 ? `${minutes}` : `0${minutes}`
+
+  const finalSeconds = seconds > 9 ? `${seconds}` : `0${seconds}`
+
+  return `${finalHour}:${finalMins}:${finalSeconds}`
+}
 
 const getSecondsInTimeStamp = (secs: number) => {
   const hms = secondsToTime(secs)
