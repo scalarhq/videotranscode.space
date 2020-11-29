@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import App from './App'
 import ErrorScreen from './components/error/Error'
 
-const globalErrorHandler = (error: Error, componentStack: string) => {
+const globalErrorHandler = (error: Error) => {
   // Do something with the error
   // E.g. log to an error logging client here
   console.error(error.message)
@@ -12,12 +12,10 @@ const globalErrorHandler = (error: Error, componentStack: string) => {
 
 const ErrorFallback = ({
   error,
-  componentStack,
-  resetErrorBoundary
+  componentStack
 }: {
   error?: Error
   componentStack?: string
-  resetErrorBoundary: () => void
 }) => <ErrorScreen errorObj={error} componentStack={componentStack} />
 
 const GlobalErrorWrapper = () => {

@@ -1,12 +1,15 @@
-import './basicFeature.css'
+import React, { useState, useEffect } from 'react'
 
-import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import features from '../../features/features'
 
 import Submit from '../../clui-ui-components/Submit'
-import features from '../../features/features'
+
 import ComponentStore from '../../store/componentStore'
+
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const { CluiStore } = ComponentStore
 
@@ -97,28 +100,6 @@ const BasicFeatures = () => {
         </div>
       </div>
 
-      {/* <div className="toggle">
-        <div className="toggle-label">
-          <p>Convert (Transcode)</p>
-        </div>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={transcodeToggle}
-            onChange={(e) => {
-              setToggled(!transcodeToggle);
-            }}
-          />
-          <span className="toggle-slider round" />
-        </label>
-        <div className="toggle-label">
-          <p>Compress (Reduce File Size)</p>
-        </div>
-      </div>
-      <div className="single-feature-wrapper">{transcodeToggle ? COMPRESS.ui : TRANSCODE.ui}</div>
-      <div className="row">
-        <Submit />
-      </div> */}
       {/* @ts-ignore Styled JSX */}
       <style jsx>
         {`

@@ -1,10 +1,12 @@
-import './static.css'
 
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { BrowserView } from 'react-device-detect'
-import { Link } from 'react-router-dom'
+
+import Link from 'next/link'
+
+// import './static.css'
 
 export function Loader() {
   return (
@@ -93,8 +95,10 @@ export function Footer() {
 
       <div className="footer-left">
         <p className="footer-links">
-          <Link className="link-class link-1" to="/">
-            Home
+          <Link href="/" passHref>
+            <a href="/" className="link-class link-1">
+              Home
+            </a>
           </Link>
 
           <a

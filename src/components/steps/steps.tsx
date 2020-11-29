@@ -1,4 +1,8 @@
-import 'rc-steps/assets/index.css'
+import React, { useState, useEffect } from 'react'
+
+import Steps, { Step } from 'rc-steps'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
   faClock,
@@ -6,10 +10,7 @@ import {
   faDownload,
   faFile
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
-import Steps, { Step } from 'rc-steps'
-import React, { useEffect, useState } from 'react'
 
 import ComponentStore from '../../store/componentStore'
 import { useActiveUsers } from '../../store/userStore'
@@ -109,20 +110,8 @@ const StepComponent = () => {
         <style jsx>
           {`
             .step-wrapper {
-              color: inherit !important;
+              color: #3fbd71 !important;
               padding-top: ${isSubmitted ? '15vh' : '2vh'};
-            }
-            .rc-steps-item-title {
-              color: inherit !important;
-            }
-            .rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
-              color: #6c63ff;
-            }
-            .rc-steps-item-finish .rc-steps-item-tail::after {
-              background-color: #6c63ff;
-            }
-            .rc-steps-item-finish .rc-steps-item-title::after {
-              background-color: #6c63ff;
             }
           `}
         </style>

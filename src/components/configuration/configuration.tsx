@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import './configuration.css'
 
 import React, { useEffect, useState } from 'react'
 import { Fade } from 'react-reveal'
 
 import Clui from '../../clui/clui'
-import CluiStore from '../../store/cluiStore'
 import BasicFeatures from '../basic-features/basicFeature'
+// import './configuration.css'
+
+import CluiStore from '../../store/cluiStore'
 
 const Configuration = () => {
   const [cluiToggle, setCluiToggle] = useState(false)
@@ -95,7 +96,7 @@ const Configuration = () => {
             <input
               type="checkbox"
               checked={cluiToggle}
-              onChange={e => {
+              onChange={() => {
                 setCluiToggle(!cluiToggle)
               }}
             />

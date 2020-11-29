@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-props-no-spreading */
-import './dropzone.css'
-
-import { observer } from 'mobx-react'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 
+// import './dropzone.css'
+
+import { observer } from 'mobx-react'
 import ComponentStore from '../../store/componentStore'
 import useEventListener from '../../ts/utils/useEventListener'
 import {
