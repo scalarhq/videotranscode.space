@@ -12,3 +12,4 @@ src/dist/
 *.md
 *.yml
 src/tailwind.output.css
+.next/

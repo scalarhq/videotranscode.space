@@ -1,11 +1,4 @@
 {
-    "plugins": [
-
-        "@babel/plugin-syntax-dynamic-import"
-    ],
-    "env": {
-        "test": {
-            "plugins": ["dynamic-import-node"]
-        }
-    }
+"presets": ["next/babel"],
+"plugins" : [["@babel/plugin-proposal-decorators", { "legacy": true }]]
 }

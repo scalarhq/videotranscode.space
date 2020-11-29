@@ -29,3 +29,4 @@ analyze.html
 cloud-functions/form-data/secrets.js
 cloud-functions/form-data/credentials.json
 yarn-error.log
+.next/
