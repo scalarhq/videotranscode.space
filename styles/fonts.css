@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/Inter-Bold.woff2") format("woff2"),
+    url("/fonts/Inter-Bold.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/Inter-Regular.woff2") format("woff2"),
+    url("/fonts/Inter-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(/fonts/ubuntuMono.ttf) format('truetype');
+}
