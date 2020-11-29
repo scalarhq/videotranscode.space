@@ -68,12 +68,14 @@ const ffmpegRunner = async (
 ) => {
   const { outputFile, threads, ffmpegCommands } = ffmpegData
   const commandString = `${inputFileCommand} -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFile.name}`
+
   try {
     await ffmpeg.run(commandString)
+    // console.log('Returning output', promise)
     return outputFile
   } catch (err) {
     console.trace()
-    console.info(err.message)
+    console.error(err.message)
   }
 }
 

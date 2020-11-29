@@ -97,6 +97,7 @@ class ComponentStore extends AbstractStore {
     this.loadingErrorObj = err
   }
 }
+
 // @ts-ignore
 // eslint-disable-next-line no-undef,  no-multi-assign
 const store = (window.store = new ComponentStore())
