@@ -13,3 +13,5 @@ src/dist/
 *.yml
 src/tailwind.output.css
 .next/
+out_publish/
+out_functions/
