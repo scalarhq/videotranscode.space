@@ -1,0 +1,219 @@
+.clui-wrapper {
+  padding: 2.6246719160104988vh;
+  width: 40vw;
+  max-width: 40vw;
+  /* height: 60vh; */
+  /* background-color: rgb(39, 44, 49, 0.6); */
+  display: grid;
+  grid-template: 1fr / 1fr;
+  /* box-shadow: 5px 10px rgb(39, 44, 49); */
+  color: #3fbd71;
+  max-height: 73vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  scrollbar-color: #77f0a0 transparent;
+  scrollbar-width: thin;
+  cursor: text;
+}
+
+.clui-background {
+  z-index: 0;
+  min-height: 70vh;
+}
+
+.clui-overlay {
+  z-index: 1;
+  height: 100%;
+}
+
+.clui-wrapper > * {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.clui-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+.clui-wrapper::-webkit-scrollbar-thumb {
+  background: #77f0a0;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.clui-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* prompt icon css */
+.icon {
+  color: inherit;
+  flex: 0 0 auto;
+  user-select: none;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.4em;
+}
+
+.clui-wrapper span {
+  line-height: 1;
+  white-space: pre;
+}
+
+.icon.success {
+  color: lawngreen;
+}
+
+.error {
+  color: indianred;
+}
+
+/* prompt page css */
+.root {
+  word-break: break-word;
+  color: white;
+  background-color: rgba(39, 44, 49, 0.9);
+}
+
+.value {
+  flex: 0 0 auto;
+}
+
+.value :global(b) {
+  /* opacity: 0.5; */
+}
+
+.description {
+  flex: 1 1 auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  font-family: Ubuntu Mono;
+  /* opacity: 0.8; */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highlighted {
+  background-color: #272c31;
+  color: #3fbd71;
+}
+
+.highlighted .description {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.prompt {
+  position: relative;
+  color: inherit;
+  display: flex;
+  cursor: text;
+  /* opacity: 0.8; */
+}
+
+.prompt:focus-within > :global(div:first-child) {
+  color: cornflowerblue;
+}
+
+.input {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.input-shadow {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.input-shadow span {
+  visibility: hidden;
+}
+
+.input-shadow button {
+  margin-left: 5px;
+  pointer-events: all;
+  background-color: transparent;
+  border: 1px solid rgba(255, 2555, 255, 0.3);
+  color: rgba(255, 2555, 255, 0.8);
+  border-radius: 3px;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.input-shadow button:hover {
+  background-color: cornflowerblue;
+}
+
+.input-shadow button:focus {
+  outline: 0 none;
+}
+
+.clui-wrapper input,
+.input-shadow,
+.menu-offset {
+  font-size: 18px;
+  font-family: inherit;
+}
+
+.clui-wrapper input {
+  color: inherit;
+  background-color: transparent;
+  border: 0 none;
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  padding: 0;
+  line-height: 24px;
+}
+
+.clui-wrapper ::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: Ubuntu Mono;
+  word-wrap: break-word !important;
+  font-size: 18px;
+  /* font-weight: 600; */
+}
+
+.clui-wrapper input:focus {
+  outline: 0 none;
+}
+
+.menu-anchor {
+  position: absolute;
+  top: 100%;
+  display: flex;
+}
+
+.menu {
+  display: flex;
+}
+
+.menu-offset {
+  visibility: hidden;
+  white-space: pre;
+  flex: 0 0 auto;
+  height: 0;
+}
+
+.clui-wrapper ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  flex: 1 1 auto;
+  max-width: 400px;
+  background-color: black;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.clui-wrapper li {
+  cursor: pointer;
+}

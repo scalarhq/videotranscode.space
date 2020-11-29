@@ -1,0 +1,12 @@
+  .rc-steps-item-title {
+              color: #3fbd71 !important;
+            }
+            .rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
+              color: #6c63ff;
+            }
+            .rc-steps-item-finish .rc-steps-item-tail::after {
+              background-color: #6c63ff;
+            }
+            .rc-steps-item-finish .rc-steps-item-title::after {
+              background-color: #6c63ff;
+            }
