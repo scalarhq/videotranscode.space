@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-
+import { faCogs, faFile, faToggleOn } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
-
-import { faFile, faCogs, faToggleOn } from '@fortawesome/free-solid-svg-icons'
-import useHover from '../../ts/utils/useHover'
+import React, { useEffect, useRef } from 'react'
 
 import ComponentStore from '../../store/componentStore'
+import useHover from '../../ts/utils/useHover'
 
 const HelpSvg = ({ width }: { width: string }) => (
   <svg

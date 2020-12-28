@@ -1,7 +1,8 @@
 import { action, computed, observable } from 'mobx'
-import { v4 } from 'uuid'
-import AbstractStore from './store'
 import { useEffect, useState } from 'react'
+import { v4 } from 'uuid'
+
+import AbstractStore from './store'
 
 type UserData = {
   uuid: string

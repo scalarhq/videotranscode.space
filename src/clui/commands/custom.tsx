@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 
 import React, { useEffect, useState } from 'react'
-import { CommandType } from './commands'
 
 import CluiStore from '../../store/cluiStore'
+import { CommandType } from './commands'
 
 const CustomComp = (props: any) => {
   const [count, setCount] = useState(0)

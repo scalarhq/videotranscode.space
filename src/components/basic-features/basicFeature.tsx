@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react'
-
-import features from '../../features/features'
-
-import Submit from '../../clui-ui-components/Submit'
-
-import ComponentStore from '../../store/componentStore'
-
 import './basicFeature.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect, useState } from 'react'
+
+import Submit from '../../clui-ui-components/Submit'
+import features from '../../features/features'
+import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore
 

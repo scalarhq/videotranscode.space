@@ -1,15 +1,12 @@
 import React from 'react'
 
+import List from '../../clui-ui-components/List'
+import SingleInput from '../../clui-ui-components/Single-Input'
+import FFmpegFeature from '../FFmpegFeature'
 import TranscodeFeature, {
   TranscodeConfig,
   TranscodeUi
 } from './transcodeFeature'
-
-import FFmpegFeature from '../FFmpegFeature'
-
-import SingleInput from '../../clui-ui-components/Single-Input'
-
-import List from '../../clui-ui-components/List'
 
 type PhotoMontageConfig = {
   PHOTO_MONTAGE: TranscodeConfig & {

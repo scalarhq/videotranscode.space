@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import App from './App'
 
+import App from './App'
 import ErrorScreen from './components/error/Error'
 
 const globalErrorHandler = (error: Error, componentStack: string) => {

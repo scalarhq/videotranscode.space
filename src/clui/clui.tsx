@@ -1,12 +1,12 @@
-import React from 'react'
-import { Session } from '@replit/clui-session'
-
-import { observer } from 'mobx-react'
-import Prompt from './prompt'
-import command from './commands/commands'
 import './clui.css'
 
+import { Session } from '@replit/clui-session'
+import { observer } from 'mobx-react'
+import React from 'react'
+
 import CluiStore from '../store/cluiStore'
+import command from './commands/commands'
+import Prompt from './prompt'
 
 /**
  * Parent of the entire CLUI Component

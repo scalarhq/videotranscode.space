@@ -23,6 +23,7 @@
     "classnames": "^2.2.6",
     "downshift": "^6.0.0",
     "eslint": "^7.13.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "finalhandler": "^1.1.2",
     "fractional": "^1.0.0",
     "javascript-terminal": "^1.0.3",

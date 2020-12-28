@@ -4,15 +4,11 @@
  * @packageDocumentation
  */
 
-import { ffmpegRunner } from '../ts/ffmpeg'
-
 import ComponentStore from '../store/componentStore'
-
+import { ffmpegRunner } from '../ts/ffmpeg'
 import { getThreads } from '../ts/hardware'
-
+import { CustomFileType, FileTypes } from '../types/fileTypes'
 import FFmpegInterface from './FFmpegInterface'
-
-import { FileTypes, CustomFileType } from '../types/fileTypes'
 
 const { FileStore, ProgressStore, VideoStore } = ComponentStore
 

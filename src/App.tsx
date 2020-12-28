@@ -1,38 +1,34 @@
 /* eslint-disable no-nested-ternary */
 
 // Modules
-import React, { useEffect, useState } from 'react'
-import { observer } from 'mobx-react'
-
-import { Fade } from 'react-reveal'
-import { isMobile } from 'react-device-detect'
-import processor, { loadFFmpeg } from './ts/processor'
-
 // Styling
 import './App.css'
 
-// Router
-import Router from './router'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { isMobile } from 'react-device-detect'
+import { Fade } from 'react-reveal'
 
-// Components
-import { Header, Footer } from './components/static/static'
-import Dropzone from './components/dropzone/dropzone'
-import TerminalComponent from './components/terminal/terminalComponent'
-import ProgressBar from './components/progress/progress'
-import VideoPlayer from './components/video/video'
-import ErrorScreen from './components/error/Error'
+import Banner from './components/banner/banner'
 import Configuration from './components/configuration/configuration'
+import Dropzone from './components/dropzone/dropzone'
+import ErrorScreen from './components/error/Error'
+import ProgressBar from './components/progress/progress'
+// Components
+import { Footer, Header } from './components/static/static'
+import StepComponent from './components/steps/steps'
+import TerminalComponent from './components/terminal/terminalComponent'
 import Tour from './components/tour/tour'
 import Util from './components/utils/util'
-import Banner from './components/banner/banner'
-
+import VideoPlayer from './components/video/video'
+// Router
+import Router from './router'
+import ComponentStore from './store/componentStore'
 // Types
-
 // Stores
 import TerminalStore from './store/terminalStore'
-import ComponentStore from './store/componentStore'
-import StepComponent from './components/steps/steps'
 import { useActiveUsers } from './store/userStore'
+import processor, { loadFFmpeg } from './ts/processor'
 
 const App = () => {
   const {

@@ -1,11 +1,11 @@
 /* global JSX */
 import React from 'react'
-import formats from '../../dist/formats'
-import codecs from '../../dist/codecs'
-import Dropdown from '../../clui-ui-components/Dropdown'
 
-import FFmpegFeature from '../FFmpegFeature'
+import Dropdown from '../../clui-ui-components/Dropdown'
+import codecs from '../../dist/codecs'
+import formats from '../../dist/formats'
 import { CodecType } from '../../types/formats'
+import FFmpegFeature from '../FFmpegFeature'
 import GIFTranscode, { GIFConfiguration, GIFUi } from './gifTranscode'
 
 export type TranscodeConfig = {

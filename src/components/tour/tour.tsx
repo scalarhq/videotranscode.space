@@ -1,13 +1,11 @@
 /* global JSX */
-import React, { useContext, useEffect } from 'react'
-
-import { ShepherdTour, ShepherdTourContext } from 'react-shepherd'
-
-import steps from './steps'
-
 import 'shepherd.js/dist/css/shepherd.css'
 
+import React, { useContext, useEffect } from 'react'
+import { ShepherdTour, ShepherdTourContext } from 'react-shepherd'
+
 import ComponentStore from '../../store/componentStore'
+import steps from './steps'
 
 const tourOptions = {
   defaultStepOptions: {

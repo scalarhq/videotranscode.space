@@ -1,5 +1,5 @@
-import React from 'react'
 import newGithubIssueUrl from 'new-github-issue-url'
+import React from 'react'
 
 import { ReloadSvg } from '../utils/reload'
 

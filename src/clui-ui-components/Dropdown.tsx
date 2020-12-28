@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
-
-import Select from 'react-select'
-import ComponentStore from '../store/componentStore'
-
 import './list.css'
+
+import React, { useEffect, useRef, useState } from 'react'
+import Select from 'react-select'
+
+import ComponentStore from '../store/componentStore'
 
 const { CluiStore } = ComponentStore
 

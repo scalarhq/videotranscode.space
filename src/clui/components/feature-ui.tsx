@@ -1,8 +1,8 @@
 /* global JSX */
 import React, { useEffect } from 'react'
+
 import Submit from '../../clui-ui-components/Submit'
 import features from '../../features/features'
-
 import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore

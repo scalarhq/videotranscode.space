@@ -1,24 +1,20 @@
 /* global JSX */
 import React from 'react'
 
-// Features
-import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature'
-import CompressionFeature, { CompressionUi } from './src/compressionFeature'
-import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage'
-import ConcatFeature, { ConcatUi } from './src/concatFeature'
+import keys from './featureKeys.json'
 import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature'
-import TrimFeature, { TrimUi } from './src/trimFeature'
-
-// Custom Run Feature
-
-import RunFeature, { RunUi } from './src/runFeature'
-
+import CombinedExecFeature from './src/combinedExecFeature'
+import CompressionFeature, { CompressionUi } from './src/compressionFeature'
+import ConcatFeature, { ConcatUi } from './src/concatFeature'
 // UI LESS Features
 import GreyScaleFeature from './src/greyScaleFeature'
-import CombinedExecFeature from './src/combinedExecFeature'
-
-import keys from './featureKeys.json'
 import MuteFeature from './src/muteFeature'
+import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage'
+// Custom Run Feature
+import RunFeature, { RunUi } from './src/runFeature'
+// Features
+import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature'
+import TrimFeature, { TrimUi } from './src/trimFeature'
 
 export type Feature =
   | typeof MuteFeature

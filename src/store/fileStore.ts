@@ -1,20 +1,18 @@
-import { observable, action, computed, toJS, observe } from 'mobx'
+import { action, computed, observable, observe, toJS } from 'mobx'
+import { RefObject } from 'react'
 
 import formats from '../dist/formats'
-import AbstractStore from './store'
-
-import TerminalStore from './terminalStore'
-
 import {
-  InputFilesType,
-  FileTransformType,
-  FileTypes,
   CustomFileType,
   FileNameTypes,
-  VideoFilesType,
-  FileWithMetadata
+  FileTransformType,
+  FileTypes,
+  FileWithMetadata,
+  InputFilesType,
+  VideoFilesType
 } from '../types/fileTypes'
-import { RefObject } from 'react'
+import AbstractStore from './store'
+import TerminalStore from './terminalStore'
 
 class FileStore extends AbstractStore {
   // Stores

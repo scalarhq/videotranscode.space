@@ -1,6 +1,6 @@
 import React from 'react'
-import features from '../../features/features'
 
+import features from '../../features/features'
 import ComponentStore from '../../store/componentStore'
 
 const DirectExecute = ({ featureKey }: { featureKey: string }) => {

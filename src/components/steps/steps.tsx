@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react'
-
-import Steps, { Step } from 'rc-steps'
-
 import 'rc-steps/assets/index.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import {
-  faFile,
   faClock,
+  faCogs,
   faDownload,
-  faCogs
+  faFile
 } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { observer } from 'mobx-react'
+import Steps, { Step } from 'rc-steps'
+import React, { useEffect, useState } from 'react'
 
 import ComponentStore from '../../store/componentStore'
 import { useActiveUsers } from '../../store/userStore'

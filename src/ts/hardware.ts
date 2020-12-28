@@ -1,4 +1,5 @@
 import platform from 'platform'
+
 import ComponentStore from '../store/componentStore'
 import { HardwareDataType } from '../types/hardwareData'
 
@@ -51,4 +52,4 @@ const updateData = (encodeTime: number) => {
   sendHardwareData()
 }
 
-export { updateData, getThreads }
+export { getThreads, updateData }

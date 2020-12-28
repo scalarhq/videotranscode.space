@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-
 import { Fraction } from 'fractional'
-import FFmpegFeature from '../FFmpegFeature'
+import React, { useEffect, useState } from 'react'
 
 import ComponentStore from '../../store/componentStore'
+import FFmpegFeature from '../FFmpegFeature'
 
 const { CluiStore } = ComponentStore
 

@@ -40,4 +40,4 @@ const getSecondsInTimeStamp = (secs: number) => {
 
 export default getSecondsInTimeStamp
 
-export { secondsToTime, hmsToTimeStamp }
+export { hmsToTimeStamp, secondsToTime }

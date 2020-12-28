@@ -1,14 +1,15 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState, useCallback, useEffect, useRef } from 'react'
 import classnames from 'classnames'
 import Downshift from 'downshift'
+import { observer } from 'mobx-react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+
+import ComponentStore from '../store/componentStore'
 import PromptIcon from './promptIcon'
 import MatchSubString from './subString'
 import useCluiInput from './useCluiInput'
-import ComponentStore from '../store/componentStore'
-import { observer } from 'mobx-react'
 
 const { CluiStore } = ComponentStore
 const { setInputMessage } = CluiStore

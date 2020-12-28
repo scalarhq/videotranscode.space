@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
-import React from 'react'
 import classnames from 'classnames'
+import React from 'react'
 
 const Icon = {
   ERROR: '!',

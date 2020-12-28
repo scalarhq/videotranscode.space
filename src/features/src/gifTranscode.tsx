@@ -6,9 +6,8 @@
 
 import React, { useEffect, useRef } from 'react'
 
-import FFmpegFeature from '../FFmpegFeature'
-
 import CluiStore from '../../store/cluiStore'
+import FFmpegFeature from '../FFmpegFeature'
 
 const { updateConfiguration } = CluiStore
 

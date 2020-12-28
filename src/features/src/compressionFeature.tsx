@@ -1,7 +1,7 @@
 import React from 'react'
-import Slider from '../../clui-ui-components/Slider'
-import List from '../../clui-ui-components/List'
 
+import List from '../../clui-ui-components/List'
+import Slider from '../../clui-ui-components/Slider'
 import FFmpegFeature from '../FFmpegFeature'
 
 type CompressionConfig = {

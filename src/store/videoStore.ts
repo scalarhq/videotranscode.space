@@ -1,4 +1,5 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
+
 import AbstractStore from './store'
 
 class VideoStore extends AbstractStore {

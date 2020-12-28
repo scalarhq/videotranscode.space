@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import features, { FeatureElement } from '../../features/features'
-import Submit from '../../clui-ui-components/Submit'
 
-import ComponentStore from '../../store/componentStore'
+import Submit from '../../clui-ui-components/Submit'
 import { WorkflowStep } from '../../dist/workflow'
+import features, { FeatureElement } from '../../features/features'
+import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
