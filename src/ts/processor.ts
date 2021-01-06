@@ -1,14 +1,12 @@
-import ComponentStore from '../store/componentStore'
-
 import features from '../features/features'
-
-import { updateData } from './hardware'
-
+import ComponentStore from '../store/componentStore'
 import { CustomFileType, FileNameTypes, FileTypes } from '../types/fileTypes'
-
-import { ffmpegReader, loadFFmpeg, ffmpegGarbageCollector } from './ffmpeg'
-
+import electron, { electronWrapper, isElectron } from './electron'
+import { ffmpegGarbageCollector, ffmpegReader, loadFFmpeg } from './ffmpeg'
 import loadFiles from './file'
+import { updateData } from './hardware'
+import { createVideoObject, setCurrentFile } from './helpers'
+import { electronLoadFiles } from './utils/electronHelper'
 
 const {
   CluiStore,
@@ -21,89 +19,94 @@ const {
 
 const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore
 
-const { updateBlobUrl, blobType } = VideoStore
+const { updateBlobUrl } = VideoStore
 
 const { clearTerminal } = terminalStore
 
 const { updateUsageCount } = UserStore
 
-const createVideoObject = (processedFile: Uint8Array) => {
-  const blobUrl = URL.createObjectURL(
-    new Blob([processedFile.buffer], {
-      type: blobType || ComponentStore.FileStore.defaultBlobType
-    })
-  )
-  console.info(
-    blobUrl,
-    'Type',
-    blobType || ComponentStore.FileStore.defaultBlobType
-  )
-  return blobUrl
-}
-
-const setCurrentFile = (loadedFiles: FileNameTypes) => {
-  if (loadedFiles.video && loadedFiles.video[0]) {
-    return { name: loadedFiles.video[0], type: 'video' as FileTypes }
-  }
-  if (loadedFiles.image && loadedFiles.image[0]) {
-    return { name: loadedFiles.image[0], type: 'image' as FileTypes }
-  }
-  if (loadedFiles.audio && loadedFiles.audio[0]) {
-    return { name: loadedFiles.audio[0], type: 'audio' as FileTypes }
-  }
-  if (loadedFiles.other) {
-    return { name: loadedFiles.other[0], type: 'other' as FileTypes }
-  }
-  throw new Error('Could not find valid file')
-}
-
 const onSubmitHandler = async () => {
   const start = new Date().getTime()
+
   const { configuration, chosenFeatures } = CluiStore
-  const loadedFiles = await loadFiles()
+
+  const loadedFiles = (await electronWrapper(
+    loadFiles,
+    electronLoadFiles
+  )) as FileNameTypes
+
   updateLoadedFiles(loadedFiles)
+
   let currentFile: CustomFileType = setCurrentFile(loadedFiles)
+
   updateCurrentFile(currentFile)
 
   for (const key of chosenFeatures) {
     const CurrentFeature = features[key.name].feature
+
     // @ts-ignore Fix with @lunaroyster later
     const featureObject = new CurrentFeature({
       ...configuration,
       KEY_CONFIG: { ...key.configuration, value: 0 }
     })
+
     const { primaryType } = featureObject.fileConfig
-    console.info('Primary Type', primaryType)
+
     if (primaryType !== 'video') {
-      currentFile = {
-        name: loadedFiles[primaryType as FileTypes][0],
-        type: primaryType as FileTypes
+      const primaryLoadedFiles = loadedFiles[primaryType as FileTypes]
+      if (primaryLoadedFiles && primaryLoadedFiles.length) {
+        currentFile = {
+          name: primaryLoadedFiles[0].name,
+          path: primaryLoadedFiles[0].path,
+          type: primaryType as FileTypes
+        }
       }
-      console.info('New Current File', currentFile)
       updateCurrentFile(currentFile)
     }
     if (currentFile) {
       featureObject.setProgress()
+
       featureObject.updateProgress()
+
       // Expectation is each feature to run in blocking
       // eslint-disable-next-line no-await-in-loop
       currentFile = await featureObject.runFFmpeg()
     }
   }
-  const processedFile = await ffmpegReader(currentFile.name)
+
+  const processedFile = (await electronWrapper(
+    async () => {
+      return await ffmpegReader(currentFile.name)
+    },
+    () => {
+      return electron.readFile(currentFile.name)
+    }
+  )) as Uint8Array | Buffer
+
   const blobUrl = createVideoObject(processedFile)
+
   updateBlobUrl(blobUrl)
+
   try {
-    await ffmpegGarbageCollector([...oldFiles, currentFile.name])
+    if (!isElectron) {
+      await ffmpegGarbageCollector([...oldFiles, currentFile.name])
+    }
   } catch (err) {
     console.info('Unable to garbage collect', err)
   }
+
   updateUsageCount()
+
   updateProcessedState(true)
+
   const end = new Date().getTime()
+
   const encodeTime = (end - start) / 1000
+
   updateData(encodeTime)
+
   clearTerminal()
+
   console.log(
     `Done, Enjoy your video! The process was completed in ${encodeTime} seconds`
   )
