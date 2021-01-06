@@ -9,7 +9,11 @@ import { useDropzone } from 'react-dropzone'
 
 import ComponentStore from '../../store/componentStore'
 import useEventListener from '../../ts/utils/useEventListener'
-import { FileTransformType, FileWithMetadata } from '../../types/fileTypes'
+import {
+  ElectronFile,
+  FileTransformType,
+  FileWithMetadata
+} from '../../types/fileTypes'
 import DraggableWrapper from './draggable'
 
 const { FileStore } = ComponentStore
@@ -130,12 +134,15 @@ const Dropzone = () => {
 
   const onDrop = useCallback(async acceptedFiles => {
     // Do something with the files
+
     const newFiles: Array<FileWithMetadata> = await Promise.all(
-      acceptedFiles.map(async (file: File) => {
+      acceptedFiles.map(async (file: ElectronFile) => {
+        // TODO (rahul) Fix Promise waiting
         if (file.type.match('image')) {
           return {
             file,
             preview: URL.createObjectURL(file),
+            path: file.path || '',
             customType: 'image'
           }
         }
@@ -146,18 +153,29 @@ const Dropzone = () => {
             return {
               file,
               preview: videoData.preview,
+              path: file.path || '',
               customType: 'video',
               videoMetadata: videoData.videoMetadata
             }
           } catch (err) {
-            return { file, preview: '', customType: 'video' }
+            return {
+              file,
+              preview: '',
+              path: file.path || '',
+              customType: 'video'
+            }
           }
         }
         if (file.type.match('audio')) {
-          return { file, preview: '', customType: 'audio' }
+          return {
+            file,
+            preview: '', // TODO (rahul) Add audio icon
+            customType: 'audio',
+            path: file.path || ''
+          }
         }
 
-        return { file, preview: '', customType: 'other' }
+        return { file, preview: '', customType: 'other', path: file.path || '' }
       })
     )
     const transforms: FileTransformType[] = []

@@ -49,11 +49,6 @@ class TrimFeature extends FFmpegFeature {
     const startTime = hmsToTimeStamp(secondsToTime(start))
     const endTime = hmsToTimeStamp(secondsToTime(end))
 
-    console.info(
-      'Setting Trim Command',
-      `-ss ${startTime} -to ${endTime} -c copy`
-    )
-
     this.ffmpegCommands = `-ss ${startTime} -to ${endTime} -c copy`
   }
 }
@@ -75,14 +70,12 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
   )
 
   useEffect(() => {
-    console.info('Updated Files in TRIM', video)
     if (video && video[0]) {
       setValue({
         start: 0,
         end: Math.ceil(video[0].videoMetadata?.duration || 100)
       })
       setEnd(Math.ceil(video[0].videoMetadata?.duration || 100))
-      console.info('Updated duration')
     }
   }, [video])
 
@@ -138,7 +131,6 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
             onChange={(v: { start: number; end: number }) => {
               const deltaS = v.start - value.start
               const deltaT = value.end - v.end
-              console.info('Changing ', v, 'deltaS', deltaS, 'deltaT', deltaT)
               if (Math.abs(deltaS) < 5 && Math.abs(deltaT) < 5) {
                 setValue(oldValue => ({
                   start: oldValue.start + deltaS,

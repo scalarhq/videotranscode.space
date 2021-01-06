@@ -1,5 +1,5 @@
 import FileStore from '../store/fileStore'
-import { FileTypes } from '../types/fileTypes'
+import { FileString, FileTypes } from '../types/fileTypes'
 import { ffmpegWriter } from './ffmpeg'
 
 /**
@@ -7,7 +7,9 @@ import { ffmpegWriter } from './ffmpeg'
  */
 const loadFiles = async () => {
   const { files } = FileStore
-  const uploadFiles: { [name in FileTypes]: Array<Promise<string>> } = {
+  const uploadFiles: {
+    [name in FileTypes]: Array<Promise<FileString>>
+  } = {
     audio: [],
     video: [],
     image: [],
@@ -17,7 +19,6 @@ const loadFiles = async () => {
   for (const type of ['audio', 'video', 'image']) {
     const currentFileList = files[type as FileTypes]
     if (currentFileList) {
-      console.info('Chosen files', currentFileList)
       for (const fileObj of currentFileList) {
         uploadFiles[type as FileTypes].push(ffmpegWriter(fileObj.file))
       }

@@ -1,16 +1,10 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg'
 
 import ComponentStore from '../store/componentStore'
-import { CustomFileType } from '../types/fileTypes'
+import { FFmpegDataType } from '../types/ffmpegType'
 
 const { ProgressStore, updateLoaded, updateLoadError } = ComponentStore
 const { updateProgress } = ProgressStore
-
-export type FFmpegDataType = {
-  outputFile: CustomFileType
-  threads: number
-  ffmpegCommands: string
-}
 
 const ffmpeg = createFFmpeg({
   log: true,
@@ -45,7 +39,11 @@ const loadFFmpeg = async () => {
 const ffmpegWriter = async (file: File) => {
   const { name } = file
   await ffmpeg.write(name, file)
-  return name
+
+  /**
+   * Returning object with name and empty path to keep object symetric for electron
+   */
+  return { name, path: '' }
 }
 
 /** *

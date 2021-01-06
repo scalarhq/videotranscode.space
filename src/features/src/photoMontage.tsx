@@ -75,7 +75,6 @@ class PhotoMontageFeature extends FFmpegFeature {
       typeof FRAMERATE.value === 'string'
         ? parseInt(FRAMERATE.value, 10)
         : FRAMERATE.value
-    console.info('Frame Rate', frameRate, typeof FRAMERATE.value)
     return { frameRate }
   }
 

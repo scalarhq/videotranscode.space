@@ -28,6 +28,7 @@ import ComponentStore from './store/componentStore'
 // Stores
 import TerminalStore from './store/terminalStore'
 import { useActiveUsers } from './store/userStore'
+import { electronWrapper } from './ts/electron'
 import processor, { loadFFmpeg } from './ts/processor'
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
+    updateLoaded,
     updateLoadError,
 
     FileStore,
@@ -59,7 +61,12 @@ const App = () => {
     if (isLoading === false) {
       setLoading(true)
       setTimeout(() => {
-        loadFFmpeg()
+        /**
+         * Does not need to load ffmpeg if it is electron app
+         */
+        electronWrapper(loadFFmpeg, () => {
+          updateLoaded(true)
+        })
       }, 500)
     }
     // eslint-disable-next-line
