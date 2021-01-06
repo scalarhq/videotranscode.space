@@ -5,3 +5,5 @@ declare module 'react-reveal'
 declare module 'fractional'
 
 declare module 'reactrangeslider'
+
+declare module 'video-react'
