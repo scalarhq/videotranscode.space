@@ -32,13 +32,19 @@ export default interface FFmpegInterface {
 
   inputFile: CustomFileType
 
-  outputFile: CustomFileType
+  outputFile: {
+    name: string
+    type: FileTypes
+  }
 
   /** Object determining the text and color of the progress bar */
   progressBar: { name: string; color: string }
 
   /** String representing the how files are inputted to FFmpeg */
   ffmpegInputCommand: string
+
+  /** Array of strings representing paths of files inputted to FFmpeg */
+  ffmpegInputPaths: Array<string>
 
   /** Boolean indicating if a video file can be displayed in the browser or not */
   display: boolean
@@ -67,7 +73,7 @@ export default interface FFmpegInterface {
   commonInputTypes: {
     default: () => void
     images: (frameRate: number, ext: string) => void
-    fileRead: (filename: string) => void
+    fileRead: (filename: string, filePath: string) => void
   }
 
   // Abstract Values
@@ -158,7 +164,7 @@ export default interface FFmpegInterface {
    *
    *  @param fileName A string that is the name of the text file
    */
-  fileInputType: (fileName: string) => void
+  fileInputType: (fileName: string, filePath: string) => void
 
   // Abstract Methods
 

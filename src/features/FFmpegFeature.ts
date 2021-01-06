@@ -4,7 +4,10 @@
  * @packageDocumentation
  */
 
+import path from 'path'
+
 import ComponentStore from '../store/componentStore'
+import electron, { isElectron } from '../ts/electron'
 import { ffmpegRunner } from '../ts/ffmpeg'
 import { getThreads } from '../ts/hardware'
 import { CustomFileType, FileTypes } from '../types/fileTypes'
@@ -30,12 +33,16 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   public threads: number
 
-  public inputFile: { name: string; type: FileTypes } = {
+  public inputFile: CustomFileType = {
     name: '',
+    path: '',
     type: 'video'
   }
 
-  public outputFile: { name: string; type: FileTypes } = {
+  public outputFile: {
+    name: string
+    type: FileTypes
+  } = {
     name: '',
     type: 'video'
   }
@@ -43,6 +50,8 @@ abstract class FFmpegFeature implements FFmpegInterface {
   public progressBar = { name: 'Processing....', color: '#0d6efd' }
 
   public ffmpegInputCommand = ''
+
+  public ffmpegInputPaths: Array<string> = []
 
   public display: boolean = false
 
@@ -60,11 +69,14 @@ abstract class FFmpegFeature implements FFmpegInterface {
     this.threads = getThreads()
     this.inputFile = inputFile
     this.ffmpegCommands = ''
-    this.outputFile = { name: `output-${inputFile.name}`, type: inputFile.type }
+    this.outputFile = {
+      name: `output-${inputFile.name}`,
+      type: inputFile.type
+    }
     this.setFFmpegInputCommand()
   }
 
-  getCurrentFile = (): { name: string; type: FileTypes } => {
+  getCurrentFile = (): CustomFileType => {
     // Get Current File Name from stores
     const { currentFile } = FileStore
     return currentFile
@@ -72,18 +84,34 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   public setFFmpegInputCommand = () => {
     const currentFile = this.getCurrentFile()
-    console.info('Setting FFmpeg Default Input Command', currentFile.name)
-    this.ffmpegInputCommand = `-i ${currentFile.name}`
+    if (isElectron) {
+      this.ffmpegInputPaths.push(currentFile.path)
+    } else {
+      this.ffmpegInputCommand = `-i ${currentFile.name}`
+    }
   }
 
   public imageInputType = (frameRate: number, ext: string) => {
-    this.ffmpegInputCommand = `-framerate ${
-      frameRate > 0 ? frameRate : 1
-    } -pattern_type glob -i 'image*.${ext}'`
+    const currentFile = this.getCurrentFile()
+
+    if (isElectron) {
+      // this.ffmpegInputCommand = ` -framerate ${frameRate > 0 ? frameRate : 1}`
+
+      this.ffmpegInputPaths = [`${path.join(currentFile.path, `%*.png`)}`]
+    } else {
+      this.ffmpegInputCommand = `-framerate ${
+        frameRate > 0 ? frameRate : 1
+      } -pattern_type glob -i 'image*.${ext}'`
+    }
   }
 
-  public fileInputType = (fileName: string) => {
-    this.ffmpegInputCommand = `-i ${fileName}`
+  public fileInputType = (fileName: string, filePath: string) => {
+    if (isElectron) {
+      this.ffmpegInputPaths.push(filePath)
+      this.ffmpegInputCommand = ''
+    } else {
+      this.ffmpegInputCommand = `-i ${fileName}`
+    }
   }
 
   public commonInputTypes = {
@@ -93,14 +121,35 @@ abstract class FFmpegFeature implements FFmpegInterface {
   }
 
   public runFFmpeg = async (): Promise<CustomFileType> => {
-    const { threads, outputFile, ffmpegCommands, ffmpegInputCommand } = this
+    const {
+      threads,
+      outputFile,
+      ffmpegCommands,
+      ffmpegInputCommand,
+      ffmpegInputPaths
+    } = this
 
     const ffmpegData = { threads, outputFile, ffmpegCommands }
-    console.info('Calling FFmpeg', ffmpegInputCommand, ffmpegData)
-    const fileName = await ffmpegRunner(ffmpegInputCommand, ffmpegData)
-    if (fileName) {
-      updateCurrentFile(fileName)
-      return fileName
+
+    if (isElectron) {
+      const fileName = await electron.runFFmpeg(
+        ffmpegInputPaths,
+        ffmpegData,
+        ffmpegInputCommand
+      )
+      if (fileName) {
+        updateCurrentFile({ name: fileName, type: outputFile.type, path: '' })
+
+        return { name: fileName, type: outputFile.type, path: '' }
+      } else {
+        return this.inputFile
+      }
+    } else {
+      const fileName = await ffmpegRunner(ffmpegInputCommand, ffmpegData)
+      if (fileName) {
+        updateCurrentFile({ ...fileName, path: '' })
+        return { ...fileName, path: '' }
+      }
     }
     return this.inputFile
   }
