@@ -1,5 +1,3 @@
-import './list.css'
-
 import React, { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
 

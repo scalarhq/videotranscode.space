@@ -1,5 +1,3 @@
-import './clui.css'
-
 import { Session } from '@replit/clui-session'
 import { observer } from 'mobx-react'
 import React from 'react'

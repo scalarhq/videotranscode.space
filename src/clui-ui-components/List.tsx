@@ -1,9 +1,6 @@
-import './list.css'
-
 import React, { useEffect, useState } from 'react'
 
 import ComponentStore from '../store/componentStore'
-
 
 const { CluiStore } = ComponentStore
 

@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
-import './terminal.css'
 
 import { observer } from 'mobx-react'
 import React, { useEffect } from 'react'
