@@ -22,7 +22,7 @@ const updateData = (encodeTime: number) => {
   const testerDom = document.getElementById('tester') as HTMLInputElement
   console.info(testerDom)
   let tester = ''
-  if (testerDom.value) {
+  if (testerDom && testerDom.value) {
     tester = `This is from an automated puppeteer tester, please check git actions for more details. Video duration ${testerDom.value}`
     console.info(tester)
   }

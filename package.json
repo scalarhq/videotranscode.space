@@ -107,7 +107,7 @@
     "prettier": "prettier --check src/",
     "prettier:fix": "prettier --write src/",
     "verify": "yarn prettier && yarn lint",
-    "dev": "next"
+    "dev": "next dev"
   },
   "browserslist": {
     "production": [
