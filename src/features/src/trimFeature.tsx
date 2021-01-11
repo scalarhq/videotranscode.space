@@ -1,13 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react'
-
-import { RangeSlider } from 'reactrangeslider'
-
 import { observer } from 'mobx-react'
-
-import FFmpegFeature from '../FFmpegFeature'
+import React, { useEffect, useReducer, useState } from 'react'
+import { RangeSlider } from 'reactrangeslider'
 
 import ComponentStore from '../../store/componentStore'
 import { hmsToTimeStamp, secondsToTime } from '../../ts/time'
+import FFmpegFeature from '../FFmpegFeature'
 
 const { CluiStore, FileStore } = ComponentStore
 

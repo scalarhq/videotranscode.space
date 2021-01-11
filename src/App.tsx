@@ -1,12 +1,13 @@
 /* eslint-disable no-nested-ternary */
 
 // Modules
-import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-
-import { Fade } from 'react-reveal'
+import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
+import { Fade } from 'react-reveal'
 
+import Banner from './components/banner/banner'
+import Configuration from './components/configuration/configuration'
 // Components
 import Dropzone from './components/dropzone/dropzone'
 import ErrorScreen from './components/error/Error'
@@ -26,8 +27,6 @@ import TerminalStore from './store/terminalStore'
 import { useActiveUsers } from './store/userStore'
 import { electronWrapper } from './ts/electron'
 import processor, { loadFFmpeg } from './ts/processor'
-import Banner from './components/banner/banner'
-import Configuration from './components/configuration/configuration'
 
 const App = () => {
   const {

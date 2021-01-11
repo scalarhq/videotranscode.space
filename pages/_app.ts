@@ -9,7 +9,6 @@ import '../styles/list.css'
 import '../styles/static.css'
 import '../styles/terminal.css'
 import '../styles/steps.css'
-
 import 'rc-steps/assets/index.css'
 
 import App from 'next/app'

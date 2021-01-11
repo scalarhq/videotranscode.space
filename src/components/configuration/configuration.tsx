@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { Fade } from 'react-reveal'
 
 import Clui from '../../clui/clui'
-import BasicFeatures from '../basic-features/basicFeature'
 // import './configuration.css'
-
 import CluiStore from '../../store/cluiStore'
+import BasicFeatures from '../basic-features/basicFeature'
 
 const Configuration = () => {
   const [cluiToggle, setCluiToggle] = useState(false)

@@ -1,10 +1,8 @@
-
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 import React from 'react'
 import { BrowserView } from 'react-device-detect'
-
-import Link from 'next/link'
 
 // import './static.css'
 
