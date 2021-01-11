@@ -46,6 +46,7 @@
     "react-scripts": "^4.0.1",
     "react-select": "^3.1.0",
     "react-shepherd": "^3.3.0",
+    "react-tooltip": "^4.2.11",
     "reactrangeslider": "^3.0.6",
     "shepherd.js": "^8.0.2",
     "styled-jsx": "^3.3.0",
@@ -107,7 +108,7 @@
     "prettier": "prettier --check src/",
     "prettier:fix": "prettier --write src/",
     "verify": "yarn prettier && yarn lint",
-    "verify:fix" : "yarn prettier:fix && yarn lint:fix",
+    "verify:fix": "yarn prettier:fix && yarn lint:fix",
     "dev": "next dev"
   },
   "browserslist": {
