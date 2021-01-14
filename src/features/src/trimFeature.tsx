@@ -149,7 +149,7 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full justify-center items-center">
       <p className="text-xl font-bold">Trim Settings</p>
       <div className="range-slider-wrapper flex w-full">
         <div className=" w-1/4 flex flex-col items-center">

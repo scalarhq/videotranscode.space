@@ -1,8 +1,8 @@
+import FFmpegFeature from '@features/FFmpegFeature'
+import useExistingSettings from '@features/useExistingSettings'
+import ComponentStore from '@store/componentStore'
 import { Fraction } from 'fractional'
 import React, { useEffect, useState } from 'react'
-
-import ComponentStore from '../../store/componentStore'
-import FFmpegFeature from '../FFmpegFeature'
 
 const { CluiStore } = ComponentStore
 
@@ -66,8 +66,29 @@ class AspectRatioFeature extends FFmpegFeature {
 export default AspectRatioFeature
 
 const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
-  const [width, setWidth] = useState(1920)
-  const [height, setHeight] = useState(1080)
+  const presets = {
+    main: {
+      key: 'WIDTH',
+      value: 1920
+    },
+    child: {
+      key: 'HEIGHT',
+      value: 1080
+    }
+  }
+
+  const defaults = useExistingSettings({
+    main: [...parents, 'WIDTH'],
+    child: [...parents, 'HEIGHT'],
+    defaults: presets
+  })
+
+  console.info(defaults, presets)
+
+  const { main: Width, child: Height } = defaults
+
+  const [width, setWidth] = useState(Width.value)
+  const [height, setHeight] = useState(Height?.value || 1080)
   const [currentAspectRatio, setAspectRatio] = useState(width / height)
 
   useEffect(() => {
@@ -87,9 +108,9 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
   }, [currentAspectRatio])
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xl font-bold">Aspect Ratio Feature</p>
-      <div className="dar-input-wrapper">
+    <div className="flex flex-col items-center">
+      <p className="text-xl font-bold py-4">Aspect Ratio Feature</p>
+      <div className="dar-input-wrapper w-3/4">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label

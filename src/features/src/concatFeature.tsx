@@ -1,8 +1,9 @@
+import electron, { isElectron } from '@core/electron'
+import ffmpeg from '@core/ffmpeg'
 import React from 'react'
 
-import electron, { isElectron } from '../../ts/electron'
-import ffmpeg from '../../ts/ffmpeg'
-import { FileString } from '../../types/fileTypes'
+import { FileString } from '~@types/fileTypes'
+
 import FFmpegFeature from '../FFmpegFeature'
 import TranscodeFeature, {
   TranscodeConfig,

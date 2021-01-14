@@ -1,11 +1,13 @@
 /* global JSX */
+import Dropdown from '@cluiComponents/Dropdown'
+import FFmpegFeature from '@features/FFmpegFeature'
+import useExistingSettings from '@features/useExistingSettings'
 import React from 'react'
 
-import Dropdown from '../../clui-ui-components/Dropdown'
+import { CodecType } from '~@types/formats'
+
 import codecs from '../../dist/codecs'
 import formats from '../../dist/formats'
-import { CodecType } from '../../types/formats'
-import FFmpegFeature from '../FFmpegFeature'
 import GIFTranscode, { GIFConfiguration, GIFUi } from './gifTranscode'
 
 export type TranscodeConfig = {
@@ -119,12 +121,13 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
   const formatList = Object.keys(formats)
 
   const currentParents = [...parents, 'FORMAT']
+  const codecParents = [...currentParents, 'CODEC']
 
   const list: Array<TranscodeFormatList> = formatList.map(formatKey => {
     const currentFormat = formats[formatKey]
     const childProps = {
       title: 'Choose Codec',
-      parents: [...currentParents, 'CODEC'],
+      parents: codecParents,
       current: currentFormat.defaultCodec
         ? {
             name: currentFormat.defaultCodec.name,
@@ -155,34 +158,75 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
     }
   })
 
-  const mp4Format = formats.MP4
-  const mp4ChildProps = {
-    title: 'Choose Codec',
-    parents: [...currentParents, 'CODEC'],
-    current: mp4Format.defaultCodec
-      ? {
-          name: mp4Format.defaultCodec.name,
-          value: createCodecValue(mp4Format.defaultCodec.name)
-        }
-      : {
-          name: mp4Format.codecs[0].name,
-          value: createCodecValue(mp4Format.codecs[0].name)
-        },
-    dropdown: mp4Format.codecs.map(codec => ({
-      name: codec.name,
-      value: createCodecValue(codec.name)
-    }))
+  const defaultFormat = 'MP4'
+
+  const presets = {
+    main: { key: 'FORMAT', value: defaultFormat },
+    child: { key: 'CODEC', value: 'H.264' }
   }
+
+  const defaults = useExistingSettings({
+    main: currentParents,
+    child: codecParents,
+    defaults: presets
+  })
+
+  const { main: mainDefault } = defaults
+
+  const mainDefaultObject = list.find(
+    ({ value }) => value === mainDefault.value
+  )
+
+  const current: TranscodeFormatList = {
+    name: mainDefault.value,
+    value: mainDefault.value,
+    child:
+      defaults.child && mainDefaultObject?.child
+        ? {
+            ...mainDefaultObject.child,
+            props: {
+              ...mainDefaultObject.child.props,
+              current: {
+                name: defaults.child?.value,
+                value: defaults.child?.value
+              }
+            }
+          }
+        : mainDefaultObject?.child
+  }
+
+  // const { TRANSCODE } = config as TranscodeConfig
+  // const { FORMAT } = TRANSCODE
+  // const {
+  //   CODEC: { value: codecValue }
+  // } = FORMAT
+  // console.info('Previous config', FORMAT, codecValue)
+  // const formatKey = FORMAT.value
+  // const formatObject = list.find(format => format.value === formatKey)
+  // const newChild = {
+  //   ...formatObject?.child,
+  //   props: {
+  //     ...formatObject?.child?.props,
+  //     current: {
+  //       name: codecValue,
+  //       value: codecValue
+  //     },
+  //     usingExisting: true
+  //   }
+  // }
+  // console.info('New Child', newChild, codecValue)
+  // Object.assign(current, {
+  //   name: formatKey,
+  //   value: formatKey,
+  //   child: newChild
+  // })
 
   const props = {
     title: 'Choose Format',
     parents: currentParents,
-    current: {
-      name: 'MP4',
-      value: 'MP4',
-      child: { component: Dropdown, props: mp4ChildProps }
-    },
-    dropdown: list
+    current,
+    dropdown: list,
+    usingExisting: presets.main.key !== defaults.main.key
   }
 
   return <Dropdown {...props} />

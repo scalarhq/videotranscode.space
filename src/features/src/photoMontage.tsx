@@ -1,8 +1,9 @@
+import List from '@cluiComponents/List'
+import SingleInput from '@cluiComponents/Single-Input'
+import FFmpegFeature from '@features/FFmpegFeature'
+import useExistingSettings from '@features/useExistingSettings'
 import React from 'react'
 
-import List from '../../clui-ui-components/List'
-import SingleInput from '../../clui-ui-components/Single-Input'
-import FFmpegFeature from '../FFmpegFeature'
 import TranscodeFeature, {
   TranscodeConfig,
   TranscodeUi
@@ -98,6 +99,25 @@ export default PhotoMontageFeature
 const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
   const newParents = [...parents, 'FRAMERATE']
 
+  const customObject = {
+    name: 'Custom',
+    value: 0,
+    child: {
+      component: SingleInput,
+      props: {
+        parents: newParents,
+        type: 'number',
+        defaultValue: 1,
+        otherProps: { min: 1 },
+        child: {
+          component: TranscodeUi,
+          props: { parents: parents.concat('TRANSCODE') }
+        }
+      },
+      paddingTop: 3
+    }
+  }
+
   const ListElements: Array<{
     name: string
     value: number
@@ -116,31 +136,29 @@ const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
       }
     })
   }
-  ListElements.push({
-    name: 'Custom',
-    value: 0,
-    child: {
-      component: SingleInput,
-      props: {
-        parents: newParents,
-        type: 'number',
-        defaultValue: 1,
-        otherProps: { min: 1 },
-        child: {
-          component: TranscodeUi,
-          props: { parents: parents.concat('TRANSCODE') }
-        }
-      },
-      paddingTop: 3
-    }
+  ListElements.push(customObject)
+
+  const presets = {
+    main: { key: 'FRAMERATE', value: 24 }
+  }
+
+  const defaults = useExistingSettings({
+    main: newParents,
+    defaults: presets
   })
 
-  const current = {
-    name: 'Film (24)',
-    value: 24,
+  const { main } = defaults
+
+  const listObject = ListElements.find(({ value }) => value === main.value)
+
+  const current = listObject || {
+    ...customObject,
     child: {
-      component: TranscodeUi,
-      props: { parents: parents.concat('TRANSCODE') }
+      ...customObject.child,
+      props: {
+        ...customObject.child?.props,
+        defaultValue: main.value
+      }
     }
   }
 
@@ -152,9 +170,11 @@ const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <p className="text-3xl font-bold">Photo Montage Settings</p>
-      <List {...props} />
+      <div className="w-full">
+        <List {...props} />
+      </div>
     </div>
   )
 }

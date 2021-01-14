@@ -1,4 +1,4 @@
-import FFmpegFeature from '../FFmpegFeature'
+import FFmpegFeature from '@features/FFmpegFeature'
 
 class GreyScaleFeature extends FFmpegFeature {
   configuration = {}
