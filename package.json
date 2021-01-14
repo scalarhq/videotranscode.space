@@ -132,7 +132,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn verify"
+      "pre-commit": "yarn prettier",
+      "pre-push" : "yarn verify"
     }
   }
 }
