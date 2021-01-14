@@ -1,7 +1,6 @@
 import { action, computed, observable, toJS } from 'mobx'
 import { RefObject } from 'react'
 
-import formats from '../dist/formats'
 import {
   CustomFileType,
   FileNameTypes,
@@ -9,7 +8,9 @@ import {
   FileTypes,
   FileWithMetadata,
   InputFilesType
-} from '../types/fileTypes'
+} from '~@types/fileTypes'
+
+import formats from '../dist/formats'
 import AbstractStore from './store'
 import TerminalStore from './terminalStore'
 
@@ -307,4 +308,6 @@ class FileStore extends AbstractStore {
   }
 }
 
-export default new FileStore()
+const fileStore = new FileStore()
+
+export default fileStore

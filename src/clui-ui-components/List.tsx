@@ -1,6 +1,5 @@
+import ComponentStore from '@store/componentStore'
 import React, { useEffect, useState } from 'react'
-
-import ComponentStore from '../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
@@ -63,8 +62,8 @@ const List = (props: ListProps) => {
 
   return (
     <div className="options-list-wrapper">
-      <h1 className="text-xl font-bold">{title}</h1>
-      <div className="options-list">
+      <h1 className="text-xl py-2 font-bold">{title}</h1>
+      <div className="options-list w-full">
         {list.map(item => (
           <div className="options-list-item-wrapper" key={item.name}>
             <div

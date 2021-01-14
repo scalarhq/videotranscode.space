@@ -4,6 +4,7 @@
   padding: 1rem;
   flex-wrap: wrap;
   flex-direction: column;
+  @apply items-center;
 }
 
 .options-list {

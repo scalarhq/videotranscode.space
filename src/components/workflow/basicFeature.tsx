@@ -1,12 +1,13 @@
+import features from '@features/features'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/basicFeatures.module.css'
 import React, { useEffect, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 
-import styles from '../../../styles/basicFeatures.module.css'
-import features from '../../features/features'
-import ComponentStore from '../../store/componentStore'
-import { FeatureKeyType } from '../../types/otherTypes'
+import { FeatureKeyType } from '~@types/otherTypes'
+
 import DisplayFeature from './displayFeature'
 
 const { CluiStore } = ComponentStore

@@ -1,3 +1,6 @@
+import features, { Features } from '@features/features'
+import CluiStore from '@store/cluiStore'
+import styles from '@styles/workflow.module.css'
 import cx from 'classnames'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
@@ -5,10 +8,8 @@ import React, { useEffect, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import Modal from 'react-modal'
 
-import styles from '../../../styles/workflow.module.css'
-import features, { Features } from '../../features/features'
-import CluiStore from '../../store/cluiStore'
-import { FeatureKeyType } from '../../types/otherTypes'
+import { FeatureKeyType } from '~@types/otherTypes'
+
 import BasicFeatures from './basicFeature'
 import DisplayFeature from './displayFeature'
 

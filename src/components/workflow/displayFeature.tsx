@@ -1,7 +1,7 @@
+import features from '@features/features'
 import React from 'react'
 
-import features from '../../features/features'
-import { FeatureKeyType } from '../../types/otherTypes'
+import { FeatureKeyType } from '~@types/otherTypes'
 
 type DisplayFeatureProps = {
   // eslint-disable-next-line no-undef

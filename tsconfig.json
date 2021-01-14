@@ -17,8 +17,19 @@
     "skipLibCheck": true,
     "strict": true,
     "experimentalDecorators": true,
-    "target": "esnext"
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@styles*": ["styles/modules*"],
+      "@components*": ["src/components*"],
+      "@globalStyles*": ["styles/global*"],
+      "@store*": ["src/store*"],
+      "@features*": ["src/features*"],
+      "~@types*": ["src/types*"], // Like this because @types is already used
+      "@cluiComponents*": ["src/clui-ui-components*"],
+      "@core*": ["src/ts*"]
+    }
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.css"]
 }

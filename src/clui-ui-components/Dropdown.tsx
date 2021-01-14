@@ -1,7 +1,6 @@
+import ComponentStore from '@store/componentStore'
 import React, { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
-
-import ComponentStore from '../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
@@ -36,6 +35,7 @@ type DropDownProps = {
   dropdown: Array<DropElement>
   title: string
   current: DropElement
+  usingExisting: boolean
 }
 
 const generateElementRef = (dropdown: Array<DropElement>) => {
@@ -46,16 +46,12 @@ const generateElementRef = (dropdown: Array<DropElement>) => {
   return object
 }
 
-// const generateOptions = (dropdown: Array<DropElement>) => {
-//   const object : {value:string, label:string}
-// }
-
 /**
  * Abstraction of a DropDown Functional Component that can be used in the CLUI
  * @param props {@link DropDownProps}
  */
 const Dropdown = (props: DropDownProps) => {
-  const { dropdown, title, parents } = props
+  const { dropdown, title, parents, usingExisting } = props
 
   // eslint-disable-next-line react/destructuring-assignment
   const [current, setCurrent] = useState<DropElement>(props.current)
@@ -63,9 +59,11 @@ const Dropdown = (props: DropDownProps) => {
   const element = useRef(generateElementRef(dropdown))
 
   useEffect(() => {
-    const defaultConfiguration = { value: current.value, name: current.name }
-    updateConfiguration(defaultConfiguration, [...parents])
+    if (!usingExisting) {
+      const defaultConfiguration = { value: current.value, name: current.name }
 
+      updateConfiguration(defaultConfiguration, [...parents])
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -79,14 +77,15 @@ const Dropdown = (props: DropDownProps) => {
   }, [dropdown])
 
   const handleClick = (selectedOption: { value: any; [name: string]: any }) => {
-    // e.preventDefault();
     const { value } = selectedOption
+
     if (element && element.current) {
-      // console.info('Tree', element.current, value);
       const dataValue = element.current[value as keyof typeof element.current]
+
       setCurrent(dataValue)
-      // console.info('Data value is', dataValue, current);
+
       const newConfiguration = { value: dataValue.value, name: dataValue.name }
+
       updateConfiguration(newConfiguration, [...parents])
     }
   }

@@ -1,5 +1,6 @@
-import ComponentStore from '../store/componentStore'
-import { CustomFileType, FileConfigType, FileTypes } from '../types/fileTypes'
+import ComponentStore from '@store/componentStore'
+
+import { CustomFileType, FileConfigType, FileTypes } from '~@types/fileTypes'
 
 const { FileStore, VideoStore } = ComponentStore
 
