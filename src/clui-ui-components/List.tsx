@@ -62,18 +62,21 @@ const List = (props: ListProps) => {
 
   return (
     <div className="options-list-wrapper">
-      <h1 className="text-xl py-2 font-bold">{title}</h1>
+      <h1 className="text-xl py-2 font-bold text-gray-50">{title}</h1>
       <div className="options-list w-full">
         {list.map(item => (
           <div className="options-list-item-wrapper" key={item.name}>
             <div
-              className={
-                item.name === current.name
-                  ? 'options-list-item active'
-                  : 'options-list-item'
-              }>
+              className={`options-list-item flex justify-center ${
+                item.name === current.name ? 'active' : ''
+              }`}>
+              {/* // {
+              //   item.name === current.name
+              //     ? 'options-list-item active'
+              //     : 'options-list-item'
+              // }> */}
               <button
-                className="outline-none"
+                className="outline-none text-center text-gray-50"
                 type="button"
                 onClick={e => handleClick(e, item)}>
                 {item.name}
@@ -83,7 +86,7 @@ const List = (props: ListProps) => {
         ))}
       </div>
       {current.child && (
-        <div className="child">
+        <div className="child w-full">
           <current.child.component {...current.child.props} />
         </div>
       )}

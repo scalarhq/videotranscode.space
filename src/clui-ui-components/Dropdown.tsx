@@ -94,9 +94,9 @@ const Dropdown = (props: DropDownProps) => {
     <>
       <div className="options-list-wrapper">
         <div className="flex justify-center items-center">
-          <p className="text-xl">{title}</p>
+          <p className="text-xl text-gray-50">{title}</p>
           <div
-            className="inline-block relative w-64"
+            className="inline-block relative w-64 bg-background bg-opacity-30 "
             style={{ margin: '1rem' }}>
             <Select
               //  @ts-ignore
@@ -107,23 +107,33 @@ const Dropdown = (props: DropDownProps) => {
                 value: item.value,
                 label: item.name
               }))}
+              theme={theme => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: 'rgba(108, 99, 255, 0.5)',
+                  primary: 'rgba(108, 99, 255, 1)',
+                  neutral0: 'rgba(31, 41, 55, 0.8)'
+                }
+              })}
               styles={{
                 control: styles => ({
                   ...styles,
                   backgroundColor: 'transparent',
+                  color: 'white',
                   border: 'none',
-                  color: 'inherit',
                   outline: 'none',
                   appearance: 'none',
                   zIndex: 5
                 }),
                 option: styles => ({
                   ...styles,
-                  color: 'inherit'
+                  color: 'white'
                 }),
                 placeholder: styles => ({
                   ...styles,
-                  color: 'inherit'
+                  color: 'black'
                 }),
                 singleValue: styles => ({
                   ...styles,

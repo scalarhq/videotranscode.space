@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import Workflow from '@components/workflow/workflow'
+import CluiStore from '@store/cluiStore'
 import React, { useEffect, useState } from 'react'
 import { Fade } from 'react-reveal'
 
 import Clui from '../../clui/clui'
-// import './configuration.css'
-import CluiStore from '../../store/cluiStore'
-import BasicFeatures from '../basic-features/basicFeature'
 
 const Configuration = () => {
   const [cluiToggle, setCluiToggle] = useState(false)
@@ -67,11 +66,11 @@ const Configuration = () => {
           </Fade>
         </div>
         <div className="basic-transition">
-          <Fade right collapse opposite when={!cluiToggle} duration={1000}>
-            {' '}
-            <BasicFeatures />{' '}
+          <Fade right opposite when={!cluiToggle} duration={1000}>
+            <Workflow />
           </Fade>
         </div>
+
         {/* @ts-ignore Styled JSX */}
         <style jsx>
           {`
@@ -89,7 +88,7 @@ const Configuration = () => {
       <div className="relative">
         <div className="toggle basic-feature-toggle">
           <div className="toggle-label">
-            <p>Basic Features</p>
+            <p>Normal</p>
           </div>
           <label className="switch basic-feature-switch">
             <input
@@ -102,7 +101,7 @@ const Configuration = () => {
             <span className="toggle-slider round" />
           </label>
           <div className="toggle-label">
-            <p>All Features (CLUI)</p>
+            <p>Advanced(CLUI)</p>
           </div>
         </div>
       </div>

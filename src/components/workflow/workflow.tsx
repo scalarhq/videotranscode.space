@@ -1,3 +1,4 @@
+import Submit from '@cluiComponents/Submit'
 import features, { Features } from '@features/features'
 import CluiStore from '@store/cluiStore'
 import styles from '@styles/workflow.module.css'
@@ -22,13 +23,7 @@ const Workflow = () => {
 
   const [editFeature, setEditFeature] = useState<keyof Features | null>(null)
 
-  // const [config, setConfig] = useState({})
-
   const config = toJS(CluiStore.configuration)
-
-  // if (Object.keys(jsConfig).length > 0 && jsConfig !== config) {
-  //   setConfig(jsConfig)
-  // }
 
   useEffect(() => {
     updateChosenFeatures(
@@ -72,7 +67,7 @@ const Workflow = () => {
 
     return (
       <button
-        className={`text-white font-bold py-2 px-4 mb-12 rounded bg-blue-500`}
+        className={`text-white font-bold py-2 px-4 mb-12 rounded bg-indigo-500`}
         type="submit"
         onClick={handleSubmit}>
         {buttonText || 'Submit'}
@@ -223,6 +218,17 @@ const Workflow = () => {
                   )
                 })}
               </ul>
+            </div>
+            <div className="w-full py-20">
+              <Submit
+                customStyling="inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                customText="Start ↵"></Submit>
+              {/* <button
+                type="button"
+                disabled={!hasSteps}
+                className={`inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
+                Start ↵
+              </button> */}
             </div>
             <div
               className="h-full w-full cursor-pointer"

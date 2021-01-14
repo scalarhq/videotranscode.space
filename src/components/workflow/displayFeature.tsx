@@ -4,8 +4,14 @@ import React from 'react'
 import { FeatureKeyType } from '~@types/otherTypes'
 
 type DisplayFeatureProps = {
-  // eslint-disable-next-line no-undef
-  SubmitButton: ({ featureKey }: { featureKey?: string }) => JSX.Element
+  SubmitButton: ({
+    featureKey,
+    buttonText
+  }: {
+    featureKey?: string
+    buttonText?: string
+    // eslint-disable-next-line no-undef
+  }) => JSX.Element
   selectedKey: FeatureKeyType
 }
 
@@ -22,7 +28,7 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
             } else {
               return (
                 <div className="flex flex-col">
-                  <p className="text-2xl text-center py-20">
+                  <p className="text-2xl text-center py-20 text-gray-200">
                     The feature {currentFeature.name} has no configuration.
                   </p>
                 </div>
@@ -32,7 +38,9 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
         </div>
 
         <div className="flex justify-center">
-          <SubmitButton featureKey={selectedKey}></SubmitButton>
+          <SubmitButton
+            buttonText="Add"
+            featureKey={selectedKey}></SubmitButton>
         </div>
       </div>
     </>

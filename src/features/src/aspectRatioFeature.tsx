@@ -109,7 +109,9 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-xl font-bold py-4">Aspect Ratio Feature</p>
+      <p className="text-2xl text-gray-100 font-bold py-4">
+        Aspect Ratio Feature
+      </p>
       <div className="dar-input-wrapper w-3/4">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -119,7 +121,7 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
               Width
             </label>
             <input
-              className="input-like-text appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75"
+              className="input-like-text appearance-none block w-full text-gray-200  focus:text-gray-50 bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75"
               id="dar-width"
               type="number"
               value={width}
@@ -133,7 +135,7 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
               Height
             </label>
             <input
-              className="input-like-text appearance-none block w-full bg-gray-700 bg-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none  focus:bg-opacity-75"
+              className="input-like-text appearance-none block w-full text-gray-200 focus:text-gray-50 bg-gray-700 bg-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none  focus:bg-opacity-75"
               id="dar-height"
               type="number"
               value={height}
@@ -145,7 +147,7 @@ const AspectRatioUi = ({ parents }: { parents: Array<string> }) => {
 
       <div className="flex flex-col items-center justify-center dar-display-wrapper">
         <p className="flex text-l text-white font-bold">Aspect Ratio</p>
-        <p className="flex text-m">{currentAspectRatio}</p>
+        {/* <p className="flex text-m">{currentAspectRatio}</p> */}
         <p className="flex text-m">
           {(() => {
             const fraction = new Fraction(width, height)

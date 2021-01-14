@@ -1,6 +1,5 @@
+import ComponentStore from '@store/componentStore'
 import React, { useState } from 'react'
-
-import ComponentStore from '../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
@@ -53,7 +52,7 @@ const SingleInput = ({
           onChange={handleChange}
           className={
             className ||
-            'single-input-element appearance-none block w-full bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:bg-opacity-75'
+            'single-input-element appearance-none block w-full bg-gray-700 text-gray-200 bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:text-gray-50 focus:bg-opacity-75'
           }
           {...otherProps}
         />
