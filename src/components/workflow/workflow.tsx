@@ -273,13 +273,37 @@ const Workflow = () => {
             border: 'none'
           }
         }}>
-        <div className="flex w-full h-full justify-center">
-          {' '}
+        <div
+          className="flex w-full h-full justify-center cursor-pointer"
+          onClick={() => {
+            setModalState(false)
+          }}>
           <div
-            className="inline-block align-bottom bg-background bg-opacity-60 rounded-lg pr-4 pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0"
+            className="inline-block cursor-default align-bottom bg-background bg-opacity-60 rounded-lg pr-4 pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="modal-headline">
+            aria-labelledby="modal-headline"
+            onClick={e => {
+              e.stopPropagation()
+            }}>
+            <div className="absolute top-2 right-2 cursor-pointer">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                onClick={() => {
+                  setModalState(false)
+                }}
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
             <div className="w-full h-full">
               {editFeature === null ? (
                 <BasicFeatures
