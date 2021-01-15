@@ -2,17 +2,19 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-props-no-spreading */
 // import './dropzone.css'
+import useEventListener from '@core/utils/useEventListener'
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/dropzone.module.css'
 import { observer } from 'mobx-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-import ComponentStore from '../../store/componentStore'
-import useEventListener from '../../ts/utils/useEventListener'
 import {
   ElectronFile,
   FileTransformType,
   FileWithMetadata
-} from '../../types/fileTypes'
+} from '~@types/fileTypes'
+
 import DraggableWrapper from './draggable'
 
 const { FileStore } = ComponentStore
@@ -33,7 +35,10 @@ const createVideoThumbnail = (videoFile: File) => {
       const videoElement = document.createElement('video')
       const canPlay = videoElement.canPlayType(videoFile.type)
       if (!canPlay) {
-        reject(new Error('Does not support video type'))
+        // reject(new Error('Does not support video type'))
+        resolve({
+          preview: '/images/previews/videoPreview.png'
+        })
       }
       const snapImage = () => {
         const videoCanvas = document.createElement('canvas')
@@ -118,6 +123,8 @@ const Dropzone = () => {
   }, [])
 
   const translateScroll = (e: WheelEvent) => {
+    e.stopPropagation()
+    document.body.style.overflowY = 'hidden'
     const maxScroll = thumbnailRef?.current?.scrollHeight || 500
     if (e.deltaY < 0 && scroll > 0) {
       setScroll(s => s - 10)
@@ -168,7 +175,7 @@ const Dropzone = () => {
         if (file.type.match('audio')) {
           return {
             file,
-            preview: '', // TODO (rahul) Add audio icon
+            preview: '/images/previews/audioPreview.png',
             customType: 'audio',
             path: file.path || ''
           }
@@ -232,7 +239,7 @@ const Dropzone = () => {
           `}
         </style>
       </div>
-      <aside ref={thumbnailRef} className="thumbs-container">
+      <aside ref={thumbnailRef} className={styles.thumbsContainer}>
         <DraggableWrapper files={files} />
       </aside>
     </div>

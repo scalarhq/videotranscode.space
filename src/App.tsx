@@ -1,32 +1,28 @@
 /* eslint-disable no-nested-ternary */
 
+import Banner from '@components/banner/banner'
+import Configuration from '@components/configuration/configuration'
+import Dropzone from '@components/dropzone/dropzone'
+import ErrorScreen from '@components/error/Error'
+import ProgressBar from '@components/progress/progress'
+import { Footer, Header } from '@components/static/static'
+import StepComponent from '@components/steps/steps'
+import TerminalComponent from '@components/terminal/terminalComponent'
+import Tour from '@components/tour/tour'
+import Util from '@components/utils/util'
+import VideoPlayer from '@components/video/video'
+// Core
+import { electronWrapper } from '@core/electron'
+import processor, { loadFFmpeg } from '@core/processor'
+// Stores
+import ComponentStore from '@store/componentStore'
+import TerminalStore from '@store/terminalStore'
+import { useActiveUsers } from '@store/userStore'
 // Modules
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Fade } from 'react-reveal'
-
-import Banner from './components/banner/banner'
-import Configuration from './components/configuration/configuration'
-// Components
-import Dropzone from './components/dropzone/dropzone'
-import ErrorScreen from './components/error/Error'
-import ProgressBar from './components/progress/progress'
-// Components
-import { Footer, Header } from './components/static/static'
-import StepComponent from './components/steps/steps'
-import TerminalComponent from './components/terminal/terminalComponent'
-import Tour from './components/tour/tour'
-import Util from './components/utils/util'
-import VideoPlayer from './components/video/video'
-// Router
-import ComponentStore from './store/componentStore'
-// Types
-// Stores
-import TerminalStore from './store/terminalStore'
-import { useActiveUsers } from './store/userStore'
-import { electronWrapper } from './ts/electron'
-import processor, { loadFFmpeg } from './ts/processor'
 
 const App = () => {
   const {
