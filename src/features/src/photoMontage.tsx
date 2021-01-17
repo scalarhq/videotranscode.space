@@ -171,7 +171,6 @@ const PhotoMontageUi = ({ parents }: { parents: Array<string> }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-3xl font-bold text-gray-100">Photo Montage Settings</p>
       <div className="w-full">
         <List {...props} />
       </div>

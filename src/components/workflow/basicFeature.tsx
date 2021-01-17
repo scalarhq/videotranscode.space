@@ -44,6 +44,7 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
 
     setValidFeature(validKeys as FeatureKeyType[])
     setFeatureKey(validKeys[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usedFeatures])
 
   const keyMap = {
@@ -119,24 +120,26 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
               ) : null}
             </div>
           </div>
-          {validFeatures.length > 0 ? (
-            <DisplayFeature
-              selectedKey={selectedKey as FeatureKeyType}
-              SubmitButton={SubmitButton}></DisplayFeature>
-          ) : (
-            <div className="w-full flex flex-col items-center">
-              <p className="text-3xl w-3/4 pt-20 text-center text-white">
-                All features have been used!
-              </p>
-              <p className="text-l w-3/4 py-4 pb-20 text-center text-white">
-                One feature can be currently only used once.
-              </p>
+          <div className="w-full overflow-scroll scroll-thin">
+            {validFeatures.length > 0 ? (
+              <DisplayFeature
+                selectedKey={selectedKey as FeatureKeyType}
+                SubmitButton={SubmitButton}></DisplayFeature>
+            ) : (
+              <div className="w-full flex flex-col items-center">
+                <p className="text-3xl w-3/4 pt-20 text-center text-white">
+                  All features have been used!
+                </p>
+                <p className="text-l w-3/4 py-4 pb-20 text-center text-white">
+                  One feature can be currently only used once.
+                </p>
 
-              <div className="flex justify-center">
-                <SubmitButton></SubmitButton>
+                <div className="flex justify-center">
+                  <SubmitButton></SubmitButton>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* @ts-ignore Styled JSX */}

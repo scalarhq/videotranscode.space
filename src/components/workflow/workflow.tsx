@@ -43,11 +43,20 @@ const Workflow = () => {
   }, [])
 
   useEffect(() => {
+    if (modelState) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [modelState])
+
+  useEffect(() => {
     updateChosenFeatures(
       workflow.map(w => {
         return { name: w as FeatureKeyType }
       })
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflow])
 
   const updateModalState = (state: boolean) => {
@@ -327,7 +336,7 @@ const Workflow = () => {
             setModalState(false)
           }}>
           <div
-            className="inline-block settings-tour-highlight cursor-default align-bottom bg-background bg-opacity-60 rounded-lg pr-4 pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0"
+            className="inline-block settings-tour-highlight cursor-default align-bottom bg-background bg-opacity-60 rounded-lg  pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0 sm:pr-0"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-headline"

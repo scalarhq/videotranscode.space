@@ -119,7 +119,7 @@ h1.title {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  @apply z-40;
+  z-index: 10;
 }
 
 .footer-icon {
