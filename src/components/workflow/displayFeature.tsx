@@ -38,11 +38,9 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
             } else {
               return (
                 <div className="flex flex-col divide-y-4 divide-indigo-400 divide-opacity-30">
-                  <div>
-                    {currentFeature.descriptionUI
-                      ? currentFeature.descriptionUI
-                      : null}
-                  </div>
+                  {currentFeature.descriptionUI && (
+                    <div>{currentFeature.descriptionUI}</div>
+                  )}
 
                   <p className="text-2xl text-center py-10 text-gray-200">
                     This feature has no configuration.
