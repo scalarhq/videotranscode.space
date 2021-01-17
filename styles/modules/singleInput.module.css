@@ -1,0 +1,21 @@
+.single-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.child {
+  width: 100%;
+}
+.single-input-element {
+  -moz-appearance: textfield;
+}
+
+.single-input {
+  display: block;
+  outline: 0;
+  padding: 0 1rem;
+  text-decoration: none;
+  width: 50%;
+  height: 2.75rem;
+}

@@ -1,4 +1,6 @@
 import ComponentStore from '@store/componentStore'
+import styles from '@styles/reload.module.css'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React from 'react'
 
@@ -21,16 +23,20 @@ const ReloadSvg = ({
 )
 
 const ReloadUtil = () => (
-  <div className="reload-utl">
+  <div className={styles['reload-utl']}>
     <div className="flex flex-col">
       <button
         type="button"
-        className="hidden-button tooltip"
+        className={classNames(styles['hidden-button'], styles.tooltip)}
         onClick={() => {
           window.location.reload()
         }}>
         <ReloadSvg width="2.5rem" fill="rgba(255,255,255,0.6)" />
-        <span className="tooltip-text text-white text-xl p-3 -ml-12 rounded">
+        <span
+          className={classNames(
+            styles['tooltip-text'],
+            'text-white text-xl p-3 -ml-12 rounded'
+          )}>
           Reset
         </span>
       </button>
@@ -45,35 +51,6 @@ const ReloadUtil = () => (
         </button>
       )}
     </div>
-    {/* @ts-ignore Styled JSX */}
-    <style jsx>
-      {`
-        .reload-utl {
-          position: fixed;
-          top: 2%;
-          right: 2%;
-        }
-        .hidden-button {
-          color: inherit;
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          text-decoration: none;
-          display: inline;
-          padding: 10px;
-        }
-        .tooltip .tooltip-text {
-          visibility: hidden;
-          text-align: center;
-          position: absolute;
-          z-index: 100;
-        }
-
-        .tooltip:hover .tooltip-text {
-          visibility: visible;
-        }
-      `}
-    </style>
   </div>
 )
 

@@ -1,0 +1,51 @@
+.hover-card {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.hover-file-wrapper {
+  height: 40vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 15vh;
+}
+.hover-clui-wrapper {
+  height: 40vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 15vh;
+}
+.hover-toggle {
+  margin-top: 15vh;
+}
+
+.hover-help-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  padding: 5vh 11vw;
+}
+
+.help-utl {
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  z-index: 100;
+}
+.hidden-button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline;
+  padding: 10px;
+}
+
+.hover-container .hover-display {
+  visibility: hidden;
+  transition: all 0.5s;
+}

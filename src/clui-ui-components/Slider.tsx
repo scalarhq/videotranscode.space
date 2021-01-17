@@ -1,4 +1,6 @@
 import ComponentStore from '@store/componentStore'
+import styles from '@styles/slider.module.css'
+import classNames from 'classnames'
 import React, { useState } from 'react'
 
 const { CluiStore } = ComponentStore
@@ -43,14 +45,18 @@ const Slider = ({
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="configure-slider w-full flex justify-center py-6">
+      <div
+        className={classNames(
+          styles['configure-slider'],
+          'w-full flex justify-center py-6'
+        )}>
         <input
           type="range"
           min={min}
           max={max}
           value={sliderValue}
           onChange={handleChange}
-          className="slider w-3/4"
+          className={classNames(styles.slider, 'w-3/4')}
         />
       </div>
       <div>
@@ -59,30 +65,6 @@ const Slider = ({
         </p>
       </div>
       {child && <child.component {...child.props} />}
-      {/* @ts-ignore */}
-      <style jsx>
-        {`
-          .configure-slider {
-            border-radius: 5px;
-          }
-          .slider {
-            -webkit-appearance: none;
-            border-radius: 100px;
-            padding: 0em !important;
-            border: 1px solid !important;
-            height: 0;
-          }
-
-          .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-          }
-        `}
-      </style>
     </div>
   )
 }

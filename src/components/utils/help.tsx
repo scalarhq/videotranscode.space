@@ -2,6 +2,8 @@ import useHover from '@core/utils/useHover'
 import { faCogs, faFile, faToggleOn } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ComponentStore from '@store/componentStore'
+import styles from '@styles/help.module.css'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
 
@@ -16,11 +18,15 @@ const HelpSvg = ({ width }: { width: string }) => (
 )
 
 const HoverGuide = () => (
-  <div className="hover-help-wrapper">
+  <div className={styles['hover-help-wrapper']}>
     <div className="flex ">
-      <div className="w-1/2 hover-file-wrapper ">
+      <div className={classNames('w-1/2', styles['hover-file-wrapper'])}>
         <div className="max-w-sm w-full lg:max-w-full lg:flex">
-          <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div
+            className={classNames(
+              styles['hover-card'],
+              'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
+            )}>
             <div className="mb-8">
               <div className="text-white font-bold text-xl mb-2">
                 <FontAwesomeIcon icon={faFile} /> Add Files
@@ -36,10 +42,13 @@ const HoverGuide = () => (
           </div>
         </div>
       </div>
-      {/* <div className="w-1/3" /> */}
-      <div className="w-1/2 hover-clui-wrapper">
+      <div className={classNames('w-1/2', styles['hover-clui-wrapper'])}>
         <div className="max-w-sm w-full lg:max-w-full lg:flex justify-end">
-          <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div
+            className={classNames(
+              styles['hover-card'],
+              'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
+            )}>
             <div className="mb-8">
               <div className="text-white font-bold text-xl mb-2">
                 <FontAwesomeIcon icon={faCogs} /> Configuration
@@ -58,10 +67,14 @@ const HoverGuide = () => (
     </div>
     <div className="flex">
       <div className="w-1/2" />
-      <div className="w-1/2 hover-toggle-wrapper ">
-        <div className="hover-toggle">
+      <div className="w-1/2">
+        <div className={styles['hover-toggle']}>
           <div className="max-w-sm w-full lg:max-w-full lg:flex justify-center">
-            <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+            <div
+              className={classNames(
+                styles['hover-card'],
+                'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
+              )}>
               <div className="mb-8">
                 <div className="text-white font-bold text-xl mb-2">
                   <FontAwesomeIcon icon={faToggleOn} /> Want advanced features?
@@ -76,41 +89,6 @@ const HoverGuide = () => (
         </div>
       </div>
     </div>
-    {/* @ts-ignore Styled JSX */}
-    <style jsx>
-      {`
-        .hover-card {
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        .hover-file-wrapper {
-          height: 40vh;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          margin-top: 15vh;
-        }
-        .hover-clui-wrapper {
-          height: 40vh;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          margin-top: 15vh;
-        }
-        .hover-toggle {
-          margin-top: 15vh;
-        }
-
-        .hover-help-wrapper {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          backdrop-filter: blur(4px);
-          padding: 5vh 11vw;
-        }
-      `}
-    </style>
   </div>
 )
 
@@ -137,42 +115,15 @@ const HelpUtl = () => {
   if (!isSubmitted) {
     return (
       <div>
-        <div className="help-utl">
-          <div className="hover-container">
-            {/* @ts-ignore */}
+        <div className={styles['help-utl']}>
+          <div className={styles['hover-container']}>
             <div className="hoverable" ref={hoverRef}>
               <HelpSvg width="2.5rem" />
             </div>
-            <div className="hover-display" ref={hoverDisplay}>
+            <div className={styles['hover-display']} ref={hoverDisplay}>
               <HoverGuide />
             </div>
           </div>
-
-          {/* @ts-ignore Styled JSX */}
-          <style jsx>
-            {`
-              .help-utl {
-                position: fixed;
-                top: 2%;
-                left: 2%;
-                z-index: 100;
-              }
-              .hidden-button {
-                color: inherit;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline;
-                padding: 10px;
-              }
-
-              .hover-container .hover-display {
-                visibility: hidden;
-                transition: all 0.5s;
-              }
-            `}
-          </style>
         </div>
       </div>
     )

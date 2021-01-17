@@ -1,5 +1,6 @@
 import '../../../node_modules/video-react/dist/video-react.css' // import css
 
+import styles from '@styles/video.module.css'
 import React, { useEffect } from 'react'
 import {
   ControlBar,
@@ -53,7 +54,7 @@ const DownloadButton = ({ url, ext }: { url: string; ext: string }) => {
     }
   }, [url, ext])
   return (
-    <div className="row" style={{ paddingTop: '3%' }}>
+    <div className={styles.row} style={{ paddingTop: '3%' }}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a
         id="download"
@@ -83,19 +84,6 @@ const VideoWrapper = ({ url, toDisplay, ext }: VideoProps) => {
         <GifDisplay url={url} />
       ) : null}
       <DownloadButton url={url} ext={ext} />
-      {/* @ts-ignore Styled JSX */}
-      <style jsx>
-        {`
-          .row {
-            display: flex;
-            flex-direction: row;
-            padding-top: 2%;
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
-          }
-        `}
-      </style>
     </div>
   )
 }
