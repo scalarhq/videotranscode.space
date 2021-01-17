@@ -54,3 +54,7 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-track {
   background: transparent;
 }
+
+.scroll-thin {
+  scrollbar-width: thin;
+}

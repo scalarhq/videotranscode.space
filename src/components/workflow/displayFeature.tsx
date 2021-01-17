@@ -25,11 +25,24 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
             const currentFeature = features[selectedKey]
 
             if (currentFeature.ui) {
-              return currentFeature.ui
+              return (
+                <div className="flex flex-col divide-y-4 divide-indigo-400 divide-opacity-30">
+                  <div>
+                    {currentFeature.descriptionUI
+                      ? currentFeature.descriptionUI
+                      : null}
+                  </div>
+                  <div>{currentFeature.ui}</div>
+                </div>
+              )
             } else {
               return (
-                <div className="flex flex-col">
-                  <p className="text-2xl text-center py-20 text-gray-200">
+                <div className="flex flex-col divide-y-4 divide-indigo-400 divide-opacity-30">
+                  {currentFeature.descriptionUI && (
+                    <div>{currentFeature.descriptionUI}</div>
+                  )}
+
+                  <p className="text-2xl text-center py-10 text-gray-200">
                     This feature has no configuration.
                   </p>
                 </div>
