@@ -14,5 +14,6 @@
         "tslib",
         "ytdl",
         "Österberg"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

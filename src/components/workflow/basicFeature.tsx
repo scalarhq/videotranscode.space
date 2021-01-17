@@ -89,7 +89,7 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
               {validFeatures.length > 0 ? (
                 <nav id="nav" className={styles.nav}>
                   <span
-                    className="absolute w-full rounded-lg shadow ease-out highlighter transition-transform transition-medium"
+                    className="absolute w-full rounded-lg shadow ease-out highlighter transition-transform duration-200"
                     style={{
                       backgroundColor: '#6c63ff',
                       height: `${63 / validFeatures.length}vh`
@@ -116,7 +116,7 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
                               color={selected === index ? 'white' : 'white'}
                             />
                             <span
-                              className={`ml-4 text-m font-medium transition-all ease-out transition-medium text-gray-50 `}>
+                              className={`ml-4 text-m font-medium transition-all ease-out duration-200 text-gray-50 `}>
                               {currentFeature.name}
                             </span>
                           </button>

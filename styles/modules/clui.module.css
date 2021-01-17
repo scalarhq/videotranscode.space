@@ -2,11 +2,8 @@
   padding: 2.6246719160104988vh;
   width: 40vw;
   max-width: 40vw;
-  /* height: 60vh; */
-  /* background-color: rgb(39, 44, 49, 0.6); */
   display: grid;
   grid-template: 1fr / 1fr;
-  /* box-shadow: 5px 10px rgb(39, 44, 49); */
   color: #3fbd71;
   max-height: 73vh;
   overflow-y: auto;
@@ -83,10 +80,6 @@
 
 .value {
   flex: 0 0 auto;
-}
-
-.value :global(b) {
-  /* opacity: 0.5; */
 }
 
 .description {

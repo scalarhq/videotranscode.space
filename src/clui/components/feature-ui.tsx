@@ -1,9 +1,8 @@
 /* global JSX */
+import Submit from '@cluiComponents/Submit'
+import features from '@features/features'
+import ComponentStore from '@store/componentStore'
 import React, { useEffect } from 'react'
-
-import Submit from '../../clui-ui-components/Submit'
-import features from '../../features/features'
-import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
@@ -27,8 +26,8 @@ const FeatureUi = ({ ui, featureKey }: FeatureUiProps) => {
 
   return (
     <div className="feature-wrapper">
-      <div className=" py-5">{typeof ui === 'string' ? <p>{ui}</p> : ui}</div>
-      <div className=" pt-5">
+      <div className="py-5">{typeof ui === 'string' ? <p>{ui}</p> : ui}</div>
+      <div className="pt-5">
         <Submit />
       </div>
     </div>

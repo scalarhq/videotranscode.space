@@ -210,9 +210,9 @@ const Dropzone = () => {
   })
 
   return (
-    <div className="preview-wrapper">
-      <div className="dropzone outline-none" id="dropzone" {...getRootProps()}>
-        <div className="scrollable-wrapper outline-none" ref={dropzoneRef}>
+    <div className={styles.previewWrapper}>
+      <div className={styles.dropzone} id="dropzone" {...getRootProps()}>
+        <div className={styles.scrollableWrapper} ref={dropzoneRef}>
           <input {...getInputProps()} />
 
           {files.length > 0 ? null : (

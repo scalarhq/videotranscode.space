@@ -1,7 +1,6 @@
+import Head from '@components/head'
 import dynamic from 'next/dynamic'
 import React from 'react'
-
-import Head from '../src/components/head'
 
 const DynamicComponentWithNoSSR = dynamic(() => import('../src/ErrorWrapper'), {
   ssr: false

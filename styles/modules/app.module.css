@@ -1,0 +1,44 @@
+.overlay-wrapper {
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+.overlay-wrapper > * {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.main {
+  flex: 1 0 auto;
+  width: 100%;
+  align-self: stretch;
+  text-align: center;
+  font-family: 'Ubuntu Mono', monospace;
+  font-weight: 400;
+}
+
+.flex-wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.dropzone-wrapper {
+  flex: 1 0;
+  flex-direction: column;
+  max-width: 50%;
+  width: 40vw;
+  padding-right: 1rem;
+}
+
+.input-like-text {
+  -moz-appearance: textfield;
+}
+
+.terminal-wrapper {
+  max-width: 50%;
+  padding-left: 5%;
+  height: 100%;
+}

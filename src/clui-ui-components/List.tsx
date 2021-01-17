@@ -1,4 +1,6 @@
 import ComponentStore from '@store/componentStore'
+import styles from '@styles/list.module.css'
+import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 
 const { CluiStore } = ComponentStore
@@ -61,20 +63,17 @@ const List = (props: ListProps) => {
   }
 
   return (
-    <div className="options-list-wrapper">
+    <div className={styles.optionsListWrapper}>
       <h1 className="text-xl py-2 font-bold text-gray-50">{title}</h1>
-      <div className="options-list w-full">
+      <div className={cx(styles.optionsList, 'w-full')}>
         {list.map(item => (
-          <div className="options-list-item-wrapper" key={item.name}>
+          <div className={styles.optionsListItemWrapper} key={item.name}>
             <div
-              className={`options-list-item flex justify-center ${
-                item.name === current.name ? 'active' : ''
-              }`}>
-              {/* // {
-              //   item.name === current.name
-              //     ? 'options-list-item active'
-              //     : 'options-list-item'
-              // }> */}
+              className={cx(
+                styles.optionsListItem,
+                'flex justify-center',
+                item.name === current.name ? styles.optionsListItemActive : ''
+              )}>
               <button
                 className="outline-none text-center text-gray-50"
                 type="button"

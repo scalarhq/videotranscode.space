@@ -1,10 +1,9 @@
+import useHover from '@core/utils/useHover'
 import { faCogs, faFile, faToggleOn } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComponentStore from '@store/componentStore'
 import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
-
-import ComponentStore from '../../store/componentStore'
-import useHover from '../../ts/utils/useHover'
 
 const HelpSvg = ({ width }: { width: string }) => (
   <svg
@@ -80,48 +79,36 @@ const HoverGuide = () => (
     {/* @ts-ignore Styled JSX */}
     <style jsx>
       {`
-      .hover-card {
-        background-color: rgba(0,0,0,0.8);
-      }
-      .hover-file-wrapper {
-        height: 40vh;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin-top: 15vh;
+        .hover-card {
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        .hover-file-wrapper {
+          height: 40vh;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          margin-top: 15vh;
+        }
+        .hover-clui-wrapper {
+          height: 40vh;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          margin-top: 15vh;
+        }
+        .hover-toggle {
+          margin-top: 15vh;
+        }
 
-      }
-      .hover-clui-wrapper {
-        height: 40vh;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin-top: 15vh;
-      }
-      .hover-toggle {
-        margin-top: 15vh;
-      }
-
-      .hover-help-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(4px);
-        padding: 5vh 11vw;
-      }
-    
-
-/* .hover-container .hover-display {
-  visibility: hidden;
-} */
-
-
-{/* .hover-container:hover .hover-display:not(:hover) {
-  visibility: visible;
-  /* transition-delay: 1s; */
-}}
+        .hover-help-wrapper {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          backdrop-filter: blur(4px);
+          padding: 5vh 11vw;
+        }
       `}
     </style>
   </div>

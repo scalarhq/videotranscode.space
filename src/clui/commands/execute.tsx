@@ -1,7 +1,6 @@
+import features from '@features/features'
+import ComponentStore from '@store/componentStore'
 import React from 'react'
-
-import features from '../../features/features'
-import ComponentStore from '../../store/componentStore'
 
 const DirectExecute = ({ featureKey }: { featureKey: string }) => {
   const { CluiStore, loaded } = ComponentStore

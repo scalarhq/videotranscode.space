@@ -23,7 +23,7 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
   return (
     <div>
       <div className="flex justify-center -mb-10">
-        <div className="w-1/2 image-container">
+        <div className="w-1/2 block object-cover rounded-lg">
           <img src="images/processing.png" alt="Processing png" />
         </div>
       </div>

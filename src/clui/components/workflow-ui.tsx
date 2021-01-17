@@ -1,9 +1,9 @@
+import Submit from '@cluiComponents/Submit'
+import features, { FeatureElement } from '@features/features'
+import ComponentStore from '@store/componentStore'
 import React, { useEffect } from 'react'
 
-import Submit from '../../clui-ui-components/Submit'
 import { WorkflowStep } from '../../dist/workflow'
-import features, { FeatureElement } from '../../features/features'
-import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore
 
@@ -19,7 +19,6 @@ const displaySubFeatures = (featureKey: WorkflowStep) => {
       featuresInUse.push(...displaySubFeatures(subFeature))
     }
   }
-  console.info('Returning display sub features', featureKey.name, featuresInUse)
   return featuresInUse
 }
 

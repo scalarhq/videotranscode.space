@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 
+import CluiStore from '@store/cluiStore'
 import React, { useEffect, useState } from 'react'
 
-import CluiStore from '../../store/cluiStore'
 import { CommandType } from './commands'
 
 const CustomComp = (props: any) => {

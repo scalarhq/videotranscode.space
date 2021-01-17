@@ -1,12 +1,13 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/clui.module.css'
 import classnames from 'classnames'
 import Downshift from 'downshift'
 import { observer } from 'mobx-react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import ComponentStore from '../store/componentStore'
 import PromptIcon from './promptIcon'
 import MatchSubString from './subString'
 import useCluiInput from './useCluiInput'
@@ -37,8 +38,8 @@ const MenuItem: React.FC<MenuItemProps> = (props: MenuItemProps) => {
   const { item, highlighted } = props
 
   return (
-    <div className={classnames('root', { highlighted })}>
-      <div className="value">
+    <div className={classnames(styles.root, { highlighted })}>
+      <div className={styles.value}>
         {item.searchValue ? (
           <MatchSubString source={item.value} match={item.searchValue} />
         ) : (
@@ -46,7 +47,7 @@ const MenuItem: React.FC<MenuItemProps> = (props: MenuItemProps) => {
         )}
       </div>
       {item.data && item.data.description ? (
-        <div className="description">{item.data.description}</div>
+        <div className={styles.description}>{item.data.description}</div>
       ) : null}
     </div>
   )
@@ -123,7 +124,6 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
   }, [props.autoRun, state.run, run])
 
   useEffect(() => {
-    console.info('Prompt autofocus', props.autoFocus)
     if (input.current && props.autoFocus) {
       const { value } = input.current
       input.current.focus()
@@ -190,13 +190,13 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
 
         return (
           <div
-            className={classnames('prompt', {
+            className={classnames(styles.prompt, {
               active: isLastSession || focused
             })}>
             <PromptIcon />
-            <div className="input">
+            <div className={styles.input}>
               {(isLastSession || focused) && state.run ? (
-                <div className="input-shadow">
+                <div className={styles['input-shadow']}>
                   <span>{state.value}</span>
                   <button type="button" onClick={run}>
                     run ↵
@@ -210,9 +210,9 @@ const Prompt: React.FC<PromptProps> = (props: PromptProps) => {
                 {...inputProps}
               />
               {focused ? (
-                <div className="menu-anchor">
-                  <div className="menu">
-                    <div className="menu-offset">
+                <div className={styles['menu-anchor']}>
+                  <div className={styles.menu}>
+                    <div className={styles['menu-offset']}>
                       {state.value.slice(0, state.nodeStart || 0)}
                     </div>
                     <ul {...ds.getMenuProps()}>

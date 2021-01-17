@@ -42,6 +42,7 @@ h1.title {
 
 .highlight {
   color: #6c63ff;
+  @apply font-bold;
 }
 
 .moz-builders {
@@ -67,11 +68,6 @@ h1.title {
   max-width: 60vw;
   /* margin-top: -4vh !important; */
   padding: 10px;
-}
-
-h4 {
-  color: white;
-  font-weight: 400;
 }
 
 /** Loading screen main CSS class**/
@@ -123,17 +119,9 @@ h4 {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-
-  /* color: white;
-      display: grid;
-      justify-content: space-evenly;
-      align-items: center;
-      grid-template-columns: [first] 20% auto [last] 20%; */
 }
 
 .footer-icon {
-  /* font-size: 3rem;
-    color: white; */
   max-height: 5vh;
 }
 

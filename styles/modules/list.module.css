@@ -1,4 +1,4 @@
-.options-list-wrapper {
+.optionsListWrapper {
   display: flex;
   flex: 2 0 50%;
   padding: 1rem;
@@ -7,25 +7,25 @@
   @apply items-center;
 }
 
-.options-list {
+.optionsList {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.options-list-item-wrapper {
+.optionsListItemWrapper {
   flex: 1 1 30%;
   padding-left: 10%;
 }
 
-.options-list-item {
+.optionsListItem {
   flex: 0 0 auto;
   padding: 0.4rem;
   border-radius: 5px;
   width: 100%;
 }
 
-.options-list-item.active {
+.optionsListItemActive {
   flex: 0 0 auto;
   background-color: rgba(62, 187, 112, 0.25);
   border: 1px solid #47b372;
@@ -33,11 +33,11 @@
   width: 100%;
 }
 
-.options-list-item a {
+.optionsListItem a {
   color: inherit;
   padding-left: 3%;
 }
 
-.options-list-item a:hover {
+.optionsListItem a:hover {
   cursor: pointer;
 }

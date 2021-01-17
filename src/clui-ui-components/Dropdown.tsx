@@ -1,4 +1,5 @@
 import ComponentStore from '@store/componentStore'
+import styles from '@styles/list.module.css'
 import React, { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
 
@@ -92,7 +93,7 @@ const Dropdown = (props: DropDownProps) => {
 
   return (
     <>
-      <div className="options-list-wrapper">
+      <div className={styles.optionsListWrapper}>
         <div className="flex justify-center items-center">
           <p className="text-xl text-gray-50">{title}</p>
           <div

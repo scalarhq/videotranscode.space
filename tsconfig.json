@@ -28,7 +28,8 @@
       "~@types*": ["src/types*"], // Like this because @types is already used
       "@cluiComponents*": ["src/clui-ui-components*"],
       "@core*": ["src/ts*"]
-    }
+    },
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx", "**/*.css"]

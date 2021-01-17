@@ -2,6 +2,8 @@
 
 import Workflow from '@components/workflow/workflow'
 import CluiStore from '@store/cluiStore'
+import styles from '@styles/configuration.module.css'
+import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { Fade } from 'react-reveal'
 
@@ -58,8 +60,8 @@ const Configuration = () => {
   }, [cluiToggle])
 
   return (
-    <div className="configuration-wrapper">
-      <div className="config">
+    <div className={styles['configuration-wrapper']} id="configuration-wraper">
+      <div className={styles.config}>
         <div className="clui-transition">
           <Fade right opposite when={cluiToggle} duration={1000}>
             <Clui />
@@ -86,11 +88,11 @@ const Configuration = () => {
         </style>
       </div>
       <div className="relative">
-        <div className="toggle basic-feature-toggle">
-          <div className="toggle-label">
+        <div className={classNames(styles.toggle, 'basic-feature-toggle')}>
+          <div className={styles['toggle-label']}>
             <p>Normal</p>
           </div>
-          <label className="switch basic-feature-switch">
+          <label className={styles.switch}>
             <input
               type="checkbox"
               checked={cluiToggle}
@@ -98,9 +100,11 @@ const Configuration = () => {
                 setCluiToggle(!cluiToggle)
               }}
             />
-            <span className="toggle-slider round" />
+            <span
+              className={classNames(styles.round, styles['toggle-slider'])}
+            />
           </label>
-          <div className="toggle-label">
+          <div className={styles['toggle-label']}>
             <p>Advanced(CLUI)</p>
           </div>
         </div>

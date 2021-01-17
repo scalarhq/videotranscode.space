@@ -1,4 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
+import styles from '@styles/clui.module.css'
 import classnames from 'classnames'
 import React from 'react'
 
@@ -13,7 +14,7 @@ type IconProps = {
 }
 
 const PromptIcon: React.FC<IconProps> = (props: IconProps) => (
-  <div className={classnames('icon', props)}>
+  <div className={classnames(styles.icon, props)}>
     <span style={{ lineHeight: 'unset' }}>{Icon[props.icon || 'CARET']} </span>
   </div>
 )

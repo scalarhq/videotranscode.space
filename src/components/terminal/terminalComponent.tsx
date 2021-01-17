@@ -3,10 +3,10 @@
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
 
+import componentStore from '@store/componentStore'
 import { observer } from 'mobx-react'
 import React, { useEffect } from 'react'
 
-import componentStore from '../../store/componentStore'
 import { Terminal } from './terminal'
 
 const TerminalComponent: React.FC = () => {

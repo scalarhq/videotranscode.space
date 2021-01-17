@@ -18,6 +18,8 @@ import processor, { loadFFmpeg } from '@core/processor'
 import ComponentStore from '@store/componentStore'
 import TerminalStore from '@store/terminalStore'
 import { useActiveUsers } from '@store/userStore'
+import styles from '@styles/app.module.css'
+import classNames from 'classnames'
 // Modules
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
@@ -117,26 +119,30 @@ const App = () => {
   if (isLoadingError && secondLoad) {
     return (
       <>
-        <main>
+        <div className={styles.main}>
           <ErrorScreen errorObj={loadingErrorObj} />
-        </main>
+        </div>
         <Footer />
       </>
     )
   }
   return (
     <>
-      <div className="overlay-wrapper h-screen max-w-screen-xl w-screen">
+      <div
+        className={classNames(
+          styles['overlay-wrapper'],
+          'h-screen max-w-screen-xl w-screen'
+        )}>
         {!isMobile ? (
           <div className="blur">
             <Banner />
             <Util />
             <Tour>
               <>
-                <main>
-                  <div className="flex-wrapper">
+                <div className={classNames(styles.main, 'main-padding')}>
+                  <div className={styles['flex-wrapper']}>
                     {!isSubmitted ? (
-                      <div className="dropzone-wrapper">
+                      <div className={styles['dropzone-wrapper']}>
                         <Fade bottom>
                           <Dropzone />
                         </Fade>
@@ -160,20 +166,20 @@ const App = () => {
                         <Configuration />
                       </Fade>
                     ) : cluiToggle ? (
-                      <div className="terminal-wrapper">
+                      <div className={styles['terminal-wrapper']}>
                         <Fade bottom>
                           <TerminalComponent />
                         </Fade>
                       </div>
                     ) : processed ? (
-                      <div className="terminal-wrapper">
+                      <div className={styles['terminal-wrapper']}>
                         <Fade bottom>
                           <TerminalComponent />
                         </Fade>
                       </div>
                     ) : null}
                   </div>
-                </main>
+                </div>
                 <StepComponent />
                 <Header />
               </>
@@ -187,17 +193,9 @@ const App = () => {
               padding-top: ${isActiveUser ? '2vh' : '5vh'};
             }
 
-            .overlay-wrapper {
-              display: grid;
-              grid-template: 1fr / 1fr;
-            }
-            .overlay-wrapper > * {
-              grid-column: 1 / 1;
-              grid-row: 1 / 1;
-            }
-            main {
+            .main-padding {
               max-width: ${isSubmitted ? '80vw' : 'unset'};
-              padding-top: ${isSubmitted ? '5vh' : 'unset'};
+              padding-top: ${isSubmitted ? '5vh' : '1rem'};
             }
             ul {
               max-width: unset !important;
