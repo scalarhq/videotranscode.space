@@ -7247,6 +7247,11 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+goober@^2.0.15:
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.0.21.tgz#7f965d6d5f07a4e742ed72c9fd946d792a673c56"
+  integrity sha512-rfCHTF3gB1ayMEOhYbqzMFo2tbG1ZzYvTY+/VKfXhCVSSwucXSvtxFbFPOhfWJTEa9rkSax1Vua6ItHwL5Cu5g==
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
@@ -11932,6 +11937,13 @@ react-error-overlay@^6.0.7, react-error-overlay@^6.0.8:
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
   integrity sha512-HvPuUQnLp5H7TouGq3kzBeioJmXms1wHy9EGjz2OURWBp4qZO6AfGEcnxts1D/CbwPLRAgTMPCEgYhA3sEM4vw==
+
+react-hot-toast@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-hot-toast/-/react-hot-toast-1.0.1.tgz#1352a526545f157bc83fbc2b19ac3ad1d92e780e"
+  integrity sha512-og5MNzjNHa7BTjdThj3cwGoyD8tLoxMN9c8/Sme6bBLCnlrF54QrNOJW5gJkETTsuAHVsUK5z8Q6vvkc+9OfCg==
+  dependencies:
+    goober "^2.0.15"
 
 react-hotkeys@^2.0.0:
   version "2.0.0"
