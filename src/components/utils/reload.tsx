@@ -3,6 +3,7 @@ import styles from '@styles/reload.module.css'
 import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React from 'react'
+import ReactTooltip from 'react-tooltip'
 
 const ReloadSvg = ({
   width,
@@ -23,27 +24,29 @@ const ReloadSvg = ({
 )
 
 const ReloadUtil = () => (
-  <div className={styles['reload-utl']}>
+  <div className="fixed xl:top-2 xl:right-2 bottom-3 right-3">
     <div className="flex flex-col">
       <button
         type="button"
-        className={classNames(styles['hidden-button'], styles.tooltip)}
+        data-tip
+        data-for="reset-tooltip"
+        className={classNames(styles['hidden-button'])}
         onClick={() => {
           window.location.reload()
         }}>
         <ReloadSvg width="2.5rem" fill="rgba(255,255,255,0.6)" />
-        <span
-          className={classNames(
-            styles['tooltip-text'],
-            'text-white text-xl p-3 -ml-12 rounded'
-          )}>
+        <ReactTooltip
+          id="reset-tooltip"
+          place="left"
+          effect="solid"
+          type="dark">
           Reset
-        </span>
+        </ReactTooltip>
       </button>
       {ComponentStore.CluiStore.isSubmitted ? null : (
         <button
           type="button"
-          className="bg-gray-700 bg-opacity-75 hover:bg-indigo-700 text-white font-bold mt-12 py-2 px-4 "
+          className="bg-gray-700 bg-opacity-75 hidden xl:block transition-all duration-200 ease-in-out hover:bg-indigo-700 text-white font-bold mt-12 py-2 px-4 "
           onClick={() => {
             ComponentStore.startTour()
           }}>

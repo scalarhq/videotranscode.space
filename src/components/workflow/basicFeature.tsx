@@ -1,7 +1,6 @@
 import features from '@features/features'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ComponentStore from '@store/componentStore'
 import styles from '@styles/basicFeatures.module.css'
 import React, { useEffect, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
@@ -9,10 +8,6 @@ import { GlobalHotKeys } from 'react-hotkeys'
 import { FeatureKeyType } from '~@types/otherTypes'
 
 import DisplayFeature from './displayFeature'
-
-const { CluiStore } = ComponentStore
-
-const { updateChosenFeatures } = CluiStore
 
 type BasicFeatureProp = {
   // eslint-disable-next-line no-undef
@@ -30,10 +25,6 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
   const [validFeatures, setValidFeature] = useState<FeatureKeyType[]>(
     Object.keys(features) as FeatureKeyType[]
   )
-
-  useEffect(() => {
-    updateChosenFeatures([{ name: selectedKey as FeatureKeyType }])
-  }, [selectedKey])
 
   const checkFeature = (featureKey: string) => {
     if (usedFeatures.length > 0) {
@@ -56,8 +47,8 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
   }, [usedFeatures])
 
   const keyMap = {
-    UP: ['up', 'j', 'w'],
-    DOWN: ['down', 'k', 's']
+    UP: ['up', 'k', 'w'],
+    DOWN: ['down', 'j', 's']
   }
 
   const handlers = {

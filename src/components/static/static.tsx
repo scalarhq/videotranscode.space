@@ -32,10 +32,10 @@ export function Loader() {
 export function Header() {
   return (
     <div className={styles.header}>
-      <h4 className={styles.subtitle}>
+      <p className={styles.subtitle}>
         Your files are
         <span className={styles.highlight}> not uploaded anywhere.</span>
-      </h4>
+      </p>
     </div>
   )
 }

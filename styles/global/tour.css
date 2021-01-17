@@ -1,0 +1,36 @@
+.shepherd-element {
+  @apply bg-background bg-opacity-70 !important;
+}
+
+.shepherd-text {
+  @apply text-gray-200 !important;
+}
+
+.shepherd-text strong {
+  @apply text-default;
+}
+
+.shepherd-header {
+  @apply bg-background  !important;
+  @apply uppercase;
+}
+
+.shepherd-title {
+  @apply text-gray-50 !important;
+}
+
+.shepherd-button {
+  @apply bg-indigo-600 !important;
+}
+
+.shepherd-button-secondary {
+  @apply bg-gray-200 !important;
+}
+
+.tour-padding {
+  @apply pt-6 pb-3;
+}
+
+.shepherd-arrow::before {
+  @apply hidden;
+}

@@ -20,7 +20,13 @@ body {
   background-color: #17141d;
   background-image: url('/images/backgroundPurpleOnlyTop.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+}
+
+@media (min-width: 1280px) {
+  body {
+    background-size: contain;
+  }
 }
 
 button {

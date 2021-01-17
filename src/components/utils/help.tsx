@@ -1,11 +1,22 @@
-import useHover from '@core/utils/useHover'
-import { faCogs, faFile, faToggleOn } from '@fortawesome/free-solid-svg-icons'
+import { faHandsHelping, faKeyboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ComponentStore from '@store/componentStore'
+import keyboardStore from '@store/keyboardStore'
 import styles from '@styles/help.module.css'
-import classNames from 'classnames'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
+import { GlobalHotKeys } from 'react-hotkeys'
+import { Fade } from 'react-reveal'
+
+const keyboardShorcuts = [
+  { key: 'alt+p', action: 'Set configuration' },
+  { key: 'Shift+F', action: 'Open File Menu' },
+  { key: 'Cntrl+Enter/Shift+Enter', action: 'Start processing' },
+  { key: 'Alt+c', action: 'Toggle Advanced Mode' },
+  { key: 'W/▲', action: 'Move up' },
+  { key: 'S/▼', action: 'Move down' },
+  { key: 'Shift+/', action: 'Keyboard shortcuts' }
+]
 
 const HelpSvg = ({ width }: { width: string }) => (
   <svg
@@ -17,74 +28,45 @@ const HelpSvg = ({ width }: { width: string }) => (
   </svg>
 )
 
-const HoverGuide = () => (
-  <div className={styles['hover-help-wrapper']}>
-    <div className="flex ">
-      <div className={classNames('w-1/2', styles['hover-file-wrapper'])}>
-        <div className="max-w-sm w-full lg:max-w-full lg:flex">
-          <div
-            className={classNames(
-              styles['hover-card'],
-              'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
-            )}>
-            <div className="mb-8">
-              <div className="text-white font-bold text-xl mb-2">
-                <FontAwesomeIcon icon={faFile} /> Add Files
-              </div>
-              <p className="text-white text-base">
-                Drag and drop as many files as you want here.
-              </p>{' '}
-              <p className="text-white text-base">
-                {' '}
-                Videos, Audio and Images are accepted.{' '}
-              </p>
+const HoverGuide = ({ close }: { close: () => void }) => (
+  <div className="fixed top-0 left-0  w-screen h-full" onClick={() => close()}>
+    <div className="flex w-full h-full items-start justify-center">
+      <div className="w-3/4 h-full items-start p-20 flex justify-center">
+        <div
+          className={
+            'flex flex-col items-center rounded-lg p-4 leading-normal w-1/2 bg-indigo-900'
+          }
+          id="keyboard-shortcuts-tour"
+          onClick={e => {
+            e.stopPropagation()
+          }}>
+          <div className="flex flex-col w-3/4">
+            <div className="text-white text-center font-bold text-xl mb-2">
+              <FontAwesomeIcon icon={faKeyboard} /> Keyboard shortcuts
             </div>
-          </div>
-        </div>
-      </div>
-      <div className={classNames('w-1/2', styles['hover-clui-wrapper'])}>
-        <div className="max-w-sm w-full lg:max-w-full lg:flex justify-end">
-          <div
-            className={classNames(
-              styles['hover-card'],
-              'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
-            )}>
-            <div className="mb-8">
-              <div className="text-white font-bold text-xl mb-2">
-                <FontAwesomeIcon icon={faCogs} /> Configuration
-              </div>
-              <p className="text-white text-base">
-                Choose a Feature -{'>'} Set your options -{'>'} Submit
-              </p>{' '}
-              <p />
-              <p className="text-white text-base">
-                Workflows are multiple features combined!{' '}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="flex">
-      <div className="w-1/2" />
-      <div className="w-1/2">
-        <div className={styles['hover-toggle']}>
-          <div className="max-w-sm w-full lg:max-w-full lg:flex justify-center">
-            <div
-              className={classNames(
-                styles['hover-card'],
-                'rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
-              )}>
-              <div className="mb-8">
-                <div className="text-white font-bold text-xl mb-2">
-                  <FontAwesomeIcon icon={faToggleOn} /> Want advanced features?
+            {keyboardShorcuts.map(({ key, action }) => {
+              return (
+                <div key={key} className="flex flex-row py-1">
+                  <p className="w-1/2 uppercase text-center text-gray-50">
+                    {key}
+                  </p>
+                  <p className="w-1/2 capitalize text-center text-gray-50">
+                    {action}
+                  </p>
                 </div>
-                <p className="text-white text-base">
-                  Want to use more features? and customized workflows? Use our
-                  CLUI
-                </p>
-              </div>
+              )
+            })}
+            <div className="text-white text-center font-bold text-xl mb-2">
+              <FontAwesomeIcon icon={faHandsHelping} /> Need help?
             </div>
+            <p className="text-gray-50 text-center">
+              Reach out to{' '}
+              <a
+                className="text-default font-semibold"
+                href="mailto:support@modfy.video">
+                support@modfy.video
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -93,39 +75,57 @@ const HoverGuide = () => (
 )
 
 const HelpUtl = () => {
-  const [hoverRef, isHovered] = useHover()
-  const hoverDisplay = useRef<HTMLDivElement | null>(null)
+  const [clicked, setClicked] = useState(false)
 
   const { CluiStore } = ComponentStore
 
   const { isSubmitted } = CluiStore
 
-  useEffect(() => {
-    // console.info('Hover change ', isHovered);
-    if (!isHovered) {
-      setTimeout(() => {
-        if (hoverDisplay && hoverDisplay.current) {
-          hoverDisplay.current.style.visibility = 'hidden'
-        }
-      }, 1000)
-    } else if (hoverDisplay && hoverDisplay.current) {
-      hoverDisplay.current.style.visibility = 'visible'
+  const keyMap = {
+    HELP: ['shift+/'],
+    EXIT: ['esc']
+  }
+  const handlers = {
+    HELP: (e?: KeyboardEvent) => {
+      e?.preventDefault()
+      setClicked(c => !c)
+    },
+    EXIT: () => {
+      setClicked(false)
     }
-  }, [isHovered])
+  }
+
+  useEffect(() => {
+    keyboardStore.showShortcuts = () => {
+      setClicked(c => !c)
+    }
+    return () => {
+      keyboardStore.showShortcuts = null
+    }
+  }, [])
+
   if (!isSubmitted) {
     return (
-      <div>
-        <div className={styles['help-utl']}>
-          <div className={styles['hover-container']}>
-            <div className="hoverable" ref={hoverRef}>
+      <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
+        <div className="fixed top-0 z-10 left-0">
+          <div className="fixed xl:top-2 xl:left-2  bottom-3 left-3">
+            <div
+              className={styles.hoverable}
+              onClick={() => {
+                setClicked(c => !c)
+              }}>
               <HelpSvg width="2.5rem" />
             </div>
-            <div className={styles['hover-display']} ref={hoverDisplay}>
-              <HoverGuide />
-            </div>
           </div>
+          <Fade when={clicked} collapse>
+            <HoverGuide
+              close={() => {
+                setClicked(false)
+              }}
+            />
+          </Fade>
         </div>
-      </div>
+      </GlobalHotKeys>
     )
   }
   return <div />

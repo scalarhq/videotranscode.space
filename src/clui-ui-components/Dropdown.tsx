@@ -74,7 +74,6 @@ const Dropdown = (props: DropDownProps) => {
 
   useEffect(() => {
     element.current = generateElementRef(dropdown)
-    console.info('Update elements')
   }, [dropdown])
 
   const handleClick = (selectedOption: { value: any; [name: string]: any }) => {
