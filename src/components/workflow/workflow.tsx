@@ -1,11 +1,13 @@
 import Submit from '@cluiComponents/Submit'
 import features, { Features } from '@features/features'
-import CluiStore from '@store/cluiStore'
+import ComponentStore from '@store/componentStore'
+import keyboardStore from '@store/keyboardStore'
 import styles from '@styles/workflow.module.css'
 import cx from 'classnames'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { GlobalHotKeys } from 'react-hotkeys'
 import Modal from 'react-modal'
 
@@ -14,16 +16,31 @@ import { FeatureKeyType } from '~@types/otherTypes'
 import BasicFeatures from './basicFeature'
 import DisplayFeature from './displayFeature'
 
-const { updateChosenFeatures } = CluiStore
-
 const Workflow = () => {
+  const { CluiStore, FileStore, loaded } = ComponentStore
+
+  const { allFiles } = FileStore
+
   const [workflow, setWorkflow] = useState<string[]>([])
+
+  const [currentFeature, setFeatureKey] = useState('')
 
   const [modelState, setModalState] = useState(false)
 
   const [editFeature, setEditFeature] = useState<keyof Features | null>(null)
 
   const config = toJS(CluiStore.configuration)
+
+  const { updateChosenFeatures, setSubmitStatus } = CluiStore
+
+  useEffect(() => {
+    keyboardStore.toggleModal = () => {
+      setModalState(c => !c)
+    }
+    return () => {
+      keyboardStore.toggleModal = null
+    }
+  }, [])
 
   useEffect(() => {
     updateChosenFeatures(
@@ -43,6 +60,16 @@ const Workflow = () => {
     setModalState(true)
   }
 
+  const keyMap = {
+    COMMAND_PALLETE: ['alt+p', 'shift+p'],
+    SUBMIT: ['ctrl+enter', 'shift+enter']
+  }
+
+  const updateWorkflow = (newFeature: string) => {
+    toast.success('Added new feature')
+    setWorkflow(prev => [...prev, newFeature])
+  }
+
   const SubmitButton = ({
     featureKey,
     buttonText
@@ -50,8 +77,6 @@ const Workflow = () => {
     featureKey?: string
     buttonText?: string
   }) => {
-    const [currentFeature, setFeatureKey] = useState('')
-
     useEffect(() => {
       if (featureKey) {
         setFeatureKey(featureKey)
@@ -60,7 +85,7 @@ const Workflow = () => {
 
     const handleSubmit = () => {
       if (featureKey) {
-        setWorkflow(prev => [...prev, currentFeature])
+        updateWorkflow(currentFeature || featureKey)
       }
       updateModalState(false)
     }
@@ -75,19 +100,38 @@ const Workflow = () => {
     )
   }
 
-  const keyMap = {
-    COMMAND_PALLETE: ['alt+p']
-  }
-
   const handlers = {
     COMMAND_PALLETE: (e?: KeyboardEvent) => {
       e?.preventDefault()
-      updateModalState(!modelState)
+      setModalState(c => !c)
+    },
+    SUBMIT: (e?: KeyboardEvent) => {
+      e?.preventDefault()
+      e?.stopPropagation()
+      if (modelState) {
+        updateWorkflow(currentFeature)
+        updateModalState(false)
+      } else {
+        if (workflow.length > 0) {
+          if (!loaded) {
+            toast.error(
+              'Please wait for FFmpeg to load, this can take upto 30 seconds'
+            )
+          } else if (loaded && allFiles.length === 0) {
+            toast.error('Please add a file!')
+          } else {
+            toast.success('Started processing!', {
+              duration: 6000
+            })
+            setSubmitStatus(true)
+          }
+        }
+      }
     }
   }
 
   return (
-    <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
+    <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges={true}>
       <div
         className={cx(
           styles.wrapper,
@@ -233,12 +277,6 @@ const Workflow = () => {
               <Submit
                 customStyling="inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 customText="Start ↵"></Submit>
-              {/* <button
-                type="button"
-                disabled={!hasSteps}
-                className={`inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
-                Start ↵
-              </button> */}
             </div>
             <div
               className="h-full w-full cursor-pointer"
@@ -284,12 +322,12 @@ const Workflow = () => {
           }
         }}>
         <div
-          className="flex w-full h-full justify-center cursor-pointer"
+          className="flex w-full h-full justify-center cursor-pointer "
           onClick={() => {
             setModalState(false)
           }}>
           <div
-            className="inline-block cursor-default align-bottom bg-background bg-opacity-60 rounded-lg pr-4 pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0"
+            className="inline-block settings-tour-highlight cursor-default align-bottom bg-background bg-opacity-60 rounded-lg pr-4 pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-headline"

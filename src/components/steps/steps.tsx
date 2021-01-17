@@ -5,12 +5,12 @@ import {
   faFile
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComponentStore from '@store/componentStore'
+import keyboardStore from '@store/keyboardStore'
+import { useActiveUsers } from '@store/userStore'
 import { observer } from 'mobx-react'
 import Steps, { Step } from 'rc-steps'
 import React, { useEffect, useState } from 'react'
-
-import ComponentStore from '../../store/componentStore'
-import { useActiveUsers } from '../../store/userStore'
 
 type Status = 'wait' | 'finish' | 'error'
 
@@ -37,7 +37,7 @@ const StepComponent = () => {
 
   const { allFiles } = FileStore
 
-  const { isSubmitted, setCluiFocused } = CluiStore
+  const { isSubmitted } = CluiStore
 
   const displayable = useActiveUsers()
 
@@ -86,7 +86,9 @@ const StepComponent = () => {
             icon={<FontAwesomeIcon icon={faCogs} />}
             status={statues.settings}
             onClick={() => {
-              setCluiFocused(true)
+              if (keyboardStore.toggleModal) {
+                keyboardStore.toggleModal()
+              }
             }}
             className={isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer'}
           />
@@ -109,6 +111,7 @@ const StepComponent = () => {
             .step-wrapper {
               color: #3fbd71 !important;
               padding-top: ${isSubmitted ? '15vh' : '2vh'};
+              width: 80vw;
             }
           `}
         </style>

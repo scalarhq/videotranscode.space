@@ -24,6 +24,7 @@ import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
+import { Toaster } from 'react-hot-toast'
 import { Fade } from 'react-reveal'
 
 const App = () => {
@@ -127,14 +128,12 @@ const App = () => {
     )
   }
   return (
-    <>
-      <div
-        className={classNames(
-          styles['overlay-wrapper'],
-          'h-screen max-w-screen-xl w-screen'
-        )}>
+    <div className="w-full flex flex-col items-center justify-center">
+      <div className={classNames(styles['overlay-wrapper'], 'h-screen ')}>
         {!isMobile ? (
           <div className="blur">
+            <Toaster position="top-right" />
+
             <Banner />
             <Util />
             <Tour>
@@ -142,7 +141,9 @@ const App = () => {
                 <div className={classNames(styles.main, 'main-padding')}>
                   <div className={styles['flex-wrapper']}>
                     {!isSubmitted ? (
-                      <div className={styles['dropzone-wrapper']}>
+                      <div
+                        className={styles['dropzone-wrapper']}
+                        id="dropzone-wrapper">
                         <Fade bottom>
                           <Dropzone />
                         </Fade>
@@ -180,7 +181,10 @@ const App = () => {
                     ) : null}
                   </div>
                 </div>
-                <StepComponent />
+                <div className="w-full flex justify-center">
+                  <StepComponent />
+                </div>
+
                 <Header />
               </>
             </Tour>
@@ -206,7 +210,7 @@ const App = () => {
       </div>
 
       <Footer />
-    </>
+    </div>
   )
 }
 

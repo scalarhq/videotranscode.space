@@ -10,6 +10,7 @@ type DisplayFeatureProps = {
   }: {
     featureKey?: string
     buttonText?: string
+
     // eslint-disable-next-line no-undef
   }) => JSX.Element
   selectedKey: FeatureKeyType
@@ -29,7 +30,7 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
               return (
                 <div className="flex flex-col">
                   <p className="text-2xl text-center py-20 text-gray-200">
-                    The feature {currentFeature.name} has no configuration.
+                    This feature has no configuration.
                   </p>
                 </div>
               )

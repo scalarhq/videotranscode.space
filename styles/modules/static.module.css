@@ -66,8 +66,8 @@ h1.title {
 
 .subtitle {
   max-width: 60vw;
-  /* margin-top: -4vh !important; */
   padding: 10px;
+  @apply text-white;
 }
 
 /** Loading screen main CSS class**/
@@ -119,6 +119,7 @@ h1.title {
   position: relative;
   flex-shrink: 0;
   width: 100%;
+  @apply z-40;
 }
 
 .footer-icon {
@@ -126,7 +127,7 @@ h1.title {
 }
 
 .footer-distributed {
-  background-color: rgba(23, 20, 29, 0.65);
+  background-color: rgba(23, 20, 29, 0.7);
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;

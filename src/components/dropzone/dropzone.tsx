@@ -8,6 +8,7 @@ import styles from '@styles/dropzone.module.css'
 import { observer } from 'mobx-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { GlobalHotKeys } from 'react-hotkeys'
 
 import {
   ElectronFile,
@@ -73,7 +74,6 @@ const createVideoThumbnail = (videoFile: File) => {
         }
       }
       videoElement.addEventListener('loadeddata', () => {
-        console.info('Loaded MetaData')
         if (snapImage()) {
           videoElement.removeEventListener('timeupdate', timeUpdate)
           videoElement.pause()
@@ -209,40 +209,53 @@ const Dropzone = () => {
     accept: ['video/*', 'image/*', 'audio/*']
   })
 
-  return (
-    <div className={styles.previewWrapper}>
-      <div className={styles.dropzone} id="dropzone" {...getRootProps()}>
-        <div className={styles.scrollableWrapper} ref={dropzoneRef}>
-          <input {...getInputProps()} />
+  const keyMap = {
+    FILE_DRAWER: ['shift+f']
+  }
 
-          {files.length > 0 ? null : (
-            <>
-              <div className="w-1/3 px-2">
-                <img alt="Video file svg" src="images/upload.svg" />
-              </div>
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <p>
-                  <u>Click</u> or Drag to add files.{' '}
-                </p>
-              )}
-            </>
-          )}
+  const handlers = {
+    FILE_DRAWER: (e?: KeyboardEvent) => {
+      e?.preventDefault()
+      document.getElementById('file-input')?.click()
+    }
+  }
+
+  return (
+    <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
+      <div className={styles.previewWrapper}>
+        <div className={styles.dropzone} id="dropzone" {...getRootProps()}>
+          <div className={styles.scrollableWrapper} ref={dropzoneRef}>
+            <input id="file-input" {...getInputProps()} />
+
+            {files.length > 0 ? null : (
+              <>
+                <div className="w-1/3 px-2">
+                  <img alt="Video file svg" src="images/upload.svg" />
+                </div>
+                {isDragActive ? (
+                  <p>Drop the files here ...</p>
+                ) : (
+                  <p>
+                    <u>Click</u> or Drag to add files.{' '}
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+          {/* @ts-ignore Styled JSX */}
+          <style jsx>
+            {`
+              .dropzone {
+                width: ${files.length > 0 ? '90%' : '100%'};
+              }
+            `}
+          </style>
         </div>
-        {/* @ts-ignore Styled JSX */}
-        <style jsx>
-          {`
-            .dropzone {
-              width: ${files.length > 0 ? '90%' : '100%'};
-            }
-          `}
-        </style>
+        <aside ref={thumbnailRef} className={styles.thumbsContainer}>
+          <DraggableWrapper files={files} />
+        </aside>
       </div>
-      <aside ref={thumbnailRef} className={styles.thumbsContainer}>
-        <DraggableWrapper files={files} />
-      </aside>
-    </div>
+    </GlobalHotKeys>
   )
 }
 export default observer(Dropzone)
