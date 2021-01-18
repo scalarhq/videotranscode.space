@@ -1,5 +1,5 @@
 import Submit from '@cluiComponents/Submit'
-import features, { Features } from '@features/features'
+import { Features } from '@features/features'
 import ComponentStore from '@store/componentStore'
 import keyboardStore from '@store/keyboardStore'
 import styles from '@styles/workflow.module.css'
@@ -15,6 +15,7 @@ import { FeatureKeyType } from '~@types/otherTypes'
 
 import BasicFeatures from './basicFeature'
 import DisplayFeature from './displayFeature'
+import WorkflowDragWrapper from './workflowDragWrapper'
 
 const Workflow = () => {
   const { CluiStore, FileStore, loaded } = ComponentStore
@@ -183,105 +184,10 @@ const Workflow = () => {
         ) : (
           <div className="max-w-3xl mx-auto flex flex-col items-center">
             <p className="text-2xl text-white pb-4">Order of operations</p>
-            <div className="flow-root">
-              <ul className="-mb-8">
-                <li>
-                  <div className="relative pb-8">
-                    <span
-                      className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-indigo-500 bg-opacity-70"
-                      aria-hidden="true"
-                    />
-
-                    <div className="relative flex space-x-3">
-                      <div>
-                        <span className="h-8 w-8 rounded-full  flex items-center justify-center ">
-                          {/* Heroicon name: user */}
-                          <svg
-                            className="h-8 w-8 text-default"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                        <div>
-                          <p className="text-m text-gray-200">
-                            Using inputted files
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                {workflow.map((featureKey, index) => {
-                  const name =
-                    features[featureKey as keyof typeof features].name
-
-                  return (
-                    <li key={`feature-${index}`}>
-                      <div className="relative pb-8">
-                        {index !== workflow.length - 1 ? (
-                          <span
-                            className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-indigo-500 bg-opacity-70"
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        <div className="relative flex space-x-3">
-                          <div>
-                            <span className="h-8 w-8 rounded-full  flex items-center justify-center ">
-                              {/* Heroicon name: thumb-up */}
-                              <svg
-                                className="h-8 w-8 text-default"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                          <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                            <div>
-                              <p className="text-m text-gray-200">
-                                {index + 1}.{' '}
-                                <span className="text-gray-50 font-bold">
-                                  {name}
-                                </span>{' '}
-                                feature will be processed.
-                              </p>
-                            </div>
-                            <div className="text-right text-m whitespace-nowrap text-gray-400">
-                              <p
-                                onClick={() => {
-                                  updateEditFeature(
-                                    featureKey as keyof Features
-                                  )
-                                }}
-                                className="cursor-pointer underline">
-                                Edit
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+            <WorkflowDragWrapper
+              workflow={workflow}
+              setWorkflow={setWorkflow}
+              updateEditFeature={updateEditFeature}></WorkflowDragWrapper>
             <div className="w-full py-20">
               <Submit
                 customStyling="inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
