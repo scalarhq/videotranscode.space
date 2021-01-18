@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { RangeSlider } from 'reactrangeslider'
 import { observer } from 'mobx-react'
-import FFmpegFeature from '../FFmpegFeature'
+import React, { useEffect, useReducer, useState } from 'react'
+import { RangeSlider } from 'reactrangeslider'
 
 import ComponentStore from '../../store/componentStore'
-
 import { hmsToTimeStamp, secondsToTime } from '../../ts/time'
+import FFmpegFeature from '../FFmpegFeature'
 
 const { CluiStore, FileStore } = ComponentStore
 
@@ -50,44 +49,61 @@ class TrimFeature extends FFmpegFeature {
     const startTime = hmsToTimeStamp(secondsToTime(start))
     const endTime = hmsToTimeStamp(secondsToTime(end))
 
-    console.info(
-      'Setting Trim Command',
-      `-ss ${startTime} -to ${endTime} -c copy`
-    )
-
     this.ffmpegCommands = `-ss ${startTime} -to ${endTime} -c copy`
   }
 }
 
 export default TrimFeature
 
+type TrimValues = {
+  start: number
+  end: number
+}
+
+const TrimActions = {
+  updateStart: 'updateStart',
+  updateEnd: 'updateEnd'
+}
+
+const trimReducer = (
+  state: TrimValues,
+  { type, start, end }: { type: string; start?: number; end?: number }
+) => {
+  console.info(type, start, end)
+  switch (type) {
+    case TrimActions.updateStart:
+      return Object.assign({}, state, { start })
+    case TrimActions.updateEnd:
+      return Object.assign({}, state, { end })
+    default:
+      return state
+  }
+}
+
 const TrimUi = ({ parents }: { parents: Array<string> }) => {
   const { files } = FileStore
 
   const { video } = files
 
-  const [value, setValue] = useState({
-    start: 0,
-    end: 100
-  })
+  const [value, dispatch] = useReducer(trimReducer, { start: 0, end: 100 })
 
-  const [end, setEnd] = useState(
+  const [max, setMax] = useState(
     files.video ? Math.ceil(files.video[0].videoMetadata?.duration || 100) : 100
   )
 
   useEffect(() => {
-    console.info('Updated Files in TRIM', video)
+    console.info('Setting video defaults')
     if (video && video[0]) {
-      setValue({
-        start: 0,
-        end: Math.ceil(video[0].videoMetadata?.duration || 100)
-      })
-      setEnd(Math.ceil(video[0].videoMetadata?.duration || 100))
-      console.info('Updated duration')
+      const end = Math.ceil(video[0].videoMetadata?.duration || 100)
+
+      dispatch({ type: TrimActions.updateEnd, end: end })
+
+      setMax(end)
     }
   }, [video])
 
   useEffect(() => {
+    console.info('Update value', value)
     updateConfiguration(
       {
         START: { value: value.start },
@@ -101,54 +117,75 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
 
   const styles = {
     slider: {
-      height: '3rem'
+      height: '3rem',
+      userDrag: 'none',
+      userSelect: 'none'
     },
     trackStyle: {
       height: 5,
       border: '3px solid black',
       backgroundColor: '#6c63ff',
-      top: 14
+      top: 14,
+      userDrag: 'none',
+      userSelect: 'none'
     },
     highlightedTrackStyle: {
       height: 5,
       border: '3px solid #6c63ff',
       backgroundColor: '#6c63ff',
-      top: 14
+      top: 14,
+      userDrag: 'none',
+      userSelect: 'none'
     },
     handleStyle: {
       height: 30,
       width: 30,
       border: '3px solid black',
-      backgroundColor: '#3FBD71'
+      backgroundColor: '#3FBD71',
+      outline: 'none',
+      userDrag: 'none',
+      userSelect: 'none'
     }
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full justify-center items-center">
       <p className="text-xl font-bold">Trim Settings</p>
       <div className="range-slider-wrapper flex w-full">
-        <p className="text-m font-bold w-1/4">
-          {(() => hmsToTimeStamp(secondsToTime(value.start)))()}
-        </p>
+        <div className=" w-1/4 flex flex-col items-center">
+          <p className="text-m font-bold select-none">
+            {(() => hmsToTimeStamp(secondsToTime(value.start)))()}
+          </p>
+          <button
+            type="button"
+            className="items-center w-1/2 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none">
+            Edit
+          </button>
+        </div>
         <div className="range-wrapper w-1/2">
           <RangeSlider
             value={value}
             step={1}
             min={0}
-            max={end}
-            onChange={(v: { start: number; end: number }) => {
-              const deltaS = v.start - value.start
-              const deltaT = value.end - v.end
-              console.info('Changing ', v, 'deltaS', deltaS, 'deltaT', deltaT)
-              if (Math.abs(deltaS) < 5 && Math.abs(deltaT) < 5) {
-                setValue(oldValue => ({
-                  start: oldValue.start + deltaS,
-                  end: oldValue.end - deltaT
-                }))
+            max={max}
+            onChange={({ start, end }: { start: number; end: number }) => {
+              console.info('Changed value', start, end)
+              if (start !== value.start && Math.abs(value.start - start) < 8) {
+                dispatch({
+                  type: TrimActions.updateStart,
+                  start: start
+                })
               }
-            }}
-            afterChange={(v: { start: number; end: number }) => {
-              console.info('Completed Change', v)
+              if (
+                end !== value.end &&
+                end !== max &&
+                Math.abs(value.end - end) < 8
+              ) {
+                dispatch({
+                  type: TrimActions.updateEnd,
+                  end: end
+                })
+              }
             }}
             wrapperStyle={styles.slider}
             trackStyle={styles.trackStyle}
@@ -159,9 +196,17 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
             activeHandleStyle={styles.handleStyle}
           />
         </div>
-        <p className="text-m font-bold w-1/4">
-          {(() => hmsToTimeStamp(secondsToTime(value.end)))()}
-        </p>
+        <div className="flex flex-col items-center w-1/4 ">
+          <p className="text-m font-bold select-none">
+            {(() => hmsToTimeStamp(secondsToTime(value.end)))()}
+          </p>
+
+          <button
+            type="button"
+            className="items-center w-1/2 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none">
+            Edit
+          </button>
+        </div>
       </div>
     </div>
   )

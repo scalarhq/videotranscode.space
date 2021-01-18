@@ -1,8 +1,7 @@
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/list.module.css'
+import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-
-import ComponentStore from '../store/componentStore'
-
-import './list.css'
 
 const { CluiStore } = ComponentStore
 
@@ -64,19 +63,19 @@ const List = (props: ListProps) => {
   }
 
   return (
-    <div className="options-list-wrapper">
-      <h1 className="text-xl font-bold">{title}</h1>
-      <div className="options-list">
+    <div className={styles.optionsListWrapper}>
+      <h1 className="text-xl py-2 font-bold text-gray-50">{title}</h1>
+      <div className={cx(styles.optionsList, 'w-full')}>
         {list.map(item => (
-          <div className="options-list-item-wrapper" key={item.name}>
+          <div className={styles.optionsListItemWrapper} key={item.name}>
             <div
-              className={
-                item.name === current.name
-                  ? 'options-list-item active'
-                  : 'options-list-item'
-              }>
+              className={cx(
+                styles.optionsListItem,
+                'flex justify-center',
+                item.name === current.name ? styles.optionsListItemActive : ''
+              )}>
               <button
-                className="outline-none"
+                className="outline-none text-center text-gray-50"
                 type="button"
                 onClick={e => handleClick(e, item)}>
                 {item.name}
@@ -86,7 +85,7 @@ const List = (props: ListProps) => {
         ))}
       </div>
       {current.child && (
-        <div className="child">
+        <div className="child w-full">
           <current.child.component {...current.child.props} />
         </div>
       )}

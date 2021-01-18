@@ -1,3 +1,5 @@
+export type ElectronFile = File & { path?: string }
+
 export type InputFilesType = {
   video?: FileWithMetadata[]
   audio?: FileWithMetadata[]
@@ -5,11 +7,16 @@ export type InputFilesType = {
   other?: FileWithMetadata[]
 }
 
+export type FileString = {
+  name: string
+  path: string
+}
+
 export type FileNameTypes = {
-  video?: string[]
-  audio?: string[]
-  image?: string[]
-  other?: string[]
+  video?: Array<FileString>
+  audio?: Array<FileString>
+  image?: Array<FileString>
+  other?: Array<FileString>
 }
 
 export type FileTypes = keyof InputFilesType
@@ -23,7 +30,7 @@ export type FileTransformType = {
 }
 
 export type FileWithMetadata = {
-  file: File
+  file: ElectronFile
   preview: string
   customType: 'video' | 'audio' | 'image' | 'other'
   videoMetadata?: {
@@ -32,6 +39,7 @@ export type FileWithMetadata = {
     duration: number
     otherMetadata: any
   }
+  path?: string
 }
 
 export type FileConfigType = {
@@ -45,6 +53,5 @@ export type FileConfigType = {
 export type CustomFileType = {
   name: string
   type: FileTypes
+  path: string
 }
-
-export type VideoFilesType = Array<FileWithMetadata>

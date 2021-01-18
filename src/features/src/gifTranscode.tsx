@@ -4,11 +4,9 @@
  * It represents a mix between a regular feature and a format, as a special format
  */
 
+import FFmpegFeature from '@features/FFmpegFeature'
+import CluiStore from '@store/cluiStore'
 import React, { useEffect, useRef } from 'react'
-
-import FFmpegFeature from '../FFmpegFeature'
-
-import CluiStore from '../../store/cluiStore'
 
 const { updateConfiguration } = CluiStore
 

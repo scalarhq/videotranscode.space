@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react'
-
-import Steps, { Step } from 'rc-steps'
-
-import 'rc-steps/assets/index.css'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import {
-  faFile,
   faClock,
+  faCogs,
   faDownload,
-  faCogs
+  faFile
 } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComponentStore from '@store/componentStore'
+import keyboardStore from '@store/keyboardStore'
+import { useActiveUsers } from '@store/userStore'
 import { observer } from 'mobx-react'
-
-import ComponentStore from '../../store/componentStore'
-import { useActiveUsers } from '../../store/userStore'
+import Steps, { Step } from 'rc-steps'
+import React, { useEffect, useState } from 'react'
 
 type Status = 'wait' | 'finish' | 'error'
 
@@ -43,7 +37,7 @@ const StepComponent = () => {
 
   const { allFiles } = FileStore
 
-  const { isSubmitted, setCluiFocused } = CluiStore
+  const { isSubmitted } = CluiStore
 
   const displayable = useActiveUsers()
 
@@ -92,7 +86,9 @@ const StepComponent = () => {
             icon={<FontAwesomeIcon icon={faCogs} />}
             status={statues.settings}
             onClick={() => {
-              setCluiFocused(true)
+              if (keyboardStore.toggleModal) {
+                keyboardStore.toggleModal()
+              }
             }}
             className={isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer'}
           />
@@ -113,20 +109,9 @@ const StepComponent = () => {
         <style jsx>
           {`
             .step-wrapper {
-              color: inherit !important;
+              color: #3fbd71 !important;
               padding-top: ${isSubmitted ? '15vh' : '2vh'};
-            }
-            .rc-steps-item-title {
-              color: inherit !important;
-            }
-            .rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
-              color: #6c63ff;
-            }
-            .rc-steps-item-finish .rc-steps-item-tail::after {
-              background-color: #6c63ff;
-            }
-            .rc-steps-item-finish .rc-steps-item-title::after {
-              background-color: #6c63ff;
+              width: 80vw;
             }
           `}
         </style>

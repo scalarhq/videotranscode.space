@@ -1,0 +1,8 @@
+.wrapper {
+  max-height: 73vh;
+  min-height: 73vh;
+  min-width: 40vw;
+  padding-top: 7vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}

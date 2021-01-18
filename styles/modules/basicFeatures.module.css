@@ -1,0 +1,24 @@
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  @apply relative divide-y divide-gray-700;
+}
+
+.optionsListWrapper {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
+.nav {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  height: 63vh;
+  overflow-y: auto;
+  @apply w-full relative;
+}
+
+.nav > * {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}

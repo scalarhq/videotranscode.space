@@ -1,13 +1,10 @@
 /* global JSX */
-import React, { useContext, useEffect } from 'react'
 
+import ComponentStore from '@store/componentStore'
+import React, { useContext, useEffect } from 'react'
 import { ShepherdTour, ShepherdTourContext } from 'react-shepherd'
 
 import steps from './steps'
-
-import 'shepherd.js/dist/css/shepherd.css'
-
-import ComponentStore from '../../store/componentStore'
 
 const tourOptions = {
   defaultStepOptions: {
@@ -43,7 +40,6 @@ const Tour = ({ children }: TourProps) => {
       conductTour = true
     }
     if (conductTour) {
-      console.info('Starting Tour!')
       // @ts-ignore
       tour.start()
       window.localStorage.setItem('tour', `${new Date().toISOString()}`)

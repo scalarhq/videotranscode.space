@@ -2,12 +2,12 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { Terminal } from './terminal'
-import componentStore from '../../store/componentStore'
 
-import './terminal.css'
+import componentStore from '@store/componentStore'
+import { observer } from 'mobx-react'
+import React, { useEffect } from 'react'
+
+import { Terminal } from './terminal'
 
 const TerminalComponent: React.FC = () => {
   const terminalRef = React.useRef<null | HTMLDivElement>(null)

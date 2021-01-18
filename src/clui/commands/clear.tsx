@@ -1,6 +1,5 @@
+import CluiStore from '@store/cluiStore'
 import React from 'react'
-
-import CluiStore from '../../store/cluiStore'
 
 const Clear = (props: any) => {
   React.useEffect(() => {

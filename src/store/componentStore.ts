@@ -1,16 +1,15 @@
 /* eslint-disable import/extensions */
-import { observable, action } from 'mobx'
-
-import AbstractStore from './store'
+import { action, observable } from 'mobx'
 
 // Stores
 import CluiStore from './cluiStore'
-import TerminalStore from './terminalStore'
-import ProgressStore from './progressStore'
-import VideoStore from './videoStore'
 import FileStore from './fileStore'
 import HardwareStore from './hardwareStore'
+import ProgressStore from './progressStore'
+import AbstractStore from './store'
+import TerminalStore from './terminalStore'
 import UserStore from './userStore'
+import VideoStore from './videoStore'
 
 class ComponentStore extends AbstractStore {
   // Observables
@@ -98,6 +97,7 @@ class ComponentStore extends AbstractStore {
     this.loadingErrorObj = err
   }
 }
+
 // @ts-ignore
 // eslint-disable-next-line no-undef,  no-multi-assign
 const store = (window.store = new ComponentStore())

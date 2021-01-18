@@ -1,5 +1,5 @@
-import React, { useReducer, useCallback, useRef } from 'react'
 import inputState from '@replit/clui-input'
+import React, { useCallback, useReducer, useRef } from 'react'
 
 type OptionsType = {
   value: string

@@ -1,0 +1,20 @@
+.hidden-button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline;
+  padding: 10px;
+}
+
+.hover-container .hover-display {
+  visibility: hidden;
+  transition: all 0.5s;
+}
+
+.hoverable {
+  padding: 10px;
+  position: relative;
+  z-index: 15;
+}

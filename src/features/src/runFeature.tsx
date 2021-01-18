@@ -1,7 +1,6 @@
+import FFmpegFeature from '@features/FFmpegFeature'
+import ComponentStore from '@store/componentStore'
 import React, { useEffect, useState } from 'react'
-import FFmpegFeature from '../FFmpegFeature'
-
-import ComponentStore from '../../store/componentStore'
 
 const { CluiStore } = ComponentStore
 

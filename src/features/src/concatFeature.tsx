@@ -1,5 +1,9 @@
+import electron, { isElectron } from '@core/electron'
+import ffmpeg from '@core/ffmpeg'
 import React from 'react'
-import ffmpeg from '../../ts/ffmpeg'
+
+import { FileString } from '~@types/fileTypes'
+
 import FFmpegFeature from '../FFmpegFeature'
 import TranscodeFeature, {
   TranscodeConfig,
@@ -53,22 +57,50 @@ class ConcatFeature extends FFmpegFeature {
   }
 
   setFFmpegInputCommand = async () => {
-    const { FileStore, fileInputType } = this
+    const { FileStore, textWriter } = this
 
     const { loadedFiles } = FileStore
 
-    const videoFiles = loadedFiles.video as string[]
+    const videoFiles = loadedFiles.video as FileString[]
 
     const inputFileText = videoFiles.reduce(
-      (acc, path) => `${acc}\nfile ${path}`,
+      (acc, file) => `${acc}\nfile ${isElectron ? file.path : file.name}`,
       ''
     )
     const inputFileName = `concat-file-${Math.random()}.txt`
-    console.info('File Input', videoFiles, inputFileText, inputFileName)
 
-    fileInputType(inputFileName)
-    this.ffmpegInputCommand = `-f concat -safe 0 ${this.ffmpegInputCommand}`
-    await ffmpeg.writeText(inputFileName, inputFileText)
+    await textWriter(inputFileName, inputFileText)
+  }
+
+  /***
+   * Function which writes a text file to disk
+   *
+   * There are two cases here:
+   * 1. Browser, writes file to wasm memory
+   * 2. Electron, writes file to temp storage
+   */
+  textWriter = async (fileName: string, fileText: string) => {
+    if (isElectron) {
+      console.info('Writing file', fileName, fileText)
+      const filePath = await electron.writeText(fileName, fileText)
+
+      this.ffmpegInputPaths = []
+
+      this.fileInputType('', filePath)
+
+      this.ffmpegInputCommand = ' -f concat -safe 0'
+
+      return filePath
+    } else {
+      await ffmpeg.writeText(fileName, fileText)
+      this.ffmpegInputPaths = []
+
+      this.fileInputType(fileName, '')
+
+      this.ffmpegInputCommand = `-f concat -safe 0 ${this.ffmpegInputCommand}`
+
+      return '' // Returning null path as path is not need in browser
+    }
   }
 }
 

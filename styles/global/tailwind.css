@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* This is the main global style file */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Ubuntu Mono', monospace;
+  color: #3fbd71;
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #17141d;
+  background-image: url('/images/backgroundPurpleOnlyTop.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (min-width: 1280px) {
+  body {
+    background-size: contain;
+  }
+}
+
+button {
+  @apply outline-none !important;
+}
+
+.shepherd-font {
+  font-family: Inter;
+}
+
+html {
+  scrollbar-color: #008c45 transparent;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #008c45;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+}

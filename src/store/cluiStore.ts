@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { observable, action, toJS } from 'mobx'
+import { action, observable, toJS } from 'mobx'
+
 import { WorkflowStep } from '../dist/workflow'
 import AbstractStore from './store'
 

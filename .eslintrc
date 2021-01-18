@@ -13,7 +13,13 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "prettier",
+    "simple-import-sort"
+  ],
   "rules": {
     "react/jsx-no-undef": ["error", { "allowGlobals": true }],
     "no-use-before-define": "off",
@@ -22,7 +28,8 @@
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
-
 }

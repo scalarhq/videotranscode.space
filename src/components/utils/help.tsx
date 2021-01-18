@@ -1,12 +1,22 @@
-import React, { useEffect, useRef } from 'react'
-
+import { faHandsHelping, faKeyboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComponentStore from '@store/componentStore'
+import keyboardStore from '@store/keyboardStore'
+import styles from '@styles/help.module.css'
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { GlobalHotKeys } from 'react-hotkeys'
+import { Fade } from 'react-reveal'
 
-import { faFile, faCogs, faToggleOn } from '@fortawesome/free-solid-svg-icons'
-import useHover from '../../ts/utils/useHover'
-
-import ComponentStore from '../../store/componentStore'
+const keyboardShorcuts = [
+  { key: 'alt+p', action: 'Set configuration' },
+  { key: 'Shift+F', action: 'Open File Menu' },
+  { key: 'Cntrl+Enter/Shift+Enter', action: 'Start processing' },
+  { key: 'Alt+c', action: 'Toggle Advanced Mode' },
+  { key: 'W/▲', action: 'Move up' },
+  { key: 'S/▼', action: 'Move down' },
+  { key: 'Shift+/', action: 'Keyboard shortcuts' }
+]
 
 const HelpSvg = ({ width }: { width: string }) => (
   <svg
@@ -18,178 +28,104 @@ const HelpSvg = ({ width }: { width: string }) => (
   </svg>
 )
 
-const HoverGuide = () => (
-  <div className="hover-help-wrapper">
-    <div className="flex ">
-      <div className="w-1/2 hover-file-wrapper ">
-        <div className="max-w-sm w-full lg:max-w-full lg:flex">
-          <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-            <div className="mb-8">
-              <div className="text-white font-bold text-xl mb-2">
-                <FontAwesomeIcon icon={faFile} /> Add Files
-              </div>
-              <p className="text-white text-base">
-                Drag and drop as many files as you want here.
-              </p>{' '}
-              <p className="text-white text-base">
-                {' '}
-                Videos, Audio and Images are accepted.{' '}
-              </p>
+const HoverGuide = ({ close }: { close: () => void }) => (
+  <div className="fixed top-0 left-0  w-screen h-full" onClick={() => close()}>
+    <div className="flex w-full h-full items-start justify-center">
+      <div className="w-3/4 h-full items-start p-20 flex justify-center">
+        <div
+          className={
+            'flex flex-col items-center rounded-lg p-4 leading-normal w-1/2 bg-indigo-900'
+          }
+          id="keyboard-shortcuts-tour"
+          onClick={e => {
+            e.stopPropagation()
+          }}>
+          <div className="flex flex-col w-3/4">
+            <div className="text-white text-center font-bold text-xl mb-2">
+              <FontAwesomeIcon icon={faKeyboard} /> Keyboard shortcuts
             </div>
-          </div>
-        </div>
-      </div>
-      {/* <div className="w-1/3" /> */}
-      <div className="w-1/2 hover-clui-wrapper">
-        <div className="max-w-sm w-full lg:max-w-full lg:flex justify-end">
-          <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-            <div className="mb-8">
-              <div className="text-white font-bold text-xl mb-2">
-                <FontAwesomeIcon icon={faCogs} /> Configuration
-              </div>
-              <p className="text-white text-base">
-                Choose a Feature -{'>'} Set your options -{'>'} Submit
-              </p>{' '}
-              <p />
-              <p className="text-white text-base">
-                Workflows are multiple features combined!{' '}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="flex">
-      <div className="w-1/2" />
-      <div className="w-1/2 hover-toggle-wrapper ">
-        <div className="hover-toggle">
-          <div className="max-w-sm w-full lg:max-w-full lg:flex justify-center">
-            <div className="hover-card rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-              <div className="mb-8">
-                <div className="text-white font-bold text-xl mb-2">
-                  <FontAwesomeIcon icon={faToggleOn} /> Want advanced features?
+            {keyboardShorcuts.map(({ key, action }) => {
+              return (
+                <div key={key} className="flex flex-row py-1">
+                  <p className="w-1/2 uppercase text-center text-gray-50">
+                    {key}
+                  </p>
+                  <p className="w-1/2 capitalize text-center text-gray-50">
+                    {action}
+                  </p>
                 </div>
-                <p className="text-white text-base">
-                  Want to use more features? and customized workflows? Use our
-                  CLUI
-                </p>
-              </div>
+              )
+            })}
+            <div className="text-white text-center font-bold text-xl mb-2">
+              <FontAwesomeIcon icon={faHandsHelping} /> Need help?
             </div>
+            <p className="text-gray-50 text-center">
+              Reach out to{' '}
+              <a
+                className="text-default font-semibold"
+                href="mailto:support@modfy.video">
+                support@modfy.video
+              </a>
+            </p>
           </div>
         </div>
       </div>
     </div>
-    {/* @ts-ignore Styled JSX */}
-    <style jsx>
-      {`
-      .hover-card {
-        background-color: rgba(0,0,0,0.8);
-      }
-      .hover-file-wrapper {
-        height: 40vh;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin-top: 15vh;
-
-      }
-      .hover-clui-wrapper {
-        height: 40vh;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin-top: 15vh;
-      }
-      .hover-toggle {
-        margin-top: 15vh;
-      }
-
-      .hover-help-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(4px);
-        padding: 5vh 11vw;
-      }
-    
-
-/* .hover-container .hover-display {
-  visibility: hidden;
-} */
-
-
-{/* .hover-container:hover .hover-display:not(:hover) {
-  visibility: visible;
-  /* transition-delay: 1s; */
-}}
-      `}
-    </style>
   </div>
 )
 
 const HelpUtl = () => {
-  const [hoverRef, isHovered] = useHover()
-  const hoverDisplay = useRef<HTMLDivElement | null>(null)
+  const [clicked, setClicked] = useState(false)
 
   const { CluiStore } = ComponentStore
 
   const { isSubmitted } = CluiStore
 
-  useEffect(() => {
-    // console.info('Hover change ', isHovered);
-    if (!isHovered) {
-      setTimeout(() => {
-        if (hoverDisplay && hoverDisplay.current) {
-          hoverDisplay.current.style.visibility = 'hidden'
-        }
-      }, 1000)
-    } else if (hoverDisplay && hoverDisplay.current) {
-      hoverDisplay.current.style.visibility = 'visible'
+  const keyMap = {
+    HELP: ['shift+/'],
+    EXIT: ['esc']
+  }
+  const handlers = {
+    HELP: (e?: KeyboardEvent) => {
+      e?.preventDefault()
+      setClicked(c => !c)
+    },
+    EXIT: () => {
+      setClicked(false)
     }
-  }, [isHovered])
+  }
+
+  useEffect(() => {
+    keyboardStore.showShortcuts = () => {
+      setClicked(c => !c)
+    }
+    return () => {
+      keyboardStore.showShortcuts = null
+    }
+  }, [])
+
   if (!isSubmitted) {
     return (
-      <div>
-        <div className="help-utl">
-          <div className="hover-container">
-            {/* @ts-ignore */}
-            <div className="hoverable" ref={hoverRef}>
+      <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
+        <div className="fixed top-0 z-10 left-0">
+          <div className="fixed xl:top-2 xl:left-2  bottom-3 left-3">
+            <div
+              className={styles.hoverable}
+              onClick={() => {
+                setClicked(c => !c)
+              }}>
               <HelpSvg width="2.5rem" />
             </div>
-            <div className="hover-display" ref={hoverDisplay}>
-              <HoverGuide />
-            </div>
           </div>
-
-          {/* @ts-ignore Styled JSX */}
-          <style jsx>
-            {`
-              .help-utl {
-                position: fixed;
-                top: 2%;
-                left: 2%;
-                z-index: 100;
-              }
-              .hidden-button {
-                color: inherit;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline;
-                padding: 10px;
-              }
-
-              .hover-container .hover-display {
-                visibility: hidden;
-                transition: all 0.5s;
-              }
-            `}
-          </style>
+          <Fade when={clicked} collapse>
+            <HoverGuide
+              close={() => {
+                setClicked(false)
+              }}
+            />
+          </Fade>
         </div>
-      </div>
+      </GlobalHotKeys>
     )
   }
   return <div />

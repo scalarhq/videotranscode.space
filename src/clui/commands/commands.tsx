@@ -1,13 +1,13 @@
 /* global JSX */
 import React from 'react'
+
+import workflows, { WorkflowStep } from '../../dist/workflow'
+import features, { Feature } from '../../features/features'
+import FeatureUi from '../components/feature-ui'
+import WorkflowUi from '../components/workflow-ui'
 import clear from './clear'
 import custom from './custom'
 import DirectExecute from './execute'
-import workflows, { WorkflowStep } from '../../dist/workflow'
-import features, { Feature } from '../../features/features'
-
-import WorkflowUi from '../components/workflow-ui'
-import FeatureUi from '../components/feature-ui'
 
 type CommandType = {
   command: string

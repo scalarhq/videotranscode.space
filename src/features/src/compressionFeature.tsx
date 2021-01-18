@@ -1,8 +1,8 @@
+import List from '@cluiComponents/List'
+import Slider from '@cluiComponents/Slider'
+import FFmpegFeature from '@features/FFmpegFeature'
+import useExistingSettings from '@features/useExistingSettings'
 import React from 'react'
-import Slider from '../../clui-ui-components/Slider'
-import List from '../../clui-ui-components/List'
-
-import FFmpegFeature from '../FFmpegFeature'
 
 type CompressionConfig = {
   COMPRESS: { value: number; [name: string]: any }
@@ -57,27 +57,55 @@ class CompressionFeature extends FFmpegFeature {
 export default CompressionFeature
 
 const CompressionUi = ({ parents }: { parents: Array<string> }) => {
+  const customObject = {
+    name: 'Custom',
+    value: 0,
+    child: {
+      component: Slider,
+      props: {
+        parents,
+        min: 0,
+        max: 100,
+        startValue: 0,
+        title: 'Custom Level'
+      },
+      paddingTop: 3
+    }
+  }
+
   const ListElements = [
     { name: 'Low', value: 10 },
     { name: 'Medium', value: 30 },
     { name: 'High', value: 60 },
-    {
-      name: 'Custom',
-      value: 0,
-      child: {
-        component: Slider,
-        props: {
-          parents,
-          min: 0,
-          max: 100,
-          title: 'Custom Level'
-        },
-        paddingTop: 3
-      }
-    }
+    customObject
   ]
 
-  const current = { name: 'Low', value: 10 }
+  const presets = {
+    main: {
+      key: 'COMPRESSION',
+      value: 10
+    }
+  }
+
+  const defaults = useExistingSettings({
+    main: parents,
+    defaults: presets
+  })
+
+  const { main } = defaults
+
+  const listObject = ListElements.find(({ value }) => value === main.value)
+
+  const current = listObject || {
+    ...customObject,
+    child: {
+      ...customObject.child,
+      props: {
+        ...customObject.child?.props,
+        startValue: main.value
+      }
+    }
+  }
 
   const props = {
     parents,

@@ -1,0 +1,8 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  padding-top: 2%;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}

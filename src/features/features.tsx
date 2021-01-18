@@ -1,24 +1,21 @@
 /* global JSX */
 import React from 'react'
 
-// Features
-import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature'
-import CompressionFeature, { CompressionUi } from './src/compressionFeature'
-import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage'
-import ConcatFeature, { ConcatUi } from './src/concatFeature'
+import FeatureDescription from './featureDescription'
+import keys from './featureKeys.json'
 import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature'
-import TrimFeature, { TrimUi } from './src/trimFeature'
-
-// Custom Run Feature
-
-import RunFeature, { RunUi } from './src/runFeature'
-
+import CombinedExecFeature from './src/combinedExecFeature'
+import CompressionFeature, { CompressionUi } from './src/compressionFeature'
+import ConcatFeature, { ConcatUi } from './src/concatFeature'
 // UI LESS Features
 import GreyScaleFeature from './src/greyScaleFeature'
-import CombinedExecFeature from './src/combinedExecFeature'
-
-import keys from './featureKeys.json'
 import MuteFeature from './src/muteFeature'
+import PhotoMontageFeature, { PhotoMontageUi } from './src/photoMontage'
+// Custom Run Feature
+import RunFeature, { RunUi } from './src/runFeature'
+// Features
+import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature'
+import TrimFeature, { TrimUi } from './src/trimFeature'
 
 export type Feature =
   | typeof MuteFeature
@@ -38,6 +35,7 @@ export type FeatureElement = {
   feature: Feature
   ui?: JSX.Element | string
   noDisplay?: boolean
+  descriptionUI?: JSX.Element // This will show up as the description of the feature
 }
 
 export type Features = {
@@ -49,39 +47,120 @@ const FEATURES: Features = {
     name: 'Convert',
     description: 'Choose which format to convert your video to',
     feature: TranscodeFeature,
-    ui: <TranscodeUi parents={['TRANSCODE']} />
+    ui: <TranscodeUi parents={['TRANSCODE']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Convert"
+        description="Choose which format your video is converted to"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'Same video in a different format'
+        }}></FeatureDescription>
+    )
   },
   COMPRESS: {
     name: 'Compress',
     description: 'Choose how much you want to compress your video',
     feature: CompressionFeature,
-    ui: <CompressionUi parents={['COMPRESS']} />
+    ui: <CompressionUi parents={['COMPRESS']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Compress"
+        description="Reduce the size of your video files!"
+        extraDescription="The higher the setting the smaller the files"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'Same video in a smaller size'
+        }}></FeatureDescription>
+    )
   },
   TRIM: {
     name: 'TRIM/CUT',
     description: 'Trim or cut your video',
     feature: TrimFeature,
-    ui: <TrimUi parents={['TRIM']} />
+    ui: <TrimUi parents={['TRIM']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Trim"
+        description="Trim your video's length"
+        extraDescription="This feature is incredibly fast"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'Shorter video'
+        }}></FeatureDescription>
+    )
   },
   PHOTOMONTAGE: {
     name: 'Photo-Montages',
     description: 'Create a video montage from photos(you can add audio too!)',
     feature: PhotoMontageFeature,
-    ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />
+    ui: <PhotoMontageUi parents={['PHOTO_MONTAGE']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Photo Montages"
+        description="Combine your photos into a video"
+        extraDescription="Music is also accepted. Ps: Framerate is the number of images per second"
+        fileInput={{
+          types: ['image', 'image', 'image', 'audio'],
+          description: 'Your photos and/or music'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'One merged video'
+        }}></FeatureDescription>
+    )
   },
 
   CONCAT: {
     name: 'Combine-Videos',
     description: 'Combine multiple videos',
     feature: ConcatFeature,
-    ui: <ConcatUi />
+    ui: <ConcatUi />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Combine Videos"
+        description="Combine multiple videos into one video"
+        fileInput={{
+          types: ['video', 'video'],
+          description: 'Your videos'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'One big video'
+        }}></FeatureDescription>
+    )
   },
 
   ASPECT_RATIO: {
     name: 'Aspect-Ratio',
     description: 'Change the aspect ratio for the video',
     feature: AspectRatioFeature,
-    ui: <AspectRatioUi parents={['ASPECT_RATIO']} />
+    ui: <AspectRatioUi parents={['ASPECT_RATIO']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Aspect Ratio"
+        description="Change the aspect ratio of your video"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'The same video in a different aspect ratio'
+        }}></FeatureDescription>
+    )
   },
 
   CUSTOM_RUN: {
@@ -97,7 +176,20 @@ const FEATURES: Features = {
   GREYSCALE: {
     name: 'Greyscale',
     description: 'Make Video black and white',
-    feature: GreyScaleFeature
+    feature: GreyScaleFeature,
+    descriptionUI: (
+      <FeatureDescription
+        name="Greyscale"
+        description="Make your video black and white"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'The same video but black and white'
+        }}></FeatureDescription>
+    )
   },
 
   COMBINED_EXEC_FEATURE: {
@@ -109,7 +201,20 @@ const FEATURES: Features = {
   MUTE: {
     name: 'Mute',
     description: 'Mute the audio from videos',
-    feature: MuteFeature
+    feature: MuteFeature,
+    descriptionUI: (
+      <FeatureDescription
+        name="Mute"
+        description="Mute your videos"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'The same video but with no audio'
+        }}></FeatureDescription>
+    )
   }
 }
 

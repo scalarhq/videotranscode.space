@@ -1,7 +1,7 @@
-import React from 'react'
+import { ReloadSvg } from '@components/utils/reload'
+import styles from '@styles/error.module.css'
 import newGithubIssueUrl from 'new-github-issue-url'
-
-import { ReloadSvg } from '../utils/reload'
+import React from 'react'
 
 const ErrorScreen = ({
   errorObj,
@@ -10,7 +10,7 @@ const ErrorScreen = ({
   errorObj?: Error
   componentStack?: string
 }) => (
-  <div className="error-wrapper">
+  <div className={styles['error-wrapper']}>
     <p
       className="text-3xl"
       style={{ color: 'white', textAlign: 'center', marginTop: '5vh' }}>
@@ -22,17 +22,17 @@ const ErrorScreen = ({
       Often, reloading the page will fix this error.
     </p>
 
-    <div className="error-icon">
+    <div className={styles['error-icon']}>
       <button
         type="button"
-        className="transparent-button"
+        className={styles['transparent-button']}
         onClick={() => {
           window.location.reload()
         }}>
         <ReloadSvg width="15rem" />
       </button>
     </div>
-    <div className="error-message">
+    <div className={styles['error-message']}>
       <p style={{ color: 'white' }}>
         {errorObj?.message ? errorObj.message : 'Unknown Error'}
       </p>
@@ -73,7 +73,7 @@ const ErrorScreen = ({
         href="https://caniuse.com/#feat=sharedarraybuffer"
         target="_blank"
         rel="noopener noreferrer">
-        <picture className="picture-wrapper">
+        <picture className={styles['picture-wrapper']}>
           <source
             type="image/webp"
             srcSet="/images/support/browserSupport.webp"
@@ -83,53 +83,14 @@ const ErrorScreen = ({
             srcSet="/images/support/browserSupport.png"
           />
           <img
-            className="img-class"
+            className={styles['img-class']}
             src="/images/support/browserSupport.jpg"
             alt="Data on support for the SharedArrayBuffer feature across the major browsers from caniuse.com"
           />
         </picture>
       </a>
     </div>
-    <div className="final" />
-    {/* @ts-ignore Styled JSX */}
-    <style jsx>
-      {`
-        .final {
-          padding-bottom: 20vh;
-        }
-        .picture-wrapper {
-          max-width: 80vw;
-          object-fit: cover;
-        }
-        .img-class {
-          max-width: 80vw;
-          object-fit: cover;
-        }
-        .error-wrapper {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .error-icon {
-          fill: grey;
-        }
-        .error-message {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          font-size: 20px;
-          max-width: 80vw;
-          text-align: center;
-        }
-        .error-message a {
-          color: white;
-        }
-        .transparent-button {
-          background-color: transparent;
-          border: none;
-        }
-      `}
-    </style>
+    <div className={styles.final} />
   </div>
 )
 

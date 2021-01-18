@@ -1,19 +1,19 @@
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styles from '@styles/static.module.css'
+import classNames from 'classnames'
+import Link from 'next/link'
 import React from 'react'
-
 import { BrowserView } from 'react-device-detect'
 
-import { Link } from 'react-router-dom'
-
-import './static.css'
+// import './static.css'
 
 export function Loader() {
   return (
-    <div className="loader-wrapper">
+    <div className={styles['loader-wrapper']}>
       <div id="loader" className="row justify-content-md-center">
         <div className="col col-auto-md">
-          <div className="lds-facebook" id="inner-loader">
+          <div className={styles['lds-facebook']} id="inner-loader">
             <div />
             <div />
             <div />
@@ -21,7 +21,7 @@ export function Loader() {
           <p className="lead" id="message" style={{ color: 'white' }} />
         </div>
       </div>
-      <div className="text-wrapper">
+      <div className={styles['text-wrapper']}>
         <h1>Loading ...</h1>
         {/* <h3>This can take upto 30 seconds, please be patient with us</h3> */}
       </div>
@@ -31,11 +31,11 @@ export function Loader() {
 
 export function Header() {
   return (
-    <div className="header">
-      <h4 className="subtitle">
+    <div className={styles.header}>
+      <p className={styles.subtitle}>
         Your files are
-        <span className="highlight font-bold"> not uploaded anywhere.</span>
-      </h4>
+        <span className={styles.highlight}> not uploaded anywhere.</span>
+      </p>
     </div>
   )
 }
@@ -48,10 +48,10 @@ const HeartSvg = () => (
 
 export function Footer() {
   return (
-    <footer className="footer footer-distributed">
+    <footer className={classNames(styles.footer, styles['footer-distributed'])}>
       <BrowserView>
-        <div className="footer-right">
-          <div className="image-container">
+        <div className={classNames(styles['footer-right'])}>
+          <div className={styles['image-container']}>
             <a
               href="https://discord.gg/dnD6FHx"
               target="_blank"
@@ -69,7 +69,7 @@ export function Footer() {
             </a>
           </div>
 
-          <div className="image-container">
+          <div className={styles['image-container']}>
             <div>
               <a
                 href="https://github.com/modfy/modfy.video"
@@ -93,14 +93,18 @@ export function Footer() {
         </div>
       </BrowserView>
 
-      <div className="footer-left">
-        <p className="footer-links">
-          <Link className="link-class link-1" to="/">
-            Home
+      <div className={styles['footer-left']}>
+        <p className={styles['footer-links']}>
+          <Link href="/" passHref>
+            <a
+              href="/"
+              className={classNames(styles['link-class'], styles['link-1'])}>
+              Home
+            </a>
           </Link>
 
           <a
-            className="link-class"
+            className={styles['link-class']}
             href="https://api.modfy.video/"
             target="_blank"
             rel="noopener noreferrer">
@@ -108,19 +112,19 @@ export function Footer() {
           </a>
 
           <a
-            className="link-class"
+            className={styles['link-class']}
             href="https://docs.modfy.video/"
             target="_blank"
             rel="noopener noreferrer">
             Docs
           </a>
 
-          <a className="link-class" href="mailto:hello@modfy.video">
+          <a className={styles['link-class']} href="mailto:hello@modfy.video">
             Contact
           </a>
 
           <a
-            className="link-class typeform-share link middle-footer"
+            className={styles['link-class']}
             href="https://cryogenicplanet.typeform.com/to/Fn78Sd"
             data-mode="drawer_right"
             style={{
@@ -135,13 +139,13 @@ export function Footer() {
           </a>
         </p>
 
-        <div className="footer-copyright">
+        <div className={styles['footer-copyright']}>
           <p>Made with </p>
-          <p className="footer-made-margin">
+          <p className={styles['footer-made-margin']}>
             <HeartSvg />
           </p>
-          <p className="footer-made-margin"> by </p>
-          <p className="footer-made-margin">
+          <p className={styles['footer-made-margin']}>{` `}by </p>
+          <p className={styles['footer-made-margin']}>
             <a
               style={{ color: 'inherit' }}
               href="https://cryogenicplanet.tech/"
@@ -149,7 +153,7 @@ export function Footer() {
               rel="noopener noreferrer">
               CryogenicPlanet
             </a>
-          </p>{' '}
+          </p>
         </div>
       </div>
     </footer>

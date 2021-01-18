@@ -1,5 +1,6 @@
-import FFmpegFeature from '../FFmpegFeature'
-import features from '../features'
+import features from '@features/features'
+import FFmpegFeature from '@features/FFmpegFeature'
+
 import { WorkflowStep } from '../../dist/workflow'
 
 type CombinedExecConfig = {

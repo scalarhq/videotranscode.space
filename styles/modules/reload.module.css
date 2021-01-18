@@ -1,0 +1,9 @@
+.hidden-button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline;
+  padding: 10px;
+}

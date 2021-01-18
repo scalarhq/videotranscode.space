@@ -1,12 +1,12 @@
-import React from 'react'
 import { Session } from '@replit/clui-session'
-
+import CluiStore from '@store/cluiStore'
+import styles from '@styles/clui.module.css'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
-import Prompt from './prompt'
-import command from './commands/commands'
-import './clui.css'
+import React from 'react'
 
-import CluiStore from '../store/cluiStore'
+import command from './commands/commands'
+import Prompt from './prompt'
 
 /**
  * Parent of the entire CLUI Component
@@ -19,13 +19,17 @@ const Clui = () => {
   }
 
   return (
-    <div className="clui-wrapper">
-      <div className="clui-overlay" onClick={handleFocusTransfer}>
+    <div className={styles['clui-wrapper']}>
+      <div className={styles['clui-overlay']} onClick={handleFocusTransfer}>
         <Session>
           <Prompt command={command} autoFocus={cluiToggle} />
         </Session>
       </div>
-      <div className="clui-background flex flex-col justify-center h-full">
+      <div
+        className={classNames(
+          styles['clui-background'],
+          'flex flex-col justify-center h-full'
+        )}>
         <div className="flex justify-end">
           <div className="w-1/2">
             {CluiStore.ran ? null : (

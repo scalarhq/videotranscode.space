@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/list.module.css'
+import React, { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
-import ComponentStore from '../store/componentStore'
-
-import './list.css'
 
 const { CluiStore } = ComponentStore
 
@@ -38,6 +36,7 @@ type DropDownProps = {
   dropdown: Array<DropElement>
   title: string
   current: DropElement
+  usingExisting: boolean
 }
 
 const generateElementRef = (dropdown: Array<DropElement>) => {
@@ -48,16 +47,12 @@ const generateElementRef = (dropdown: Array<DropElement>) => {
   return object
 }
 
-// const generateOptions = (dropdown: Array<DropElement>) => {
-//   const object : {value:string, label:string}
-// }
-
 /**
  * Abstraction of a DropDown Functional Component that can be used in the CLUI
  * @param props {@link DropDownProps}
  */
 const Dropdown = (props: DropDownProps) => {
-  const { dropdown, title, parents } = props
+  const { dropdown, title, parents, usingExisting } = props
 
   // eslint-disable-next-line react/destructuring-assignment
   const [current, setCurrent] = useState<DropElement>(props.current)
@@ -65,9 +60,11 @@ const Dropdown = (props: DropDownProps) => {
   const element = useRef(generateElementRef(dropdown))
 
   useEffect(() => {
-    const defaultConfiguration = { value: current.value, name: current.name }
-    updateConfiguration(defaultConfiguration, [...parents])
+    if (!usingExisting) {
+      const defaultConfiguration = { value: current.value, name: current.name }
 
+      updateConfiguration(defaultConfiguration, [...parents])
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -77,29 +74,29 @@ const Dropdown = (props: DropDownProps) => {
 
   useEffect(() => {
     element.current = generateElementRef(dropdown)
-    console.info('Update elements')
   }, [dropdown])
 
   const handleClick = (selectedOption: { value: any; [name: string]: any }) => {
-    // e.preventDefault();
     const { value } = selectedOption
+
     if (element && element.current) {
-      // console.info('Tree', element.current, value);
       const dataValue = element.current[value as keyof typeof element.current]
+
       setCurrent(dataValue)
-      // console.info('Data value is', dataValue, current);
+
       const newConfiguration = { value: dataValue.value, name: dataValue.name }
+
       updateConfiguration(newConfiguration, [...parents])
     }
   }
 
   return (
     <>
-      <div className="options-list-wrapper">
+      <div className={styles.optionsListWrapper}>
         <div className="flex justify-center items-center">
-          <p className="text-xl">{title}</p>
+          <p className="text-xl text-gray-50">{title}</p>
           <div
-            className="inline-block relative w-64"
+            className="inline-block relative w-64 bg-background bg-opacity-30 "
             style={{ margin: '1rem' }}>
             <Select
               //  @ts-ignore
@@ -110,23 +107,33 @@ const Dropdown = (props: DropDownProps) => {
                 value: item.value,
                 label: item.name
               }))}
+              theme={theme => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: 'rgba(108, 99, 255, 0.5)',
+                  primary: 'rgba(108, 99, 255, 1)',
+                  neutral0: 'rgba(31, 41, 55, 0.8)'
+                }
+              })}
               styles={{
                 control: styles => ({
                   ...styles,
                   backgroundColor: 'transparent',
+                  color: 'white',
                   border: 'none',
-                  color: 'inherit',
                   outline: 'none',
                   appearance: 'none',
                   zIndex: 5
                 }),
                 option: styles => ({
                   ...styles,
-                  color: 'inherit'
+                  color: 'white'
                 }),
                 placeholder: styles => ({
                   ...styles,
-                  color: 'inherit'
+                  color: 'black'
                 }),
                 singleValue: styles => ({
                   ...styles,

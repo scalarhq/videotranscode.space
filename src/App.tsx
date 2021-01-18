@@ -1,38 +1,31 @@
 /* eslint-disable no-nested-ternary */
 
-// Modules
-import React, { useEffect, useState } from 'react'
-import { observer } from 'mobx-react'
-
-import { Fade } from 'react-reveal'
-import { isMobile } from 'react-device-detect'
-import processor, { loadFFmpeg } from './ts/processor'
-
-// Styling
-import './App.css'
-
-// Router
-import Router from './router'
-
-// Components
-import { Header, Footer } from './components/static/static'
-import Dropzone from './components/dropzone/dropzone'
-import TerminalComponent from './components/terminal/terminalComponent'
-import ProgressBar from './components/progress/progress'
-import VideoPlayer from './components/video/video'
-import ErrorScreen from './components/error/Error'
-import Configuration from './components/configuration/configuration'
-import Tour from './components/tour/tour'
-import Util from './components/utils/util'
-import Banner from './components/banner/banner'
-
-// Types
-
+import Banner from '@components/banner/banner'
+import Configuration from '@components/configuration/configuration'
+import Dropzone from '@components/dropzone/dropzone'
+import ErrorScreen from '@components/error/Error'
+import ProgressBar from '@components/progress/progress'
+import { Footer, Header } from '@components/static/static'
+import StepComponent from '@components/steps/steps'
+import TerminalComponent from '@components/terminal/terminalComponent'
+import Tour from '@components/tour/tour'
+import Util from '@components/utils/util'
+import VideoPlayer from '@components/video/video'
+// Core
+import { electronWrapper } from '@core/electron'
+import processor, { loadFFmpeg } from '@core/processor'
 // Stores
-import TerminalStore from './store/terminalStore'
-import ComponentStore from './store/componentStore'
-import StepComponent from './components/steps/steps'
-import { useActiveUsers } from './store/userStore'
+import ComponentStore from '@store/componentStore'
+import TerminalStore from '@store/terminalStore'
+import { useActiveUsers } from '@store/userStore'
+import styles from '@styles/app.module.css'
+import classNames from 'classnames'
+// Modules
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { isMobile } from 'react-device-detect'
+import { Toaster } from 'react-hot-toast'
+import { Fade } from 'react-reveal'
 
 const App = () => {
   const {
@@ -41,6 +34,7 @@ const App = () => {
     ProgressStore,
     isLoadingError,
     loadingErrorObj,
+    updateLoaded,
     updateLoadError,
 
     FileStore,
@@ -63,7 +57,12 @@ const App = () => {
     if (isLoading === false) {
       setLoading(true)
       setTimeout(() => {
-        loadFFmpeg()
+        /**
+         * Does not need to load ffmpeg if it is electron app
+         */
+        electronWrapper(loadFFmpeg, () => {
+          updateLoaded(true)
+        })
       }, 500)
     }
     // eslint-disable-next-line
@@ -120,103 +119,98 @@ const App = () => {
 
   if (isLoadingError && secondLoad) {
     return (
-      <Router>
-        <>
-          <main>
-            <ErrorScreen errorObj={loadingErrorObj} />
-          </main>
-          <Footer />
-        </>
-      </Router>
+      <>
+        <div className={styles.main}>
+          <ErrorScreen errorObj={loadingErrorObj} />
+        </div>
+        <Footer />
+      </>
     )
   }
   return (
-    <Router>
-      <>
-        <div className="overlay-wrapper h-screen max-w-screen-xl w-screen">
-          {!isMobile ? (
-            <div className="blur">
-              <Banner />
-              <Util />
-              <Tour>
-                <>
-                  <main>
-                    <div className="flex-wrapper">
-                      {!isSubmitted ? (
-                        <div className="dropzone-wrapper">
-                          <Fade bottom>
-                            <Dropzone />
-                          </Fade>
-                        </div>
-                      ) : !processed ? (
-                        <Fade bottom>
-                          <ProgressBar {...ProgressStore} />
-                        </Fade>
-                      ) : (
-                        <Fade bottom>
-                          <VideoPlayer
-                            url={url}
-                            toDisplay={toDisplay}
-                            ext={currentFileExtension}
-                          />
-                        </Fade>
-                      )}
+    <div className="w-full flex flex-col items-center justify-center">
+      <div className={classNames(styles['overlay-wrapper'], 'h-screen ')}>
+        {!isMobile ? (
+          <div className="blur">
+            <Toaster position="top-right" />
 
-                      {!isSubmitted ? (
+            <Banner />
+            <Util />
+            <Tour>
+              <>
+                <div className={classNames(styles.main, 'main-padding')}>
+                  <div className={styles['flex-wrapper']}>
+                    {!isSubmitted ? (
+                      <div
+                        className={styles['dropzone-wrapper']}
+                        id="dropzone-wrapper">
                         <Fade bottom>
-                          <Configuration />
+                          <Dropzone />
                         </Fade>
-                      ) : cluiToggle ? (
-                        <div className="terminal-wrapper">
-                          <Fade bottom>
-                            <TerminalComponent />
-                          </Fade>
-                        </div>
-                      ) : processed ? (
-                        <div className="terminal-wrapper">
-                          <Fade bottom>
-                            <TerminalComponent />
-                          </Fade>
-                        </div>
-                      ) : null}
-                    </div>
-                  </main>
+                      </div>
+                    ) : !processed ? (
+                      <Fade bottom>
+                        <ProgressBar {...ProgressStore} />
+                      </Fade>
+                    ) : (
+                      <Fade bottom>
+                        <VideoPlayer
+                          url={url}
+                          toDisplay={toDisplay}
+                          ext={currentFileExtension}
+                        />
+                      </Fade>
+                    )}
+
+                    {!isSubmitted ? (
+                      <Fade bottom>
+                        <Configuration />
+                      </Fade>
+                    ) : cluiToggle ? (
+                      <div className={styles['terminal-wrapper']}>
+                        <Fade bottom>
+                          <TerminalComponent />
+                        </Fade>
+                      </div>
+                    ) : processed ? (
+                      <div className={styles['terminal-wrapper']}>
+                        <Fade bottom>
+                          <TerminalComponent />
+                        </Fade>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="w-full flex justify-center">
                   <StepComponent />
-                  <Header />
-                </>
-              </Tour>
-            </div>
-          ) : null}
-          {/* @ts-ignore Styled JSX */}
-          <style jsx>
-            {`
-              .flex-wrapper {
-                padding-top: ${isActiveUser ? '2vh' : '5vh'};
-              }
+                </div>
 
-              .overlay-wrapper {
-                display: grid;
-                grid-template: 1fr / 1fr;
-              }
-              .overlay-wrapper > * {
-                grid-column: 1 / 1;
-                grid-row: 1 / 1;
-              }
-              main {
-                max-width: ${isSubmitted ? '80vw' : 'unset'};
-                padding-top: ${isSubmitted ? '5vh' : 'unset'};
-              }
-              ul {
-                max-width: unset !important;
-                background-color: transparent !important;
-              }
-            `}
-          </style>
-        </div>
+                <Header />
+              </>
+            </Tour>
+          </div>
+        ) : null}
+        {/* @ts-ignore Styled JSX */}
+        <style jsx>
+          {`
+            .flex-wrapper {
+              padding-top: ${isActiveUser ? '2vh' : '5vh'};
+            }
 
-        <Footer />
-      </>
-    </Router>
+            .main-padding {
+              max-width: ${isSubmitted ? '80vw' : 'unset'};
+              padding-top: ${isSubmitted ? '5vh' : '1rem'};
+            }
+            ul {
+              max-width: unset !important;
+              background-color: transparent !important;
+            }
+          `}
+        </style>
+      </div>
+
+      <Footer />
+    </div>
   )
 }
 

@@ -1,16 +1,10 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg'
-import ComponentStore from '../store/componentStore'
 
-import { CustomFileType } from '../types/fileTypes'
+import ComponentStore from '../store/componentStore'
+import { FFmpegDataType } from '../types/ffmpegType'
 
 const { ProgressStore, updateLoaded, updateLoadError } = ComponentStore
 const { updateProgress } = ProgressStore
-
-export type FFmpegDataType = {
-  outputFile: CustomFileType
-  threads: number
-  ffmpegCommands: string
-}
 
 const ffmpeg = createFFmpeg({
   log: true,
@@ -45,7 +39,11 @@ const loadFFmpeg = async () => {
 const ffmpegWriter = async (file: File) => {
   const { name } = file
   await ffmpeg.write(name, file)
-  return name
+
+  /**
+   * Returning object with name and empty path to keep object symetric for electron
+   */
+  return { name, path: '' }
 }
 
 /** *
@@ -70,14 +68,14 @@ const ffmpegRunner = async (
 ) => {
   const { outputFile, threads, ffmpegCommands } = ffmpegData
   const commandString = `${inputFileCommand} -threads ${threads} ${ffmpegCommands} -strict -2 ${outputFile.name}`
-  console.info('Running FFmpeg', commandString)
+
   try {
-    const promise = await ffmpeg.run(commandString)
-    console.log('Returning output', promise)
+    await ffmpeg.run(commandString)
+    // console.log('Returning output', promise)
     return outputFile
   } catch (err) {
     console.trace()
-    console.info(err.message)
+    console.error(err.message)
   }
 }
 
@@ -93,9 +91,9 @@ const ffmpegGarbageCollector = async (oldFileNames: Array<string>) => {
 export default ffmpeg
 
 export {
-  loadFFmpeg,
-  ffmpegRunner,
+  ffmpegGarbageCollector,
   ffmpegReader,
+  ffmpegRunner,
   ffmpegWriter,
-  ffmpegGarbageCollector
+  loadFFmpeg
 }

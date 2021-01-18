@@ -1,2 +1,5 @@
 public/
 src/dist/
+.next/
+out_publish/
+out_functions/

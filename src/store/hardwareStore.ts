@@ -1,6 +1,6 @@
-import { observable, action } from 'mobx'
-
 import axios from 'axios'
+import { action, observable } from 'mobx'
+
 import { HardwareDataType } from '../types/hardwareData'
 import AbstractStore from './store'
 

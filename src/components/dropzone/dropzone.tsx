@@ -1,19 +1,22 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback, useState, useEffect } from 'react'
-import { useDropzone } from 'react-dropzone'
-
-import './dropzone.css'
-
+// import './dropzone.css'
+import useEventListener from '@core/utils/useEventListener'
+import ComponentStore from '@store/componentStore'
+import styles from '@styles/dropzone.module.css'
 import { observer } from 'mobx-react'
-import ComponentStore from '../../store/componentStore'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { GlobalHotKeys } from 'react-hotkeys'
 
-import { FileTransformType, FileWithMetadata } from '../../types/fileTypes'
+import {
+  ElectronFile,
+  FileTransformType,
+  FileWithMetadata
+} from '~@types/fileTypes'
 
 import DraggableWrapper from './draggable'
-
-import useEventListener from '../../ts/utils/useEventListener'
 
 const { FileStore } = ComponentStore
 
@@ -33,7 +36,10 @@ const createVideoThumbnail = (videoFile: File) => {
       const videoElement = document.createElement('video')
       const canPlay = videoElement.canPlayType(videoFile.type)
       if (!canPlay) {
-        reject(new Error('Does not support video type'))
+        // reject(new Error('Does not support video type'))
+        resolve({
+          preview: '/images/previews/videoPreview.png'
+        })
       }
       const snapImage = () => {
         const videoCanvas = document.createElement('canvas')
@@ -68,7 +74,6 @@ const createVideoThumbnail = (videoFile: File) => {
         }
       }
       videoElement.addEventListener('loadeddata', () => {
-        console.info('Loaded MetaData')
         if (snapImage()) {
           videoElement.removeEventListener('timeupdate', timeUpdate)
           videoElement.pause()
@@ -120,6 +125,8 @@ const Dropzone = () => {
   }, [])
 
   const translateScroll = (e: WheelEvent) => {
+    e.stopPropagation()
+    document.body.style.overflowY = 'hidden'
     const maxScroll = thumbnailRef?.current?.scrollHeight || 500
     if (e.deltaY < 0 && scroll > 0) {
       setScroll(s => s - 10)
@@ -135,12 +142,15 @@ const Dropzone = () => {
 
   const onDrop = useCallback(async acceptedFiles => {
     // Do something with the files
+
     const newFiles: Array<FileWithMetadata> = await Promise.all(
-      acceptedFiles.map(async (file: File) => {
+      acceptedFiles.map(async (file: ElectronFile) => {
+        // TODO (rahul) Fix Promise waiting
         if (file.type.match('image')) {
           return {
             file,
             preview: URL.createObjectURL(file),
+            path: file.path || '',
             customType: 'image'
           }
         }
@@ -151,18 +161,29 @@ const Dropzone = () => {
             return {
               file,
               preview: videoData.preview,
+              path: file.path || '',
               customType: 'video',
               videoMetadata: videoData.videoMetadata
             }
           } catch (err) {
-            return { file, preview: '', customType: 'video' }
+            return {
+              file,
+              preview: '',
+              path: file.path || '',
+              customType: 'video'
+            }
           }
         }
         if (file.type.match('audio')) {
-          return { file, preview: '', customType: 'audio' }
+          return {
+            file,
+            preview: '/images/previews/audioPreview.png',
+            customType: 'audio',
+            path: file.path || ''
+          }
         }
 
-        return { file, preview: '', customType: 'other' }
+        return { file, preview: '', customType: 'other', path: file.path || '' }
       })
     )
     const transforms: FileTransformType[] = []
@@ -215,76 +236,88 @@ const Dropzone = () => {
     accept: ['video/*', 'image/*', 'audio/*']
   })
 
+  const keyMap = {
+    FILE_DRAWER: ['shift+f']
+  }
+
+  const handlers = {
+    FILE_DRAWER: (e?: KeyboardEvent) => {
+      e?.preventDefault()
+      document.getElementById('file-input')?.click()
+    }
+  }
+
   return (
-    <div className="preview-wrapper">
-      <div className="dropzone outline-none" id="dropzone" {...getRootProps()}>
-        <div className="scrollable-wrapper outline-none" ref={dropzoneRef}>
-          <input {...getInputProps()} />
+    <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
+      <div className={styles.previewWrapper}>
+        <div className={styles.dropzone} id="dropzone" {...getRootProps()}>
+          <div className={styles.scrollableWrapper} ref={dropzoneRef}>
+            <input id="file-input" {...getInputProps()} />
 
-          {files.length > 0 ? null : (
-            <>
-              <div className="w-1/3 px-2">
-                <img alt="Video file svg" src="images/upload.svg" />
-              </div>
-
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <p>
-                  <u>Click</u> or Drag to add files.{' '}
-                </p>
-              )}
-              <button
-                type="button"
-                onClick={handleDemoVideo}
-                disabled={loading}
-                className="inline-flex z-20 items-center mt-10 px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {loading ? (
-                  <svg
-                    className="animate-spin h-5 w-5 mr-3 ..."
-                    viewBox="0 0 24 24"
-                    fill="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                ) : null}
-                Use a demo file
-                {!loading ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className="ml-3 -mr-1 h-5 w-5"
-                    stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-                    />
-                  </svg>
-                ) : null}
-              </button>
-            </>
-          )}
+            {files.length > 0 ? null : (
+              <>
+                <div className="w-1/3 px-2">
+                  <img alt="Video file svg" src="images/upload.svg" />
+                </div>
+                {isDragActive ? (
+                  <p>Drop the files here ...</p>
+                ) : (
+                  <p>
+                    <u>Click</u> or Drag to add files.{' '}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={handleDemoVideo}
+                  disabled={loading}
+                  className="inline-flex z-20 items-center mt-10 px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  {loading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 ..."
+                      viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ) : null}
+                  Use a demo file
+                  {!loading ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="ml-3 -mr-1 h-5 w-5"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
+                      />
+                    </svg>
+                  ) : null}
+                </button>
+              </>
+            )}
+          </div>
+          {/* @ts-ignore Styled JSX */}
+          <style jsx>
+            {`
+              .dropzone {
+                width: ${files.length > 0 ? '90%' : '100%'};
+              }
+            `}
+          </style>
         </div>
-        {/* @ts-ignore Styled JSX */}
-        <style jsx>
-          {`
-            .dropzone {
-              width: ${files.length > 0 ? '90%' : '100%'};
-            }
-          `}
-        </style>
+        <aside ref={thumbnailRef} className={styles.thumbsContainer}>
+          <DraggableWrapper files={files} />
+        </aside>
       </div>
-      <aside ref={thumbnailRef} className="thumbs-container">
-        <DraggableWrapper files={files} />
-      </aside>
-    </div>
+    </GlobalHotKeys>
   )
 }
 export default observer(Dropzone)

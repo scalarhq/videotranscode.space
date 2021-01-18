@@ -1,3 +1,7 @@
+/**
+ * Converts seconds into hour, minutes and seconds
+ * @param secs number representing seconds
+ */
 const secondsToTime = (secs: number) => {
   const hours = Math.floor(secs / (60 * 60))
 
@@ -15,6 +19,10 @@ const secondsToTime = (secs: number) => {
   return obj
 }
 
+/**
+ * Converts object of {hour,mins, seconds} to hh:mm:ss format string
+ * @param param0 object of type {hour,mins,seconds} all numbers
+ */
 const hmsToTimeStamp = ({
   hours,
   minutes,
@@ -40,4 +48,4 @@ const getSecondsInTimeStamp = (secs: number) => {
 
 export default getSecondsInTimeStamp
 
-export { secondsToTime, hmsToTimeStamp }
+export { hmsToTimeStamp, secondsToTime }

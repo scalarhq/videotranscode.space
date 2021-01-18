@@ -1,0 +1,18 @@
+[build]
+  command   = "yarn build"
+  functions = "out_functions"
+  publish   = "out_publish"
+[[redirects]]
+    from = "/*"
+    to = "/"
+    status = 200
+[[redirects]]
+    from = "/docs"
+    to = "https://docs.modfy.video/"
+[[headers]]
+    for = "/*"
+    [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Access-Control-Allow-Origin = "*"
