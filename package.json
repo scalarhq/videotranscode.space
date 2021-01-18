@@ -6,6 +6,8 @@
     "@babel/core": "^7.10.5",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
+    "@dnd-kit/core": "^1.0.1",
+    "@dnd-kit/sortable": "^1.0.1",
     "@ffmpeg/ffmpeg": "git+https://github.com/Mozilla-Open-Lab-Etwas/ffmpeg.wasm.git",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",

@@ -1881,6 +1881,38 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@dnd-kit/accessibility@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/accessibility/-/accessibility-1.0.1.tgz#666a76377704db1227bde18e671757e161ecf207"
+  integrity sha512-rPkUFbhDrBHacTqEM0WlurgXLN+pBFW+o9PB6DgnREK5hNRXAxzqwGfSlrVUgdh7PK/YslAiljM//6lI9JHuAA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@dnd-kit/core@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/core/-/core-1.0.1.tgz#8db0098fd200746cfddb86ed9575203198a0f378"
+  integrity sha512-shIv8YxhrgkS6tnDmfPdh3ds0U/9e9WQhBHPtEIcdvnBcT0h8mXJHrfhY1nmXVAtcYfXO7L4obABXf2a0DcX4w==
+  dependencies:
+    "@dnd-kit/accessibility" "^1.0.1"
+    "@dnd-kit/utilities" "^1.0.1"
+    tslib "^2.0.0"
+
+"@dnd-kit/sortable@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/sortable/-/sortable-1.0.1.tgz#606291ced7ab2865378647159ddd25aaba7b6ce7"
+  integrity sha512-At+qaFVIo4P8jJjmUgOYEp4fwu+7dD/DU6W0IBoVpR1JIMCtK+SwJoBpNCzqZOFuveLOwGjBodC9hI/xU+yd5A==
+  dependencies:
+    "@dnd-kit/core" "^1.0.1"
+    "@dnd-kit/utilities" "^1.0.1"
+    tslib "^2.0.0"
+
+"@dnd-kit/utilities@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/utilities/-/utilities-1.0.1.tgz#a26089aad6a6f6ba64bde46c7145ce722f46d30b"
+  integrity sha512-mH0SsXw39ytNwnZ484blRKdpac0Ad3Gh3UkbsiQs0LwFoC+O/j967mS3WhP+G++mlgr6uZ2OM3BlPYZkSMOusA==
+  dependencies:
+    tslib "^2.0.0"
+
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
