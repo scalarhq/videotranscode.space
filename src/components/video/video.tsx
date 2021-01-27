@@ -73,7 +73,7 @@ const DownloadButton = ({ url, ext }: { url: string; ext: string }) => {
   )
 }
 
-type VideoProps = { url: string; toDisplay: boolean; ext: string }
+export type VideoProps = { url: string; toDisplay: boolean; ext: string }
 
 const VideoWrapper = ({ url, toDisplay, ext }: VideoProps) => {
   return (

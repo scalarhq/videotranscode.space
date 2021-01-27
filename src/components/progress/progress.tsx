@@ -2,7 +2,7 @@ import styles from '@styles/progress.module.css'
 import classNames from 'classnames'
 import React, { useEffect } from 'react'
 
-type ProgressProps = { progress: number; color: string; name: string }
+export type ProgressProps = { progress: number; color: string; name: string }
 
 const ProgressBar = ({ name, color, progress }: ProgressProps) => {
   const progressBar = React.useRef<null | HTMLDivElement>(null)
@@ -26,11 +26,11 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
     <div>
       <div className="flex justify-center -mb-10">
         <div className="w-1/2 block object-cover rounded-lg">
-          <img src="images/processing.png" alt="Processing png" />
+          <img src="/images/processing.png" alt="Processing png" />
         </div>
       </div>
       <div className="row">
-        <h3 className="text-xl font-bold">{name}</h3>
+        <h3 className="text-xl font-bold text-center py-2">{name}</h3>
       </div>
       <div className={styles['progress-wrapper']}>
         <div className={styles.progress}>

@@ -5,6 +5,7 @@
 import useEventListener from '@core/utils/useEventListener'
 import ComponentStore from '@store/componentStore'
 import styles from '@styles/dropzone.module.css'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
@@ -98,7 +99,11 @@ const createVideoThumbnail = (videoFile: File) => {
   return thumbnail
 }
 
-const Dropzone = () => {
+type DropzoneProps = {
+  acceptedFiles?: string[]
+}
+
+const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
   const [files, setFiles] = useState<Array<FileWithMetadata>>([])
 
   const [scroll, setScroll] = useState(0)
@@ -233,7 +238,7 @@ const Dropzone = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: ['video/*', 'image/*', 'audio/*']
+    accept: acceptedFiles ?? ['video/*', 'image/*', 'audio/*']
   })
 
   const keyMap = {
@@ -250,14 +255,17 @@ const Dropzone = () => {
   return (
     <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
       <div className={styles.previewWrapper}>
-        <div className={styles.dropzone} id="dropzone" {...getRootProps()}>
+        <div
+          className={classNames(styles.dropzone, 'dropzone-translate')}
+          id="dropzone"
+          {...getRootProps()}>
           <div className={styles.scrollableWrapper} ref={dropzoneRef}>
             <input id="file-input" {...getInputProps()} />
 
             {files.length > 0 ? null : (
               <>
                 <div className="w-1/3 px-2">
-                  <img alt="Video file svg" src="images/upload.svg" />
+                  <img alt="Video file svg" src="/images/upload.svg" />
                 </div>
                 {isDragActive ? (
                   <p>Drop the files here ...</p>

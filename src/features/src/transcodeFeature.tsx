@@ -105,7 +105,7 @@ export default TranscodeFeature
  *  **This function is not needed for every feature**
  * @param name Codec Name as a string
  */
-const createCodecValue = (name: string) =>
+export const createCodecValue = (name: string) =>
   name.replace('-', '').replace('.', '').replace(' ', '_').toUpperCase()
 
 type TranscodeFormatList = {
@@ -194,32 +194,6 @@ const TranscodeUi = ({ parents }: { parents: Array<string> }) => {
           }
         : mainDefaultObject?.child
   }
-
-  // const { TRANSCODE } = config as TranscodeConfig
-  // const { FORMAT } = TRANSCODE
-  // const {
-  //   CODEC: { value: codecValue }
-  // } = FORMAT
-  // console.info('Previous config', FORMAT, codecValue)
-  // const formatKey = FORMAT.value
-  // const formatObject = list.find(format => format.value === formatKey)
-  // const newChild = {
-  //   ...formatObject?.child,
-  //   props: {
-  //     ...formatObject?.child?.props,
-  //     current: {
-  //       name: codecValue,
-  //       value: codecValue
-  //     },
-  //     usingExisting: true
-  //   }
-  // }
-  // console.info('New Child', newChild, codecValue)
-  // Object.assign(current, {
-  //   name: formatKey,
-  //   value: formatKey,
-  //   child: newChild
-  // })
 
   const props = {
     title: 'Choose Format',

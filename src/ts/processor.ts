@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import features from '../features/features'
 import ComponentStore from '../store/componentStore'
 import { CustomFileType, FileNameTypes, FileTypes } from '../types/fileTypes'
@@ -107,9 +109,11 @@ const onSubmitHandler = async () => {
 
   clearTerminal()
 
-  console.log(
-    `Done, Enjoy your video! The process was completed in ${encodeTime} seconds`
-  )
+  const successMsg = `Done, Enjoy your video! The process was completed in ${encodeTime} seconds`
+
+  console.log(successMsg)
+
+  toast.success(successMsg, { duration: 20000 })
 }
 
 export default onSubmitHandler

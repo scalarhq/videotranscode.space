@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { action, observable, toJS } from 'mobx'
+import { createContext } from 'react'
 
 import { WorkflowStep } from '../dist/workflow'
 import AbstractStore from './store'
@@ -119,4 +120,8 @@ class CluiStore extends AbstractStore {
   }
 }
 
-export default new CluiStore()
+const cluiStore = new CluiStore()
+
+export default cluiStore
+
+export const CluiStoreContext = createContext(cluiStore)

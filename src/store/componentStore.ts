@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import { action, observable } from 'mobx'
+import { createContext } from 'react'
 
 // Stores
 import CluiStore from './cluiStore'
@@ -98,8 +99,14 @@ class ComponentStore extends AbstractStore {
   }
 }
 
-// @ts-ignore
-// eslint-disable-next-line no-undef,  no-multi-assign
-const store = (window.store = new ComponentStore())
+const store = new ComponentStore()
+
+if (process.browser) {
+  // @ts-ignore
+  // eslint-disable-next-line no-undef,  no-multi-assign
+  window.store = store
+}
 
 export default store
+
+export const ComponentStoreContext = createContext(store)

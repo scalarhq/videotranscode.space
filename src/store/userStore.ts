@@ -47,16 +47,19 @@ class UserStore extends AbstractStore {
    * If userData is not set or there is a uuid mismatch it will return null.
    */
   @computed get userData(): UserData | null {
-    const userData = window.localStorage.getItem('userData')
-    if (!userData) {
+    if (process.browser) {
+      const userData = window.localStorage.getItem('userData')
+      if (!userData) {
+        return null
+      }
+      const jsonData = JSON.parse(userData) as UserData
+      const { uuid } = jsonData
+      if (uuid === this.uuid) {
+        return jsonData
+      }
+      window.localStorage.removeItem('userData')
       return null
     }
-    const jsonData = JSON.parse(userData) as UserData
-    const { uuid } = jsonData
-    if (uuid === this.uuid) {
-      return jsonData
-    }
-    window.localStorage.removeItem('userData')
     return null
   }
 

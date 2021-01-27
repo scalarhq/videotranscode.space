@@ -35,8 +35,10 @@ const Submit = observer(
         setTip('Please Add A File!')
       }
       if (loaded && allFiles.length > 0) {
+        setTip('')
         if (submit && submit.current) {
           submit.current.removeAttribute('data-tip')
+          submit.current.removeAttribute('data-for')
         }
       }
       // eslint-disable-next-line

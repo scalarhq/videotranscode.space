@@ -54,7 +54,7 @@ const FeatureDescription = ({
   fileOutput = defaultDescriptionFile
 }: FeatureDescriptionProps) => {
   return (
-    <div className="flex flex-col py-5 pt-10 w-full items-center">
+    <div key={name} className="flex flex-col py-5 pt-10 w-full items-center">
       <p className="text-3xl uppercase text-gray-50">{name}</p>
       <p className="text-xl py-2 text-gray-300">{description}</p>
       {extraDescription && (
