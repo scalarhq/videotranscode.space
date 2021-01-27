@@ -4,7 +4,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin: auto 8px auto;
-  max-height: 70vh;
+  max-height: calc(var(--container-height) - 10vh);
   overflow-y: auto;
   height: 100%;
   width: 100%;
@@ -38,9 +38,9 @@
 
 .thumbInner {
   display: flex;
+  @apply flex-col items-center;
   min-width: 0px;
   overflow: hidden;
-  @apply flex-col items-center;
 }
 
 .thumbImg {
@@ -58,7 +58,7 @@
   align-items: center;
   z-index: 2;
   height: 100%;
-  max-height: 80vh;
+  max-height: var(--container-height);
   cursor: pointer;
   @apply outline-none;
 }
@@ -73,8 +73,8 @@
   border-top-color: 'none';
   border-bottom-color: 'none';
   border: '1px solid #4A5063';
-  max-height: 80vh;
-  height: 80vh;
+  max-height: var(--container-height);
+  height: var(--container-height);
   width: 100%;
 }
 

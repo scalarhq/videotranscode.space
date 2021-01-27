@@ -58,3 +58,7 @@ html::-webkit-scrollbar-track {
 .scroll-thin {
   scrollbar-width: thin;
 }
+
+.min-w-screen {
+  min-width: 100vw;
+}

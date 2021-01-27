@@ -1,0 +1,22 @@
+.variable-wrapper {
+  --container-height: 60vh;
+}
+
+.dropzone {
+  @apply w-full;
+  /* min-width: 40vw; */
+  max-height: var(--container-height);
+
+  overflow: hidden;
+}
+
+/* .dropzone > * {
+  translate: 0 -15%;
+  overflow: auto;
+} */
+
+.convert {
+  max-height: var(--container-height);
+  background: rgb(39, 44, 49, 0.75);
+  @apply flex flex-col w-full items-center;
+}
