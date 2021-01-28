@@ -19,14 +19,17 @@ import styles from './convert.module.css'
 
 type ConvertPageProps = {
   to: string
+  from: string | null
 }
 
-const ConvertPage = ({ to }: ConvertPageProps) => {
+const ConvertPage = ({ to, from }: ConvertPageProps) => {
   const { processingState, sectionProps } = utilsStore
 
   const { CluiStore } = ComponentStore
 
   const { updateConfiguration, updateChosenFeatures } = CluiStore
+
+  const acceptedFiles = from ? [`video/${from}`] : ['video/*']
 
   const OtherFormats = () => {
     const formatKeys = Object.keys(formats)
@@ -141,7 +144,7 @@ const ConvertPage = ({ to }: ConvertPageProps) => {
                 <div className="w-5/12 flex">
                   <Fade bottom>
                     <div className={styles.dropzone}>
-                      <Dropzone acceptedFiles={['video/*']} />
+                      <Dropzone acceptedFiles={acceptedFiles} />
                     </div>
                   </Fade>
                 </div>
