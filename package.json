@@ -38,6 +38,7 @@
     "postcss": "^8.1.9",
     "rc-steps": "^4.1.2",
     "react": "^16.13.1",
+    "react-beforeunload": "^2.4.0",
     "react-dev-utils": "^10.2.1",
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",

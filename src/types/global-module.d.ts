@@ -7,3 +7,5 @@ declare module 'fractional'
 declare module 'reactrangeslider'
 
 declare module 'video-react'
+
+declare module 'react-beforeunload'
