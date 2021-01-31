@@ -8,6 +8,7 @@ import styles from '@styles/dropzone.module.css'
 import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useBeforeunload } from 'react-beforeunload'
 import { useDropzone } from 'react-dropzone'
 import { GlobalHotKeys } from 'react-hotkeys'
 
@@ -115,6 +116,8 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
   const thumbnailRef = React.useRef<HTMLDivElement | null>(null)
 
   const { globalReset } = ComponentStore
+
+  useBeforeunload(() => 'Your video will stop processing!')
 
   useEffect(() => {
     if (globalReset) {

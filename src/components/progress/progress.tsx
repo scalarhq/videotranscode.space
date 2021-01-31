@@ -1,6 +1,7 @@
 import styles from '@styles/progress.module.css'
 import classNames from 'classnames'
 import React, { useEffect } from 'react'
+import { useBeforeunload } from 'react-beforeunload'
 
 export type ProgressProps = { progress: number; color: string; name: string }
 
@@ -21,6 +22,8 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
       }
     }
   }, [progress])
+
+  useBeforeunload(() => 'Your video will stop processing!')
 
   return (
     <div>
