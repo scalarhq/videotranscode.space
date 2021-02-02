@@ -120,7 +120,7 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
               ) : null}
             </div>
           </div>
-          <div className="w-full overflow-scroll scroll-thin">
+          <div className="w-full overflow-y-auto scroll-thin">
             {validFeatures.length > 0 ? (
               <DisplayFeature
                 selectedKey={selectedKey as FeatureKeyType}

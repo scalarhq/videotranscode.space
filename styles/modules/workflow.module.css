@@ -3,6 +3,15 @@
   min-height: 73vh;
   min-width: 40vw;
   padding-top: 7vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: thin;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: #008c45;
 }

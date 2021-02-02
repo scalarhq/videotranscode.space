@@ -59,6 +59,15 @@ html::-webkit-scrollbar-track {
   scrollbar-width: thin;
 }
 
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #008c45;
+}
+
 .min-w-screen {
   min-width: 100vw;
 }
