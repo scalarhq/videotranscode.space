@@ -28,14 +28,14 @@ const imageArrangement = (imgType: string, idx: number) => {
       return (
         <img
           alt="Video Preview"
-          key={`video-preview-${Date.now()}-${idx}`}
+          key={`video-preview-${idx}`}
           className="w-20 h-20"
           src="/images/previews/videoPreview.png"></img>
       )
     case 'image':
       return (
         <div
-          key={`image-preview-${Date.now()}-${idx}`}
+          key={`image-preview-${idx}`}
           className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
           <img
             alt="Image Preview"
@@ -46,7 +46,7 @@ const imageArrangement = (imgType: string, idx: number) => {
     case 'audio':
       return (
         <div
-          key={`audio-preview-${Date.now()}-${idx}`}
+          key={`audio-preview-${idx}`}
           className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
           <img
             alt="Audio Preview"
