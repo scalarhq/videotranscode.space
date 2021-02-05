@@ -266,10 +266,11 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
   }
 
   useEffect(() => {
-    files.forEach(file => {
-      if (file.fileWithMetadata.preview)
-        URL.revokeObjectURL(file.fileWithMetadata.preview)
-    })
+    // This is breaking the previews
+    // files.forEach(file => {
+    //   if (file.fileWithMetadata.preview)
+    //     URL.revokeObjectURL(file.fileWithMetadata.preview)
+    // })
   }, [files])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
