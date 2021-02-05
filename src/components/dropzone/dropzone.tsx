@@ -358,10 +358,22 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
     )
   }
 
+  const handleDrop = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault()
+
+    // Call the drop function to simulate the file being
+    // dropped to the dropzone.
+    onDrop(
+      Array(e.dataTransfer.files.length)
+        .fill(0)
+        .map((_, idx) => e.dataTransfer.files.item(idx))
+    )
+  }
+
   return (
     <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
       <div className={styles.previewWrapper}>
-        <div style={{ cursor: 'default' }} {...getRootProps()}>
+        <div id="dropzone" style={{ cursor: 'default' }} {...getRootProps()}>
           <div className={styles.scrollableWrapper} ref={dropzoneRef}>
             <input id="file-input" {...getInputProps()} />
           </div>
@@ -374,7 +386,10 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
             `}
           </style>
         </div>
-        <aside ref={thumbnailRef} className={styles.thumbsContainer}>
+        <aside
+          ref={thumbnailRef}
+          className={styles.thumbsContainer}
+          onDrop={e => handleDrop(e)}>
           <DraggableWrapper
             getRootProps={getRootProps}
             files={files}
