@@ -391,11 +391,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
           ref={thumbnailRef}
           className={styles.thumbsContainer}
           onDrop={e => handleDrop(e)}>
-          <DraggableWrapper
-            getRootProps={getRootProps}
-            files={files}
-            moveFiles={moveFiles}
-          />
+          <DraggableWrapper files={files} moveFiles={moveFiles} />
         </aside>
       </div>
     </GlobalHotKeys>

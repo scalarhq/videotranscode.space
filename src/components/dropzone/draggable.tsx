@@ -16,7 +16,6 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import styles from '@styles/dropzone.module.css'
 import React, { useEffect, useState } from 'react'
-import { DropzoneRootProps } from 'react-dropzone'
 
 import { FileWithMetadata, WrappedFileWithMetadata } from '~@types/fileTypes'
 
@@ -27,7 +26,6 @@ type DraggableWrapperProps = {
     newIndex: number,
     file: FileWithMetadata
   ) => void
-  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps
 }
 
 type SortableFileProps = {
@@ -66,11 +64,7 @@ const SortableFile = ({ id, name, preview }: SortableFileProps) => {
   )
 }
 
-const DraggableWrapper = ({
-  files,
-  moveFiles,
-  getRootProps
-}: DraggableWrapperProps) => {
+const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
   const [fileIDs, setFileIDs] = useState<string[]>(files.map(file => file.uuid))
 
   useEffect(() => {
@@ -80,7 +74,10 @@ const DraggableWrapper = ({
     setFileIDs(files.map(file => file.uuid))
   }, [files])
   const addFile = (
-    <div className={styles.thumb} {...getRootProps()}>
+    <div
+      className={styles.thumb}
+      style={{ cursor: 'pointer' }}
+      onClick={() => document.getElementById('file-input')?.click()}>
       <div className={styles.thumbInner}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
