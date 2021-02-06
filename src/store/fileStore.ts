@@ -104,6 +104,7 @@ class FileStore extends AbstractStore {
 
     return {
       file: newFile,
+      uuid: originalFile.uuid,
       preview: originalFile.preview,
       customType: originalFile.customType,
       videoMetadata: originalFile.videoMetadata,

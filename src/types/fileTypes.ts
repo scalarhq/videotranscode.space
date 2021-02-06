@@ -30,6 +30,7 @@ export type FileTransformType = {
 }
 
 export type FileWithMetadata = {
+  uuid: string
   file: ElectronFile
   preview: string
   customType: 'video' | 'audio' | 'image' | 'other'
@@ -40,17 +41,6 @@ export type FileWithMetadata = {
     otherMetadata: any
   }
   path?: string
-}
-
-/**
- * DndKit requires its items to be identified by a unique ID.
- *
- * This interface wraps FileWithMetadata with a uuid for use
- * with DnD kit.
- */
-export type WrappedFileWithMetadata = {
-  uuid: string
-  fileWithMetadata: FileWithMetadata
 }
 
 export type FileConfigType = {

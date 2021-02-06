@@ -17,10 +17,10 @@ import { CSS } from '@dnd-kit/utilities'
 import styles from '@styles/dropzone.module.css'
 import React, { useEffect, useState } from 'react'
 
-import { FileWithMetadata, WrappedFileWithMetadata } from '~@types/fileTypes'
+import { FileWithMetadata } from '~@types/fileTypes'
 
 type DraggableWrapperProps = {
-  files: WrappedFileWithMetadata[]
+  files: FileWithMetadata[]
   moveFiles: (
     oldIndex: number,
     newIndex: number,
@@ -68,9 +68,7 @@ const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
   const [fileIDs, setFileIDs] = useState<string[]>(files.map(file => file.uuid))
 
   useEffect(() => {
-    files.forEach((file, idx) =>
-      console.log(`${idx}. ${file.fileWithMetadata.file.name}`)
-    )
+    files.forEach((file, idx) => console.log(`${idx}. ${file.file.name}`))
     setFileIDs(files.map(file => file.uuid))
   }, [files])
   const addFile = (
@@ -119,7 +117,6 @@ const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
         fileIDs.indexOf(active.id),
         fileIDs.indexOf(over.id),
         files.find(file => file.uuid === fileIDs[fileIDs.indexOf(active.id)])!
-          .fileWithMetadata
       )
     }
   }
@@ -136,8 +133,8 @@ const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
               <SortableFile
                 key={file.uuid}
                 id={file.uuid}
-                name={file.fileWithMetadata.file.name}
-                preview={file.fileWithMetadata.preview}
+                name={file.file.name}
+                preview={file.preview}
               />
             )
           })}

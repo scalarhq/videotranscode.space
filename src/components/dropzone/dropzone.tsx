@@ -8,13 +8,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useBeforeunload } from 'react-beforeunload'
 import { useDropzone } from 'react-dropzone'
 import { GlobalHotKeys } from 'react-hotkeys'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 } from 'uuid'
 
 import {
   ElectronFile,
   FileTransformType,
-  FileWithMetadata,
-  WrappedFileWithMetadata
+  FileWithMetadata
 } from '~@types/fileTypes'
 
 import DraggableWrapper from './draggable'
@@ -104,7 +103,7 @@ type DropzoneProps = {
 }
 
 const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
-  const [files, setFiles] = useState<Array<WrappedFileWithMetadata>>([])
+  const [files, setFiles] = useState<Array<FileWithMetadata>>([])
 
   const [scroll, setScroll] = useState(0)
 
@@ -156,6 +155,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
         if (file.type.match('image')) {
           return {
             file,
+            uuid: v4(),
             preview: URL.createObjectURL(file),
             path: file.path || '',
             customType: 'image'
@@ -167,6 +167,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
             const videoData = await createVideoThumbnail(file)
             return {
               file,
+              uuid: v4(),
               preview: videoData.preview,
               path: file.path || '',
               customType: 'video',
@@ -175,6 +176,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
           } catch (err) {
             return {
               file,
+              uuid: v4(),
               preview: '',
               path: file.path || '',
               customType: 'video'
@@ -184,6 +186,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
         if (file.type.match('audio')) {
           return {
             file,
+            uuid: v4(),
             preview: '/images/previews/audioPreview.png',
             customType: 'audio',
             path: file.path || ''
@@ -204,11 +207,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
     }
     updateFiles(transforms)
 
-    setFiles(f =>
-      f.concat(
-        newFiles.map(newFile => ({ uuid: uuidv4(), fileWithMetadata: newFile }))
-      )
-    )
+    setFiles(f => f.concat(newFiles))
   }, [])
 
   const handleDemoVideo = async (e: React.MouseEvent) => {
@@ -222,6 +221,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
     const videoData = await createVideoThumbnail(file)
     const fileWithMetadata: FileWithMetadata = {
       file,
+      uuid: v4(),
       preview: videoData.preview,
       customType: 'video',
       videoMetadata: videoData.videoMetadata
@@ -232,7 +232,7 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
       state: 'Insert'
     }
     updateFiles([newTransform])
-    setFiles(f => f.concat([{ uuid: uuidv4(), fileWithMetadata }]))
+    setFiles(f => f.concat([fileWithMetadata]))
     setLoading(false)
   }
 
