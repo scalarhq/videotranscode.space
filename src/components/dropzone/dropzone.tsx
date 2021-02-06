@@ -261,6 +261,18 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
     })
   }
 
+  const deleteFile = (index: number, file: FileWithMetadata) => {
+    updateFiles([
+      {
+        type: file.customType,
+        fileObj: file,
+        state: 'Delete',
+        position: index
+      }
+    ])
+    setFiles(items => [...items.slice(0, index), ...items.slice(index + 1)])
+  }
+
   useEffect(() => {
     // This is breaking the previews
     // files.forEach(file => {
@@ -387,7 +399,11 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
           ref={thumbnailRef}
           className={styles.thumbsContainer}
           onDrop={e => handleDrop(e)}>
-          <DraggableWrapper files={files} moveFiles={moveFiles} />
+          <DraggableWrapper
+            files={files}
+            moveFiles={moveFiles}
+            deleteFile={deleteFile}
+          />
         </aside>
       </div>
     </GlobalHotKeys>

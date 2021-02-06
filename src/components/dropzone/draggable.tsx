@@ -26,13 +26,15 @@ type DraggableWrapperProps = {
     newIndex: number,
     file: FileWithMetadata
   ) => void
+  deleteFile: (index: number, file: FileWithMetadata) => void
 }
 
 type SortableFileProps = {
   file: FileWithMetadata
+  deleteFile: (index: number, file: FileWithMetadata) => void
 }
 
-const SortableFile = ({ file }: SortableFileProps) => {
+const SortableFile = ({ file, deleteFile }: SortableFileProps) => {
   const {
     file: { name },
     preview,
@@ -72,14 +74,37 @@ const SortableFile = ({ file }: SortableFileProps) => {
       className={`${styles.thumb} scale`}
       key={name.replace('-', '').replace('.', '').replace(' ', '_')}>
       <div className={styles.thumbInner}>
-        <img src={preview} alt="preview" className={styles.thumbImg} />
+        <div
+          style={{ background: `url('${preview}')`, backgroundSize: 'contain' }}
+          className={styles.thumbImg}>
+          <button
+            className={'block float-right ' + (index === 0 ? 'pt-3' : '')}
+            onClick={() => deleteFile(index, file)}>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </button>
+        </div>
         <p className="truncate w-40">{name}</p>
       </div>
     </div>
   )
 }
 
-const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
+const DraggableWrapper = ({
+  files,
+  moveFiles,
+  deleteFile
+}: DraggableWrapperProps) => {
   const [fileIDs, setFileIDs] = useState<string[]>(files.map(file => file.uuid))
 
   useEffect(() => {
@@ -144,7 +169,7 @@ const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
         onDragEnd={handleDragEnd}>
         <SortableContext items={fileIDs} strategy={rectSortingStrategy}>
           {files.map(file => (
-            <SortableFile key={file.uuid} file={file} />
+            <SortableFile key={file.uuid} file={file} deleteFile={deleteFile} />
           ))}
           {addFile}
         </SortableContext>
