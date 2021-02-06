@@ -29,12 +29,15 @@ type DraggableWrapperProps = {
 }
 
 type SortableFileProps = {
-  id: string
-  name: string
-  preview: string
+  file: FileWithMetadata
 }
 
-const SortableFile = ({ id, name, preview }: SortableFileProps) => {
+const SortableFile = ({ file }: SortableFileProps) => {
+  const {
+    file: { name },
+    preview,
+    uuid
+  } = file
   const {
     attributes,
     listeners,
@@ -42,7 +45,7 @@ const SortableFile = ({ id, name, preview }: SortableFileProps) => {
     transform,
     transition,
     index
-  } = useSortable({ id })
+  } = useSortable({ id: uuid })
 
   const style = {
     transform: CSS.Transform.toString(
@@ -140,16 +143,9 @@ const DraggableWrapper = ({ files, moveFiles }: DraggableWrapperProps) => {
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}>
         <SortableContext items={fileIDs} strategy={rectSortingStrategy}>
-          {files.map(file => {
-            return (
-              <SortableFile
-                key={file.uuid}
-                id={file.uuid}
-                name={file.file.name}
-                preview={file.preview}
-              />
-            )
-          })}
+          {files.map(file => (
+            <SortableFile key={file.uuid} file={file} />
+          ))}
           {addFile}
         </SortableContext>
       </DndContext>
