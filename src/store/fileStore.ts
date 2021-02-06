@@ -257,6 +257,14 @@ class FileStore extends AbstractStore {
               // Insert Position
               currentFileList[position] = newFileForPosition
               currentFileList[secondPosition] = newFileForSecondPosition
+
+              const files: InputFilesType = {}
+              currentFileList.forEach(file =>
+                files[file.customType]
+                  ? files[file.customType]!.push(file)
+                  : (files[file.customType] = [file])
+              )
+              this.files = files
             }
           }
           break
@@ -267,6 +275,13 @@ class FileStore extends AbstractStore {
             if (position) {
               currentFileList.splice(position, 1)
             }
+            const files: InputFilesType = {}
+            currentFileList.forEach(file =>
+              files[file.customType]
+                ? files[file.customType]!.push(file)
+                : (files[file.customType] = [file])
+            )
+            this.files = files
           }
           break
         }
@@ -283,7 +298,11 @@ class FileStore extends AbstractStore {
                 currentFileList?.length || 0,
                 getFileExtension(file.name)
               )
-              currentFileList.push(renamedFile)
+              this.files[renamedFile.customType] = this.files[
+                renamedFile.customType
+              ]
+                ? this.files[renamedFile.customType]!.concat(renamedFile)
+                : [renamedFile]
 
               if (this.terminalStore && this.terminalStore.updateTerminalText) {
                 this.terminalStore.updateTerminalText(
@@ -298,7 +317,6 @@ class FileStore extends AbstractStore {
           break
         }
       }
-      this.files[type] = currentFileList
     }
   }
 
