@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 
 type DescriptionFile = {
@@ -37,6 +36,7 @@ const imageArrangement = (imgType: string, idx: number) => {
         <div
           key={`image-preview-${idx}`}
           className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
+          {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
           <img
             alt="Image Preview"
             className="w-12 h-12"

@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-props-no-spreading */
-// import './dropzone.css'
 import useEventListener from '@core/utils/useEventListener'
 import { arrayMove } from '@dnd-kit/sortable'
 import ComponentStore from '@store/componentStore'

@@ -35,7 +35,6 @@ class FileStore extends AbstractStore {
    *
    * When this object is defined the main file object this.files will be deleted
    */
-  // @observable electronFiles: ElectronFiles = []
 
   // String of names of files loaded to FFmpeg(WASM)
   @observable loadedFiles: FileNameTypes = {}
@@ -298,7 +297,6 @@ class FileStore extends AbstractStore {
           break
         }
       }
-      // Object.assign(this.files, { ...this.files, [type]: currentFileList });
       this.files[type] = currentFileList
     }
   }
