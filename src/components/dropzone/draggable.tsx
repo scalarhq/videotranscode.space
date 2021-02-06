@@ -40,11 +40,23 @@ const SortableFile = ({ id, name, preview }: SortableFileProps) => {
     listeners,
     setNodeRef,
     transform,
-    transition
+    transition,
+    index
   } = useSortable({ id })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString(
+      {
+        ...transform!,
+        scaleX: index === 0 ? 1.25 : 1,
+        scaleY: index === 0 ? 1.25 : 1
+      } || {
+        x: 0,
+        y: 0,
+        scaleX: index === 0 ? 1.25 : 1,
+        scaleY: index === 0 ? 1.25 : 1
+      }
+    ),
     transition
   }
 
@@ -54,7 +66,7 @@ const SortableFile = ({ id, name, preview }: SortableFileProps) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={styles.thumb}
+      className={`${styles.thumb} scale`}
       key={name.replace('-', '').replace('.', '').replace(' ', '_')}>
       <div className={styles.thumbInner}>
         <img src={preview} alt="preview" className={styles.thumbImg} />
