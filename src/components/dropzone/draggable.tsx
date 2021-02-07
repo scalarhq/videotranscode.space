@@ -16,6 +16,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import styles from '@styles/dropzone.module.css'
 import React, { useEffect, useState } from 'react'
+import { Fade } from 'react-reveal'
 
 import { FileWithMetadata } from '~@types/fileTypes'
 
@@ -35,6 +36,7 @@ type SortableFileProps = {
 }
 
 const SortableFile = ({ file, deleteFile }: SortableFileProps) => {
+  const [visible, setVisible] = useState(false)
   const {
     file: { name },
     preview,
@@ -73,26 +75,37 @@ const SortableFile = ({ file, deleteFile }: SortableFileProps) => {
       {...listeners}
       className={`${styles.thumb} scale`}
       key={name.replace('-', '').replace('.', '').replace(' ', '_')}>
-      <div className={styles.thumbInner}>
+      <div
+        className={styles.thumbInner}
+        onMouseEnter={() => setVisible(v => !v)}
+        onMouseLeave={() => setVisible(v => !v)}>
         <div
-          style={{ background: `url('${preview}')`, backgroundSize: 'contain' }}
+          style={{
+            backgroundImage: `url('${preview}')`,
+            backgroundSize: '100% 100%'
+          }}
           className={styles.thumbImg}>
-          <button
-            className={'block float-right ' + (index === 0 ? 'pt-3' : '')}
-            onClick={() => deleteFile(index, file)}>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </button>
+          <Fade when={visible}>
+            <button
+              style={{
+                visibility: visible ? 'visible' : 'hidden'
+              }}
+              className={'block float-right ' + (index === 0 ? 'pt-3' : 'pt-1')}
+              onClick={() => deleteFile(index, file)}>
+              <svg
+                className="w-6 h-6 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </button>
+          </Fade>
         </div>
         <p className="truncate w-40">{name}</p>
       </div>
