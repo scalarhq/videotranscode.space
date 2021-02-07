@@ -77,8 +77,8 @@ const SortableFile = ({ file, deleteFile }: SortableFileProps) => {
       key={name.replace('-', '').replace('.', '').replace(' ', '_')}>
       <div
         className={styles.thumbInner}
-        onMouseEnter={() => setVisible(v => !v)}
-        onMouseLeave={() => setVisible(v => !v)}>
+        onMouseEnter={() => setVisible(true)}
+        onMouseLeave={() => setVisible(false)}>
         <div
           style={{
             backgroundImage: `url('${preview}')`,
