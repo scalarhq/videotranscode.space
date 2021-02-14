@@ -6,6 +6,7 @@ import '@globalStyles/variables.css'
 import '@globalStyles/terminal.css'
 import '@globalStyles/steps.css'
 import '@globalStyles/tour.css'
+import 'node_modules/react-push-notification/dist/notifications/Notification.css'
 
 import App from 'next/app'
 
