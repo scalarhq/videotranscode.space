@@ -20,7 +20,7 @@ const {
   UserStore
 } = ComponentStore
 
-if ('Notification' in window) {
+if (typeof window !== 'undefined' && 'Notification' in window) {
   if (Notification.permission !== 'granted') {
     Notification.requestPermission().then(() => {
       addNotification({
