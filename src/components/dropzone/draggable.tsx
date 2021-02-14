@@ -82,10 +82,11 @@ const SortableFile = ({ file, deleteFile }: SortableFileProps) => {
         <div
           style={{
             backgroundImage: `url('${preview}')`,
-            backgroundSize: '100% 100%'
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
           }}
           className={styles.thumbImg}>
-          <Fade when={visible}>
+          <Fade duration={200} when={visible}>
             <button
               style={{
                 visibility: visible ? 'visible' : 'hidden'
