@@ -16,6 +16,7 @@ import RunFeature, { RunUi } from './src/runFeature'
 // Features
 import TranscodeFeature, { TranscodeUi } from './src/transcodeFeature'
 import TrimFeature, { TrimUi } from './src/trimFeature'
+import VideoSpeedFeature, { VideoSpeedUI } from './src/videoSpeedFeature'
 
 export type Feature =
   | typeof MuteFeature
@@ -28,6 +29,7 @@ export type Feature =
   | typeof RunFeature
   | typeof TrimFeature
   | typeof CombinedExecFeature
+  | typeof VideoSpeedFeature
 
 export type FeatureElement = {
   name: string
@@ -214,6 +216,25 @@ const FEATURES: Features = {
           types: ['video'],
           description: 'The same video but with no audio'
         }}></FeatureDescription>
+    )
+  },
+  VIDEO_SPEED: {
+    name: 'Video Speed',
+    description: 'Speed up or slow down your video',
+    feature: VideoSpeedFeature,
+    ui: <VideoSpeedUI parents={['VIDEO_SPEED']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Video Speed"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'The same video sped up or slowed down'
+        }}
+        description="Speed up or slow down your video"></FeatureDescription>
     )
   }
 }
