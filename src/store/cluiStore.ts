@@ -80,11 +80,15 @@ class CluiStore extends AbstractStore {
    *
    * @param newConfiguration Object of user set configurations
    * @param parents An Array of keys of parents, this will determine where the object is updated
+   *
+   * NOTE: THIS WILL MUTATE PARENTS ARRAY, Only Pass Array as a copy
+   *
    */
   @action updateConfiguration = (
     newConfiguration: { value: any; [name: string]: any },
-    parents: Array<string>
+    inputParents: Array<string>
   ) => {
+    const parents = [...inputParents] // Specifically to prevent mutation of parents
     const { configuration } = this
     function updateObject(object: any) {
       while (parents.length > 1) {
