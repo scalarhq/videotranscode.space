@@ -35,7 +35,6 @@ class FileStore extends AbstractStore {
    *
    * When this object is defined the main file object this.files will be deleted
    */
-  // @observable electronFiles: ElectronFiles = []
 
   // String of names of files loaded to FFmpeg(WASM)
   @observable loadedFiles: FileNameTypes = {}
@@ -105,125 +104,12 @@ class FileStore extends AbstractStore {
 
     return {
       file: newFile,
+      uuid: originalFile.uuid,
       preview: originalFile.preview,
       customType: originalFile.customType,
       videoMetadata: originalFile.videoMetadata,
       path: originalFile.path
     }
-  }
-
-  // Actions
-
-  @action('Update Current File')
-  updateCurrentFile = (fileConfig: {
-    name: string
-    path: string
-    type: FileTypes
-  }) => {
-    this.oldFiles.push(this.currentFile.name)
-    this.currentFile = fileConfig
-  }
-
-  @action('Set dropzone ref')
-  setDropzoneRef = (ref: RefObject<HTMLDivElement>) => {
-    this.dropzoneRef = ref
-  }
-
-  @action('Open file drawer')
-  openFileDrawer = () => {
-    const { dropzoneRef } = this
-    if (dropzoneRef && dropzoneRef.current) {
-      dropzoneRef.current.click()
-    }
-  }
-
-  /**
-   * Operational Transform to change state of files
-   * @param newTransform is a array of transformations of type @link{FileTransformType}
-   * This transform handles three main types of transformations:
-   * - Move file from position A to position B, while appropriately renaming the files
-   * - Delete file at position A
-   * - Insert file at end of array
-   * Each transform represents only one file type and is executed for that type. @link{FileTypes}
-   */
-  @action('Update Files Operational Transform')
-  updateFiles = (newTransform: FileTransformType[]) => {
-    const { files, getFileExtension, renameFile } = this
-
-    for (const transform of newTransform) {
-      const { state, type } = transform
-      const currentFileList = files[type] || []
-
-      switch (state) {
-        case 'Move': {
-          if (currentFileList) {
-            const { position, secondPosition } = transform
-            if (position && secondPosition) {
-              // Rename Files
-              const newFileForPosition = renameFile(
-                currentFileList[secondPosition],
-                type,
-                secondPosition,
-                getFileExtension(currentFileList[secondPosition].file.name)
-              )
-              const newFileForSecondPosition = renameFile(
-                currentFileList[position],
-                type,
-                position,
-                getFileExtension(currentFileList[position].file.name)
-              )
-              // Insert Position
-              currentFileList[position] = newFileForPosition
-              currentFileList[secondPosition] = newFileForSecondPosition
-            }
-          }
-          break
-        }
-        case 'Delete': {
-          if (currentFileList) {
-            const { position } = transform
-            if (position) {
-              currentFileList.splice(position, 1)
-            }
-          }
-          break
-        }
-        case 'Insert': {
-          const { fileObj } = transform
-
-          if (fileObj) {
-            const { file } = fileObj
-
-            if (file) {
-              const renamedFile = renameFile(
-                fileObj,
-                type,
-                currentFileList?.length || 0,
-                getFileExtension(file.name)
-              )
-              currentFileList.push(renamedFile)
-
-              if (this.terminalStore && this.terminalStore.updateTerminalText) {
-                this.terminalStore.updateTerminalText(
-                  `Received File ${file.name}`
-                )
-              }
-            }
-          }
-          break
-        }
-        default: {
-          break
-        }
-      }
-      // Object.assign(this.files, { ...this.files, [type]: currentFileList });
-      this.files[type] = currentFileList
-    }
-  }
-
-  @action('Update Loaded Files')
-  updateLoadedFiles = (loadedFiles: FileNameTypes) => {
-    this.loadedFiles = loadedFiles
   }
 
   // Computed
@@ -305,6 +191,138 @@ class FileStore extends AbstractStore {
 
   @computed get fileReference() {
     return toJS(this.files)
+  }
+
+  // Actions
+
+  @action('Update Current File')
+  updateCurrentFile = (fileConfig: {
+    name: string
+    path: string
+    type: FileTypes
+  }) => {
+    this.oldFiles.push(this.currentFile.name)
+    this.currentFile = fileConfig
+  }
+
+  @action('Set dropzone ref')
+  setDropzoneRef = (ref: RefObject<HTMLDivElement>) => {
+    this.dropzoneRef = ref
+  }
+
+  @action('Open file drawer')
+  openFileDrawer = () => {
+    const { dropzoneRef } = this
+    if (dropzoneRef && dropzoneRef.current) {
+      dropzoneRef.current.click()
+    }
+  }
+
+  /**
+   * Operational Transform to change state of files
+   * @param newTransform is a array of transformations of type @link{FileTransformType}
+   * This transform handles three main types of transformations:
+   * - Move file from position A to position B, while appropriately renaming the files
+   * - Delete file at position A
+   * - Insert file at end of array
+   * Each transform represents only one file type and is executed for that type. @link{FileTypes}
+   */
+  @action('Update Files Operational Transform')
+  updateFiles = (newTransform: FileTransformType[]) => {
+    const { getFileExtension, renameFile } = this
+
+    for (const transform of newTransform) {
+      const { state, type } = transform
+      const currentFileList = this.allFiles
+
+      switch (state) {
+        case 'Move': {
+          if (currentFileList) {
+            const { position, secondPosition } = transform
+
+            if (position && secondPosition) {
+              // Rename Files
+              const newFileForPosition = renameFile(
+                currentFileList[secondPosition],
+                type,
+                secondPosition,
+                getFileExtension(currentFileList[secondPosition].file.name)
+              )
+              const newFileForSecondPosition = renameFile(
+                currentFileList[position],
+                type,
+                position,
+                getFileExtension(currentFileList[position].file.name)
+              )
+              // Insert Position
+              currentFileList[position] = newFileForPosition
+              currentFileList[secondPosition] = newFileForSecondPosition
+
+              const files: InputFilesType = {}
+              currentFileList.forEach(file =>
+                files[file.customType]
+                  ? files[file.customType]!.push(file)
+                  : (files[file.customType] = [file])
+              )
+              this.files = files
+            }
+          }
+          break
+        }
+        case 'Delete': {
+          if (currentFileList) {
+            const { position } = transform
+            if (position) {
+              currentFileList.splice(position, 1)
+            }
+            const files: InputFilesType = {}
+            currentFileList.forEach(file =>
+              files[file.customType]
+                ? files[file.customType]!.push(file)
+                : (files[file.customType] = [file])
+            )
+            this.files = files
+          }
+          break
+        }
+        case 'Insert': {
+          const { fileObj } = transform
+
+          if (fileObj) {
+            const { file } = fileObj
+
+            if (file) {
+              const renamedFile = renameFile(
+                fileObj,
+                type,
+                currentFileList?.length || 0,
+                getFileExtension(file.name)
+              )
+              this.files[renamedFile.customType] = this.files[
+                renamedFile.customType
+              ]
+                ? this.files[renamedFile.customType]!.concat(renamedFile)
+                : [renamedFile]
+
+              if (this.terminalStore && this.terminalStore.updateTerminalText) {
+                this.terminalStore.updateTerminalText(
+                  `Received File ${file.name}`
+                )
+              }
+            }
+          }
+          break
+        }
+        default: {
+          break
+        }
+      }
+    }
+  }
+
+  @action('Update Loaded Files')
+  updateLoadedFiles = (loadedFiles: FileNameTypes) => {
+    this.loadedFiles = loadedFiles
   }
 }
 

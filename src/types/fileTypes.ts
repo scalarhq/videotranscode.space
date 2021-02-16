@@ -30,6 +30,7 @@ export type FileTransformType = {
 }
 
 export type FileWithMetadata = {
+  uuid: string
   file: ElectronFile
   preview: string
   customType: FileTypes

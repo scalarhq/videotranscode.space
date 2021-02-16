@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast'
+import addNotification from 'react-push-notification'
 
 import features from '../features/features'
 import ComponentStore from '../store/componentStore'
@@ -18,6 +19,20 @@ const {
   terminalStore,
   UserStore
 } = ComponentStore
+
+if (typeof window !== 'undefined' && 'Notification' in window) {
+  if (Notification.permission !== 'granted') {
+    Notification.requestPermission().then(() => {
+      addNotification({
+        title: 'Starting export ...',
+        message: `Your video has started processing`,
+        vibrate: 1,
+        icon: '/favicon.png',
+        native: true // when using native, your OS will handle theming.
+      })
+    })
+  }
+}
 
 const { updateCurrentFile, oldFiles, updateLoadedFiles } = FileStore
 
@@ -111,9 +126,18 @@ const onSubmitHandler = async () => {
 
   const successMsg = `Done, Enjoy your video! The process was completed in ${encodeTime} seconds`
 
-  console.log(successMsg)
+  console.log(successMsg) // Updates terminal
 
   toast.success(successMsg, { duration: 20000 })
+
+  addNotification({
+    title: 'Your video is processed!',
+    message: `Your video was processed in ${encodeTime} seconds`,
+    duration: 20000,
+    vibrate: 1,
+    icon: '/favicon.png',
+    native: true // when using native, your OS will handle theming.
+  })
 }
 
 export default onSubmitHandler

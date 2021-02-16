@@ -21,29 +21,40 @@ const defaultDescriptionFile: DescriptionFile = {
   description: 'Video File'
 }
 
-const imageArrangement = {
-  video: (
-    <img
-      alt="Video Preview"
-      className="w-20 h-20"
-      src="/images/previews/videoPreview.png"></img>
-  ),
-  image: (
-    <div className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
-      <img
-        alt="Video Preview"
-        className="w-12 h-12"
-        src="/images/previews/imagePreview.png"></img>
-    </div>
-  ),
-  audio: (
-    <div className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
-      <img
-        alt="Video Preview"
-        className="w-12 h-12"
-        src="/images/previews/audioPreview.png"></img>
-    </div>
-  )
+const imageArrangement = (imgType: string, idx: number) => {
+  switch (imgType) {
+    case 'video':
+      return (
+        <img
+          alt="Video Preview"
+          key={`video-preview-${idx}`}
+          className="w-20 h-20"
+          src="/images/previews/videoPreview.png"></img>
+      )
+    case 'image':
+      return (
+        <div
+          key={`image-preview-${idx}`}
+          className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
+          {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+          <img
+            alt="Image Preview"
+            className="w-12 h-12"
+            src="/images/previews/imagePreview.png"></img>
+        </div>
+      )
+    case 'audio':
+      return (
+        <div
+          key={`audio-preview-${idx}`}
+          className="relative rounded-lg pl-6 py-2 shadow-sm flex items-center space-x-3">
+          <img
+            alt="Audio Preview"
+            className="w-12 h-12"
+            src="/images/previews/audioPreview.png"></img>
+        </div>
+      )
+  }
 }
 
 const FeatureDescription = ({
@@ -68,8 +79,8 @@ const FeatureDescription = ({
                 ? 'grid grid-cols-1 gap-4 sm:grid-cols-2'
                 : 'flex w-full justify-center'
             }>
-            {fileInput.types.map(type => {
-              return imageArrangement[type]
+            {fileInput.types.map((type, index) => {
+              return imageArrangement(type, index)!
             })}
           </div>
         </div>
@@ -95,8 +106,8 @@ const FeatureDescription = ({
                 ? 'grid grid-cols-1 gap-4 sm:grid-cols-2'
                 : 'flex w-full justify-center'
             }>
-            {fileOutput.types.map(type => {
-              return imageArrangement[type]
+            {fileOutput.types.map((type, index) => {
+              return imageArrangement(type, index)!
             })}
           </div>
         </div>
