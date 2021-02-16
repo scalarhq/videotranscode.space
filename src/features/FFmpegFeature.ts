@@ -47,7 +47,11 @@ abstract class FFmpegFeature implements FFmpegInterface {
     type: 'video'
   }
 
-  public progressBar = { name: 'Processing....', color: '#0d6efd' }
+  public progressBar: { name: string; color: string; multipler?: number } = {
+    name: 'Processing....',
+    color: '#0d6efd',
+    multipler: 1
+  }
 
   public ffmpegInputCommand = ''
 
@@ -168,8 +172,8 @@ abstract class FFmpegFeature implements FFmpegInterface {
   }
 
   public updateProgress = () => {
-    const { name, color } = this.progressBar
-    updateStatic(name, color)
+    const { name, color, multipler } = this.progressBar
+    updateStatic(name, color, multipler)
   }
 
   public abstract setFFmpegCommands(...args: any[]): void

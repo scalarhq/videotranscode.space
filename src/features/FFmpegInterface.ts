@@ -39,7 +39,7 @@ export default interface FFmpegInterface {
   }
 
   /** Object determining the text and color of the progress bar */
-  progressBar: { name: string; color: string }
+  progressBar: { name: string; color: string; multipler?: number }
 
   /** String representing the how files are inputted to FFmpeg */
   ffmpegInputCommand: string

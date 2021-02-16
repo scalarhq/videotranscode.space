@@ -3,9 +3,19 @@ import classNames from 'classnames'
 import React, { useEffect } from 'react'
 import { useBeforeunload } from 'react-beforeunload'
 
-export type ProgressProps = { progress: number; color: string; name: string }
+export type ProgressProps = {
+  progress: number
+  color: string
+  name: string
+  multipler: number
+}
 
-const ProgressBar = ({ name, color, progress }: ProgressProps) => {
+const ProgressBar = ({
+  name,
+  color,
+  progress,
+  multipler = 1
+}: ProgressProps) => {
   const progressBar = React.useRef<null | HTMLDivElement>(null)
   useEffect(() => {
     if (progressBar && progressBar.current) {
@@ -16,12 +26,13 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
   useEffect(() => {
     if (progressBar && progressBar.current) {
       if (progress > 1) {
-        const styledProgress = 20 + 0.4 * progress * Math.log10(progress)
+        const styledProgress =
+          (20 + 0.4 * progress * Math.log10(progress)) * multipler
         console.info('Styled Progress', styledProgress)
         progressBar.current.style.width = `${styledProgress}%`
       }
     }
-  }, [progress])
+  }, [progress, multipler])
 
   useBeforeunload(() => 'Your video will stop processing!')
 
@@ -50,7 +61,7 @@ const ProgressBar = ({ name, color, progress }: ProgressProps) => {
             aria-valuemin={0}
             aria-valuemax={100}
             style={{ width: '20%' }}>
-            {progress.toFixed(2)}%
+            {(progress * multipler).toFixed(2)}%
           </div>
         </div>
       </div>

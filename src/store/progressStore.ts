@@ -11,6 +11,9 @@ class ProgressStore extends AbstractStore {
 
   @observable name: string = ''
 
+  // Speed scale factor
+  @observable multipler: number = 1
+
   // Constructor
   constructor() {
     super()
@@ -25,9 +28,10 @@ class ProgressStore extends AbstractStore {
   }
 
   @action
-  updateStatic = (newName: string, newColor: string) => {
+  updateStatic = (newName: string, newColor: string, multipler = 1) => {
     this.name = newName
     this.color = newColor
+    this.multipler = multipler
   }
 
   @action

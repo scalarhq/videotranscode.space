@@ -42,6 +42,7 @@ class VideoSpeedFeature extends FFmpegFeature {
     const { factor } = this.parseConfiguration()
     this.progressBar.name = factor > 1.0 ? 'Speeding up...' : 'Slowing down...'
     this.progressBar.color = '#3FBD71'
+    this.progressBar.multipler = factor
   }
 
   setFFmpegCommands = (factor: number, audio?: boolean) => {
