@@ -38,18 +38,33 @@
 
 .thumbInner {
   display: flex;
-  @apply flex-col items-center;
+  @apply flex-col;
+  @apply items-center;
+  @apply justify-start;
   min-width: 0px;
   overflow: hidden;
+  @apply px-2;
+  @apply pt-2;
 }
 
 .thumbImg {
   display: block;
+  position: relative;
   width: 7rem;
-  height: 7rem;
-  object-fit: contain;
+  height: auto;
   font-size: 13px;
   border-radius: 2px;
+  object-fit: contain;
+}
+.thumbImgLarge {
+  display: block;
+  position: relative;
+  width: 20rem;
+  height: auto;
+  font-size: 13px;
+  border-radius: 2px;
+  cursor: move;
+  object-fit: contain;
 }
 
 .dropzone {
