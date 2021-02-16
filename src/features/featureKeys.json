@@ -8,5 +8,6 @@
   "ASPECT_RATIO": true,
   "CUSTOM_RUN": true,
   "TRIM": true,
-  "MUTE": true
+  "MUTE": true,
+  "GIF" : true
 }

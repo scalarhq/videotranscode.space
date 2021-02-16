@@ -32,7 +32,7 @@ export type FileTransformType = {
 export type FileWithMetadata = {
   file: ElectronFile
   preview: string
-  customType: 'video' | 'audio' | 'image' | 'other'
+  customType: FileTypes
   videoMetadata?: {
     height: number
     width: number
