@@ -1,16 +1,14 @@
+import List from '@cluiComponents/List'
+import SingleInput from '@cluiComponents/Single-Input'
 import FFmpegFeature from '@features/FFmpegFeature'
+import useExistingSettings from '@features/useExistingSettings'
+import cluiStore from '@store/cluiStore'
 import React, { useEffect, useState } from 'react'
-
-import ComponentStore from '../../store/componentStore'
-
-const {
-  CluiStore: { updateConfiguration }
-} = ComponentStore
 
 type VideoSpeedConfig = {
   VIDEO_SPEED: {
     value: number
-    audio: { value: boolean }
+    AUDIO: { value: boolean }
   }
   [name: string]: any
 }
@@ -29,11 +27,14 @@ class VideoSpeedFeature extends FFmpegFeature {
 
   parseConfiguration = () => {
     const {
-      VIDEO_SPEED: { value, audio }
+      VIDEO_SPEED: {
+        value,
+        AUDIO: { value: audioValue }
+      }
     } = this.configuration
     return {
       factor: value,
-      audio: audio.value
+      audio: audioValue
     }
   }
 
@@ -62,82 +63,109 @@ class VideoSpeedFeature extends FFmpegFeature {
   }
 }
 
-export const VideoSpeedUI = ({ parents }: { parents: Array<string> }) => {
-  const [affectAudio, setAffectAudio] = useState<boolean>(false)
-  const [factor, setFactor] = useState<number>(2.0)
-  const [input, setInput] = useState<string>('2.0')
-  const [valid, setValid] = useState<boolean>(true)
+const { updateConfiguration } = cluiStore
 
-  const validInputs = Array.from(
-    Array(10),
-    (_val: any, idx: number) => idx + ''
-  ).concat('.')
-
-  useEffect(() => {
-    if (isNaN((input as unknown) as number) || input === '') {
-      setValid(false)
-    } else {
-      setValid(true)
-      setFactor(parseFloat(input))
-    }
-  }, [input])
+const ApplyToAudio = ({
+  parents,
+  startState = false
+}: {
+  parents: string[]
+  startState: boolean
+}) => {
+  const [affectAudio, setAffectAudio] = useState(startState)
 
   useEffect(() => {
-    updateConfiguration(
-      {
-        value: factor,
-        audio: { value: affectAudio }
-      },
-      [...parents]
-    )
-  }, [affectAudio, factor, parents])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    if (e.target.value === '') {
-      console.log('bingo')
-      setInput('')
-      setValid(false)
-      return
+    console.info('Updated state', affectAudio, parents)
+    if (parents.length > 0) {
+      updateConfiguration({ value: affectAudio }, [...parents])
     }
-    if (
-      !e.target.value
-        .split('')
-        .every((val: string) => validInputs.includes(val))
-    )
-      return
-    setInput(e.target.value)
-  }
+  }, [affectAudio, parents])
 
   return (
-    <div className="flex flex-col w-full justify-center items-center">
-      <p className="text-xl font-bold">Video Speed Settings</p>
-
-      <div className="flex flex-col justify-left items-left">
-        <div className="flex items-left p-8">
-          <p className="h-full mr-4">Apply to audio?</p>
-          <input
-            className="bg-gray-700 bg-opacity-50"
-            type="checkbox"
-            onChange={e => setAffectAudio(!!e.target.value)}
-          />
-        </div>
-        <div className="flex items-left p-8">
-          <p className="h-full mr-4">Multiplier</p>
-          <input
-            className={`input-like-text w-16 appearance-none block text-gray-200  focus:text-gray-50 bg-gray-700  bg-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none ${
-              valid
-                ? 'focus:border-green-300 focus:ring-green-300'
-                : 'focus:border-red-600 focus:ring-red-600'
-            } focus:ring-opacity-40 focus:ring-2 focus:bg-opacity-75`}
-            type="text"
-            value={input}
-            onChange={e => handleInputChange(e)}
-          />
-        </div>
-      </div>
+    <div className="py-3 pt-6 flex justify-center items-center">
+      <p className="text-lg text-gray-50 px-10">
+        Apply to speed change to audio?
+      </p>
+      <input
+        type="checkbox"
+        checked={affectAudio}
+        onChange={e => setAffectAudio(e.target.checked)}></input>
     </div>
   )
+}
+
+export const VideoSpeedUI = ({ parents }: { parents: Array<string> }) => {
+  const presets = {
+    main: {
+      key: 'VIDEO_SPEED',
+      value: 0.5
+    },
+    child: {
+      key: 'AUDIO',
+      value: false
+    }
+  }
+
+  const defaults = useExistingSettings({
+    main: [...parents],
+    child: [...parents, 'AUDIO'],
+    defaults: presets
+  })
+
+  const { main, child } = defaults
+
+  const AudioSelectionChild = {
+    component: ApplyToAudio,
+    props: {
+      parents: [...parents, 'AUDIO'],
+      startState: child?.value
+    }
+  }
+
+  const customObject = {
+    name: 'Custom',
+    value: 0,
+    child: {
+      component: SingleInput,
+      props: {
+        parents,
+        type: 'number',
+        placeholder: 1.5,
+        child: AudioSelectionChild
+      },
+      paddingTop: 3
+    }
+  }
+
+  const ListElements = [
+    { name: '0.25x', value: 0.25, child: AudioSelectionChild },
+    { name: '0.5x', value: 0.5, child: AudioSelectionChild },
+    { name: '1.5x', value: 1.5, child: AudioSelectionChild },
+    { name: '2x', value: 2, child: AudioSelectionChild },
+    customObject
+  ]
+
+  const listObject = ListElements.find(({ value }) => value === main.value)
+
+  const current = listObject || {
+    ...customObject,
+    child: {
+      ...customObject.child,
+      props: {
+        ...customObject.child?.props,
+        defaultValue: main.value // Sets the custom input value to the preset value
+      }
+    }
+  }
+
+  const props = {
+    parents,
+    title: 'Speed Settings',
+    current,
+    list: ListElements
+  }
+
+  return <List {...props} />
 }
 
 export default VideoSpeedFeature
