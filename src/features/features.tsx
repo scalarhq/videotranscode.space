@@ -165,12 +165,24 @@ const FEATURES: Features = {
     )
   },
 
-  CUSTOM_RUN: {
-    name: 'Custom-Run(Experimental)',
-    description: 'Run your own ffmpeg command',
-    feature: RunFeature,
-    ui: <RunUi parents={['RUN']} />,
-    noDisplay: true
+  VIDEO_SPEED: {
+    name: 'Video Speed',
+    description: 'Speed up or slow down your video',
+    feature: VideoSpeedFeature,
+    ui: <VideoSpeedUI parents={['VIDEO_SPEED']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="Video Speed"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['video'],
+          description: 'The same video sped up or slowed down'
+        }}
+        description="Speed up or slow down your video"></FeatureDescription>
+    )
   },
 
   // UI LESS FEATURES
@@ -218,24 +230,15 @@ const FEATURES: Features = {
         }}></FeatureDescription>
     )
   },
-  VIDEO_SPEED: {
-    name: 'Video Speed',
-    description: 'Speed up or slow down your video',
-    feature: VideoSpeedFeature,
-    ui: <VideoSpeedUI parents={['VIDEO_SPEED']} />,
-    descriptionUI: (
-      <FeatureDescription
-        name="Video Speed"
-        fileInput={{
-          types: ['video'],
-          description: 'Your video'
-        }}
-        fileOutput={{
-          types: ['video'],
-          description: 'The same video sped up or slowed down'
-        }}
-        description="Speed up or slow down your video"></FeatureDescription>
-    )
+
+  // No Display Features
+
+  CUSTOM_RUN: {
+    name: 'Custom-Run(Experimental)',
+    description: 'Run your own ffmpeg command',
+    feature: RunFeature,
+    ui: <RunUi parents={['RUN']} />,
+    noDisplay: true
   }
 }
 

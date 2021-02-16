@@ -42,6 +42,15 @@ const getObject = (
   return false
 }
 
+/**
+ * Returns default values for features using a custom hook to check what value already exisits
+ * This is important for dealing with edit feature so the settings persist
+ *
+ * Each object pairing main, child, other will take in an input parent array and return an {@link Output} type which
+ * defines the default values for that object
+ *
+ * Defaults represents the starting values
+ */
 const useExistingSettings: useExistingSettingsType = ({
   main,
   child,
