@@ -9,5 +9,6 @@
   "CUSTOM_RUN": true,
   "TRIM": true,
   "MUTE": true,
-  "VIDEO_SPEED": true
+  "VIDEO_SPEED": true,
+  "GIF" : true
 }

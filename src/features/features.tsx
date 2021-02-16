@@ -7,6 +7,7 @@ import AspectRatioFeature, { AspectRatioUi } from './src/aspectRatioFeature'
 import CombinedExecFeature from './src/combinedExecFeature'
 import CompressionFeature, { CompressionUi } from './src/compressionFeature'
 import ConcatFeature, { ConcatUi } from './src/concatFeature'
+import GIFTranscode, { GIFUi } from './src/gifTranscode'
 // UI LESS Features
 import GreyScaleFeature from './src/greyScaleFeature'
 import MuteFeature from './src/muteFeature'
@@ -30,6 +31,7 @@ export type Feature =
   | typeof TrimFeature
   | typeof CombinedExecFeature
   | typeof VideoSpeedFeature
+  | typeof GIFTranscode
 
 export type FeatureElement = {
   name: string
@@ -141,6 +143,26 @@ const FEATURES: Features = {
         fileOutput={{
           types: ['video'],
           description: 'One big video'
+        }}></FeatureDescription>
+    )
+  },
+
+  GIF: {
+    name: 'GIF',
+    description: 'Convert videos to GIFs',
+    feature: GIFTranscode,
+    ui: <GIFUi parents={['TRANSCODE', 'FORMAT']} />,
+    descriptionUI: (
+      <FeatureDescription
+        name="GIF"
+        description="Convert videos to GIFs"
+        fileInput={{
+          types: ['video'],
+          description: 'Your video'
+        }}
+        fileOutput={{
+          types: ['image'],
+          description: 'Your video as a GIF'
         }}></FeatureDescription>
     )
   },

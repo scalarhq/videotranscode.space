@@ -6,7 +6,7 @@
 
 import FFmpegFeature from '@features/FFmpegFeature'
 import CluiStore from '@store/cluiStore'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const { updateConfiguration } = CluiStore
 
@@ -61,15 +61,11 @@ class GIFTranscode extends FFmpegFeature {
 export default GIFTranscode
 
 const GIFUi = ({ parents }: { parents: string[] }) => {
-  const fpsRef = useRef<HTMLInputElement>(null)
-  const scaleRef = useRef<HTMLInputElement>(null)
-  const loopRef = useRef<HTMLInputElement>(null)
+  const [fps, setFps] = useState(10)
+  const [scale, setScale] = useState(320)
+  const [loop, setLoop] = useState(0)
 
   useEffect(() => {
-    const fps = parseInt(fpsRef?.current?.value || '10', 10)
-    const scale = parseInt(scaleRef?.current?.value || '320', 10)
-    const loop = parseInt(loopRef?.current?.value || '0', 10)
-
     updateConfiguration(
       {
         fps,
@@ -80,10 +76,10 @@ const GIFUi = ({ parents }: { parents: string[] }) => {
       [...parents, 'CONFIG']
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fpsRef.current, scaleRef.current, loopRef.current])
+  }, [fps, scale, loop])
 
   return (
-    <>
+    <div className="py-3 overflow-x-hidden">
       <div className="flex flex-wrap -mx-3 mb-2">
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label
@@ -92,7 +88,10 @@ const GIFUi = ({ parents }: { parents: string[] }) => {
             fps (Frames per second)
           </label>
           <input
-            ref={fpsRef}
+            value={fps}
+            onChange={e => {
+              setFps(parseFloat(e.target.value))
+            }}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="fps"
             type="number"
@@ -106,7 +105,10 @@ const GIFUi = ({ parents }: { parents: string[] }) => {
             Width
           </label>
           <input
-            ref={scaleRef}
+            value={scale}
+            onChange={e => {
+              setScale(parseFloat(e.target.value))
+            }}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="scale"
             type="number"
@@ -122,7 +124,10 @@ const GIFUi = ({ parents }: { parents: string[] }) => {
             Loops (0 - Infinite, -1 No Loop)
           </label>
           <input
-            ref={loopRef}
+            value={loop}
+            onChange={e => {
+              setLoop(parseInt(e.target.value))
+            }}
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="loop"
             type="number"
@@ -130,7 +135,7 @@ const GIFUi = ({ parents }: { parents: string[] }) => {
           />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

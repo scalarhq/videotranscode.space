@@ -33,7 +33,7 @@ export type FileWithMetadata = {
   uuid: string
   file: ElectronFile
   preview: string
-  customType: 'video' | 'audio' | 'image' | 'other'
+  customType: FileTypes
   videoMetadata?: {
     height: number
     width: number
