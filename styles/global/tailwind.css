@@ -29,6 +29,12 @@ body {
   }
 }
 
+@media (min-width: 120em) {
+  body {
+    background-size: cover;
+  }
+}
+
 button {
   @apply outline-none !important;
 }

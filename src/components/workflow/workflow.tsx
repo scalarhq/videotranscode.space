@@ -229,7 +229,7 @@ const Workflow = () => {
         shouldCloseOnOverlayClick={true}
         style={{
           overlay: {
-            backgroundColor: 'rgba(107, 114, 128, 0.5)'
+            backgroundColor: 'rgba(107, 114, 128, 0.3)'
           },
           content: {
             backgroundColor: 'transparent',
@@ -242,7 +242,7 @@ const Workflow = () => {
             setModalState(false)
           }}>
           <div
-            className="inline-block settings-tour-highlight cursor-default align-bottom bg-background bg-opacity-60 rounded-lg  pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full sm:p-6 sm:pl-0 sm:py-0 sm:pr-0"
+            className="inline-block settings-tour-highlight cursor-default align-bottom bg-modalBg rounded-lg  pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl 2xl:max-w-7xl sm:w-full sm:p-6 sm:pl-0 sm:py-0 sm:pr-0"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-headline"
