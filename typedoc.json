@@ -1,7 +1,7 @@
 {
   "name": "Modfy.video Contributing Documentation",
   "mode": "modules",
-  "out": "docs",
+  "out": "docs/web/reference",
   "exclude": ["src/*+(App|.test|index|setupTests|serviceWorker).ts*", "**/**/dist/*"],
   "excludePrivate": true
 }

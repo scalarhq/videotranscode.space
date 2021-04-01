@@ -16,7 +16,7 @@ tests/puppeteer-testing/test.js
 tests/puppeteer-testing/uploaded.png
 notIntegrated
 build
-docs
+docs/web/reference
 public/test.mp4
 public/hello!(1).mp4
 src/dist/codecs.ts
