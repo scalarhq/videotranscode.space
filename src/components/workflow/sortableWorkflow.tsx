@@ -35,7 +35,12 @@ function WorkflowSortable({
   }
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      // @ts-ignore
+      style={style}
+      {...attributes}
+      {...listeners}>
       <li className="cursor-default">
         <div className="relative pb-8">
           {index !== length - 1 ? (

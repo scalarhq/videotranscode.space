@@ -75,6 +75,7 @@ const SortableFile = ({ file, deleteFile, moveFiles }: SortableFileProps) => {
   return (
     <div
       ref={setNodeRef}
+      // @ts-ignore
       style={style}
       {...attributes}
       {...listeners}

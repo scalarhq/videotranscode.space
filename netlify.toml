@@ -2,6 +2,8 @@
   command   = "yarn build"
   functions = "out_functions"
   publish   = "out_publish"
+[build.environment]
+    NPM_FLAGS="--prefix=/"
 [[redirects]]
     from = "/*"
     to = "/"
@@ -16,3 +18,6 @@
     Cross-Origin-Embedder-Policy = "require-corp"
     Cross-Origin-Resource-Policy = "cross-origin"
     Access-Control-Allow-Origin = "*"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
