@@ -24,9 +24,9 @@ class UserStore extends AbstractStore {
     }
   }
 
-  @observable localUsageCounter: number = 0
+  @observable localUsageCounter = 0
 
-  @observable disabled: boolean = false
+  @observable disabled = false
 
   /**
    * Returns a string uuid from either local storage or creates and stores a new one.

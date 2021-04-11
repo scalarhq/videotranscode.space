@@ -7,11 +7,11 @@ import AbstractStore from './store'
 
 class CluiStore extends AbstractStore {
   // Observables
-  @observable cluiPlaceholder: string = ''
+  @observable cluiPlaceholder = ''
 
-  @observable inputMessage: string = ''
+  @observable inputMessage = ''
 
-  @observable isSubmitted: boolean = false
+  @observable isSubmitted = false
 
   @observable chosenFeatures: Array<WorkflowStep> = []
 
@@ -21,11 +21,11 @@ class CluiStore extends AbstractStore {
 
   @observable configurationJS = {}
 
-  @observable ran: boolean = false
+  @observable ran = false
 
   @observable cluiToggle = true
 
-  @observable cluiFocused: boolean = false
+  @observable cluiFocused = false
 
   // Constructor
   constructor() {

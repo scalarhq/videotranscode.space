@@ -4,11 +4,11 @@ import AbstractStore from './store'
 
 class VideoStore extends AbstractStore {
   // Observables
-  @observable url: string = ''
+  @observable url = ''
 
-  @observable blobType: string = ''
+  @observable blobType = ''
 
-  @observable toDisplay: boolean = false
+  @observable toDisplay = false
 
   constructor() {
     super()

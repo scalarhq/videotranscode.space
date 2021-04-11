@@ -5,14 +5,14 @@ import AbstractStore from './store'
 class ProgressStore extends AbstractStore {
   // Observables
 
-  @observable progress: number = 1
+  @observable progress = 1
 
-  @observable color: string = ''
+  @observable color = ''
 
-  @observable name: string = ''
+  @observable name = ''
 
   // Speed scale factor
-  @observable multipler: number = 1
+  @observable multipler = 1
 
   // Constructor
   constructor() {

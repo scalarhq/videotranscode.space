@@ -5,11 +5,13 @@
     "node": true
   },
   "extends": [
+    "plugin:@typescript-eslint/recommended",
     "react-app",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "prettier-standard"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -30,6 +32,13 @@
       }
     ],
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-unused-vars": "off"
   }
 }

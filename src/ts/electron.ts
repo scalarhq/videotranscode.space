@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import ComponentStore from '../store/componentStore'
 import {
   ElectronApi,
@@ -135,7 +136,7 @@ export const tempDir = electron.tempDir
 export const electronWrapper = (
   func: Function,
   electronFunc?: Function,
-  ...args: any[]
+  ...args: unknown[]
 ) => {
   if (isElectron) {
     if (electronFunc) return electronFunc(...args)

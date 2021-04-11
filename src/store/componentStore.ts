@@ -15,9 +15,9 @@ import VideoStore from './videoStore'
 class ComponentStore extends AbstractStore {
   // Observables
 
-  @observable transcoded: string = ''
+  @observable transcoded = ''
 
-  @observable processed: boolean = false
+  @observable processed = false
 
   @observable isLoadingError = false
 
@@ -25,6 +25,7 @@ class ComponentStore extends AbstractStore {
 
   @observable loaded = false
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   @observable startTour: () => void = () => {}
 
   @observable globalReset = false

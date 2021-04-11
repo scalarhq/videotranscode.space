@@ -57,7 +57,7 @@ abstract class FFmpegFeature implements FFmpegInterface {
 
   public ffmpegInputPaths: Array<string> = []
 
-  public display: boolean = false
+  public display = false
 
   public fileConfig = {
     primaryType: 'video',
