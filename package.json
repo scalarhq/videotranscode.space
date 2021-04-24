@@ -110,7 +110,6 @@
     "generate": "mkdir src/dist; node workflow/workflow.js; node codecs/codecs.js; node formats/formats.js",
     "prestart": "yarn generate",
     "start": "next start",
-    "prebuild": "test \"$CI\" = true && npx pnpm install -r --store=node_modules/.pnpm-store || echo skipping pnpm install && npm run generate",
     "build": "next build",
     "test-codecs": "node --experimental-wasm-threads --experimental-wasm-bulk-memory ./node_modules/.bin/jest  --runInBand --verbose --forceExit -i tests/codecs-testing",
     "document": "yarn generate; typedoc --options typedoc.json src/  --theme pages-plugin",
