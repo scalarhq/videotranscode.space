@@ -92,6 +92,7 @@
     "eslint-plugin-standard": "^4.1.0",
     "husky": "^4.3.0",
     "js-yaml": "^3.14.0",
+    "node-fetch": "^2.6.1",
     "patch-package": "^6.2.2",
     "postcss-preset-env": "^6.7.0",
     "postinstall-postinstall": "^2.1.0",
