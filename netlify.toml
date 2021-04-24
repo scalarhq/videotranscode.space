@@ -1,7 +1,7 @@
 [build]
   command   = "npm run build"
   functions = "out_functions"
-  publish   = "out_publish"
+  publish   = "out"
 [build.environment]
   NPM_FLAGS="--prefix=/dev/null"
 [[redirects]]
