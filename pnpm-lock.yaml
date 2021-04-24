@@ -70,6 +70,7 @@ devDependencies:
   '@typescript-eslint/parser': 4.21.0_eslint@7.23.0+typescript@4.2.3
   autoprefixer: 10.2.5_postcss@8.2.9
   babel-eslint: 10.1.0_eslint@7.23.0
+  caniuse-lite: 1.0.30001214
   eledoc: 0.2.1
   eslint-config-prettier: 6.15.0_eslint@7.23.0
   eslint-config-prettier-standard: 3.0.2_b2fe22297caa71c3789a71b11ac66b5e
@@ -4751,6 +4752,10 @@ packages:
   /caniuse-lite/1.0.30001207:
     resolution:
       integrity: sha512-UPQZdmAsyp2qfCTiMU/zqGSWOYaY9F9LL61V8f+8MrubsaDGpaHD9HRV/EWZGULZn0Hxu48SKzI5DgFwTvHuYw==
+  /caniuse-lite/1.0.30001214:
+    dev: true
+    resolution:
+      integrity: sha512-O2/SCpuaU3eASWVaesQirZv1MSjUNOvmugaD8zNSJqw6Vv5SGwoOpA9LJs3pNPfM745nxqPvfZY3MQKY4AKHYg==
   /capture-exit/2.0.0:
     dependencies:
       rsvp: 4.8.5
@@ -7364,6 +7369,7 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-nxIq5hGry1j9OEzJ0sbvN/A+mO9U0l2BFMeGdsOPl5DPvP51I7mBFN0PMsbM0TDvIDV2mEUPpJqn0Jt/hq05lg==
+      tarball: get-options/-/get-options-1.2.0.tgz
   /get-orientation/1.1.2:
     dependencies:
       stream-parser: 0.3.1
@@ -15647,6 +15653,7 @@ specifiers:
   autoprefixer: ^10.0.2
   axios: ^0.21.1
   babel-eslint: ^10.1.0
+  caniuse-lite: ^1.0.30001214
   classnames: ^2.2.6
   downshift: ^6.0.0
   eledoc: ^0.2.1
