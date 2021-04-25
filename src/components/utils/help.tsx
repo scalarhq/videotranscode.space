@@ -11,7 +11,7 @@ import { Fade } from 'react-reveal'
 const keyboardShorcuts = [
   { key: 'alt+p', action: 'Set configuration' },
   { key: 'Shift+F', action: 'Open File Menu' },
-  { key: 'Cntrl+Enter/Shift+Enter', action: 'Start processing' },
+  { key: 'Ctrl+Enter/Shift+Enter', action: 'Start processing' },
   { key: 'Alt+c', action: 'Toggle Advanced Mode' },
   { key: 'W/▲', action: 'Move up' },
   { key: 'S/▼', action: 'Move down' },
@@ -40,13 +40,15 @@ const HoverGuide = ({ close }: { close: () => void }) => (
           onClick={e => {
             e.stopPropagation()
           }}>
-          <div className="flex flex-col w-3/4">
-            <div className="text-white text-center font-bold text-xl mb-2">
+          <div className="flex flex-col max-w-6xl">
+            <div className="text-white text-center font-bold text-xl mb-4">
               <FontAwesomeIcon icon={faKeyboard} /> Keyboard shortcuts
             </div>
             {keyboardShorcuts.map(({ key, action }) => {
               return (
-                <div key={key} className="flex flex-row py-1">
+                <div
+                  key={key}
+                  className="flex flex-row py-1 whitespace-normal break-words">
                   <p className="w-1/2 uppercase text-center text-gray-50">
                     {key}
                   </p>
@@ -56,7 +58,7 @@ const HoverGuide = ({ close }: { close: () => void }) => (
                 </div>
               )
             })}
-            <div className="text-white text-center font-bold text-xl mb-2">
+            <div className="text-white text-center font-bold text-xl mb-2 mt-4">
               <FontAwesomeIcon icon={faHandsHelping} /> Need help?
             </div>
             <p className="text-gray-50 text-center">
