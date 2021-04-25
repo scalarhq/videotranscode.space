@@ -3,7 +3,7 @@
 }
 
 .shepherd-text {
-  @apply text-gray-200 !important;
+  @apply text-gray-300 !important;
 }
 
 .shepherd-text strong {
@@ -17,6 +17,8 @@
 
 .shepherd-title {
   @apply text-gray-50 !important;
+  @apply font-bold !important;
+  @apply text-lg !important;
 }
 
 .shepherd-button {
