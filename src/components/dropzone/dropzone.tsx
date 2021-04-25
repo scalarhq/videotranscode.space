@@ -382,7 +382,10 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
   return (
     <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
       <div className={styles.previewWrapper}>
-        <div id="dropzone" style={{ cursor: 'default' }} {...getRootProps()}>
+        <div
+          id="dropzone"
+          style={{ cursor: 'default', borderRadius: '0.25rem' }}
+          {...getRootProps()}>
           <div className={styles.scrollableWrapper} ref={dropzoneRef}>
             <input id="file-input" {...getInputProps()} />
           </div>

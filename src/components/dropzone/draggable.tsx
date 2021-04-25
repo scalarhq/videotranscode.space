@@ -120,7 +120,7 @@ const SortableFile = ({ file, deleteFile, moveFiles }: SortableFileProps) => {
           </svg>
         </button>
 
-        <p className="truncate w-40">{name}</p>
+        <p className="truncate w-40 text-gray-200">{name}</p>
       </div>
     </div>
   )

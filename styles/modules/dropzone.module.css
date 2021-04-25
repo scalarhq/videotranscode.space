@@ -92,6 +92,7 @@
   max-height: var(--container-height);
   height: var(--container-height);
   width: 100%;
+  @apply rounded-lg;
 }
 
 .previewWrapper > * {
