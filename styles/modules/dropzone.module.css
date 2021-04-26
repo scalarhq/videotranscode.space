@@ -82,8 +82,8 @@
 .previewWrapper {
   display: grid;
   grid-template: 1fr / 1fr;
-  background: rgb(39, 44, 49, 0.75);
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  @apply bg-gray-900;
+  @apply shadow-lg;
   border-left-color: 'none';
   border-right-color: 'none';
   border-top-color: 'none';

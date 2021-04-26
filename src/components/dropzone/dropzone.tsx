@@ -311,10 +311,10 @@ const Dropzone = ({ acceptedFiles }: DropzoneProps) => {
                 <img alt="Video file svg" src="/images/upload.svg" />
               </div>
               {isDragActive ? (
-                <p>Drop the files here ...</p>
+                <p className="text-green-500">Drop the files here ...</p>
               ) : (
-                <p>
-                  <u>Click</u> or Drag to add files.{' '}
+                <p className="text-green-500">
+                  <b>Click</b> or Drag to add files.{' '}
                 </p>
               )}
               <button

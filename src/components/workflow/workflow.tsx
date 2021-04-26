@@ -176,8 +176,8 @@ const Workflow = () => {
               </svg>
             </div>
             <div>
-              <p className="pt-3">
-                Choose <u>your configuration</u> here
+              <p className="pt-3 text-green-500">
+                Choose your configuration here
               </p>
             </div>
           </div>
@@ -212,8 +212,8 @@ const Workflow = () => {
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                   />
                 </svg>
-                <p>
-                  <u>Add</u> more steps!
+                <p className="text-green-500">
+                  <b>Add</b> more steps
                 </p>
               </div>
             </div>

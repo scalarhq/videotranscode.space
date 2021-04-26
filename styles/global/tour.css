@@ -7,7 +7,7 @@
 }
 
 .shepherd-text strong {
-  @apply text-default;
+  @apply text-green-500;
 }
 
 .shepherd-header {

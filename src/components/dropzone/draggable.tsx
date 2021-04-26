@@ -157,8 +157,8 @@ const DraggableWrapper = ({
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           />
         </svg>
-        <p>
-          <u>Add</u> more files!
+        <p className="text-green-500">
+          <b>Add</b> more files
         </p>
       </div>
     </div>

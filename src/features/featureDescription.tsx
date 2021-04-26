@@ -91,7 +91,7 @@ const FeatureDescription = ({
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            className="w-20 h-20 text-default"
+            className="w-20 h-20 text-green-500"
             stroke="currentColor">
             <path
               strokeLinecap="round"

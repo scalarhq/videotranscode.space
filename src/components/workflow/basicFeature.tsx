@@ -75,7 +75,7 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
   return (
     <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges={true}>
       <div className="flex flex-col h-full">
-        <div className="flex h-full">
+        <div className="flex h-full bg-gray-900">
           <div className="w-1/4 bg-gray-800 bg-opacity-25 h-full">
             <div className="flex">
               {validFeatures.length > 0 ? (

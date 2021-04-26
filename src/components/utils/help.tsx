@@ -64,7 +64,7 @@ const HoverGuide = ({ close }: { close: () => void }) => (
             <p className="text-gray-50 text-center">
               Reach out to{' '}
               <a
-                className="text-default font-semibold"
+                className="text-green-500 font-semibold"
                 href="mailto:support@modfy.video">
                 support@modfy.video
               </a>

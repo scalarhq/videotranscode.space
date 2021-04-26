@@ -102,7 +102,7 @@ const Configuration = () => {
         <div className="relative">
           <div className={classNames(styles.toggle, 'basic-feature-toggle')}>
             <div className={styles['toggle-label']}>
-              <p>Normal</p>
+              <p className="text-green-500">Normal</p>
             </div>
             <label className={styles.switch}>
               <input
@@ -117,7 +117,7 @@ const Configuration = () => {
               />
             </label>
             <div className={styles['toggle-label']}>
-              <p>Advanced(CLUI)</p>
+              <p className="text-green-500">Advanced(CLUI)</p>
             </div>
           </div>
         </div>

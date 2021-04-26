@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         background: '#17141d',
         isabeline: '#EEE2DF',
-        default: '#3fbd71',
+        default: '#10B981',
         modalBg: 'rgb(43, 44, 54)',
         orange: colors.orange
       }
