@@ -43,7 +43,7 @@ const DisplayFeature = ({ selectedKey, SubmitButton }: DisplayFeatureProps) => {
                   )}
 
                   <p className="text-2xl text-center py-10 text-gray-200">
-                    This feature has no configuration.
+                    {/* This feature has no configuration. */}
                   </p>
                 </div>
               )
