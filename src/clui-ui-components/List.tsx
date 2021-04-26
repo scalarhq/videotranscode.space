@@ -44,7 +44,7 @@ type ListProps = {
  */
 
 const List = (props: ListProps) => {
-  const { list, title, parents } = props
+  const { list, parents } = props
 
   // eslint-disable-next-line react/destructuring-assignment
   const [current, setCurrent] = useState<ListElement>(props.current)
