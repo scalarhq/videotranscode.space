@@ -94,7 +94,7 @@ const Dropdown = (props: DropDownProps) => {
     <>
       <div className={styles.optionsListWrapper}>
         <div className="flex justify-center items-center">
-          <p className="text-xl text-gray-50">{title}</p>
+          <p className="text-md font-medium text-gray-50">{title}</p>
           <div
             className="inline-block relative w-64 bg-background bg-opacity-30 "
             style={{ margin: '1rem' }}>

@@ -105,10 +105,18 @@ const BasicFeatures = ({ SubmitButton, usedFeatures }: BasicFeatureProp) => {
                             className="py-2 px-3 w-full h-full flex items-center focus:outline-none focus-visible:underline">
                             <FontAwesomeIcon
                               icon={faCog}
-                              color={selected === index ? 'white' : 'white'}
+                              className={
+                                selected === index
+                                  ? 'text-gray-200'
+                                  : 'text-gray-500'
+                              }
                             />
                             <span
-                              className={`ml-4 text-m font-medium transition-all ease-out duration-200 text-gray-50 `}>
+                              className={`ml-4 text-sm font-medium transition-all ease-out duration-200 ${
+                                selected === index
+                                  ? 'text-gray-50'
+                                  : 'text-gray-300'
+                              }`}>
                               {currentFeature.name}
                             </span>
                           </button>

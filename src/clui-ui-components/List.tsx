@@ -64,18 +64,23 @@ const List = (props: ListProps) => {
 
   return (
     <div className={styles.optionsListWrapper}>
-      <h1 className="text-xl py-2 font-bold text-gray-50">{title}</h1>
-      <div className={cx(styles.optionsList, 'w-full')}>
+      {/* Removed cause it's obvious that this section is the feature's settings
+      <h1 className="py-2 text-lg leading-6 font-medium text-gray-50">
+        {title}
+      </h1> */}
+      <div className={cx(styles.optionsList, 'w-full', 'mt-8')}>
         {list.map(item => (
           <div className={styles.optionsListItemWrapper} key={item.name}>
             <div
               className={cx(
                 styles.optionsListItem,
                 'flex justify-center',
-                item.name === current.name ? styles.optionsListItemActive : ''
+                item.name === current.name
+                  ? styles.optionsListItemActive
+                  : 'text-gray-200'
               )}>
               <button
-                className="outline-none text-center text-gray-50"
+                className="outline-none text-center"
                 type="button"
                 onClick={e => handleClick(e, item)}>
                 {item.name}

@@ -66,8 +66,10 @@ const FeatureDescription = ({
 }: FeatureDescriptionProps) => {
   return (
     <div key={name} className="flex flex-col py-5 pt-10 w-full items-center">
-      <p className="text-3xl uppercase text-gray-50">{name}</p>
-      <p className="text-xl py-2 text-gray-300">{description}</p>
+      <p className="mt-1 text-2xl font-bold text-gray-50 sm:text-3xl sm:tracking-tight lg:text-4xl">
+        {name}
+      </p>
+      <p className="mt-1 mx-auto text-md text-gray-400">{description}</p>
       {extraDescription && (
         <p className="text-md py-1 text-gray-400">{extraDescription}</p>
       )}
@@ -114,13 +116,13 @@ const FeatureDescription = ({
       </div>
       <div className="flex w-full pt-3 items-center justify-center">
         <div className="w-1/3 flex flex-col items-center">
-          <p className="text-md text-gray-300 text-center">
+          <p className="text-sm text-gray-300 text-center">
             {fileInput.description}
           </p>
         </div>
         <div className="w-1/5 flex justify-center"></div>
         <div className="w-1/3 flex flex-col items-center">
-          <p className="text-md text-gray-300 text-center">
+          <p className="text-sm text-gray-300 text-center">
             {fileOutput.description}
           </p>
         </div>

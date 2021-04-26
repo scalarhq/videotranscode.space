@@ -86,7 +86,7 @@
   flex: 1 1 auto;
   font-size: 12px;
   padding: 5px 10px;
-  font-family: Ubuntu Mono;
+  /* font-family: Ubuntu Mono; */
   /* opacity: 0.8; */
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -166,11 +166,12 @@
   flex: 1 1 auto;
   padding: 0;
   line-height: 24px;
+  margin-left: 1rem;
 }
 
 .clui-wrapper ::placeholder {
   color: rgba(255, 255, 255, 0.6);
-  font-family: Ubuntu Mono;
+  /* font-family: Ubuntu Mono; */
   word-wrap: break-word !important;
   font-size: 18px;
   /* font-weight: 600; */

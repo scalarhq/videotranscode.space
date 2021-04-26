@@ -87,7 +87,7 @@ const FEATURES: Features = {
     )
   },
   TRIM: {
-    name: 'TRIM/CUT',
+    name: 'Trim',
     description: 'Trim or cut your video',
     feature: TrimFeature,
     ui: <TrimUi parents={['TRIM']} />,

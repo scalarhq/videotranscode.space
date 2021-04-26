@@ -29,7 +29,8 @@
   flex: 0 0 auto;
   background-color: rgba(62, 187, 112, 0.25);
   border: 1px solid #47b372;
-  color: #f7f7f7;
+  /* color: #f7f7f7; */
+  @apply text-gray-50;
   width: 100%;
 }
 

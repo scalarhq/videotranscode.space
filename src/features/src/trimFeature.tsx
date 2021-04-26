@@ -149,11 +149,11 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
   }
 
   return (
-    <div className="flex flex-col w-full justify-center items-center">
-      <p className="text-xl font-bold">Trim Settings</p>
+    <div className="flex flex-col w-full justify-center items-center mt-8">
+      {/* <p className="text-xl font-bold">Trim Settings</p> */}
       <div className="range-slider-wrapper flex w-full">
         <div className=" w-1/4 flex flex-col items-center">
-          <p className="text-m font-bold select-none">
+          <p className="text-sm font-light select-none text-gray-400">
             {(() => hmsToTimeStamp(secondsToTime(value.start)))()}
           </p>
           <button
@@ -197,7 +197,7 @@ const TrimUi = ({ parents }: { parents: Array<string> }) => {
           />
         </div>
         <div className="flex flex-col items-center w-1/4 ">
-          <p className="text-m font-bold select-none">
+          <p className="text-sm font-light select-none text-gray-400">
             {(() => hmsToTimeStamp(secondsToTime(value.end)))()}
           </p>
 
