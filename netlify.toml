@@ -19,6 +19,6 @@
     Access-Control-Allow-Origin = "*"
 
 [[plugins]]
-  package = "./plugins/pnpm-preinstaller"
+  package = "netlify-plugin-pnpm-preinstaller"
 [[plugins]]
   package = "@netlify/plugin-nextjs"

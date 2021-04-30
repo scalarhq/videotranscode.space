@@ -29,6 +29,7 @@ dependencies:
   javascript-terminal: 1.1.1
   mobx: 5.15.7
   mobx-react: 6.3.1_39d463ce7769f1a2935ab17929e2e668
+  netlify-plugin-pnpm-preinstaller: 0.0.2
   new-github-issue-url: 0.2.1
   next: 10.1.3_19437c2f9b137c4ee9c416360487a7aa
   platform: 1.3.6
@@ -10160,6 +10161,12 @@ packages:
   /neo-async/2.6.2:
     resolution:
       integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+  /netlify-plugin-pnpm-preinstaller/0.0.2:
+    dev: false
+    engines:
+      node: '>=12.18.0'
+    resolution:
+      integrity: sha512-WsDWA02ahnyozQ6pvB/nTHbdahdVb+ArEfG1NDosnKw9WcO11VW7O6gSIyxYlcCYZ0FaHXdZhAPorie6bKBIBg==
   /new-github-issue-url/0.2.1:
     dev: false
     engines:
@@ -15679,6 +15686,7 @@ specifiers:
   js-yaml: ^3.14.0
   mobx: ^5.15.4
   mobx-react: ^6.2.2
+  netlify-plugin-pnpm-preinstaller: ^0.0.2
   new-github-issue-url: ^0.2.1
   next: ^10.0.3
   node-fetch: ^2.6.1
