@@ -14,6 +14,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@modfy/react-video-components": "^0.0.2",
     "@replit/clui-input": "^0.0.16",
     "@replit/clui-session": "^0.0.1",
     "@tailwindcss/forms": "^0.2.1",
