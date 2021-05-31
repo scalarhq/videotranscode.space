@@ -1,6 +1,7 @@
+import { Atlantis, Trim } from '@modfy/react-video-components'
+import workflowStore from '@store/workflowStore'
 import { observer } from 'mobx-react'
-import React, { useEffect, useReducer, useState } from 'react'
-import { RangeSlider } from 'reactrangeslider'
+import React, { useMemo } from 'react'
 
 import ComponentStore from '../../store/componentStore'
 import { hmsToTimeStamp, secondsToTime } from '../../ts/time'
@@ -55,161 +56,41 @@ class TrimFeature extends FFmpegFeature {
 
 export default TrimFeature
 
-type TrimValues = {
-  start: number
-  end: number
-}
-
-const TrimActions = {
-  updateStart: 'updateStart',
-  updateEnd: 'updateEnd'
-}
-
-const trimReducer = (
-  state: TrimValues,
-  { type, start, end }: { type: string; start?: number; end?: number }
-) => {
-  console.info(type, start, end)
-  switch (type) {
-    case TrimActions.updateStart:
-      return Object.assign({}, state, { start })
-    case TrimActions.updateEnd:
-      return Object.assign({}, state, { end })
-    default:
-      return state
-  }
-}
-
 const TrimUi = ({ parents }: { parents: Array<string> }) => {
   const { files } = FileStore
 
   const { video } = files
 
-  const [value, dispatch] = useReducer(trimReducer, { start: 0, end: 100 })
+  const { updateWorkflow, updateModalState } = workflowStore
 
-  const [max, setMax] = useState(
-    files.video ? Math.ceil(files.video[0].videoMetadata?.duration || 100) : 100
+  const url = useMemo(
+    () =>
+      video && video?.length > 0 ? URL.createObjectURL(video![0].file) : '',
+    [video]
   )
 
-  useEffect(() => {
-    console.info('Setting video defaults')
-    if (video && video[0]) {
-      const end = Math.ceil(video[0].videoMetadata?.duration || 100)
-
-      dispatch({ type: TrimActions.updateEnd, end: end })
-
-      setMax(end)
-    }
-  }, [video])
-
-  useEffect(() => {
-    console.info('Update value', value)
-    updateConfiguration(
-      {
-        START: { value: value.start },
-        STOP: { value: value.end },
-        value: value.end - value.start
-      },
-      [...parents]
+  if (!video || video?.length === 0) {
+    return <div>Please upload a video to start </div>
+  } else {
+    return (
+      <Trim
+        src={url}
+        theme={Atlantis}
+        type="other"
+        callback={(start, end) => {
+          updateConfiguration(
+            {
+              START: { value: start },
+              STOP: { value: end },
+              value: end - start
+            },
+            [...parents]
+          )
+          updateWorkflow('TRIM')
+          updateModalState(false)
+        }}></Trim>
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
-
-  const styles = {
-    slider: {
-      height: '3rem',
-      userDrag: 'none',
-      userSelect: 'none'
-    },
-    trackStyle: {
-      height: 5,
-      border: '3px solid black',
-      backgroundColor: '#6c63ff',
-      top: 14,
-      userDrag: 'none',
-      userSelect: 'none'
-    },
-    highlightedTrackStyle: {
-      height: 5,
-      border: '3px solid #6c63ff',
-      backgroundColor: '#6c63ff',
-      top: 14,
-      userDrag: 'none',
-      userSelect: 'none'
-    },
-    handleStyle: {
-      height: 30,
-      width: 30,
-      border: '3px solid black',
-      backgroundColor: '#3FBD71',
-      outline: 'none',
-      userDrag: 'none',
-      userSelect: 'none'
-    }
   }
-
-  return (
-    <div className="flex flex-col w-full justify-center items-center mt-8">
-      {/* <p className="text-xl font-bold">Trim Settings</p> */}
-      <div className="range-slider-wrapper flex w-full">
-        <div className=" w-1/4 flex flex-col items-center">
-          <p className="text-sm font-light select-none text-gray-400">
-            {(() => hmsToTimeStamp(secondsToTime(value.start)))()}
-          </p>
-          <button
-            type="button"
-            className="items-center w-1/2 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none">
-            Edit
-          </button>
-        </div>
-        <div className="range-wrapper w-1/2">
-          <RangeSlider
-            value={value}
-            step={1}
-            min={0}
-            max={max}
-            onChange={({ start, end }: { start: number; end: number }) => {
-              console.info('Changed value', start, end)
-              if (start !== value.start && Math.abs(value.start - start) < 8) {
-                dispatch({
-                  type: TrimActions.updateStart,
-                  start: start
-                })
-              }
-              if (
-                end !== value.end &&
-                end !== max &&
-                Math.abs(value.end - end) < 8
-              ) {
-                dispatch({
-                  type: TrimActions.updateEnd,
-                  end: end
-                })
-              }
-            }}
-            wrapperStyle={styles.slider}
-            trackStyle={styles.trackStyle}
-            highlightedTrackStyle={styles.highlightedTrackStyle}
-            handleStyle={styles.handleStyle}
-            hoveredHandleStyle={styles.handleStyle}
-            focusedHandleStyle={styles.handleStyle}
-            activeHandleStyle={styles.handleStyle}
-          />
-        </div>
-        <div className="flex flex-col items-center w-1/4 ">
-          <p className="text-sm font-light select-none text-gray-400">
-            {(() => hmsToTimeStamp(secondsToTime(value.end)))()}
-          </p>
-
-          <button
-            type="button"
-            className="items-center w-1/2 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none">
-            Edit
-          </button>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 const observerTrim = observer(TrimUi)

@@ -40,6 +40,7 @@ export type FeatureElement = {
   ui?: JSX.Element | string
   noDisplay?: boolean
   descriptionUI?: JSX.Element // This will show up as the description of the feature
+  disableAdd?: boolean
 }
 
 export type Features = {
@@ -91,20 +92,7 @@ const FEATURES: Features = {
     description: 'Trim or cut your video',
     feature: TrimFeature,
     ui: <TrimUi parents={['TRIM']} />,
-    descriptionUI: (
-      <FeatureDescription
-        name="Trim"
-        description="Trim your video's length"
-        extraDescription="This feature is incredibly fast"
-        fileInput={{
-          types: ['video'],
-          description: 'Your video'
-        }}
-        fileOutput={{
-          types: ['video'],
-          description: 'Shorter video'
-        }}></FeatureDescription>
-    )
+    disableAdd: true
   },
   PHOTOMONTAGE: {
     name: 'Photo-Montages',
