@@ -10,7 +10,8 @@ dependencies:
   '@fortawesome/free-brands-svg-icons': 5.15.3
   '@fortawesome/free-solid-svg-icons': 5.15.3
   '@fortawesome/react-fontawesome': 0.1.14_ec0af2bc0907a851e3e0afc4708fd0f0
-  '@modfy/react-video-components': 0.0.2_19437c2f9b137c4ee9c416360487a7aa
+  '@modfy/core': 0.0.8_react@17.0.2
+  '@modfy/react-video-components': 0.0.2_b16ea631542dae459571a7ba61b8f08a
   '@replit/clui-input': 0.0.16
   '@replit/clui-session': 0.0.1_react-dom@17.0.2+react@17.0.2
   '@tailwindcss/forms': 0.2.1
@@ -2149,6 +2150,48 @@ packages:
     dev: false
     resolution:
       integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
+  /@bugsnag/browser/7.10.1:
+    dependencies:
+      '@bugsnag/core': 7.10.0
+    dev: false
+    resolution:
+      integrity: sha512-Yxm/DheT/NHX2PhadBDuafuHBhP547Iav6Y9jf+skBBSi1n0ZYkGhtVxh8ZWLgqz5W8MsJ0HFiLBqcg/mulSvQ==
+  /@bugsnag/core/7.10.0:
+    dependencies:
+      '@bugsnag/cuid': 3.0.0
+      '@bugsnag/safe-json-stringify': 6.0.0
+      error-stack-parser: 2.0.6
+      iserror: 0.0.2
+      stack-generator: 2.0.5
+    dev: false
+    resolution:
+      integrity: sha512-sDa2nDxwsxHQx2/2/tsBWjYqH0TewCR8N/r5at6B+irwVkI0uts7Qc2JyqDTfiEiBXKVEXFK+fHTz1x9b8tsiA==
+  /@bugsnag/cuid/3.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
+  /@bugsnag/js/7.10.1:
+    dependencies:
+      '@bugsnag/browser': 7.10.1
+      '@bugsnag/node': 7.10.1
+    dev: false
+    resolution:
+      integrity: sha512-1/MK/Bw2ViFx1hMG2TOX8MOq/LzT2VRd0VswknF4LYsZSgzohkRzz/hi6P2TSlLeapRs+bkDC6u2RCq4zYvyiA==
+  /@bugsnag/node/7.10.1:
+    dependencies:
+      '@bugsnag/core': 7.10.0
+      byline: 5.0.0
+      error-stack-parser: 2.0.6
+      iserror: 0.0.2
+      pump: 3.0.0
+      stack-generator: 2.0.5
+    dev: false
+    resolution:
+      integrity: sha512-kpasrz/im5ljptt2JOqrjbOu4b0i5sAZOYU4L0psWXlD31/wXytk7im11QlNALdI8gZZBxIFsVo8ks6dR6mHzg==
+  /@bugsnag/safe-json-stringify/6.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-htzFO1Zc57S8kgdRK9mLcPVTW1BY2ijfH7Dk2CeZmspTWKdKqSo1iwmqrq2WtRjFlo8aRZYgLX0wFrDXF/9DLA==
   /@cnakazawa/watch/1.0.4:
     dependencies:
       exec-sh: 0.3.6
@@ -2636,18 +2679,34 @@ packages:
     dev: false
     resolution:
       integrity: sha512-i8M72GjnAtqKt+08BriyzVUR6Gqcj/GMqw8fTwiHUrWWD7mHlPV2eKFLbPX5oOvfL2B/IvJ6g/7RJlgEbV93kw==
-  /@modfy/interfaces/0.0.10:
+  /@modfy/core/0.0.8_react@17.0.2:
+    dependencies:
+      '@bugsnag/js': 7.10.1
+      '@modfy/interfaces': 0.0.10_@modfy+core@0.0.8
+      '@modfy/utils': 0.0.2_react@17.0.2
+      axios: 0.21.1
+      form-data: 4.0.0
+      mixpanel-browser: 2.41.0
+      temp: 0.9.4
+    dev: false
+    peerDependencies:
+      react: '*'
+    resolution:
+      integrity: sha512-r37oQ+maxqq5wJDmGwu60xLJcvJ0bDqJXogfQvz96P7WOZkpTu+LayM+lhd4gkVYMlpLyetnMnCshsRcZuBmDw==
+  /@modfy/interfaces/0.0.10_@modfy+core@0.0.8:
     dependencies:
       '@modfy/config': 0.0.7
+      '@modfy/core': 0.0.8_react@17.0.2
     dev: false
     peerDependencies:
       '@modfy/core': ^0.0.7
     resolution:
       integrity: sha512-vxuJk9Pb1ADzLMygOdf37UR4i8bBxRHBD17shfP9F8D7ouZYv0cXC20eZaPWQadNA15w19/4kPKdIPLLHNYxsw==
-  /@modfy/react-video-components/0.0.2_19437c2f9b137c4ee9c416360487a7aa:
+  /@modfy/react-video-components/0.0.2_b16ea631542dae459571a7ba61b8f08a:
     dependencies:
       '@heroicons/react': 1.0.1_react@17.0.2
-      '@modfy/interfaces': 0.0.10
+      '@modfy/core': 0.0.8_react@17.0.2
+      '@modfy/interfaces': 0.0.10_@modfy+core@0.0.8
       classnames: 2.3.1
       luxon: 1.27.0
       react: 17.0.2
@@ -2662,6 +2721,14 @@ packages:
       typescript: '*'
     resolution:
       integrity: sha512-GnaaAn53domD6D+71NDJFVIUGWF5Rou6OiaH5U8XRSQbd0YH3FMdyNIbDdyBsSSVK4DO4mpE0AIyQOU5KvzYYA==
+  /@modfy/utils/0.0.2_react@17.0.2:
+    dependencies:
+      react: 17.0.2
+    dev: false
+    peerDependencies:
+      react: ^17.0.2
+    resolution:
+      integrity: sha512-RvRurL28swL8C/ui9lWJav5U3jL4RxtJCDKOfW5jRi83Q9UOQ+SAhWCPxX6ptN7VlpXAPnWEbSKjqf3hTsmv9w==
   /@mrmlnc/readdir-enhanced/2.2.1:
     dependencies:
       call-me-maybe: 1.0.1
@@ -4105,7 +4172,7 @@ packages:
       integrity: sha512-Pdgfv6iP0gNx9ejRGa3zE7Xgkj/iclXqLfe7BnatdZz0QnLZ3jrRHUVH8wNSdN68w05Sk3ShGTb3ydktMTooig==
   /axios/0.21.1:
     dependencies:
-      follow-redirects: 1.13.3_debug@4.3.1
+      follow-redirects: 1.13.3
     dev: false
     resolution:
       integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -4716,6 +4783,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
+  /byline/5.0.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-dBxSFkaOrcRXsDQQEYrXfejB3bE=
   /bytes/3.0.0:
     dev: false
     engines:
@@ -7326,6 +7399,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3Z4XhFZ3992uIq0XOqb9AreonueSYphE6oYbpt5+3u06JWklbsPkNv3ZKkP9Bz/r+1MWCaMoSQ28P85+1Yc77w==
+  /follow-redirects/1.13.3:
+    dev: false
+    engines:
+      node: '>=4.0'
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    resolution:
+      integrity: sha512-DUgl6+HDzB0iEptNQEXLx/KhTmDb8tZUHSeLqpnjpknR70H0nC2t9N73BK6fN4hOvJ84pKlIQVQ4k5FFlBedKA==
   /follow-redirects/1.13.3_debug@4.3.1:
     dependencies:
       debug: 4.3.1_supports-color@6.1.0
@@ -7394,6 +7478,16 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==
+  /form-data/4.0.0:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.30
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
   /forwarded/0.1.2:
     dev: false
     engines:
@@ -7633,6 +7727,16 @@ packages:
       path-is-absolute: 1.0.1
     resolution:
       integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
+  /glob/7.1.7:
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.0.4
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    resolution:
+      integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
   /global-modules/2.0.0:
     dependencies:
       global-prefix: 3.0.0
@@ -8782,6 +8886,10 @@ packages:
   /isarray/1.0.0:
     resolution:
       integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+  /iserror/0.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-vVNFH+L2aLnyQCwZZnh6qix8C/U=
   /isexe/2.0.0:
     resolution:
       integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
@@ -10186,6 +10294,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
+  /mixpanel-browser/2.41.0:
+    dev: false
+    resolution:
+      integrity: sha512-IEuc9cH44hba9a3KEyulXINLn+gpFqluBDo7xiTk1h3j111dmmsctaE6tUzZYxgGLVqeNhTpsccdliOeX24Wlw==
   /mkdirp/0.5.5:
     dependencies:
       minimist: 1.2.5
@@ -13165,8 +13277,7 @@ packages:
       integrity: sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=
   /rimraf/2.6.3:
     dependencies:
-      glob: 7.1.6
-    dev: true
+      glob: 7.1.7
     hasBin: true
     resolution:
       integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
@@ -13853,6 +13964,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
+  /stack-generator/2.0.5:
+    dependencies:
+      stackframe: 1.2.0
+    dev: false
+    resolution:
+      integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==
   /stack-utils/2.0.3:
     dependencies:
       escape-string-regexp: 2.0.0
@@ -14371,7 +14488,6 @@ packages:
     dependencies:
       mkdirp: 0.5.5
       rimraf: 2.6.3
-    dev: true
     engines:
       node: '>=6.0.0'
     resolution:
@@ -15858,6 +15974,7 @@ specifiers:
   '@fortawesome/free-brands-svg-icons': ^5.14.0
   '@fortawesome/free-solid-svg-icons': ^5.14.0
   '@fortawesome/react-fontawesome': ^0.1.11
+  '@modfy/core': ^0.0.8
   '@modfy/react-video-components': ^0.0.2
   '@replit/clui-input': ^0.0.16
   '@replit/clui-session': ^0.0.1
