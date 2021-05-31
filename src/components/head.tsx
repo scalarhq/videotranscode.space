@@ -53,7 +53,7 @@ const Head = ({ children }: { children: React.ReactNode }) => {
         />
         <meta property="url" content="https://modfy.video/" />
 
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" href="/favicon.ico" />
       </NextHead>
       {children}
     </div>
