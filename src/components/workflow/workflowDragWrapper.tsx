@@ -13,26 +13,21 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from '@dnd-kit/sortable'
-import features, { Features } from '@features/features'
+import features from '@features/features'
+import workflowStore from '@store/workflowStore'
+import { observer } from 'mobx-react'
 import React from 'react'
 
 import WorkflowSortable from './sortableWorkflow'
 
-const WorkflowDragWrapper = ({
-  workflow,
-  updateEditFeature,
-  setWorkflow
-}: {
-  workflow: string[]
-  setWorkflow: React.Dispatch<React.SetStateAction<string[]>>
-  updateEditFeature: (featureKey: keyof Features) => void
-}) => {
+const WorkflowDragWrapper = ({ workflow }: { workflow: string[] }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
     })
   )
+  const { setWorkflow } = workflowStore
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
@@ -101,9 +96,7 @@ const WorkflowDragWrapper = ({
                   name={name}
                   index={index}
                   length={workflow.length}
-                  featureKey={featureKey}
-                  updateEditFeature={updateEditFeature}
-                  setWorkflow={setWorkflow}></WorkflowSortable>
+                  featureKey={featureKey}></WorkflowSortable>
               )
             })}
           </SortableContext>
@@ -112,4 +105,4 @@ const WorkflowDragWrapper = ({
     </div>
   )
 }
-export default WorkflowDragWrapper
+export default observer(WorkflowDragWrapper)

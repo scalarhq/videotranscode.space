@@ -1,6 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Features } from '@features/features'
+import workflowStore from '@store/workflowStore'
+import { observer } from 'mobx-react'
 import React from 'react'
 import ReactToolTip from 'react-tooltip'
 
@@ -9,17 +11,13 @@ function WorkflowSortable({
   name,
   featureKey,
   index,
-  length,
-  updateEditFeature,
-  setWorkflow
+  length
 }: {
   id: string
   name: string
   featureKey: string
   index: number
   length: number
-  setWorkflow: React.Dispatch<React.SetStateAction<string[]>>
-  updateEditFeature: (featureKey: keyof Features) => void
 }) {
   const {
     attributes,
@@ -33,6 +31,8 @@ function WorkflowSortable({
     transform: CSS.Transform.toString(transform),
     transition
   }
+
+  const { setWorkflow, updateEditFeature } = workflowStore
 
   return (
     <div
@@ -144,4 +144,4 @@ function WorkflowSortable({
   )
 }
 
-export default WorkflowSortable
+export default observer(WorkflowSortable)

@@ -11,6 +11,7 @@ import AbstractStore from './store'
 import TerminalStore from './terminalStore'
 import UserStore from './userStore'
 import VideoStore from './videoStore'
+import WorkflowStore from './workflowStore'
 
 class ComponentStore extends AbstractStore {
   // Observables
@@ -80,6 +81,8 @@ class ComponentStore extends AbstractStore {
   @observable HardwareStore = HardwareStore
 
   @observable UserStore = UserStore
+
+  @observable WorkflowStore = WorkflowStore
 
   // Actions
 

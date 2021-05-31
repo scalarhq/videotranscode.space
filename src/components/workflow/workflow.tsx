@@ -1,12 +1,11 @@
 import Submit from '@cluiComponents/Submit'
-import { Features } from '@features/features'
 import ComponentStore from '@store/componentStore'
 import keyboardStore from '@store/keyboardStore'
 import styles from '@styles/workflow.module.css'
 import cx from 'classnames'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { GlobalHotKeys } from 'react-hotkeys'
 import Modal from 'react-modal'
@@ -18,17 +17,20 @@ import DisplayFeature from './displayFeature'
 import WorkflowDragWrapper from './workflowDragWrapper'
 
 const Workflow = () => {
-  const { CluiStore, FileStore, loaded } = ComponentStore
+  const { WorkflowStore, CluiStore, FileStore, loaded } = ComponentStore
 
   const { allFiles } = FileStore
 
-  const [workflow, setWorkflow] = useState<string[]>([])
-
-  const [currentFeature, setFeatureKey] = useState('')
-
-  const [modelState, setModalState] = useState(false)
-
-  const [editFeature, setEditFeature] = useState<keyof Features | null>(null)
+  const {
+    workflow,
+    updateWorkflow,
+    currentFeature,
+    updateCurrentFeature,
+    modalState,
+    setModalState,
+    updateModalState,
+    editFeature
+  } = WorkflowStore
 
   const config = toJS(CluiStore.configuration)
 
@@ -44,12 +46,12 @@ const Workflow = () => {
   }, [])
 
   useEffect(() => {
-    if (modelState) {
+    if (modalState) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [modelState])
+  }, [modalState])
 
   useEffect(() => {
     updateChosenFeatures(
@@ -60,24 +62,9 @@ const Workflow = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workflow])
 
-  const updateModalState = (state: boolean) => {
-    setEditFeature(null)
-    setModalState(state)
-  }
-
-  const updateEditFeature = (featureKey: keyof Features) => {
-    setEditFeature(featureKey)
-    setModalState(true)
-  }
-
   const keyMap = {
     COMMAND_PALLETE: ['alt+p', 'shift+p'],
     SUBMIT: ['ctrl+enter', 'shift+enter']
-  }
-
-  const updateWorkflow = (newFeature: string) => {
-    toast.success('Added new feature')
-    setWorkflow(prev => [...prev, newFeature])
   }
 
   const SubmitButton = ({
@@ -89,7 +76,7 @@ const Workflow = () => {
   }) => {
     useEffect(() => {
       if (featureKey) {
-        setFeatureKey(featureKey)
+        updateCurrentFeature(featureKey)
       }
     }, [featureKey])
 
@@ -118,7 +105,7 @@ const Workflow = () => {
     SUBMIT: (e?: KeyboardEvent) => {
       e?.preventDefault()
       e?.stopPropagation()
-      if (modelState) {
+      if (modalState) {
         updateWorkflow(currentFeature)
         updateModalState(false)
       } else {
@@ -184,10 +171,7 @@ const Workflow = () => {
         ) : (
           <div className="max-w-3xl mx-auto flex flex-col items-center">
             <p className="text-2xl text-white pb-4">Order of operations</p>
-            <WorkflowDragWrapper
-              workflow={workflow}
-              setWorkflow={setWorkflow}
-              updateEditFeature={updateEditFeature}></WorkflowDragWrapper>
+            <WorkflowDragWrapper workflow={workflow}></WorkflowDragWrapper>
             <div className="w-full py-20">
               <Submit
                 customStyling="inline-flex uppercase items-center px-3 py-2 border border-transparent text-sm font-medium rounded text-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -222,7 +206,7 @@ const Workflow = () => {
       </div>
       <Modal
         ariaHideApp={false}
-        isOpen={modelState}
+        isOpen={modalState}
         onRequestClose={() => {
           updateModalState(false)
         }}
@@ -242,7 +226,7 @@ const Workflow = () => {
             setModalState(false)
           }}>
           <div
-            className="inline-block settings-tour-highlight cursor-default align-bottom bg-modalBg rounded-lg  pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl 2xl:max-w-7xl sm:w-full sm:p-6 sm:pl-0 sm:py-0 sm:pr-0"
+            className="inline-block settings-tour-highlight cursor-default align-bottom bg-modalBg rounded-lg  pt-5  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl 2xl:max-w-7xl sm:w-full  sm:pl-0 sm:py-0 sm:pr-0"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-headline"
@@ -273,7 +257,7 @@ const Workflow = () => {
                   SubmitButton={SubmitButton}
                   usedFeatures={workflow}></BasicFeatures>
               ) : Object.keys(config).length > 0 ? (
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col bg-gray-900 h-full">
                   <div className="flex h-full">
                     <DisplayFeature
                       selectedKey={editFeature}
