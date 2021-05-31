@@ -10,8 +10,7 @@ dependencies:
   '@fortawesome/free-brands-svg-icons': 5.15.3
   '@fortawesome/free-solid-svg-icons': 5.15.3
   '@fortawesome/react-fontawesome': 0.1.14_ec0af2bc0907a851e3e0afc4708fd0f0
-  '@modfy/core': 0.0.8_react@17.0.2
-  '@modfy/react-video-components': 0.0.2_b16ea631542dae459571a7ba61b8f08a
+  '@modfy/react-video-components': 0.0.2-b_24851b7ebb83bd98cac9f1633b0f7579
   '@replit/clui-input': 0.0.16
   '@replit/clui-session': 0.0.1_react-dom@17.0.2+react@17.0.2
   '@tailwindcss/forms': 0.2.1
@@ -61,6 +60,7 @@ dependencies:
   video-react: 0.14.1_react-dom@17.0.2+react@17.0.2
 devDependencies:
   '@babel/plugin-proposal-decorators': 7.13.5_@babel+core@7.13.14
+  '@modfy/core': 0.0.8-b_react@17.0.2
   '@tailwindcss/jit': 0.1.18_postcss@8.2.9+tailwindcss@2.1.1
   '@testing-library/jest-dom': 4.2.4
   '@testing-library/react': 9.5.0_react-dom@17.0.2+react@17.0.2
@@ -2153,7 +2153,7 @@ packages:
   /@bugsnag/browser/7.10.1:
     dependencies:
       '@bugsnag/core': 7.10.0
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-Yxm/DheT/NHX2PhadBDuafuHBhP547Iav6Y9jf+skBBSi1n0ZYkGhtVxh8ZWLgqz5W8MsJ0HFiLBqcg/mulSvQ==
   /@bugsnag/core/7.10.0:
@@ -2163,18 +2163,18 @@ packages:
       error-stack-parser: 2.0.6
       iserror: 0.0.2
       stack-generator: 2.0.5
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-sDa2nDxwsxHQx2/2/tsBWjYqH0TewCR8N/r5at6B+irwVkI0uts7Qc2JyqDTfiEiBXKVEXFK+fHTz1x9b8tsiA==
   /@bugsnag/cuid/3.0.0:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
   /@bugsnag/js/7.10.1:
     dependencies:
       '@bugsnag/browser': 7.10.1
       '@bugsnag/node': 7.10.1
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-1/MK/Bw2ViFx1hMG2TOX8MOq/LzT2VRd0VswknF4LYsZSgzohkRzz/hi6P2TSlLeapRs+bkDC6u2RCq4zYvyiA==
   /@bugsnag/node/7.10.1:
@@ -2185,11 +2185,11 @@ packages:
       iserror: 0.0.2
       pump: 3.0.0
       stack-generator: 2.0.5
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-kpasrz/im5ljptt2JOqrjbOu4b0i5sAZOYU4L0psWXlD31/wXytk7im11QlNALdI8gZZBxIFsVo8ks6dR6mHzg==
   /@bugsnag/safe-json-stringify/6.0.0:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-htzFO1Zc57S8kgdRK9mLcPVTW1BY2ijfH7Dk2CeZmspTWKdKqSo1iwmqrq2WtRjFlo8aRZYgLX0wFrDXF/9DLA==
   /@cnakazawa/watch/1.0.4:
@@ -2676,37 +2676,35 @@ packages:
     resolution:
       integrity: sha512-fC6QCp7Sc5sX6g8Tvbmj4XUTbyrik0akgRy03yjXbQaBWWNWGE7SGtJk98m0N8nzegD/7SggrUlivxo5ax4KWQ==
   /@modfy/config/0.0.7:
-    dev: false
     resolution:
       integrity: sha512-i8M72GjnAtqKt+08BriyzVUR6Gqcj/GMqw8fTwiHUrWWD7mHlPV2eKFLbPX5oOvfL2B/IvJ6g/7RJlgEbV93kw==
-  /@modfy/core/0.0.8_react@17.0.2:
+  /@modfy/core/0.0.8-b_react@17.0.2:
     dependencies:
       '@bugsnag/js': 7.10.1
-      '@modfy/interfaces': 0.0.10_@modfy+core@0.0.8
+      '@modfy/interfaces': 0.0.10-b_@modfy+core@0.0.8-b
       '@modfy/utils': 0.0.2_react@17.0.2
       axios: 0.21.1
       form-data: 4.0.0
       mixpanel-browser: 2.41.0
       temp: 0.9.4
-    dev: false
+    dev: true
     peerDependencies:
       react: '*'
     resolution:
-      integrity: sha512-r37oQ+maxqq5wJDmGwu60xLJcvJ0bDqJXogfQvz96P7WOZkpTu+LayM+lhd4gkVYMlpLyetnMnCshsRcZuBmDw==
-  /@modfy/interfaces/0.0.10_@modfy+core@0.0.8:
+      integrity: sha512-GL/6AoyP65+mcn6GBSPsgkJkP4O7CnGNu+OX3J77sp3+reA49v2lpJTrfx11F4cR1fPUw7258MAT9961oC2Haw==
+  /@modfy/interfaces/0.0.10-b_@modfy+core@0.0.8-b:
     dependencies:
       '@modfy/config': 0.0.7
-      '@modfy/core': 0.0.8_react@17.0.2
-    dev: false
+      '@modfy/core': 0.0.8-b_react@17.0.2
     peerDependencies:
       '@modfy/core': ^0.0.7
     resolution:
-      integrity: sha512-vxuJk9Pb1ADzLMygOdf37UR4i8bBxRHBD17shfP9F8D7ouZYv0cXC20eZaPWQadNA15w19/4kPKdIPLLHNYxsw==
-  /@modfy/react-video-components/0.0.2_b16ea631542dae459571a7ba61b8f08a:
+      integrity: sha512-/6MyD9+TSXglzMZtUdDzmhwvFpgR1DqhlMHLlUzdNTHC0jm5eShjy60BZozhGcGNm3UHG4RG3tM76fKy/OMDhw==
+  /@modfy/react-video-components/0.0.2-b_24851b7ebb83bd98cac9f1633b0f7579:
     dependencies:
       '@heroicons/react': 1.0.1_react@17.0.2
-      '@modfy/core': 0.0.8_react@17.0.2
-      '@modfy/interfaces': 0.0.10_@modfy+core@0.0.8
+      '@modfy/core': 0.0.8-b_react@17.0.2
+      '@modfy/interfaces': 0.0.10-b_@modfy+core@0.0.8-b
       classnames: 2.3.1
       luxon: 1.27.0
       react: 17.0.2
@@ -2720,11 +2718,11 @@ packages:
       react-dom: ^17.0.0
       typescript: '*'
     resolution:
-      integrity: sha512-GnaaAn53domD6D+71NDJFVIUGWF5Rou6OiaH5U8XRSQbd0YH3FMdyNIbDdyBsSSVK4DO4mpE0AIyQOU5KvzYYA==
+      integrity: sha512-8RUmfoJ6ZY1dkN9WTo/2UByFnnpL6tPvfBszB/FqKURKfXL0KwARaBd5xPSskoPT0ZNQTZjz3Px/dD/nhuNlQg==
   /@modfy/utils/0.0.2_react@17.0.2:
     dependencies:
       react: 17.0.2
-    dev: false
+    dev: true
     peerDependencies:
       react: ^17.0.2
     resolution:
@@ -4100,7 +4098,6 @@ packages:
     resolution:
       integrity: sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
   /asynckit/0.4.0:
-    dev: false
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
   /at-least-node/1.0.0:
@@ -4173,7 +4170,6 @@ packages:
   /axios/0.21.1:
     dependencies:
       follow-redirects: 1.13.3
-    dev: false
     resolution:
       integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   /axobject-query/2.2.0:
@@ -4784,7 +4780,7 @@ packages:
     resolution:
       integrity: sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
   /byline/5.0.0:
-    dev: false
+    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -5219,7 +5215,6 @@ packages:
   /combined-stream/1.0.8:
     dependencies:
       delayed-stream: 1.0.0
-    dev: false
     engines:
       node: '>= 0.8'
     resolution:
@@ -5994,7 +5989,6 @@ packages:
     resolution:
       integrity: sha512-QwGuEUouP2kVwQenAsOof5Fv8K9t3D8Ca8NxcXKrIpEHjTXK5J2nXLdP+ALI1cgv8wj7KuwBhTwBkOZSJKM5XQ==
   /delayed-stream/1.0.0:
-    dev: false
     engines:
       node: '>=0.4.0'
     resolution:
@@ -6359,7 +6353,6 @@ packages:
   /end-of-stream/1.4.4:
     dependencies:
       once: 1.4.0
-    dev: false
     resolution:
       integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
   /enhanced-resolve/4.5.0:
@@ -6402,7 +6395,6 @@ packages:
   /error-stack-parser/2.0.6:
     dependencies:
       stackframe: 1.2.0
-    dev: false
     resolution:
       integrity: sha512-d51brTeqC+BHlwF0BhPtcYgF5nlzf9ZZ0ZIUQNZpc9ZB9qw5IJ2diTrBY9jlCJkTLITYPjmiX6OWCwH+fuyNgQ==
   /es-abstract/1.18.0:
@@ -7400,7 +7392,6 @@ packages:
     resolution:
       integrity: sha512-3Z4XhFZ3992uIq0XOqb9AreonueSYphE6oYbpt5+3u06JWklbsPkNv3ZKkP9Bz/r+1MWCaMoSQ28P85+1Yc77w==
   /follow-redirects/1.13.3:
-    dev: false
     engines:
       node: '>=4.0'
     peerDependencies:
@@ -7483,7 +7474,7 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.30
-    dev: false
+    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -7735,6 +7726,7 @@ packages:
       minimatch: 3.0.4
       once: 1.4.0
       path-is-absolute: 1.0.1
+    dev: true
     resolution:
       integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
   /global-modules/2.0.0:
@@ -8887,7 +8879,7 @@ packages:
     resolution:
       integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
   /iserror/0.0.2:
-    dev: false
+    dev: true
     resolution:
       integrity: sha1-vVNFH+L2aLnyQCwZZnh6qix8C/U=
   /isexe/2.0.0:
@@ -10125,7 +10117,6 @@ packages:
     resolution:
       integrity: sha512-115fLhvZVqWwHPbClyntxEVfVDfl9DLLTuJvq3g2O/Oxi8AiNouAHvDSzHS0viUJc+V5vm3eq91Xwqn9dp4jRA==
   /mime-db/1.47.0:
-    dev: false
     engines:
       node: '>= 0.6'
     resolution:
@@ -10133,7 +10124,6 @@ packages:
   /mime-types/2.1.30:
     dependencies:
       mime-db: 1.47.0
-    dev: false
     engines:
       node: '>= 0.6'
     resolution:
@@ -10295,7 +10285,7 @@ packages:
     resolution:
       integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
   /mixpanel-browser/2.41.0:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-IEuc9cH44hba9a3KEyulXINLn+gpFqluBDo7xiTk1h3j111dmmsctaE6tUzZYxgGLVqeNhTpsccdliOeX24Wlw==
   /mkdirp/0.5.5:
@@ -12279,7 +12269,6 @@ packages:
     dependencies:
       end-of-stream: 1.4.4
       once: 1.4.0
-    dev: false
     resolution:
       integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==
   /pumpify/1.5.1:
@@ -13278,6 +13267,7 @@ packages:
   /rimraf/2.6.3:
     dependencies:
       glob: 7.1.7
+    dev: true
     hasBin: true
     resolution:
       integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
@@ -13967,7 +13957,7 @@ packages:
   /stack-generator/2.0.5:
     dependencies:
       stackframe: 1.2.0
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==
   /stack-utils/2.0.3:
@@ -13979,7 +13969,6 @@ packages:
     resolution:
       integrity: sha512-gL//fkxfWUsIlFL2Tl42Cl6+HFALEaB1FU76I/Fy+oZjRreP7OPMXFlGbxM7NQsI0ZpUfw76sHnv0WNYuTb7Iw==
   /stackframe/1.2.0:
-    dev: false
     resolution:
       integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==
   /stacktrace-parser/0.1.10:
@@ -14488,6 +14477,7 @@ packages:
     dependencies:
       mkdirp: 0.5.5
       rimraf: 2.6.3
+    dev: true
     engines:
       node: '>=6.0.0'
     resolution:
@@ -15974,8 +15964,8 @@ specifiers:
   '@fortawesome/free-brands-svg-icons': ^5.14.0
   '@fortawesome/free-solid-svg-icons': ^5.14.0
   '@fortawesome/react-fontawesome': ^0.1.11
-  '@modfy/core': ^0.0.8
-  '@modfy/react-video-components': ^0.0.2
+  '@modfy/core': ^0.0.8-b
+  '@modfy/react-video-components': 0.0.2b
   '@replit/clui-input': ^0.0.16
   '@replit/clui-session': ^0.0.1
   '@tailwindcss/forms': ^0.2.1
